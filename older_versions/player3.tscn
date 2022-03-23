@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player3.gd" type="Script" id=2]
+[ext_resource path="res://textures1.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 5.0
+
+[node name="player3" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="Col" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="RayContainer" type="Node2D" parent="."]
+visible = false
+
+[node name="Ray0" type="RayCast2D" parent="RayContainer"]
+enabled = true
+cast_to = Vector2( 0, 10000 )
+
+[node name="SpriteContainer" type="Node2D" parent="."]
+
+[node name="Sprite0" type="Sprite" parent="SpriteContainer"]
+z_index = -1
+texture = ExtResource( 3 )
+hframes = 11
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
