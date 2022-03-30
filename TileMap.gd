@@ -5,10 +5,14 @@ func _ready():
 	if position != Vector2(0,0):
 		print("fix tilemap position")
 		position = Vector2(0,0)
+	
+	visible = false
 
 
 func _process(_delta):
-	if Input.is_action_pressed("ui_accept"):
-		visible = 1
+	if visible == true:
+		if Input.is_action_just_pressed("ui_accept"):
+			visible = false
 	else:
-		visible = 0
+		if Input.is_action_just_pressed("ui_accept"):
+			visible = true
