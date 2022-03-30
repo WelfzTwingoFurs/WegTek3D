@@ -184,18 +184,17 @@ func _draw():
 			var xkusu_next = 0
 			
 			if fisheye_on == 1:
-				lineH = OS.window_size.y /distance #fisheye mode
+				lineH = OS.window_size.y / distance #fisheye mode
 				
 				xkusu = (n)*(OS.window_size.x/angles) - (angles*OS.window_size.x/angles)/2
 				xkusu_next = (n+1)*(OS.window_size.x/angles) - (angles*OS.window_size.x/angles)/2
 				
-				#Very very interesting mistake here, made for a textured floor & ceiling effect. Might be worth studying!
-				
+				####Very very interesting mistake here, made for a textured floor & ceiling effect. Might be worth studying!
 				#xkusu = ( (n) - angles/2 ) * (OS.window_size.x/angles/angles_divi)
 				#xkusu_next = (n+1) - angles/2 * (OS.window_size.x/angles/angles_divi)
 			
 			else:
-				lineH = (OS.window_size.y / distance)  /  cos( deg_rad(rays[n].rotation_degrees) )
+				lineH = (OS.window_size.y / distance) /  cos( deg_rad(rays[n].rotation_degrees) )
 				
 				
 				xkusu_next = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n+1].rotation_degrees))   ))#/ tan(deg_rad(0.5 * (angles*angles_divi))))) 
@@ -205,15 +204,15 @@ func _draw():
 			
 			
 			
-			
-			tile_cell[n] = Worldconfig.TileMap.get_cellv( Worldconfig.TileMap.world_to_map(rays[n].get_collision_point() - rays[n].get_collision_normal() * 1) )
+			# NO NEED FOR FIXING BROKEN CELLS, IT WAS THIS NUMBER ALL ALONG                                                       this one son of a bitch    V
+			tile_cell[n] = Worldconfig.TileMap.get_cellv( Worldconfig.TileMap.world_to_map(rays[n].get_collision_point() - rays[n].get_collision_normal() * 0.01) )
 			
 			if tile_cell[n] == -1:
-				fixcell(n)
+				tile_cell[n] = 0
 			
 			
 			
-			var dir = Vector2( sign(rays[n].get_collision_point().x - position.x), sign(rays[n].get_collision_point().y - position.y) )
+			#var dir = Vector2( sign(rays[n].get_collision_point().x - position.x), sign(rays[n].get_collision_point().y - position.y) )
 			#   up = -1,-1.   left = -1, 1.   down =  1, 1.   right =  1,-1.
 			#right     -ok
 			#up/down   -fuzzy
@@ -227,7 +226,7 @@ func _draw():
 				texture_x = abs(rays[n].get_collision_point().y - (int(rays[n].get_collision_point().y/10)*10))
 			
 			
-			#print(dir)
+			
 			
 			
 			
@@ -258,65 +257,22 @@ func _draw():
 				
 				if rays[angles/2].is_colliding():
 					draw_line(Vector2(0,0), rays[angles/2].get_collision_point() - position, Color((randi() % 2),(randi() % 2),(randi() % 2)), 1)
+					
 				
+		
 		
 		else: #draw horizon line
 			sprites[n].scale.y = 0.1
 			sprites[n].self_modulate = Color(0,0,0)
 			
 			############################################################################### Show map
-			if !rays[angles/2].is_colliding():
-				if Input.is_action_pressed("ui_accept"): #Show map
+			if Input.is_action_pressed("ui_accept"): #Show map
+				if !rays[angles/2].is_colliding():
 					draw_line(Vector2(0,0), rays[angles/2].cast_to.rotated(rotation_angle) - position, Color((randi() % 2),(randi() % 2),(randi() % 2)), 1)
-
-
-
-
-
-
-
-
-
-# compare -1 ray hit's distance to nearest non -1
-# not distance from player to wall, but from point to point
-#maype??
-
-func fixcell(n): # How about we try picking the closest position with a valid cell? try doing that later 
-	var tile_back
-	var tile_front
-	
-	var back_lineH = 0  #actually distance
-	var front_lineH = 0
-	
-	
-	#var distance = sqrt(pow((rays[n].get_collision_point().x - position.x), 2) + pow((rays[n].get_collision_point().y - position.y), 2))
-	for a in (angles/2):
-		if tile_cell[n-a] != -1: 
-			tile_back = tile_cell[n-a]
-			#back_lineH = OS.get_screen_size().x/sqrt(pow( ((rays[n-a].get_collision_point() - rays[n-a].get_collision_normal()).x - position.x), 2) + pow(((rays[n-a].get_collision_point() - rays[n-a].get_collision_normal()).y - position.y), 2) )
-			#back_lineH = (OS.window_size.y / sqrt(pow(( (rays[n-a].get_collision_point().x - rays[n-a].get_collision_normal().x) - position.x ), 2) + pow(((rays[n-a].get_collision_point().y - rays[n-a].get_collision_normal().y) - position.y), 2) )) / cos(deg_rad(rays[n-a].rotation_degrees))
-			#back_lineH = sqrt( pow((rays[n-a].get_collision_point().x - position.x), 2)  +  pow((rays[n-a].get_collision_point().y - position.y), 2) )
-			back_lineH = sqrt( pow((rays[n-a].get_collision_point().x - rays[n].get_collision_point().x), 2)  +  pow((rays[n-a].get_collision_point().y - rays[n].get_collision_point().y), 2) )
-			break
-	
-	for b in (angles/2):
-		if tile_cell[n+b] != -1:
-			tile_front = tile_cell[n+b]
-			#front_lineH = OS.get_screen_size().x/sqrt(pow(((rays[n+b].get_collision_point() - rays[n+b].get_collision_normal()).x - position.x), 2) + pow(((rays[n+b].get_collision_point() - rays[n+b].get_collision_normal()).y - position.y), 2))
-			#front_lineH = (OS.window_size.y / sqrt(pow(( (rays[n+b].get_collision_point().x - rays[n+b].get_collision_normal().x) - position.x ), 2) + pow(((rays[n+b].get_collision_point().y - rays[n+b].get_collision_normal().y) - position.y), 2) )) / cos(deg_rad(rays[n+b].rotation_degrees))
-			#front_lineH = sqrt( pow((rays[n+b].get_collision_point().x - position.x), 2)  +  pow((rays[n+b].get_collision_point().y - position.y), 2) )
-			front_lineH = sqrt( pow((rays[n+b].get_collision_point().x - rays[n].get_collision_point().x), 2)  +  pow((rays[n+b].get_collision_point().y - rays[n].get_collision_point().y), 2) )
-			break
-	
-	
-	
-	
-	if back_lineH < front_lineH:
-		tile_cell[n] = tile_back
-	else:
-		tile_cell[n] = tile_front
-	
-	return
+					
+					
+				
+			
 
 
 
@@ -337,6 +293,23 @@ func fixcell(n): # How about we try picking the closest position with a valid ce
 
 
 
+
+
+
+
+
+#					# lets try some shit, this is how you get the position ahead of a raycast hit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#					var Numba = 0#angles/2
+#					
+#					draw_line(Vector2(0,0), rays[Numba].get_collision_point() - position, Color(1,1,0), 2)
+#					
+#					
+#					var cum = deg_rad(RayContainer.rotation_degrees + rays[Numba].rotation_degrees)
+#					
+#					draw_line(rays[Numba].get_collision_point() - position,
+#							 (rays[Numba].get_collision_point() - position) + Vector2(0,10).rotated(  cum  ),
+#					Color(1,0,0), 3)
+					# This was gonna be used for a fix_cell() idea when that was still around, worth keeping nonetheless
 
 
 func rad_deg(N):
