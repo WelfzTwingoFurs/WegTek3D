@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://gradientbig.png" type="Texture" id=1]
-[ext_resource path="res://textures10.png" type="Texture" id=2]
-[ext_resource path="res://player5.gd" type="Script" id=3]
+[ext_resource path="res://older_versions/textures10.png" type="Texture" id=2]
+[ext_resource path="res://older_versions/player5.gd" type="Script" id=3]
 [ext_resource path="res://bubsyskybox.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
