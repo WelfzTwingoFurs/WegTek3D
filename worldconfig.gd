@@ -1,6 +1,9 @@
 extends Node
 
+# Globally used variables #
 var TileMap
+var TileCol
+var texture_size = 10
 
 ############# RESOLUTION #########
 var WindowX
@@ -91,3 +94,17 @@ func _process(_delta):
 			else:
 				resolution -= 0.1
 				step = 0
+		
+		
+		
+		if Input.is_action_just_pressed("bug_speeddown"):
+			Engine.time_scale -= 0.2
+		
+		elif Input.is_action_just_pressed("bug_speedup"):
+			Engine.time_scale += 0.2
+		
+		elif Input.is_action_just_pressed("bug_speedres"):
+			Engine.time_scale = 1
+		
+		elif Input.is_action_just_pressed("bug_speedstop"):
+			Engine.time_scale = 0
