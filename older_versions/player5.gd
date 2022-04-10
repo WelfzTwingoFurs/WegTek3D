@@ -180,14 +180,16 @@ func _draw():
 			
 			
 			var lineH = 0
+			
+			
 			var xkusu = 0
 			var xkusu_next = 0
 			
 			if fisheye_on == 1:
 				lineH = OS.window_size.y / distance #fisheye mode
 				
-				xkusu = (n)*(OS.window_size.x/angles) - (angles*OS.window_size.x/angles)/2
 				xkusu_next = (n+1)*(OS.window_size.x/angles) - (angles*OS.window_size.x/angles)/2
+				xkusu = (n)*(OS.window_size.x/angles) - (angles*OS.window_size.x/angles)/2
 				
 				####Very very interesting mistake here, made for a textured floor & ceiling effect. Might be worth studying!
 				#xkusu = ( (n) - angles/2 ) * (OS.window_size.x/angles/angles_divi)
@@ -205,7 +207,7 @@ func _draw():
 			
 			
 			# NO NEED FOR FIXING BROKEN CELLS, IT WAS THIS NUMBER ALL ALONG                                                       this one son of a bitch    V
-			tile_cell[n] = Worldconfig.TileMap.get_cellv( Worldconfig.TileMap.world_to_map(rays[n].get_collision_point() - rays[n].get_collision_normal() * 0.01) )
+			tile_cell[n] = Worldconfig.TileMap.get_cellv( Worldconfig.TileMap.world_to_map(rays[n].get_collision_point() - rays[n].get_collision_normal() * 0.001) )
 			
 			if tile_cell[n] == -1:
 				tile_cell[n] = 0
