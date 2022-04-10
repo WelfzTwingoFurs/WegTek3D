@@ -30,20 +30,18 @@ func _ready():
 	
 	texture_width = $SpriteContainer/Sprite0.texture.get_width()
 	
+	texture_cellsize = texture_width/10
+	print(texture_width,"!   ",texture_width/10,"      ",texture_cellsize)
+	
+#	texture_cellsize = texture_width - (texture_width/100)*100
+#	print(texture_width," -  ",(texture_width/100)*100 ,"      ",texture_cellsize)
 	
 	
-	#For really small textures
-	if texture_width/10 > 100  &&  (texture_width/100)*100 != texture_width:
-	#if texture_width/10 < 100:#  &&  (texture_width/100)*100 != texture_width:
-		texture_cellsize = texture_width - (texture_width/100)*100#texture_width/10
-		
-		print(texture_width," -  ",(texture_width/100)*100 ,"      ",texture_cellsize)
 	
-	#bigger ones
-	else:
-		texture_cellsize = texture_width/10
-		
-		print(texture_width,"!   ",texture_width/10,"      ",texture_cellsize)
+	
+	
+	
+	
 	
 	
 	
@@ -51,7 +49,7 @@ func _ready():
 	angles *= angles_divi
 	#removes gap between last line and screen edge, doesn't seem to cause any issue
 	#angles -= 1 #
-	angles += 1
+	#angles += 1
 	
 	$SpriteContainer/Sprite0.hframes = texture_width
 	
@@ -367,15 +365,16 @@ func _draw():
 	
 	var get_edgy = abs(sprites[angles-3].position.x - sprites[angles-2].position.x)
 	#var render_size = (sprites[0].position.x - get_edgy) - (sprites[angles-2].position.x + get_edgy)
-	var render_size = Vector2( (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy), (OS.window_size.y /  cos( deg_rad(rays[angles/2].rotation_degrees) )/(texture_cellsize/10))*2 )
+	var render_size = (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy)
+	#var render_size = Vector2( (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy), (OS.window_size.y /  cos( deg_rad(rays[angles/2].rotation_degrees) )/(texture_cellsize/10))*2 )
 	
-	if render_size.x != 0:
-		$SpriteContainer.scale.x = abs(OS.window_size.x/render_size.x)
+	if render_size != 0:
+		$SpriteContainer.scale.x = abs(OS.window_size.x/render_size)
 	else:
 		$SpriteContainer.scale.x = 1
 	
-	if render_size.y != 0:
-		$SpriteContainer.scale.y = abs(render_size.y/OS.window_size.y)
+#	if render_size.y != 0:
+#		$SpriteContainer.scale.y = abs(render_size.y/OS.window_size.y)
 
 
 
