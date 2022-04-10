@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://player4.gd" type="Script" id=1]
-[ext_resource path="res://textures10.png" type="Texture" id=2]
+[ext_resource path="res://older_versions/player4.gd" type="Script" id=1]
+[ext_resource path="res://older_versions/textures10.png" type="Texture" id=2]
+[ext_resource path="res://gradientbig.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.5
@@ -28,3 +29,8 @@ hframes = 11
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[node name="Floor" type="Sprite" parent="."]
+modulate = Color( 0.486275, 0.32549, 0.227451, 1 )
+z_index = -2
+texture = ExtResource( 3 )
