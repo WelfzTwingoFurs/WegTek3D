@@ -2,7 +2,7 @@
 
 [ext_resource path="res://player6.gd" type="Script" id=1]
 [ext_resource path="res://textures64.png" type="Texture" id=2]
-[ext_resource path="res://bubsyskybox.png" type="Texture" id=3]
+[ext_resource path="res://skybox bubsy.png" type="Texture" id=3]
 [ext_resource path="res://gradientbig.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -35,8 +35,7 @@ texture = ExtResource( 2 )
 hframes = 11
 
 [node name="Background" type="Node2D" parent="."]
-visible = false
-z_index = -3
+z_index = -4096
 
 [node name="Floor" type="Sprite" parent="Background"]
 modulate = Color( 0.486275, 0.32549, 0.227451, 1 )
