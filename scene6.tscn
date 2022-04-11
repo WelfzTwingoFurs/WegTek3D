@@ -484,6 +484,9 @@ visible = false
 [node name="Sprite0" parent="player6/SpriteContainer" index="0"]
 texture = ExtResource( 10 )
 
+[node name="Background" parent="player6" index="4"]
+visible = false
+
 [node name="Floor" parent="player6/Background" index="0"]
 modulate = Color( 1, 0.498039, 0, 1 )
 
