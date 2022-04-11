@@ -36,7 +36,7 @@ func _ready():
 #	texture_cellsize = texture_width - (texture_width/100)*100
 #	print(texture_width," -  ",(texture_width/100)*100 ,"      ",texture_cellsize)
 	
-	
+	$SpriteContainer.scale.y = float(10)/texture_cellsize
 	
 	
 	
@@ -224,10 +224,10 @@ func _draw():
 		if rays[n].is_colliding():
 			var distance = sqrt(pow((rays[n].get_collision_point().x - position.x), 2) + pow((rays[n].get_collision_point().y - position.y), 2))
 			
-			var lineH = (OS.window_size.y / distance) /  cos( deg_rad(rays[n].rotation_degrees) )/(texture_cellsize/10)
+			var lineH = (OS.window_size.y / distance) /  cos( deg_rad(rays[n].rotation_degrees) ) #/ (float(10)/texture_cellsize)
 			
 			
-			sprites[n].scale.y = lineH
+			sprites[n].scale.y = lineH#/texture_cellsize
 			
 			
 			
@@ -350,6 +350,8 @@ func _draw():
 					draw_line(Vector2(0,0), rays[highlighted_map_ray].get_collision_point() - position, Color((randi() % 2),(randi() % 2),(randi() % 2)), 1)
 				
 		
+		
+		
 		else: #draw horizon line
 			sprites[n].scale.y = 0.006
 			sprites[n].self_modulate = Color(0,0,0)
@@ -369,15 +371,11 @@ func _draw():
 	var get_edgy = abs(sprites[angles-3].position.x - sprites[angles-2].position.x)
 	#var render_size = (sprites[0].position.x - get_edgy) - (sprites[angles-2].position.x + get_edgy)
 	var render_size = (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy)
-	#var render_size = Vector2( (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy), (OS.window_size.y /  cos( deg_rad(rays[angles/2].rotation_degrees) )/(texture_cellsize/10))*2 )
 	
 	if render_size != 0:
 		$SpriteContainer.scale.x = abs(OS.window_size.x/render_size)
 	else:
 		$SpriteContainer.scale.x = 1
-	
-#	if render_size.y != 0:
-#		$SpriteContainer.scale.y = abs(render_size.y/OS.window_size.y)
 
 
 
