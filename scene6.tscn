@@ -476,7 +476,7 @@ skycolor = Color( 0, 1, 1, 1 )
 rotate_rate = 3.0
 speed = 100
 brightness = 350
-line_gap_compensate = 15.0
+line_gap_compensate = 1.5
 
 [node name="SpriteContainer" parent="player6" index="3"]
 visible = false
