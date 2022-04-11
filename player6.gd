@@ -182,12 +182,15 @@ func _physics_process(_delta):
 	
 	
 	Floor.position = Vector2( (-OS.window_size.x + OS.window_size.x)/2 , (OS.window_size.y/4) + abs(viewbob) )
-	Floor.scale = Vector2( OS.window_size.x/100 , OS.window_size.y/200 )
-	#floor is 100x100, logic for these       ^                      ^ to work 
+	#Floor.scale = Vector2( OS.window_size.x/100 , OS.window_size.y/200 )
+	##floor is 100x100, logic for these       ^                      ^ to work 
+	Floor.scale = Vector2( OS.window_size.x/Floor.texture.get_width(), OS.window_size.y/(Floor.texture.get_height()*2) )
 	
 	Sky.rect_size.x = OS.window_size.x*2
-	Sky.rect_position = Vector2( (-OS.window_size.x/2)-RayContainer.rotation_degrees, -Sky.rect_size.y +viewbob_max)# + abs(viewbob) )
-	#sky is x360, so repeating matches all rotation degrees
+	Sky.rect_size.y = Sky.texture.get_height()
+	#Sky.rect_position = Vector2( (-OS.window_size.x/2)-RayContainer.rotation_degrees, -Sky.rect_size.y +viewbob_max)# + abs(viewbob) )
+	##sky is x360, so repeating matches all rotation degrees
+	Sky.rect_position = Vector2( (-OS.window_size.x/2) - ( RayContainer.rotation_degrees*(float(Sky.texture.get_width())/360) ), -Sky.rect_size.y +viewbob_max)# + abs(viewbob) )
 	########################################################################################################################################################
 
 
@@ -348,8 +351,8 @@ func _draw():
 				
 		
 		else: #draw horizon line
-			sprites[n].scale.y = 0
-			sprites[n].self_modulate = Color(0)
+			sprites[n].scale.y = 0.006
+			sprites[n].self_modulate = Color(0,0,0)
 			
 			
 			############################################################################### Show map
