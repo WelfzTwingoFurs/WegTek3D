@@ -4,7 +4,7 @@ https://github.com/WelfzTwingoFurs/godot-raycaster/
 ##################################################################################
 
 Features:
--Field of view;
+-Field of view;<br>
 -Resolution multiplier & divider;
 -Screen resizable to any size;
 -Tilemap world, with tiles of any format;
