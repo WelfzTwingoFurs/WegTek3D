@@ -11,8 +11,8 @@ config_version=4
 [application]
 
 config/name="a-werid"
-run/main_scene="res://scene6.tscn"
-boot_splash/image="res://icon.png"
+run/main_scene="res://scene7.tscn"
+boot_splash/image="res://splash.png"
 config/icon="res://icon.png"
 
 [autoload]
@@ -24,6 +24,7 @@ Worldconfig="*res://worldconfig.gd"
 window/size/width=320
 window/size/height=200
 window/size/always_on_top=true
+window/stretch/mode="2d"
 
 [importer_defaults]
 
