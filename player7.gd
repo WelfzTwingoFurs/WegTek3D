@@ -113,7 +113,7 @@ var motionZ = 0
 const GRAVITY = 1
 const JUMP = -10
 
-var positionZ = 0
+var positionZ = 0.1
 
 var lookingZ = 0
 var lookZscale = 0
