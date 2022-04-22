@@ -1,6 +1,6 @@
 https://github.com/WelfzTwingoFurs/godot-raycaster/
 ##################################################################################
-############### Raycaster funtime! Written by "Welfz Twingo Furs". ###############
+###################### Raycaster funtime! Written by "Welfz Twingo Furs". ######################
 ##################################################################################
 
 Features:
