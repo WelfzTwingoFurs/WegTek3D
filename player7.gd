@@ -7,10 +7,6 @@ onready var Sky = $Background/Sky
 
 export var angles = 120
 export var angles_divi = 2.0
-#with angles *= angles_divi
-# 1, 2, 4, 5, 7
-# works if angles & angles_divi not divideable by 3
-# however, if it is, angles & angles_divi have to be divideable by 3
 
 var rays = []
 var tile_cell = []
@@ -249,7 +245,9 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	########################################################################################################################################################
 	########################################################################################################################################################
-	Sky.rect_size.x = Sky.texture.get_width()*2#OS.window_size.x*2 
+	#Sky.rect_size.x = OS.window_size.x*2 
+	#Sky.rect_size.x = Sky.texture.get_width()*2
+	Sky.rect_size.x = (Sky.texture.get_width()+OS.window_size.x)*2
 	Sky.rect_size.y = Sky.texture.get_height()
 	
 	
@@ -323,6 +321,7 @@ func _physics_process(_delta):
 		$Feet.visible = 1
 		#$Feet.position.y = feetY - (lookingZ-180)*5
 		$Feet.position.y = feetY - ((lookingZ-180)*$Feet.scale.y)
+		#$Feet.position.y = (OS.window_size.y/$Feet.texture.get_height())  +((OS.window_size.y/180)*2)*5 - ((lookingZ-180)*(OS.window_size.y/180)*2)
 		
 	
 	else:
