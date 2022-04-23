@@ -11,7 +11,7 @@ Features:
 -Field of view;
 -Resolution multiplier & divider;
 -Screen resizable to any size;
--Tilemap world, with tiles of any format;
+-Tilemap world, with tiles of custom format;
 -Textured walls, stretchable scrolling sky texture, floor texture;
 -Changeable textures of any size;
 -Looking up and down;
@@ -21,13 +21,15 @@ Features:
 -Depth shading option.
 
 Imperfections:
--View distortion on movement
+-No floors;
+-No sprite objects;
+-View distortion on movement;
 -Wall textures get fuzzy if near position 0,0;
+-Thin collisions don't texture correctly;
 -Line spacing is imprecise;
 -Wall textures only properly flipped on square walls;
 -Walls are infinitely tall, can't go over or see what's behind them;
--No sprite objects;
--No floors.
+-PositionZ acts differently depending on texture size.
 
 ##################################################################################
 
