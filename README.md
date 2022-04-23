@@ -12,13 +12,14 @@ Features:
 -Resolution multiplier & divider;
 -Screen resizable to any size;
 -Tilemap world, with tiles of custom format;
--Textured walls, stretchable scrolling sky texture, floor texture;
+-Textured walls; depth shading option;
+-Stretchable scrolling sky texture, floor texture;
 -Changeable textures of any size;
 -Flying up and down;
 -Looking up and down;
 -Feet when you look down;
 -Viewbobbding, viewrolling, look-scaling options;
--Depth shading option.
+-Basic draw distance option;
 
 Imperfections:
 -1 texture tilemap at a time;
