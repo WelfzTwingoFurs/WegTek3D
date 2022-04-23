@@ -6,7 +6,11 @@ onready var Floor = $Background/Floor
 onready var Sky = $Background/Sky
 
 export var angles = 120
-export var angles_divi = 2.0
+export var angles_divi = 3.0
+#with angles *= angles_divi
+# 1, 2, 4, 5, 7
+# works if angles & angles_divi not divideable by 3
+# however, if it is, angles & angles_divi have to be divideable by 3
 
 var rays = []
 var tile_cell = []
@@ -80,17 +84,17 @@ func _ready():
 
 
 var rotation_angle = 0
-export var rotate_rate = 1.0
+export var rotate_rate = 3.0
 
-export var speed = 50
+export var speed = 100
 var input_dir = Vector2(0,0)
 var move_dir = Vector2(0,0)
 
 var vbob = 0
-export var vbob_max = 5.0
-export var vbob_speed = 0.1
+export var vbob_max = 4.0
+export var vbob_speed = 0.09
 
-export var vroll_multi = -1.0
+export var vroll_multi = -1.5
 var vroll_strafe_divi = 1
 
 export var sky_stretch = Vector2(0,1)
@@ -108,6 +112,7 @@ var lookZscale = 0
 export var lookZscaling = 0.5
 
 var feetY = 0
+var posZ_lookZ = 0.1
 
 func _physics_process(_delta):
 	update()
@@ -134,10 +139,10 @@ func _physics_process(_delta):
 		positionZ += 1
 
 	elif Input.is_action_pressed("ply_flycenter"):
-		#positionZ = 0
 		positionZ = lerp(positionZ, 0, 0.1)
+		
 	
-	
+	#print(positionZ)
 	#print(lookingZ)
 	
 	if Input.is_action_pressed("ply_lookup"):
@@ -153,7 +158,11 @@ func _physics_process(_delta):
 	
 	
 	#var posZ_lookZ = -positionZ -lookingZ/$SpriteContainer.scale.y
-	var posZ_lookZ = -OS.window_size.y*(positionZ/1000)  -OS.window_size.y*(lookingZ/100)
+#	posZ_lookZ = -OS.window_size.y*(positionZ/100)  -OS.window_size.y*(lookingZ/100)
+	#posZ_lookZ = -OS.window_size.y*(positionZ/1000)  -OS.window_size.y*(lookingZ/100)
+	#posZ_lookZ = -OS.window_size.y*(lookingZ/100)
+	posZ_lookZ = -OS.window_size.y*(positionZ/5000)  -OS.window_size.y*(lookingZ/100)
+	#(texture_cellsize) * ((-positionZ/100)*lineH)
 	
 	lookZscale = (abs(lookingZ)*lookZscaling/OS.window_size.y)
 	
@@ -282,7 +291,8 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	########################################################################################################################################################
 	#vroll
-	$SpriteContainer.position.y = abs(vbob) +posZ_lookZ
+	#$SpriteContainer.position.y = abs(vbob) +posZ_lookZ
+	$SpriteContainer.position.y = abs(vbob) -OS.window_size.y*(lookingZ/100)
 	$SpriteContainer.rotation_degrees = lerp($SpriteContainer.rotation_degrees, (-input_dir.x*vroll_multi),00.1)/vroll_strafe_divi
 	$Background.rotation_degrees = $SpriteContainer.rotation_degrees
 	
@@ -308,6 +318,7 @@ func _physics_process(_delta):
 		$Feet.visible = 1
 		
 		$Feet.position.y = (OS.window_size.y/$Feet.texture.get_height())  +$Feet.scale.y*5
+		#$Feet.position.y = (OS.window_size.y/$Feet.texture.get_height())  +$Feet.scale.y*($Col.shape.radius*2)
 		feetY = $Feet.position.y
 		$Feet.scale.y = (OS.window_size.y/lookingZ)*2
 		
@@ -403,11 +414,16 @@ func _draw():
 			
 			sprites[n].scale.x = (xkusu - xkusu_next - angles_divi/10)-line_gap_compensate
 			# this needs fixing still too
-			
+			#print(positionZ)
 			
 			
 			#sprites[n].position.y = -positionZ*lineH -lookingZ*$SpriteContainer.scale.y
-			sprites[n].position.y = -positionZ*lineH #-lookingZ*$SpriteContainer.scale.y
+			#sprites[n].position.y = -positionZ*lineH #-lookingZ*$SpriteContainer.scale.y
+			#sprites[n].position.y = -posZ_lookZ*lineH 
+			
+			#sprites[n].position.y = texture_cellsize/(-positionZ*lineH)
+			#sprites[n].position.y = (posZ_lookZ/texture_cellsize)*lineH
+			sprites[n].position.y = (texture_cellsize) * ((-positionZ/100)*lineH)
 			
 			
 			###################################################################################################################################################
@@ -494,10 +510,11 @@ func _draw():
 			###################################################################################################################################################
 			###################################################################################################################################################
 			
-			var C = lineH*brightness
+			var C = (lineH*brightness)
 			if C > brightMax:
-				C = brightMax
+				C = brightMax 
 			
+			C -= positionZ
 			
 			sprites[n].self_modulate = Color8(C, C, C)
 			
@@ -548,13 +565,6 @@ func _draw():
 
 
 
-#fuck fuck fuck fuck
-#		#$Feet.position.y = (abs(vbob) -lookingZ) + (OS.window_size.y/2) + $Feet.texture.get_height()
-#		#$Feet.position.y = (abs(vbob) -lookingZ) + (OS.window_size.y/2) + 200#$Feet.texture.get_height()
-#		$Feet.position.y = -lookingZ + abs(vbob) #+ (OS.window_size.y/$Feet.texture.get_())
-#		$Feet.position.y = 0#-lookingZ + abs(vbob) #+ (OS.window_size.y/$Feet.texture.get_())
-#		#$Feet.scale.y = (lookingZ)/$Feet.texture.get_height()
-#		$Feet.scale.y = (720/lookingZ)
 
 
 
@@ -568,7 +578,8 @@ func _draw():
 
 
 
-
+#WORLD LOOKING ROUND RENDER
+#sprites[n].position.y = texture_cellsize/(-positionZ*lineH)
 
 
 #			var dir = Vector2( sign(rays[n].get_collision_point().x - position.x), sign(rays[n].get_collision_point().y - position.y) )
