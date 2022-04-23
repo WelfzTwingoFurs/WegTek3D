@@ -10,9 +10,10 @@ Features:
 -Screen resizable to any size;
 -Tilemap world, with tiles of any format;
 -Textured walls, stretchable scrolling sky texture, floor texture;
--Changeable textures, any size;
+-Changeable textures of any size;
 -Looking up and down;
 -Flying up and down;
+-Feet when you looks down;
 -Viewbobbding, viewrolling, look-scaling options;
 -Depth shading option.
 
@@ -56,3 +57,5 @@ Credits:
 
 :)
 ```
+<img src="https://i.imgur.com/8ZDTVId.mp4" width="100"/>
+<img src="https://i.imgur.com/k9KGP1K.mp4" width="100"/>
