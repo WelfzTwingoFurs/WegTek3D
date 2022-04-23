@@ -50,7 +50,8 @@ Debug:
 Credits:
 -JJoeyay, for teaching me Godot and inspiring me to make games;
 -3DSage's 'Make Your Own Raycaster' series on YouTube;
--Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial'.
+-Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial';
+-Godot Engine v3.3.2-stable Win64, https://godotengine.org/.
 
 :)
 ```
