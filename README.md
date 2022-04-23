@@ -14,22 +14,24 @@ Features:
 -Tilemap world, with tiles of custom format;
 -Textured walls, stretchable scrolling sky texture, floor texture;
 -Changeable textures of any size;
--Looking up and down;
 -Flying up and down;
--Feet when you looks down;
+-Looking up and down;
+-Feet when you look down;
 -Viewbobbding, viewrolling, look-scaling options;
 -Depth shading option.
 
 Imperfections:
+-1 texture tilemap at a time;
 -No floors;
 -No sprite objects;
 -View distortion on movement;
--Wall textures get fuzzy if near position 0,0;
--Thin collisions don't texture correctly;
 -Line spacing is imprecise;
+-Wall textures get fuzzy if near position 0,0;
+-Walls with thin collisions don't texture correctly;
 -Wall textures only properly flipped on square walls;
 -Walls are infinitely tall, can't go over or see what's behind them;
--PositionZ acts differently depending on texture size.
+-Wall scaling slightly innacurate depending on texture size;
+-Position Z acts differently depending on texture size.
 
 ##################################################################################
 
