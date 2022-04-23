@@ -19,6 +19,7 @@ Features:
 Imperfections:
 -View distortion on movement
 -Wall textures get fuzzy if near position 0,0;
+-Line spacing is imprecise;
 -Wall textures only properly flipped on square walls;
 -Walls are infinitely tall, can't go over or see what's behind them;
 -No sprite objects;
