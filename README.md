@@ -1,3 +1,5 @@
+<img src="https://media2.giphy.com/media/1rjiWcgP028MACRZHd/giphy.gif" width="100"/>
+<img src="https://media3.giphy.com/media/klDQMFAsJtisWI8Est/giphy.gif" width="100"/>
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster/
 ##################################################################################
@@ -57,5 +59,3 @@ Credits:
 
 :)
 ```
-<img src="https://i.imgur.com/8ZDTVId.mp4" width="100"/>
-<img src="https://i.imgur.com/k9KGP1K.mp4" width="100"/>
