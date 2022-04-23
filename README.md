@@ -29,9 +29,7 @@ Imperfections:
 -Wall textures get fuzzy if near position 0,0;
 -Walls with thin collisions don't texture correctly;
 -Wall textures only properly flipped on square walls;
--Walls are infinitely tall, can't go over or see what's behind them;
--Wall scaling slightly innacurate depending on texture size;
--Position Z acts differently depending on texture size.
+-Walls are infinitely tall, can't go over or see what's behind them.
 
 ##################################################################################
 
