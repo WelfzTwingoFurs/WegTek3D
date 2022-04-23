@@ -49,9 +49,11 @@ func _ready():
 	
 	$SpriteContainer/Sprite0.hframes = texture_width
 	
+	$RayContainer/Ray0.cast_to.y = draw_distance
 	for n in angles:
 		var new_ray = $RayContainer/Ray0.duplicate()
 		new_ray.rotation_degrees = ( (n/angles_divi) - (angles/angles_divi)/2 )
+		#new_ray.cast_to.y += abs(new_ray.rotation_degrees)
 		$RayContainer.add_child(new_ray)
 		
 		rays.append(new_ray)
@@ -114,6 +116,8 @@ export var lookZscaling = 0.5
 var feetY = 0
 var posZ_lookZ = 0.1
 
+export var draw_distance = 10000
+
 func _physics_process(_delta):
 	update()
 	motion = move_and_slide(motion, Vector2(0,-1))
@@ -154,6 +158,7 @@ func _physics_process(_delta):
 	
 	elif Input.is_action_pressed("ply_lookcenter"):
 		lookingZ = lerp(lookingZ, 0, 0.1)
+		
 	
 	
 	
@@ -161,8 +166,10 @@ func _physics_process(_delta):
 #	posZ_lookZ = -OS.window_size.y*(positionZ/100)  -OS.window_size.y*(lookingZ/100)
 	#posZ_lookZ = -OS.window_size.y*(positionZ/1000)  -OS.window_size.y*(lookingZ/100)
 	#posZ_lookZ = -OS.window_size.y*(lookingZ/100)
-	posZ_lookZ = -OS.window_size.y*(positionZ/5000)  -OS.window_size.y*(lookingZ/100)
 	#(texture_cellsize) * ((-positionZ/100)*lineH)
+	#posZ_lookZ = -OS.window_size.y*(positionZ/5000)  -OS.window_size.y*(lookingZ/100)
+	posZ_lookZ = -OS.window_size.y*(positionZ/(draw_distance*10))  -OS.window_size.y*(lookingZ/100)
+	
 	
 	lookZscale = (abs(lookingZ)*lookZscaling/OS.window_size.y)
 	
@@ -186,7 +193,7 @@ func _physics_process(_delta):
 		move_dir.y = 0
 	
 	
-	
+	#print(position)
 	
 	
 	if Input.is_action_pressed("ui_left"):
