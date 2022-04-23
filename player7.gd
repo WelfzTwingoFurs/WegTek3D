@@ -2,10 +2,6 @@ extends KinematicBody2D
 
 var motion = Vector2()
 
-onready var RayContainer = $RayContainer
-
-onready var SpriteContainer = $SpriteContainer
-
 onready var Floor = $Background/Floor
 onready var Sky = $Background/Sky
 
@@ -56,7 +52,7 @@ func _ready():
 	for n in angles:
 		var new_ray = $RayContainer/Ray0.duplicate()
 		new_ray.rotation_degrees = ( (n/angles_divi) - (angles/angles_divi)/2 )
-		RayContainer.add_child(new_ray)
+		$RayContainer.add_child(new_ray)
 		
 		rays.append(new_ray)
 		
@@ -65,7 +61,7 @@ func _ready():
 		tile_cell.append(0)
 		
 		var new_sprite = $SpriteContainer/Sprite0.duplicate()
-		SpriteContainer.add_child((new_sprite))
+		$SpriteContainer.add_child((new_sprite))
 		sprites.append(new_sprite)
 	
 	$RayContainer/Ray0.queue_free()
@@ -77,14 +73,10 @@ func _ready():
 	$RayContainer.visible = 0
 	
 	
-	#add_child(Floor.duplicate(set_name("Floor2")))
-	var add_floor2 = Floor.duplicate()
-	add_floor2.set_name("Floor2")
-	add_floor2.z_index = -4096
-	add_child(add_floor2)
-	$Floor2.flip_v = true
-	
 	$Feet.visible = 1
+	$Feet.scale = Vector2(OS.window_size.x/$Feet.texture.get_width()*10, (OS.window_size.y/180)*2)
+	$Feet.position.y = (OS.window_size.y/$Feet.texture.get_height())  +$Feet.scale.y*5
+	feetY = $Feet.position.y
 
 
 
@@ -118,6 +110,8 @@ var positionZ = 0.1
 var lookingZ = 0
 var lookZscale = 0
 export var lookZscaling = 0.5
+
+var feetY = 0
 
 func _physics_process(_delta):
 	update()
@@ -165,7 +159,7 @@ func _physics_process(_delta):
 	#var posZ_lookZ = -positionZ -lookingZ/$SpriteContainer.scale.y
 	var posZ_lookZ = -OS.window_size.y*(positionZ/1000)  -OS.window_size.y*(lookingZ/100)
 	
-	lookZscale = (abs(lookingZ)/OS.window_size.y)*lookZscaling
+	lookZscale = (abs(lookingZ)*lookZscaling/OS.window_size.y)
 	
 	#print(positionZ,"   ",lookingZ)
 	
@@ -224,7 +218,7 @@ func _physics_process(_delta):
 	
 	
 	
-	RayContainer.rotation_degrees = rad_deg(rotation_angle) #radian to degrees
+	$RayContainer.rotation_degrees = rad_deg(rotation_angle) #radian to degrees
 	########################################################################################################################################################
 	
 	
@@ -248,7 +242,7 @@ func _physics_process(_delta):
 		vbob = vbob_max
 	
 	
-	SpriteContainer.position.y = abs(vbob) +posZ_lookZ
+	
 	
 	
 	
@@ -261,15 +255,15 @@ func _physics_process(_delta):
 	
 	
 	if sky_stretch.x == 1:
-		Sky.rect_position.x = (-OS.window_size.x/2) - ( RayContainer.rotation_degrees*(float(OS.window_size.x)/360) ) 
+		Sky.rect_position.x = (-OS.window_size.x/2) - ( $RayContainer.rotation_degrees*(float(OS.window_size.x)/360) ) 
 		Sky.rect_scale.x = (OS.window_size.x/Sky.texture.get_width()) 
 		
-		#if RayContainer.rotation_degrees > 180:
+		#if $RayContainer.rotation_degrees > 180:
 		#	Sky.flip_h = 1
 		#else:
 		#	Sky.flip_h = 0
 	else:
-		Sky.rect_position.x = (-OS.window_size.x/2) - ( RayContainer.rotation_degrees*(float(Sky.texture.get_width())/360) ) 
+		Sky.rect_position.x = (-OS.window_size.x/2) - ( $RayContainer.rotation_degrees*(float(Sky.texture.get_width())/360) ) 
 		Sky.rect_scale.x = 1 
 		Sky.flip_h = 0
 		
@@ -290,21 +284,13 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	########################################################################################################################################################
 	#vroll
+	$SpriteContainer.position.y = abs(vbob) +posZ_lookZ
 	$SpriteContainer.rotation_degrees = lerp($SpriteContainer.rotation_degrees, (-input_dir.x*vroll_multi),00.1)/vroll_strafe_divi
 	$Background.rotation_degrees = $SpriteContainer.rotation_degrees
 	
 	
 	
 	########################################################################################################################################################
-#	Floor.position.y = (OS.window_size.y/4) + abs(vbob) +posZ_lookZ
-#	Floor.scale = Vector2( (OS.window_size.x/Floor.texture.get_width())+1, OS.window_size.y/(Floor.texture.get_height()*2)  ) 
-	
-	$Floor2.visible = 0
-#	$Floor2.position.y = ((OS.window_size.y) + abs(vbob) +posZ_lookZ)
-#	$Floor2.scale = Floor.scale + Vector2(0,OS.window_size.y/Floor.texture.get_height()/2)
-#	$Floor2.rotation_degrees = $Background.rotation_degrees
-	########################################################################################################################################################
-	
 	Floor.position.y = (OS.window_size.y) + abs(vbob) +posZ_lookZ
 	Floor.scale = Vector2( (OS.window_size.x/Floor.texture.get_width())+1+lookZscale,    (OS.window_size.y/(Floor.texture.get_height()/2))  ) 
 	
@@ -318,18 +304,28 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	########################################################################################################################################################
 	#feet when looking down
+	
+	
 	if lookingZ > 180:
 		$Feet.visible = 1
 		
-		$Feet.position.y =  (OS.window_size.y/$Feet.texture.get_height()) #-posZ_lookZ/10
-		$Feet.scale.y = (OS.window_size.y/$Feet.texture.get_height())# +$Feet.position.y
+		$Feet.position.y = (OS.window_size.y/$Feet.texture.get_height())  +$Feet.scale.y*5
+		feetY = $Feet.position.y
+		$Feet.scale.y = (OS.window_size.y/lookingZ)*2
+		
 		
 		$Feet.scale.x = OS.window_size.x/$Feet.texture.get_width()*10
-		$Feet.rotation_degrees = -input_dir.x*lookingZ/50*vroll_strafe_divi
-		#$Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*(lookingZ/OS.window_size.y)
+		$Feet.rotation_degrees = (-input_dir.x*vroll_strafe_divi)*$Feet.scale.y*2
+		#$Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi
 		
+	
+	elif lookingZ > 140:
+		$Feet.visible = 1
+		#$Feet.position.y = feetY - (lookingZ-180)*5
+		$Feet.position.y = feetY - ((lookingZ-180)*$Feet.scale.y)
+		
+	
 	else:
-		
 		$Feet.visible = 0
 	########################################################################################################################################################
 	
@@ -337,14 +333,18 @@ func _physics_process(_delta):
 	
 	if input_dir.y != 0:
 		$AnimationPlayer.play("walk")
+		$AnimationPlayer.playback_speed = input_dir.y
 	
 	elif input_dir.x != 0:
 		if Input.is_action_pressed("ui_select"):
-			$AnimationPlayer.play("strafe")
+			if input_dir.x == -1:
+				$AnimationPlayer.play("strafeR")
+			else:
+				$AnimationPlayer.play("strafeL")
 			
 		else:
 			$AnimationPlayer.play("spin")
-			
+			$AnimationPlayer.playback_speed = input_dir.x
 	
 	
 	else:
@@ -388,7 +388,7 @@ func _draw():
 			var lineH = (OS.window_size.y / distance) /  cos( deg_rad(rays[n].rotation_degrees) ) #/ (float(10)/texture_cellsize)
 			
 			
-			sprites[n].scale.y = lineH#/texture_cellsize
+			sprites[n].scale.y = lineH #/texture_cellsize
 			
 			
 			
@@ -427,7 +427,7 @@ func _draw():
 			
 			#Only flip square walls otherwise glitches
 			if (Worldconfig.TileCol.get_cellv( Worldconfig.TileCol.world_to_map(rays[n].get_collision_point() - rays[n].get_collision_normal() * 0.001) )) == 0: 
-				var true_n_angle = RayContainer.rotation_degrees + rays[n].rotation_degrees
+				var true_n_angle = $RayContainer.rotation_degrees + rays[n].rotation_degrees
 				
 				if true_n_angle > 360:
 					true_n_angle -= 360
@@ -586,7 +586,7 @@ func _draw():
 #					draw_line(Vector2(0,0), rays[Numba].get_collision_point() - position, Color(1,1,0), 2)
 #					
 #					
-#					var cum = deg_rad(RayContainer.rotation_degrees + rays[Numba].rotation_degrees)
+#					var cum = deg_rad($RayContainer.rotation_degrees + rays[Numba].rotation_degrees)
 #					
 #					draw_line(rays[Numba].get_collision_point() - position,
 #							 (rays[Numba].get_collision_point() - position) + Vector2(0,10).rotated(  cum  ),
