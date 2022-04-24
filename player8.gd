@@ -570,6 +570,9 @@ func _draw():
 					#Cfade = 0#
 					#Cfade = 0#-draw_type2_minH/brightness
 				
+				if Cfade < 0:
+					Cfade = 255
+				
 				sprites[n].self_modulate = Color8(C-Cfade, C-Cfade, C-Cfade, 255)
 				
 			
