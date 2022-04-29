@@ -19,12 +19,13 @@ var texture_width
 var texture_cellsize
 
 func _ready():
-	#window_size_check = OS.window_size
+	
 	texture_width = $SpriteContainer/Sprite0.texture.get_width()
 	$SpriteContainer/Sprite0.hframes = texture_width
 	
 	texture_cellsize = texture_width/10
 	$SpriteContainer.scale.y = float(10)/texture_cellsize
+	# render scale Y according to texture size
 	
 	print(texture_width,"!   ",texture_width/10,"      ",texture_cellsize)
 	# texture configuration
@@ -64,7 +65,7 @@ func _ready():
 	
 	
 	texture_change_check = [$Feet.texture, Sky.texture, Floor.texture]
-	
+	#Checks if things changed and updates
 	
 	if draw_type > 0:
 		draw_type2_minH = (sqrt(pow(0, 2) + pow((draw_distance), 2)) )
@@ -74,7 +75,11 @@ func _ready():
 		new_sprite.self_modulate = Color(0,0,0,1)
 		new_sprite.z_index -= 1
 		sprites.append(new_sprite)
-	#Create extra sprite for draw distance
+	#Create extra sprite for draw distance horizon wall
+	# ONLY IF DRAW_TYPE POSITIVE, STILL WORKS IF NEGATIVE BUT WITH NO WALL
+	
+	window_size_check = Vector2(0,0)
+	recalculate_window()
 
 ########        ############        ####        ########        ####    ####
 ####    ####    ####            ####    ####    ####    ####    ####    ####
@@ -128,7 +133,7 @@ var lookingZ = 0
 var lookZscale = 0
 
 func _physics_process(_delta):
-	update()
+	#update()
 	
 	
 	
@@ -364,10 +369,10 @@ func _physics_process(_delta):
 	
 	if window_size_check != OS.window_size:
 		print(OS.window_size,", changed from ",window_size_check)
-		window_or_texture_changed()
+		recalculate_window()
 		
 	
-	if texture_change_check != [$Feet.texture, Sky.texture, Floor.texture]:
+	elif texture_change_check != [$Feet.texture, Sky.texture, Floor.texture]:
 		if texture_change_check[0] != $Feet.texture:
 			print("Feet texture changed")
 		elif texture_change_check[1] != Sky.texture:
@@ -375,10 +380,10 @@ func _physics_process(_delta):
 		elif texture_change_check[2] != Floor.texture:
 			print("Floor texture changed")
 		
-		window_or_texture_changed()
+		recalculate_window()
 		
 	
-	if rays[0].cast_to.y != draw_distance:
+	elif rays[0].cast_to.y != draw_distance:
 		print(draw_distance," horizon was ",rays[0].cast_to.y)
 		
 		for n in angles-1:
@@ -389,13 +394,14 @@ func _physics_process(_delta):
 			sprites[angles].scale.y = OS.window_size.y/draw_type2_minH
 		
 	
-	
+	#else:
+	update()
 
-#######      #######         ####         ####   ###########   ##########
-###    ###   ###    ###   ###    ###   ###       ###           ###        
-#######      #######      ###    ###   ###       ###########   ##########
-###          ###    ###   ###    ###   ###       ###                  ###
-###          ###    ###      ####         ####   ###########   ##########
+#####    #####      #####       #####  ##########   ##########  #########
+##   ##  ##   ##  ##     ###  ##       ##           ###         ###
+#####    #####    ##     ###  ##       ##########   ##########  #########
+##       ##   ##  ##     ###  ##       ##                  ###         ##
+##       ##   ##    #####       #####  ##########   ##########  #########
 
 ################################################################################
 ################################################################################
@@ -408,7 +414,7 @@ func _physics_process(_delta):
 
 var window_size_check #Things only always checking for screen_size changes
 var texture_change_check     #Array checking if texture becomes different
-func window_or_texture_changed():
+func recalculate_window():
 	Sky.rect_size.y = Sky.texture.get_height()
 	Sky.rect_scale.y = -(OS.window_size.y/2)/float(Sky.rect_size.y) 
 	
@@ -427,15 +433,37 @@ func window_or_texture_changed():
 	feetY = (OS.window_size.y/$Feet.texture.get_height())  +$Feet.scale.y*5
 	
 	
-	window_size_check = OS.window_size
-	texture_change_check = [$Feet.texture, Sky.texture, Floor.texture]
 	
 	
 	if draw_type > 0:
 		sprites[angles].scale.y = OS.window_size.y/draw_type2_minH
 		sprites[angles].scale.x = OS.window_size.x*2
+	
+	
+	
+	texture_change_check = [$Feet.texture, Sky.texture, Floor.texture]
+#	var get_edgy = abs(sprites[angles-3].position.x - sprites[angles-2].position.x)
+#	var render_size = (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy)
+#
+#	if render_size != 0:
+#		$SpriteContainer.scale.x = abs(OS.window_size.x/render_size) + lookZscale
+#	else:
+#		$SpriteContainer.scale.x = 1
+	
+#	window_size_check = OS.window_size
+#re-sizing render size, doesn't work here for some reason... so I moved it's end to draw
 
 
+####    ######         ####  ######  ####    ######  ##  ######
+##  ##  ##             ##    ##  ##  ##  ##  ##          ##
+####    ####     ###   ##    ##  ##  ##  ##  ####    ##  ##  ##
+##  ##  ##             ##    ##  ##  ##  ##  ##      ##  ##  ##
+##  ##  ######         ####  ######  ##  ##  ##      ##  ######
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
 
 
 
@@ -443,7 +471,7 @@ func window_or_texture_changed():
 
 ##############################################################################################################################################################################################
 
-var highlighted_map_ray = (angles/2)
+var highlighted_map_ray = (angles*angles_mult)/2
 
 export var brightness = 20
 export var brightMax = 255
@@ -458,16 +486,17 @@ var   draw_type2_minH = 0
 
 
 func _draw():
-	for n in angles-1:
+	for n in angles-1: #fix this crap will ya? about time we start rendering with one less, it creates a gap when strafing left
 		if rays[n].is_colliding():
-			var distance = sqrt(pow((rays[n].get_collision_point().x - position.x), 2) + pow((rays[n].get_collision_point().y - position.y), 2))
+			var distance = sqrt(pow((rays[n].get_collision_point().x - position.x), 2) + pow((rays[n].get_collision_point().y - position.y), 2)) #Logic from other raycasters
+			#Logic from other raycasters
 			
-			var lineH = (OS.window_size.y / distance) / cos( deg_rad(rays[n].rotation_degrees) ) #Compensate fisheye with angle
-			
+			var lineH = (OS.window_size.y / distance) / cos( deg_rad(rays[n].rotation_degrees) ) 
+			#Y scale, compensate fisheye with angle
 			
 			sprites[n].scale.y = lineH 
-			sprites[n].position.y = (texture_cellsize) * ((-positionZ/100)*lineH)
-			
+			sprites[n].position.y = (texture_cellsize) * ((-positionZ/100)*lineH) 
+			#PositionZ according to texture_size, stretchier the longer distance (texture size)
 			
 			
 			
@@ -477,10 +506,11 @@ func _draw():
 			
 			var xkusu_next = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n+1].rotation_degrees))   )) #Position re-angled correctly
 			var xkusu      = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n  ].rotation_degrees))   ))
+			#position according to order, and distort distance like other raycaster logic fixing fish-eyes
 			
-			sprites[n].position.x = xkusu
+			sprites[n].position.x = xkusu 
 			sprites[n].scale.x = (xkusu - xkusu_next - angles_mult/10)-line_gap_compensate
-			
+			#distance between, according to multiplyer... still gotta fix the line_gap_compensate
 			
 			
 			
@@ -494,25 +524,30 @@ func _draw():
 			
 			if tile_cell == -1:
 				tile_cell = 0
-			
+			# Guarantees no invalid textures that lag a lot
 			
 			
 			var texture_x = abs(     rays[n].get_collision_point().x  -  (  int(rays[n].get_collision_point().x/10) *10  )     )*texture_cellsize/10
-			var johncasey = 0
+			# Magic? ( [collision point] - {[collision point]'s 'decade'} )*texture_cellsize/10
 			
-			#Only flip square walls otherwise glitches
+			var johncasey = 0
+			# Used to decide if flip_v walls or not
+			
+			
+			#Only flip square wall textures otherwise glitches
 			if (Worldconfig.TileCol.get_cellv( Worldconfig.TileCol.world_to_map(rays[n].get_collision_point() - rays[n].get_collision_normal() * 0.001) )) == 0: 
+				# Raycast collision point > Tilemap world-to-map > Tilemap get_cell ID == SQUARE ---- just checks if a square wall
 				var true_n_angle = $RayContainer.rotation_degrees + rays[n].rotation_degrees
 				
 				if true_n_angle > 360:
 					true_n_angle -= 360
 				elif true_n_angle < 0:
 					true_n_angle += 360
+				# Rays[n] global angle, essentially
 				
 				
 				
-				
-				if texture_x == 0:
+				if texture_x == 0: #if 'MAGIC' back there didn't register
 					texture_x = abs(rays[n].get_collision_point().y - (int(rays[n].get_collision_point().y/10)*10))*texture_cellsize/10
 					
 					if true_n_angle < 180:
@@ -522,7 +557,7 @@ func _draw():
 							johncasey = 0
 					
 					
-					else:
+					else: 
 						if rays[n].get_collision_point().y < 0:
 							johncasey = 1
 						else:
@@ -531,7 +566,7 @@ func _draw():
 				
 				
 				
-				else:
+				else:#if texture !=0: aka already calculated this
 					if true_n_angle < 90 or true_n_angle > 270:
 						if rays[n].get_collision_point().x > 0:
 							johncasey = 1
@@ -546,11 +581,11 @@ func _draw():
 							johncasey = 1
 						else:
 							johncasey = 0
+			# These are the conditions for flipping wall textures or not
 			
 			
 			
-			
-			else:
+			else:#if walls not SQUARE, just do whatever
 				if texture_x == 0:
 					texture_x = abs(rays[n].get_collision_point().y - (int(rays[n].get_collision_point().y/10)*10))*texture_cellsize/10
 			
@@ -564,7 +599,7 @@ func _draw():
 			
 			elif johncasey == 0:
 				sprites[n].frame = (tile_cell*texture_cellsize) + texture_x # don't know why but this extra math has got to be here otherwise X walls don't render
-			
+			# Ways of texturing... slightly different
 			
 			###################################################################################################################################################
 			###################################################################################################################################################
@@ -572,40 +607,40 @@ func _draw():
 			
 			var C = (lineH*brightness)
 			if C > brightMax:
-				C = brightMax 
+				C = brightMax
+			# Depth-shading
 			
-			#C -= positionZ
 			
-			
-			if draw_type == 0:
+			# Draw distance modes
+			if draw_type == 0: #Disabled
 				sprites[n].self_modulate = Color8(C, C, C, 255)
 			
-			else:
+			
+			else: #Enabled
 				var Cfade = 255
 				if distance > draw_distance/draw_fade:
 					Cfade = brightMax/(distance-(draw_distance/draw_fade))
 					
 				elif abs(draw_type) == 2:
-					Cfade = C#brightMax
+					Cfade = C
+				# An automatic draw_fade would be cool
 				
 				
-				
-				if abs(draw_type) == 1:
+				if abs(draw_type) == 1: #Fade to transparency
 					sprites[n].self_modulate = Color8(C, C, C, Cfade)
 				
-				elif abs(draw_type) == 2:
+				elif abs(draw_type) == 2: #Fade to black
 					if ((C+Cfade)/2) < C:
 						C = (C+Cfade)/2
 					
 					sprites[n].self_modulate = Color8(C, C, C, 255)
+					
 			
 			
-			#print(rays[n].get_collision_point())
+			#And we're done!
 			
 			
-			
-			
-			############################################################################### Show map
+			########################################################### Show map
 			if Input.is_action_pressed("ui_accept"): 
 				draw_line(Vector2(0,0), rays[n].get_collision_point() - position, Color8(C,C,C), 1)
 				
@@ -613,51 +648,71 @@ func _draw():
 				if rays[highlighted_map_ray].is_colliding():
 					draw_line(Vector2(0,0), rays[highlighted_map_ray].get_collision_point() - position, Color((randi() % 2),(randi() % 2),(randi() % 2)), 1)
 				
+			####################################################################
 		
 		
 		
-		else: #draw horizon line
-#			if draw_type == 2:
-#				sprites[n].scale.y = OS.window_size.y/draw_type2_minH
-#				sprites[n].self_modulate = Color(0,0,0)
-#				
-#				sprites[n].position.x = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n  ].rotation_degrees))   ))# / tan((0.5 * (angles*angles_mult)))
-#				
-#				var xkusu_next = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n+1].rotation_degrees))   ))# / tan((0.5 * (angles*angles_mult)))
-#				var xkusu      = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n  ].rotation_degrees))   ))# / tan((0.5 * (angles*angles_mult)))
-#				sprites[n].scale.x = (xkusu - xkusu_next - angles_mult/10)-line_gap_compensate
-#				
-#				sprites[n].position.y = (texture_cellsize) * ((-positionZ/100)*(OS.window_size.y/draw_type2_minH))
-#			else:
+		else:
 			sprites[n].scale.y = 0
 			
-			
-			
-			############################################################################### Show map
+			########################################################### Show map
 			if Input.is_action_pressed("ui_accept"): #Show map
-				if !rays[highlighted_map_ray].is_colliding():
-					draw_line(Vector2(0,0), rays[highlighted_map_ray].cast_to.rotated(rotation_angle) - position, Color((randi() % 2),(randi() % 2),(randi() % 2)), 1)
-					
-					
+				if !rays[highlighted_map_ray].is_colliding(): #mid ray
+					draw_line(Vector2(0,0), rays[highlighted_map_ray].cast_to.rotated(rotation_angle), Color((randi() % 2),(randi() % 2),(randi() % 2)), 1)
+				
+				if !rays[0].is_colliding(): #first ray
+					draw_line(Vector2(0,0), (rays[0].cast_to.rotated(rotation_angle + deg_rad(rays[0].rotation_degrees))), Color(1,1,1,1), 1)
+				
+				if !rays[angles-1].is_colliding(): #last ray
+					draw_line(Vector2(0,0), (rays[angles-1].cast_to.rotated(rotation_angle + deg_rad(rays[angles-1].rotation_degrees))), Color(1,1,1,1), 1)
+				
+				
+				#draw_line((rays[    0   ].cast_to.rotated(rotation_angle + deg_rad(rays[    0   ].rotation_degrees))), rays[highlighted_map_ray].cast_to.rotated(rotation_angle), Color(1,0,0,1), 1)
+				#draw_line((rays[angles-1].cast_to.rotated(rotation_angle + deg_rad(rays[angles-1].rotation_degrees))), rays[highlighted_map_ray].cast_to.rotated(rotation_angle), Color(1,0,0,1), 1)
+				
+				
+			####################################################################
 	
 	
-	if draw_type > 0: #the black horizon wall
+	if draw_type > 0: #the black horizon wall, ONLY IF DRAW_TYPE POSITION, OTHERWISE NO WALL
 		sprites[angles].position.y = (texture_cellsize) * ((-positionZ/100)*(OS.window_size.y/draw_type2_minH))
 	
 	
 	
+	
 	#Rendering scale to all fit inside screen!
+	#Throw this at res_change(), make a different check
+	#'cause if these two angles(first & last) are not colliding, the view will not yet rescale
+	if window_size_check != OS.window_size:
+		var get_edgy = abs(sprites[angles-3].position.x - sprites[angles-2].position.x)
+		var render_size = (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy)
+		
+		if render_size != 0:
+			$SpriteContainer.scale.x = abs(OS.window_size.x/render_size) + lookZscale
+			
+			window_size_check = OS.window_size
+			print("A - O.K.!")
+		else:
+			$SpriteContainer.scale.x = 1
+		
+		
+	#re-sizing render size, doesn't work in regular resize function for some reason... so I moved it's end right here
 	
-	var get_edgy = abs(sprites[angles-3].position.x - sprites[angles-2].position.x)
-	#var render_size = (sprites[0].position.x - get_edgy) - (sprites[angles-2].position.x + get_edgy)
-	var render_size = (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy)
-	
-	if render_size != 0:
-		#$SpriteContainer.scale.x = abs(OS.window_size.x/render_size)#+abs(lookingZ)/OS.window_size.y
-		$SpriteContainer.scale.x = abs(OS.window_size.x/render_size) + lookZscale#abs(lookingZ)/OS.window_size.y
-	else:
-		$SpriteContainer.scale.x = 1
 
+
+########        ########            ####        ####            ####  
+########        ########            ####        ####            ####
+####    ####    ####    ####    ####    ####    ####    ####    ####  
+####    ####    ####    ####    ####    ####    ####    ####    ####  
+####    ####    ########        ############    ####    ####    ####  
+####    ####    ########        ############    ####    ####    ####  
+########        ####    ####    ####    ####        ####    ####    
+########        ####    ####    ####    ####        ####    ####      
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
 
 
 
