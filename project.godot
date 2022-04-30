@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="a-werid"
-run/main_scene="res://scene7.tscn"
+run/main_scene="res://scene8.tscn"
 boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
@@ -26,7 +26,8 @@ Worldconfig="*res://worldconfig.gd"
 window/size/width=1001
 window/size/height=530
 window/size/always_on_top=true
-window/stretch/mode="2d"
+window/vsync/use_vsync=false
+window/stretch/aspect="expand"
 
 [importer_defaults]
 
@@ -104,7 +105,7 @@ bug_resmultiply={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777245,"unicode":0,"echo":false,"script":null)
  ]
 }
-bug_resagain={
+bug_fillscreen={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777246,"unicode":0,"echo":false,"script":null)
  ]
@@ -114,12 +115,12 @@ bug_reset={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777248,"unicode":0,"echo":false,"script":null)
  ]
 }
-bug_resplus={
+bug_zoomplus={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":61,"unicode":0,"echo":false,"script":null)
  ]
 }
-bug_resminus={
+bug_zoomminus={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":45,"unicode":0,"echo":false,"script":null)
  ]
@@ -176,6 +177,11 @@ ply_lookcenter={
 ply_flycenter={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777230,"unicode":0,"echo":false,"script":null)
+ ]
+}
+bug_rotatecenter={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777243,"unicode":0,"echo":false,"script":null)
  ]
 }
 

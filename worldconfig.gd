@@ -6,105 +6,102 @@ var TileCol
 var texture_size = 10
 
 ############# RESOLUTION #########
-var WindowX
-var WindowY
-
+var config = 1
+# 0 = Screen's aspect ratio, zooming in ## For sprite games, keeps pixels square
+# 1 = Any window size, no auto-stretch  ## For 3D, window stretches free, rendering stretches with it
 var step = 0
-var resolution = 1
+var resolution = 2
 ##################################
-
-var dontrepeat = 0
 
 func _process(_delta):
 	### STOCK resolution configuration ###
-	
-	WindowX = OS.window_size.x
-	WindowY = OS.window_size.y
-	
 	### Resolution process ###
-	if step == 0:
+	
+	if config == 0:
+		if step == 0: # Viewport, Keep -- Window size = monitor, image stretches, keep aspect-ratio
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP, Vector2(OS.window_size.x, OS.window_size.y))
+			OS.window_size = OS.get_screen_size() #Window size as screen
+			OS.center_window() 
+			
+			step = 1
 		
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP_HEIGHT, Vector2(WindowX, WindowY))
-		OS.center_window() # Viewport, Keep_Height
-		OS.window_size.x = OS.get_screen_size().x # Window as <wide> as monitor
-	
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP_WIDTH, Vector2(WindowX, WindowY))
-		OS.center_window() # Viewport, Keep_Widht
-		OS.window_size.y = OS.get_screen_size().y # Window as ^tall^ as monitor
-
-		step = 1
-	
-	
-	elif step == 1:
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(WindowX, WindowY))
-		OS.window_size /= resolution # Disabled, Ignore
-		OS.center_window() # Window res/2
 		
-		step = 2
-	
-	
-	elif step == 2:
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP, Vector2(WindowX, WindowY))
-		OS.window_size *= resolution # Viewport, Keep
-		OS.center_window() # Window res*2
+		elif step == 1: # Disabled, Ignore -- Window size /= resolution (zoom part 1), image doesn't stretch, keep vertical aspect-ratio
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(OS.window_size.x, OS.window_size.y))
+			OS.window_size /= resolution 
+			OS.center_window() # Window res/2
+			
+			step = 2
 		
-		step = 3
-	
-	elif step == 3:
-		if dontrepeat == 0:
-			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(WindowX, WindowY))
-			OS.window_size /= 2
-			dontrepeat = 1
 		
-		step = 4
+		elif step == 2: # Viewport, Keep --  Window size *= resolution (zoom OK), image stretches, keep aspect-ratio
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP, Vector2(OS.window_size.x, OS.window_size.y))
+			OS.window_size *= resolution 
+			OS.center_window() # Window res*2
+			
+			step = -1
+	
+	elif config == 1:
+		if step == 0:
+			OS.window_size = OS.get_screen_size()
+			OS.center_window() 
+			
+			step = 1
+		
+		elif step == 1: # Disabled, Expand -- Window size stays, image doesn't stretch, doesn't care about aspect-ratio
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(OS.window_size.x, OS.window_size.y))
+			
+			step = -1
 	
 	
 	
 	
 	######################################## Debugging commands below ##########
 	
-	else:
-		if Input.is_action_just_pressed("bug_resdivide"): # 1
+	if step == -1:
+		if Input.is_action_just_pressed("bug_resdivide"): # F1 - Half the resolution screen
 			OS.window_size /= 2
-			OS.center_window()
+			step = 1
 		
-		if Input.is_action_just_pressed("bug_resmultiply"): # 2
+		if Input.is_action_just_pressed("bug_resmultiply"): # F2 - Double the resolution screen
 			OS.window_size *= 2
-			OS.center_window()
+			step = 1
 		
-		if Input.is_action_just_pressed("bug_resagain"): # 3
+		if Input.is_action_just_pressed("bug_fillscreen"): # F3 - fillscreen (not fullscreen)
+			config = 1
 			step = 0
+		
+		
+		
+		
+		if Input.is_action_just_pressed("bug_zoomplus"): # + Zoom in
+				config = 0
+				resolution += 1
+				step = 1
+		
+		if Input.is_action_just_pressed("bug_zoomminus"): # - Zoom out
+			if resolution > 1:
+				config = 0
+				resolution -= 1
+				step = 1
+		
+		
 		
 		
 		if Input.is_action_just_pressed("bug_reset"): #5
 			Engine.time_scale = 1
-			var cock = get_tree()
-			
-			cock.reload_current_scene()
+			var thefunctionreloadcurrentscenereturnsavaluebutthisvalueisneverused = get_tree()
+			thefunctionreloadcurrentscenereturnsavaluebutthisvalueisneverused.reload_current_scene()
 		
 		
-		if Input.is_action_just_pressed("bug_resplus"):
-				resolution += 1
-				step = 0
-		
-		elif Input.is_action_just_pressed("bug_resminus"):
-			if resolution > 1:
-				resolution -= 1
-				step = 0
-			else:
-				resolution -= 0.1
-				step = 0
-		
-		
-		
-		if Input.is_action_just_pressed("bug_speeddown"):
+		if Input.is_action_just_pressed("bug_speeddown"): #9
 			Engine.time_scale -= 0.2
 		
-		elif Input.is_action_just_pressed("bug_speedup"):
+		elif Input.is_action_just_pressed("bug_speedup"): #10
 			Engine.time_scale += 0.2
 		
-		elif Input.is_action_just_pressed("bug_speedres"):
+		elif Input.is_action_just_pressed("bug_speedres"): #11
 			Engine.time_scale = 1
 		
-		elif Input.is_action_just_pressed("bug_speedstop"):
+		elif Input.is_action_just_pressed("bug_speedstop"):#12
 			Engine.time_scale = 0
