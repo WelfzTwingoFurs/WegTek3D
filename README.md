@@ -32,6 +32,7 @@ Imperfections:
 -Walls with thin collisions don't texture correctly;
 -Wall textures only properly flipped on square walls;
 -Walls are infinitely tall, can't go over or see what's behind them;
+-If view-roll is too high, rendering gets cuts off at borders;
 -Messy project, WIP.
 
 ##################################################################################
