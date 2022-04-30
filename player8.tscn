@@ -3,7 +3,7 @@
 [ext_resource path="res://player8.gd" type="Script" id=1]
 [ext_resource path="res://textures64.png" type="Texture" id=2]
 [ext_resource path="res://gradientverybig.png" type="Texture" id=3]
-[ext_resource path="res://feet.png" type="Texture" id=4]
+[ext_resource path="res://feet2.png" type="Texture" id=4]
 [ext_resource path="res://skybox bubsy.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
