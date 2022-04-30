@@ -6,7 +6,7 @@
 [ext_resource path="res://Tile10-Texture.png" type="Texture" id=4]
 [ext_resource path="res://textures150.png" type="Texture" id=5]
 [ext_resource path="res://,test-spinning body.tscn" type="PackedScene" id=6]
-[ext_resource path="res://player7.tscn" type="PackedScene" id=7]
+[ext_resource path="res://older_versions/player7.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Tile10-Col.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Tile10-Texture.tscn" type="PackedScene" id=9]
 [ext_resource path="res://skybox doom.png" type="Texture" id=10]
