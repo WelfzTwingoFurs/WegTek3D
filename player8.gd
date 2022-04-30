@@ -133,10 +133,6 @@ var lookingZ = 0
 var lookZscale = 0
 
 func _physics_process(_delta):
-	#update()
-	
-	
-	
 	# Input, motion, rotation
 	########################################################################################################################################################
 	########################################################################################################################################################
@@ -196,8 +192,21 @@ func _physics_process(_delta):
 		move_dir.x = 0
 	
 	
-	if Input.is_action_just_pressed("bug_rotatecenter"):
-		rotation_angle = 0
+	if Input.is_action_pressed("bug_rotatecenter"):
+		move_dir = Vector2(0,0)
+		
+		if Input.is_action_pressed("ui_down"):
+			rotation_angle = 0
+		
+		elif Input.is_action_pressed("ui_left"):
+			rotation_angle = 0.5*PI
+		
+		elif Input.is_action_pressed("ui_up"):
+			rotation_angle = PI
+		
+		elif Input.is_action_pressed("ui_right"):
+			rotation_angle = 1.5*PI
+	
 	########################################################################################################################################################
 	########################################################################################################################################################
 	########################################################################################################################################################
@@ -367,24 +376,25 @@ func _physics_process(_delta):
 		$AnimationPlayer.stop()
 	
 	
+	
 	if window_size_check != OS.window_size:
-		print(OS.window_size,", changed from ",window_size_check)
+		print("   RESOLUTION: ",OS.window_size,", changed from ",window_size_check)
 		recalculate_window()
 		
 	
 	elif texture_change_check != [$Feet.texture, Sky.texture, Floor.texture]:
 		if texture_change_check[0] != $Feet.texture:
-			print("Feet texture changed")
+			print("-      TEXTURE: Feet changed")
 		elif texture_change_check[1] != Sky.texture:
-			print("Sky texture changed")
+			print("-      TEXTURE: Sky changed")
 		elif texture_change_check[2] != Floor.texture:
-			print("Floor texture changed")
+			print("-      TEXTURE: Floor changed")
 		
 		recalculate_window()
 		
 	
 	elif rays[0].cast_to.y != draw_distance:
-		print(draw_distance," horizon was ",rays[0].cast_to.y)
+		print("-DRAW DISTANCE: ",draw_distance,", changed from ",rays[0].cast_to.y)
 		
 		for n in angles-1:
 			rays[n].cast_to.y = draw_distance
@@ -394,8 +404,8 @@ func _physics_process(_delta):
 			sprites[angles].scale.y = OS.window_size.y/draw_type2_minH
 		
 	
-	#else:
-	update()
+	else:
+		update()
 
 #####    #####      #####       #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ###  ##       ##           ###         ###
@@ -422,7 +432,6 @@ func recalculate_window():
 	Sky.rect_scale.x = (OS.window_size.x/Sky.texture.get_width())
 	
 	
-	
 	Floor.scale = Vector2( (OS.window_size.x/Floor.texture.get_width())+1+lookZscale,    (OS.window_size.y/(Floor.texture.get_height()/2))  ) 
 	
 	
@@ -442,15 +451,28 @@ func recalculate_window():
 	
 	
 	texture_change_check = [$Feet.texture, Sky.texture, Floor.texture]
-#	var get_edgy = abs(sprites[angles-3].position.x - sprites[angles-2].position.x)
-#	var render_size = (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy)
-#
-#	if render_size != 0:
-#		$SpriteContainer.scale.x = abs(OS.window_size.x/render_size) + lookZscale
-#	else:
-#		$SpriteContainer.scale.x = 1
 	
-#	window_size_check = OS.window_size
+	if window_size_check != OS.window_size:
+		#var get_edgy = abs(sprites[angles-3].position.x - sprites[angles-2].position.x) #Distance between border renders, angles-2 - angles-1 not work for some reason
+		#var render_size = (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy) #Distance between screen edges
+		
+		#var xkusu      = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n  ].rotation_degrees))))
+		get_edgy = abs((OS.window_size.x * (0.5 * tan(deg_rad(rays[angles-2].rotation_degrees)))) - (OS.window_size.x * (0.5 * tan(deg_rad(rays[angles-1].rotation_degrees)))))                  #Distance between border renders
+		var render_size = ((OS.window_size.x * (0.5 * tan(deg_rad(rays[0].rotation_degrees)))) + get_edgy) - ((OS.window_size.x * (0.5 * tan(deg_rad(rays[angles-1].rotation_degrees)))) - get_edgy) #Distance between screen edges
+		#for some reason the other code doesn't work unless all checked rays are colliding
+		#this re-uses the XKUSU code and must be way less efficient, but it all only happens when the screen is being resized so whatever
+		
+		if render_size != 0:
+			$SpriteContainer.scale.x = abs(OS.window_size.x/render_size) + lookZscale
+			
+			
+			window_size_check = OS.window_size
+			print("A - O.K.!")
+		else:
+			$SpriteContainer.scale.x = 1
+
+var get_edgy = 0
+
 #re-sizing render size, doesn't work here for some reason... so I moved it's end to draw
 
 
@@ -504,6 +526,7 @@ func _draw():
 			###################################################################################################################################################
 			###################################################################################################################################################
 			
+			
 			var xkusu_next = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n+1].rotation_degrees))   )) #Position re-angled correctly
 			var xkusu      = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n  ].rotation_degrees))   ))
 			#position according to order, and distort distance like other raycaster logic fixing fish-eyes
@@ -512,6 +535,8 @@ func _draw():
 			sprites[n].scale.x = (xkusu - xkusu_next - angles_mult/10)-line_gap_compensate
 			#distance between, according to multiplyer... still gotta fix the line_gap_compensate
 			
+			if n == angles-2: #Compensate for fucking gap on the right...
+				sprites[n].scale.x -= get_edgy*2
 			
 			
 			
@@ -676,27 +701,6 @@ func _draw():
 	
 	if draw_type > 0: #the black horizon wall, ONLY IF DRAW_TYPE POSITION, OTHERWISE NO WALL
 		sprites[angles].position.y = (texture_cellsize) * ((-positionZ/100)*(OS.window_size.y/draw_type2_minH))
-	
-	
-	
-	
-	#Rendering scale to all fit inside screen!
-	#Throw this at res_change(), make a different check
-	#'cause if these two angles(first & last) are not colliding, the view will not yet rescale
-	if window_size_check != OS.window_size:
-		var get_edgy = abs(sprites[angles-3].position.x - sprites[angles-2].position.x)
-		var render_size = (sprites[0].position.x + get_edgy) - (sprites[angles-2].position.x - get_edgy)
-		
-		if render_size != 0:
-			$SpriteContainer.scale.x = abs(OS.window_size.x/render_size) + lookZscale
-			
-			window_size_check = OS.window_size
-			print("A - O.K.!")
-		else:
-			$SpriteContainer.scale.x = 1
-		
-		
-	#re-sizing render size, doesn't work in regular resize function for some reason... so I moved it's end right here
 	
 
 
