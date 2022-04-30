@@ -22,9 +22,10 @@ Features:
 -Configurable draw distance, fading options;
 
 Imperfections:
--1 texture tilemap at a time;
--No floors;
+-No in-game options (settings all in editor);
 -No sprite objects;
+-No floors;
+-1 texture tilemap at a time;
 -View distortion on movement;
 -Line spacing is imprecise;
 -Wall textures get fuzzy if near position 0,0;
