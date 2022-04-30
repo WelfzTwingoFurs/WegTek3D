@@ -19,7 +19,7 @@ Features:
 -Looking up and down;
 -Feet when you look down;
 -Viewbobbding, viewrolling, look-scaling options;
--Basic draw distance option;
+-Configurable draw distance, fading options;
 
 Imperfections:
 -1 texture tilemap at a time;
@@ -36,23 +36,28 @@ Imperfections:
 ##################################################################################
 
 Controls:
--WASD / Arrows: Move;
--        Shift: Strafe (hold);
+-WASD / Arrows:   Move, rotate;
+-        Shift:  Strafe (hold);
+-  Scroll-lock:  Rotate center;
 -PGup & PGdown: Look up & down;
--         Home: Look center;
-- Space & Ctrl: Fly up & down;
--          End: Fly center;
--        Enter: View map (toggle) & raycasts (hold).
+-         Home:    Look center;
+- Space & Ctrl:  Fly up & down;
+-          End:     Fly center;
+-Enter (press):       View map;
+- Enter (hold):  View raycasts.
 
 Debug:
 - F1: /2 screen-size;
 - F2: *2 screen-size;
-- F5: Reset scene;
-- F8: Close game;
-- F9: Time-scale -1;
--F10: Time-scale +1;
--F11: Time-scale =1;
--F12: Time-scale =0.
+- F3:    Fill screen;
+-  +:        Zoom in;
+-  -:       Zoom out;
+- F5:    Reset scene;
+- F8:     Close game;
+- F9:  Time-scale -1;
+-F10:  Time-scale +1;
+-F11:  Time-scale =1;
+-F12:  Time-scale =0.
 
 ##################################################################################
 
