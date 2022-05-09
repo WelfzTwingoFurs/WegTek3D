@@ -19,8 +19,7 @@ Features:
 -Looking up and down;
 -Feet when you look down;
 -Viewbobbing, viewrolling, look-scaling options;
--Depth shading option;
--Configurable draw distance, fading options;
+-Draw distance & fading, depth-shading options;
 
 Imperfections:
 -No in-game options (settings all in editor);
