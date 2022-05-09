@@ -11,20 +11,21 @@ Features:
 -Field of view;
 -Resolution multiplier & divider;
 -Screen resizable to any size;
--Tilemap world, with tiles of custom format;
--Textured walls; depth shading option;
+-Tilemap world, tiles of custom format;
+-Textured walls;
 -Stretchable scrolling sky texture, floor texture;
 -Changeable textures of any size;
 -Flying up and down;
 -Looking up and down;
 -Feet when you look down;
--Viewbobbding, viewrolling, look-scaling options;
+-Viewbobbing, viewrolling, look-scaling options;
+-Depth shading option;
 -Configurable draw distance, fading options;
 
 Imperfections:
 -No in-game options (settings all in editor);
 -No sprite objects;
--No floors;
+-No floors/ceilings;
 -1 texture tilemap at a time;
 -View distortion on movement;
 -Line spacing is imprecise;
