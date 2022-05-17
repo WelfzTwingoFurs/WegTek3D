@@ -542,7 +542,8 @@ func _draw():
 			if rays[n].is_colliding():
 				midscreen = ((rays[n].get_collision_point() - position).angle())
 			else:
-				midscreen = (position + rays[n].cast_to.rotated(rotation_angle))aaa
+				#motion = Vector2(speed*move_dir.x, speed*move_dir.y).rotated(rotation_angle)
+				midscreen = ( (position + (rays[n].cast_to.rotated(rotation_angle))) - position ).angle()
 			print(midscreen)
 		
 		
