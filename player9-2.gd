@@ -175,6 +175,9 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("bug_rotatecenter"):
 		move_dir = Vector2(0,0)
 		
+		print(rotation_angle," = ", rad_deg(rotation_angle))
+		
+		
 		if abs(input_dir.x) != abs(input_dir.y):
 			if input_dir.y == -1: #down
 				rotation_angle = 0
@@ -518,8 +521,14 @@ var polys = []
 
 var new_container
 
+
+var midscreen = 0
+
 func _draw():
 	for n in angles-1: #fix this crap will ya? about time we start rendering with one less, it creates a gap when strafing left
+		
+		
+		
 		
 		if n == 0: #loop proper
 			wall_rendering_now = null
@@ -528,6 +537,14 @@ func _draw():
 			new_container = $PolyContainer.duplicate()
 			add_child((new_container))
 			
+		
+		elif n == (angles*angles_mult)/2:
+			if rays[n].is_colliding():
+				midscreen = ((rays[n].get_collision_point() - position).angle())
+			else:
+				midscreen = (position + rays[n].cast_to.rotated(rotation_angle))aaa
+			print(midscreen)
+		
 		
 		
 		if rays[n].is_colliding():
@@ -539,22 +556,28 @@ func _draw():
 				#polys.append(new_poly)
 				
 				
-				#var lineH = (OS.window_size.y / distance) / cos( deg_rad(rays[n].rotation_degrees) ) 
-				
+				var holyshit
+				holyshit = ((obj.line[0]-position).angle())
 				
 				var distance1 = sqrt(pow((obj.line[0].x - position.x), 2) + pow((obj.line[0].y - position.y), 2)) #Logic from other raycasters
-				var lineH1 = (OS.window_size.y / distance1)   /   cos(  deg_rad( (obj.line[0]-position).angle() ))
-				#var xkusu1 = ( OS.window_size.x * (0.5 *          tan(  deg_rad( (obj.line[0]-position).angle() ) )))
-				var xkusu1 = OS.window_size.x * tan(deg_rad((obj.line[0]-position).angle()))
+				var lineH1 = (OS.window_size.y / distance1)   /  cos(  deg_rad( holyshit ))
+				var xkusu1 = (OS.window_size.x * (0.5 *          tan(  deg_rad( holyshit-midscreen ))))
 				
 				
+				
+				holyshit = ((obj.line[1]-position).angle())
 				
 				var distance2 = sqrt(pow((obj.line[1].x - position.x), 2) + pow((obj.line[1].y - position.y), 2)) #Logic from other raycasters
-				var lineH2 = (OS.window_size.y / distance2)   /   cos(  deg_rad( (obj.line[1]-position).angle() ))
-				#var xkusu2 = ( OS.window_size.x * (0.5 *          tan(  deg_rad( (obj.line[1]-position).angle() ) )))
-				var xkusu2 = OS.window_size.x * tan(deg_rad((obj.line[1]-position).angle()))
+				var lineH2 = (OS.window_size.y / distance2)   /  cos(  deg_rad( holyshit ))
+				var xkusu2 = (OS.window_size.x * (0.5 *          tan(  deg_rad( holyshit-midscreen ))))
 				
 				
+				#print((obj.line[0]-position).angle(),"  ",rad_deg(obj.line[0]-position).angle())
+				
+				
+				
+				
+				#var xkusu_next = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n+1].rotation_degrees))   )) #Position re-angled correctly
 				#var xkusu      = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n  ].rotation_degrees))   ))
 				
 				#what if we get the distance between something at 0 and 360 degrees
