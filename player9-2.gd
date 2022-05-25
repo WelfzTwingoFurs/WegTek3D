@@ -530,7 +530,7 @@ func _draw():
 		
 		
 		
-		if n == 0: #loop proper
+		if n == 0: #loop proper, this is still rough and probably laggy but for now it'll do
 			wall_rendering_now = null
 			new_container.queue_free()
 			
@@ -538,13 +538,8 @@ func _draw():
 			add_child((new_container))
 			
 		
-		elif n == (angles*angles_mult)/2:
-			if rays[n].is_colliding():
-				midscreen = ((rays[n].get_collision_point() - position).angle())
-			else:
-				#motion = Vector2(speed*move_dir.x, speed*move_dir.y).rotated(rotation_angle)
-				midscreen = ( (position + (rays[n].cast_to.rotated(rotation_angle))) - position ).angle()
-			print(midscreen)
+		elif n == angles/2: #properly place rendering in the middle of the screen
+			midscreen = ( (position + (rays[n].cast_to.rotated(rotation_angle))) - position ).angle()
 		
 		
 		
@@ -557,48 +552,52 @@ func _draw():
 				#polys.append(new_poly)
 				
 				
-				var holyshit
-				holyshit = ((obj.line[0]-position).angle())
 				
 				var distance1 = sqrt(pow((obj.line[0].x - position.x), 2) + pow((obj.line[0].y - position.y), 2)) #Logic from other raycasters
-				var lineH1 = (OS.window_size.y / distance1)   /  cos(  deg_rad( holyshit ))
-				var xkusu1 = (OS.window_size.x * (0.5 *          tan(  deg_rad( holyshit-midscreen ))))
-				
-				
-				
-				holyshit = ((obj.line[1]-position).angle())
+				var lineH1 = (OS.window_size.y / distance1)   /  cos(  deg_rad(  ((obj.line[0]-position).angle())  ))
 				
 				var distance2 = sqrt(pow((obj.line[1].x - position.x), 2) + pow((obj.line[1].y - position.y), 2)) #Logic from other raycasters
-				var lineH2 = (OS.window_size.y / distance2)   /  cos(  deg_rad( holyshit ))
-				var xkusu2 = (OS.window_size.x * (0.5 *          tan(  deg_rad( holyshit-midscreen ))))
+				var lineH2 = (OS.window_size.y / distance2)   /  cos(  deg_rad(  ((obj.line[1]-position).angle())  ))
 				
 				
-				#print((obj.line[0]-position).angle(),"  ",rad_deg(obj.line[0]-position).angle())
+				var holyshit
+				
+				holyshit = ((obj.line[0]-position).angle()) - midscreen
+				if   holyshit >  4:
+					holyshit -= PI*2
+				elif holyshit < -4:
+					holyshit += PI*2
+				
+				var xkusu1 = (OS.window_size.x * (0.5 * tan(  deg_rad( holyshit ))))
 				
 				
 				
+				holyshit = ((obj.line[1]-position).angle()) - midscreen
+				if   holyshit >  4:
+					holyshit -= PI*2
+				elif holyshit < -4:
+					holyshit += PI*2
 				
-				#var xkusu_next = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n+1].rotation_degrees))   )) #Position re-angled correctly
-				#var xkusu      = (OS.window_size.x * (0.5 * tan(deg_rad(rays[n  ].rotation_degrees))   ))
+				var xkusu2 = (OS.window_size.x * (0.5 * tan(  deg_rad( holyshit ))))
 				
-				#what if we get the distance between something at 0 and 360 degrees
-				#get the distance, therefore the render size
-				#nononono
-				#maybe we get -angles/2 to angles/2
-				#and do something with it yeah
+				
+				#print(((obj.line[0]-position).angle()),"   ",((obj.line[1]-position).angle()))
+				print( ((obj.line[0]-position).angle()) - midscreen ,"   ",((obj.line[1]-position).angle()) - midscreen)
+				
+#				if xkusu1 < -2 && xkusu2 > 2:
+#					if sign(xkusu1) != sign(xkusu2):
+#						print("yo!")
+				
 				
 				
 				if xkusu1 < xkusu2: #flip them right
 					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu1,-lineH1/2), Vector2(xkusu2,-lineH2/2), Vector2(xkusu2,lineH2/2), Vector2(xkusu1,lineH1/2)]) )
 					
-					#new_poly.position.x = xkusu1
 				else:
 					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu2,-lineH2/2), Vector2(xkusu1,-lineH1/2), Vector2(xkusu1,lineH1/2), Vector2(xkusu2,lineH2/2)]) )
 					
-					#new_poly.position.x = xkusu2
 				
-				
-				wall_rendering_now = obj
+				wall_rendering_now = obj #don't repeat rendering the same object
 			
 		else:
 			wall_rendering_now = null
