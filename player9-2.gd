@@ -475,18 +475,14 @@ func recalculate_window():
 	
 	
 	if window_size_check != OS.window_size:
+		var midscreenFirst = OS.window_size.x * (0.25 * tan(( Vector2(0,draw_distance).rotated(-deg_rad((angles/angles_multi)/2)) ).angle() ))
+		var midscreenLast  = OS.window_size.x * (0.25 * tan(( Vector2(0,draw_distance).rotated( deg_rad((angles/angles_multi)/2)) ).angle() ))
 		
-		
-		#midscreen = (( position + (Vector2(0,draw_distance).rotated(rotation_angle)) ) - position).angle()
-#		var midscreenFirst = OS.window_size.x * tan(((( (position + (Vector2(0,draw_distance)).rotated(rotation_angle - ((angles/angles_multi)/2))) ) - position).angle()) - midscreen)
-#		var midscreenLast  = OS.window_size.x * tan(((( (position + (Vector2(0,draw_distance)).rotated(rotation_angle + ((angles/angles_multi)/2))) ) - position).angle()) - midscreen)
-#
-#		$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast) / OS.window_size.x
-		
+		$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)
 		
 		
 		window_size_check = OS.window_size
-		print("A - O.K.!")
+		print("And that's O-K.")
 		
 	
 	print(position)
@@ -549,7 +545,7 @@ func _draw():
 		
 		elif n == angles/2: #properly place rendering in the middle of the screen
 			#midscreen = ( (position + (rays[n].cast_to.rotated(rotation_angle))) - position ).angle()
-			midscreen = (( position + (Vector2(0,draw_distance).rotated(rotation_angle)) ) - position).angle()
+			midscreen = (Vector2(0,draw_distance).rotated(rotation_angle)).angle()
 		
 		
 		
@@ -559,64 +555,9 @@ func _draw():
 			if (obj.is_in_group("wall")) && obj != wall_rendering_now:
 				var new_poly = $PolyContainer/Poly0.duplicate()
 				new_container.add_child((new_poly))
-				#polys.append(new_poly)
 				
 				
-				#var midscreenFirst = OS.window_size.x * tan(((( (position + (Vector2(0,draw_distance)).rotated(rotation_angle - angles)) ) - position).angle()) - midscreen)
-				#var midscreenLast  = OS.window_size.x * tan(((( (position + (Vector2(0,draw_distance)).rotated(rotation_angle + angles)) ) - position).angle()) - midscreen)
-				
-				#var midscreenFirst = (OS.window_size.x * tan(((( (position + (Vector2(0,draw_distance)).rotated(rotation_angle - ((angles/angles_multi)))) ) - position).angle()) - midscreen))
-				#var midscreenLast  = (OS.window_size.x * tan(((( (position + (Vector2(0,draw_distance)).rotated(rotation_angle + ((angles/angles_multi)))) ) - position).angle()) - midscreen))
-				
-				#var midscreenFirst = OS.window_size.x / (-tan(angles/angles_multi)) #/5
-				#var midscreenLast  = OS.window_size.x / ( tan(angles/angles_multi)) #/5
-				
-				
-				
-				#var midscreenFirst = ( (( position + (Vector2(0,draw_distance).rotated( angle_dont_overflow(rotation_angle - deg_rad((angles/angles_multi)/2) ) )) ) - position).angle() )
-				#var midscreenLast  = ( (( position + (Vector2(0,draw_distance).rotated( angle_dont_overflow(rotation_angle + deg_rad((angles/angles_multi)/2) ) )) ) - position).angle() )
-				
-				#var midscreenFirst = tan(( (( position + (Vector2(0,draw_distance).rotated( angle_dont_overflow(rotation_angle - deg_rad((angles/angles_multi)/2) ) )) ) - position).angle() )- midscreen) * OS.window_size.x
-				#var midscreenLast  = tan(( (( position + (Vector2(0,draw_distance).rotated( angle_dont_overflow(rotation_angle + deg_rad((angles/angles_multi)/2) ) )) ) - position).angle() )- midscreen) * OS.window_size.x
-				
-				
-				
-				 
-				#var midscreenFirst = tan(((Vector2(0,draw_distance).rotated( angle_dont_overflow(rotation_angle - deg_rad((angles/angles_multi)/2) ) )) ).angle() - midscreen)
-				#var midscreenLast  = tan(((Vector2(0,draw_distance).rotated( angle_dont_overflow(rotation_angle + deg_rad((angles/angles_multi)/2) ) )) ).angle() - midscreen)
-				
-				#$PolyContainer.scale.x = OS.window_size.x
-				#$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast) 
-				
-				#var midscreenFirst = (((Vector2(0,draw_distance).rotated( angle_dont_overflow(rotation_angle - deg_rad((angles/angles_multi)/2) ) )) ).angle() - midscreen) * OS.window_size.x
-				#var midscreenLast  = (((Vector2(0,draw_distance).rotated( angle_dont_overflow(rotation_angle + deg_rad((angles/angles_multi)/2) ) )) ).angle() - midscreen) * OS.window_size.x
-				
-				#var midscreenFirst = Vector2(0,draw_distance).rotated(-deg_rad(angles/angles_multi)/2 ).angle() * OS.window_size.x
-				#var midscreenLast  = Vector2(0,draw_distance).rotated( deg_rad(angles/angles_multi)/2 ).angle() * OS.window_size.x
-				
-				
-				#var midscreenFirst = tan(((Vector2(0,draw_distance).rotated( rotation_angle - deg_rad((angles/angles_multi)/2 ) )) ).angle() - midscreen) * OS.window_size.x
-				#var midscreenLast  = tan(((Vector2(0,draw_distance).rotated( rotation_angle + deg_rad((angles/angles_multi)/2 ) )) ).angle() - midscreen) * OS.window_size.x
-				
-				var midscreenFirst = tan(((Vector2(0,draw_distance).rotated( rotation_angle - deg_rad((angles/angles_multi)/2 ) )) ).angle() - midscreen) * OS.window_size.x
-				var midscreenLast  = tan(((Vector2(0,draw_distance).rotated( rotation_angle + deg_rad((angles/angles_multi)/2 ) )) ).angle() - midscreen) * OS.window_size.x
-				
-				
-				
-				$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)#*1.4
-				
-				print(midscreenFirst," ",midscreen," ",midscreenLast)
-				#print( (rad_deg(midscreenFirst)/OS.window_size.x)+midscreen," ",rad_deg(midscreen)," ", (rad_deg(midscreenLast)/OS.window_size.x)+midscreen )
-				
-				$MF.position.x = midscreenFirst
-				$ML.position.x = midscreenLast
-				
-				
-				
-				var holyshit = angle_stretch(((obj.line[0]-position).angle()) - midscreen)
-				
-				#var xkusu1 = tan(holyshit)
-				#var xkusu1 = OS.window_size.x * tan(holyshit)
+				var holyshit = (obj.line[0]-position).angle() - midscreen
 				var xkusu1 = tan(holyshit)
 				
 				var distance1 = sqrt(pow((obj.line[0].x - position.x), 2) + pow((obj.line[0].y - position.y), 2)) #Logic from other raycasters
@@ -624,23 +565,11 @@ func _draw():
 				
 				
 				
-				holyshit = angle_stretch(((obj.line[1]-position).angle()) - midscreen)
-				
-				#var xkusu2 = tan(holyshit) 
-				#var xkusu2 = OS.window_size.x * tan(holyshit)
+				holyshit = (obj.line[1]-position).angle() - midscreen
 				var xkusu2 = tan(holyshit)
 				
 				var distance2 = sqrt(pow((obj.line[1].x - position.x), 2) + pow((obj.line[1].y - position.y), 2)) #Logic from other raycasters
 				var lineH2 = (OS.window_size.y / distance2)   /  cos(holyshit)
-				
-				
-				print(xkusu1," ",xkusu2,"\n")
-				
-				
-				
-				
-				
-				
 				
 				
 				
