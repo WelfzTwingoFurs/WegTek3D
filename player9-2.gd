@@ -603,7 +603,7 @@ func _draw():
 				
 				
 				
-				#$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)#*1.4
+				$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)#*1.4
 				
 				print(midscreenFirst," ",midscreen," ",midscreenLast)
 				#print( (rad_deg(midscreenFirst)/OS.window_size.x)+midscreen," ",rad_deg(midscreen)," ", (rad_deg(midscreenLast)/OS.window_size.x)+midscreen )
