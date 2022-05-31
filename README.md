@@ -20,6 +20,7 @@ Features:
 -Feet when you look down;
 -Viewbobbing, viewrolling, look-scaling options;
 -Draw distance & fading, depth-shading options;
+-NEW experimental polygon-renderer, a WIP.
 
 Imperfections:
 -No in-game options (settings all in editor);
