@@ -252,26 +252,26 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	########################################################################################################################################################
 	if Input.is_action_pressed("ply_jump"):
-		positionZ -= 1
-	elif Input.is_action_pressed("ply_crouch"):
 		positionZ += 1
+	elif Input.is_action_pressed("ply_crouch"):
+		positionZ -= 1
 	elif Input.is_action_pressed("ply_flycenter"):
 		positionZ = lerp(positionZ, 0, 0.1)
 	#print(positionZ)
-	#print(lookingZ)
+	print(lookingZ)
 	if Input.is_action_pressed("ply_lookup"):
-		if lookingZ > -360:
-			lookingZ -= rotate_rate
-	elif Input.is_action_pressed("ply_lookdown"):
 		if lookingZ < 360:
 			lookingZ += rotate_rate
+	elif Input.is_action_pressed("ply_lookdown"):
+		if lookingZ > -360:
+			lookingZ -= rotate_rate
 	elif Input.is_action_pressed("ply_lookcenter"):
 		lookingZ = lerp(lookingZ, 0, 0.1)
 	
 	
 	#lookZscale = (abs(lookingZ)*lookZscaling/OS.window_size.y)# + abs($SpriteContainer.rotation_degrees)
 	
-	posZ_lookZ = -OS.window_size.y*(positionZ/(draw_distance*10))  -OS.window_size.y*(lookingZ/100)
+	posZ_lookZ = OS.window_size.y*(positionZ/(draw_distance)) + OS.window_size.y*(lookingZ/100)
 	#Used for sky & floor position according to draw_distance
 	
 	
@@ -289,7 +289,8 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	#vbob and vroll
 	#$SpriteContainer.position.y = abs(vbob) -OS.window_size.y*(lookingZ/100)
-	$PolyContainer.position.y = abs(vbob) -OS.window_size.y*(lookingZ/100) #+(OS.window_size.y*(lookingZ/9))
+	$PolyContainer.position.y = abs(vbob) +OS.window_size.y*(lookingZ/100) #+(OS.window_size.y*(lookingZ/9))
+	#$PolyContainer.position.y = positionZ - (abs(vbob) -OS.window_size.y*(lookingZ/100))
 	$PolyContainer.rotation_degrees = lerp($PolyContainer.rotation_degrees, (-input_dir.x*vroll_multi),00.1)/vroll_strafe_divi
 	$Background.rotation_degrees = $PolyContainer.rotation_degrees
 	
@@ -339,7 +340,7 @@ func _physics_process(_delta):
 	
 	
 	########################################################################################################################################################
-	if lookingZ > 180: #feet when looking down, imprecise to collision shape
+	if lookingZ < -180: #feet when looking down, imprecise to collision shape
 		$View/Feet.visible = 1
 		
 		$View/Feet.scale.y = (OS.window_size.y/lookingZ)*2
@@ -350,7 +351,7 @@ func _physics_process(_delta):
 		feetY = $View/Feet.position.y
 		
 	
-	elif lookingZ > 140:
+	elif lookingZ < -140:
 		$View/Feet.visible = 1
 		$View/Feet.position.y = feetY - ((lookingZ-180)*$View/Feet.scale.y)
 		
@@ -479,7 +480,7 @@ func recalculate_window():
 		var midscreenLast  = OS.window_size.x * (0.25 * tan(( Vector2(0,draw_distance).rotated( deg_rad((angles/angles_multi)/2)) ).angle() ))
 		
 		$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)
-		
+		$PolyContainer.scale.y = (OS.window_size.x/midscreenFirst) - (OS.window_size.x/midscreenLast)
 		
 		window_size_check = OS.window_size
 		print("And that's O-K.")
@@ -562,6 +563,7 @@ func _draw():
 				
 				var distance1 = sqrt(pow((obj.line[0].x - position.x), 2) + pow((obj.line[0].y - position.y), 2)) #Logic from other raycasters
 				var lineH1 = (OS.window_size.y / distance1)   /  cos(holyshit)
+				#var lineH1 = (-positionZ/100)*((OS.window_size.y / distance1)   /  cos(holyshit))
 				
 				
 				
@@ -570,15 +572,20 @@ func _draw():
 				
 				var distance2 = sqrt(pow((obj.line[1].x - position.x), 2) + pow((obj.line[1].y - position.y), 2)) #Logic from other raycasters
 				var lineH2 = (OS.window_size.y / distance2)   /  cos(holyshit)
+				#var lineH2 = (-positionZ/100)*((OS.window_size.y / distance2)   /  cos(holyshit))
 				
 				
 				
+				
+				#var containers_posZ = OS.window_size.y*(positionZ/(draw_distance))
+				var containers_posZ1 = (positionZ/100)*lineH1
+				var containers_posZ2 = (positionZ/100)*lineH2
 				
 				
 				if xkusu1 < xkusu2: #flip them right
-					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu1,-lineH1/2), Vector2(xkusu2,-lineH2/2), Vector2(xkusu2,lineH2/2), Vector2(xkusu1,lineH1/2)]) )
+					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu1,containers_posZ1-lineH1/2), Vector2(xkusu2,containers_posZ2-lineH2/2), Vector2(xkusu2,containers_posZ2+lineH2/2), Vector2(xkusu1,containers_posZ1+lineH1/2)]) )
 				else:
-					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu2,-lineH2/2), Vector2(xkusu1,-lineH1/2), Vector2(xkusu1,lineH1/2), Vector2(xkusu2,lineH2/2)]) )
+					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu2,containers_posZ2-lineH2/2), Vector2(xkusu1,containers_posZ1-lineH1/2), Vector2(xkusu1,containers_posZ1+lineH1/2), Vector2(xkusu2,containers_posZ2+lineH2/2)]) )
 				
 				wall_rendering_now = obj #don't repeat rendering the same object
 				
