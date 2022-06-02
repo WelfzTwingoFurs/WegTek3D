@@ -1,5 +1,5 @@
 <img src="https://media4.giphy.com/media/sOnrCzHT3ndi16DamA/giphy.gif" height=256px align="left"><img src="https://media.giphy.com/media/klDQMFAsJtisWI8Est/giphy.gif" height=256px align="right">  
-<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/textures150%202.png" align="center">
+<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/textures150.png" align="center">
 
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster/
@@ -7,7 +7,10 @@ https://github.com/WelfzTwingoFurs/godot-raycaster/
 ############### Raycaster funtime! Written by "Welfz Twingo Furs". ###############
 ##################################################################################
 
-Features:
+Re-working V.9, with a polygon render rather than a sprite-based like previously.
+Thinking of switching to BSP-logic rather than raycaster-logic, but we'll see!
+
+VERSION 8 Features:
 -Field of view;
 -Resolution multiplier & divider;
 -Screen resizable to any size;
