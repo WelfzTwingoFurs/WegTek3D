@@ -1,15 +1,13 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://TileCol.gd" type="Script" id=1]
+[ext_resource path="res://older_versions/TileCol.gd" type="Script" id=1]
 [ext_resource path="res://make_invisible.gd" type="Script" id=2]
-[ext_resource path="res://Tile10-Col.png" type="Texture" id=3]
-[ext_resource path="res://Tile10-Texture.png" type="Texture" id=4]
-[ext_resource path="res://textures150.png" type="Texture" id=5]
-[ext_resource path="res://,test-spinning body.tscn" type="PackedScene" id=6]
+[ext_resource path="res://older_versions/Tile10-Col.png" type="Texture" id=3]
+[ext_resource path="res://older_versions/Tile10-Texture.png" type="Texture" id=4]
+[ext_resource path="res://older_versions/,test-spinning body.tscn" type="PackedScene" id=6]
 [ext_resource path="res://older_versions/player7.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Tile10-Col.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Tile10-Texture.tscn" type="PackedScene" id=9]
-[ext_resource path="res://skybox doom.png" type="Texture" id=10]
+[ext_resource path="res://older_versions/Tile10-Col.tscn" type="PackedScene" id=8]
+[ext_resource path="res://older_versions/Tile10-Texture.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
@@ -462,35 +460,6 @@ points = PoolVector2Array( 8, 0, 10, 0, 10, 2 )
 [node name="scene7" type="Node2D"]
 
 [node name="player7" parent="." instance=ExtResource( 7 )]
-position = Vector2( -380, 0 )
-angles_divi = 3.0
-skycolor = Color( 0.0156863, 0, 0.254902, 1 )
-rotate_rate = 3.0
-speed = 100
-vbob_max = 4.0
-vbob_speed = 0.09
-vroll_multi = -1.5
-sky_stretch = Vector2( 1, 1 )
-line_gap_compensate = -0.2
-
-[node name="Feet" parent="player7" index="2"]
-visible = false
-
-[node name="Sprite0" parent="player7/SpriteContainer" index="0"]
-texture = ExtResource( 5 )
-
-[node name="Background" parent="player7" index="6"]
-visible = false
-z_index = -4095
-
-[node name="Sky" parent="player7/Background" index="0"]
-modulate = Color( 0, 15.7, 17.34, 1 )
-margin_right = 540.0
-margin_bottom = 52.0
-texture = ExtResource( 10 )
-
-[node name="Floor" parent="player7/Background" index="1"]
-modulate = Color( 1, 0.286275, 0.278431, 1 )
 
 [node name="tiles" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -514,5 +483,3 @@ position = Vector2( -217, 19 )
 
 [node name="spinning body2" parent="tiles" instance=ExtResource( 6 )]
 position = Vector2( -381, -157 )
-
-[editable path="player7"]

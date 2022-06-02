@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://older_versions/player7.gd" type="Script" id=1]
+[ext_resource path="res://older_versions/player8.gd" type="Script" id=1]
 [ext_resource path="res://older_versions/textures64.png" type="Texture" id=2]
-[ext_resource path="res://skybox bubsy.png" type="Texture" id=3]
-[ext_resource path="res://gradientverybig.png" type="Texture" id=4]
-[ext_resource path="res://older_versions/feet.png" type="Texture" id=5]
+[ext_resource path="res://gradientverybig.png" type="Texture" id=3]
+[ext_resource path="res://feet2.png" type="Texture" id=4]
+[ext_resource path="res://skybox bubsy.png" type="Texture" id=5]
+[ext_resource path="res://weapon doomarms.png" type="Texture" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.5
@@ -14,7 +15,7 @@ resource_name = "spin"
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Feet:frame")
+tracks/0/path = NodePath("View/Feet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -27,11 +28,27 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-resource_name = "strafe"
+resource_name = "strafeL"
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Feet:frame")
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 2 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -43,11 +60,11 @@ tracks/0/keys = {
 "values": [ 1, 4 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Feet:frame")
+tracks/0/path = NodePath("View/Feet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -59,13 +76,11 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[node name="player7" type="KinematicBody2D"]
+[node name="player8" type="KinematicBody2D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-vbob_max = 4.5
-vroll_multi = -0.5
 
 [node name="Col" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -73,15 +88,22 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="Feet" type="Sprite" parent="."]
-texture = ExtResource( 5 )
-hframes = 9
-frame = 4
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/spin = SubResource( 2 )
-anims/strafe = SubResource( 3 )
-anims/walk = SubResource( 4 )
+anims/strafeL = SubResource( 3 )
+anims/strafeR = SubResource( 4 )
+anims/walk = SubResource( 5 )
+
+[node name="View" type="Node2D" parent="."]
+
+[node name="Feet" type="Sprite" parent="View"]
+texture = ExtResource( 4 )
+hframes = 9
+frame = 6
+
+[node name="Hand" type="Sprite" parent="View"]
+visible = false
+texture = ExtResource( 6 )
 
 [node name="RayContainer" type="Node2D" parent="."]
 visible = false
@@ -108,7 +130,7 @@ margin_left = -180.0
 margin_top = -108.0
 margin_right = 180.0
 margin_bottom = 109.0
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -116,4 +138,4 @@ __meta__ = {
 
 [node name="Floor" type="Sprite" parent="Background"]
 modulate = Color( 0.486275, 0.32549, 0.227451, 1 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
