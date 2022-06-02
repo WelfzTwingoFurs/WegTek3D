@@ -11,3 +11,5 @@ func _process(_delta):
 	if position != was_pos:
 		line = [to_global($CollisionShape2D.shape.a), to_global($CollisionShape2D.shape.b)]
 		was_pos = position
+
+export var height = [2,2,1,1]

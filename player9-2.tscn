@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://textures150.png" type="Texture" id=1]
+[ext_resource path="res://older_versions/textures150.png" type="Texture" id=1]
 [ext_resource path="res://gradientverybig.png" type="Texture" id=2]
 [ext_resource path="res://weapon doomarms.png" type="Texture" id=3]
 [ext_resource path="res://feet2.png" type="Texture" id=4]
@@ -95,9 +95,11 @@ anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
 [node name="View" type="Node2D" parent="."]
+visible = false
 
 [node name="Feet" type="Sprite" parent="View"]
 visible = false
+z_index = 4096
 texture = ExtResource( 4 )
 hframes = 9
 frame = 6
@@ -120,7 +122,7 @@ cast_to = Vector2( 0, 10000 )
 texture = ExtResource( 1 )
 texture_offset = Vector2( 10, 0 )
 texture_scale = Vector2( 15, 15 )
-polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+polygon = PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0 )
 uv = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
 
 [node name="PolyContainer2" type="Node2D" parent="."]

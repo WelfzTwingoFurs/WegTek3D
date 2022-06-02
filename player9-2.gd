@@ -108,7 +108,7 @@ var positionZ = 0.1
 #const GRAVITY = 1
 #const JUMP = -10
 
-var posZ_lookZ = 0.1
+var posZlookZ = 0.1
 #Used for sky & floor position according to draw_distance
 
 var lookingZ = 0
@@ -271,7 +271,7 @@ func _physics_process(_delta):
 	
 	#lookZscale = (abs(lookingZ)*lookZscaling/OS.window_size.y)# + abs($SpriteContainer.rotation_degrees)
 	
-	posZ_lookZ = OS.window_size.y*(positionZ/(draw_distance)) + OS.window_size.y*(lookingZ/100)
+	posZlookZ = OS.window_size.y*(positionZ/(draw_distance)) + OS.window_size.y*(lookingZ/100)
 	#Used for sky & floor position according to draw_distance
 	
 	
@@ -300,12 +300,12 @@ func _physics_process(_delta):
 	
 	if sky_stretch.y == 1:
 		#Sky.rect_scale.y = -(OS.window_size.y/2)/float(Sky.rect_size.y) 
-		Sky.rect_position.y = (Sky.rect_size.y  /OS.window_size.y) + abs(vbob) +vbob_max +posZ_lookZ
+		Sky.rect_position.y = (Sky.rect_size.y  /OS.window_size.y) + abs(vbob) +vbob_max +posZlookZ
 		Sky.flip_v = 1
 		
 	else:
 		Sky.rect_scale.y = 1
-		Sky.rect_position.y = -Sky.rect_size.y + abs(vbob) +vbob_max +posZ_lookZ
+		Sky.rect_position.y = -Sky.rect_size.y + abs(vbob) +vbob_max +posZlookZ
 		Sky.flip_v = 0
 	
 	#Sky.rect_size.x = (Sky.texture.get_width()+OS.window_size.x)*2 #unrelated to Z ############################################
@@ -330,63 +330,65 @@ func _physics_process(_delta):
 		VisualServer.set_default_clear_color(skycolor)
 	
 	
-	Floor.position.y = (OS.window_size.y) + abs(vbob) +posZ_lookZ
+	Floor.position.y = (OS.window_size.y) + abs(vbob) +posZlookZ
 	#Floor.scale = Vector2( (OS.window_size.x/Floor.texture.get_width())+1+lookZscale,    (OS.window_size.y/(Floor.texture.get_height()/2))  ) 
 	
 	########################################################################################################################################################
 	########################################################################################################################################################
 	
-	
-	
-	
-	########################################################################################################################################################
-	if lookingZ < -180: #feet when looking down, imprecise to collision shape
-		$View/Feet.visible = 1
+	if lookingZ < -280: #feet when looking down, imprecise to collision shape NEEDS WERKIN
+		$View/Feet.scale.y = 1#-(OS.window_size.y/lookingZ)*2
+		#$View/Feet.position.y = (OS.window_size.y/$View/Feet.texture.get_height()) + (OS.window_size.y*(lookingZ/100))
+		$View/Feet.position.y = $PolyContainer.position.y
 		
-		$View/Feet.scale.y = (OS.window_size.y/lookingZ)*2
-		#$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
+		
+		
+		lookingZ 
+		$View/Feet.position.y
+		$View/Feet.scale.y
+		
+		print(lookingZ,":  ",$View/Feet.position.y," ",$View/Feet.scale.y)
+		
+		
+		
+		
+		
+		
+		$View/Feet.visible = 1
 		$View/Feet.rotation_degrees = (-input_dir.x*vroll_strafe_divi)*$View/Feet.scale.y*2
+		#feetY = $View/Feet.position.y
 		
-		$View/Feet.position.y = (OS.window_size.y/$View/Feet.texture.get_height())  +$View/Feet.scale.y*5
-		feetY = $View/Feet.position.y
 		
-	
-	elif lookingZ < -140:
-		$View/Feet.visible = 1
-		$View/Feet.position.y = feetY - ((lookingZ-180)*$View/Feet.scale.y)
 		
+		if input_dir.y != 0:
+			$AnimationPlayer.play("walk")
+			$AnimationPlayer.playback_speed = input_dir.y
+		
+		elif input_dir.x != 0:
+			if Input.is_action_pressed("ui_select"):
+				if input_dir.x == -1:
+					$AnimationPlayer.play("strafeR")
+				else:
+					$AnimationPlayer.play("strafeL")
+				
+			else:
+				$AnimationPlayer.play("spin")
+				$AnimationPlayer.playback_speed = input_dir.x
+		
+		
+		else:
+			$View/Feet.frame = 0
+			$AnimationPlayer.stop()
 	
 	else:
 		$View/Feet.visible = 0
-	
-	
-	
-	
-	########################################################################################################################################################
-	########################################################################################################################################################
-	########################################################################################################################################################
-	########################################################################################################################################################
-	#Feet animations
-	if input_dir.y != 0:
-		$AnimationPlayer.play("walk")
-		$AnimationPlayer.playback_speed = input_dir.y
-	
-	elif input_dir.x != 0:
-		if Input.is_action_pressed("ui_select"):
-			if input_dir.x == -1:
-				$AnimationPlayer.play("strafeR")
-			else:
-				$AnimationPlayer.play("strafeL")
-			
-		else:
-			$AnimationPlayer.play("spin")
-			$AnimationPlayer.playback_speed = input_dir.x
-	
-	
-	else:
-		$View/Feet.frame = 0
 		$AnimationPlayer.stop()
 	
+	
+	########################################################################################################################################################
+	########################################################################################################################################################
+	########################################################################################################################################################
+	########################################################################################################################################################
 	
 	
 	if window_size_check != OS.window_size:
@@ -452,13 +454,13 @@ func recalculate_window():
 	
 	
 	
-	$View/Feet.scale.y = (OS.window_size.y/180)*2
+	#$View/Feet.scale.y = (OS.window_size.y/180)*2
 	if feet_stretch == 1:
 		$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
 	else:
 		$View/Feet.scale.x = $View/Feet.scale.y 
 	
-	feetY = (OS.window_size.y/$View/Feet.texture.get_height())  +$View/Feet.scale.y*5
+	#feetY = (OS.window_size.y/$View/Feet.texture.get_height())  +$View/Feet.scale.y*5
 	
 	
 	#$View/Hand.scale = Vector2($View/Feet.scale.x, $View/Feet.scale.x)/2
@@ -532,10 +534,6 @@ var midscreen = 0
 
 func _draw():
 	for n in angles-1: #fix this crap will ya? about time we start rendering with one less, it creates a gap when strafing left
-		
-		
-		
-		
 		if n == 0: #loop proper, this is still rough and probably laggy but for now it'll do
 			wall_rendering_now = null
 			new_container.queue_free()
@@ -543,10 +541,8 @@ func _draw():
 			new_container = $PolyContainer.duplicate()
 			add_child((new_container))
 			
-		
-		elif n == angles/2: #properly place rendering in the middle of the screen
-			#midscreen = ( (position + (rays[n].cast_to.rotated(rotation_angle))) - position ).angle()
 			midscreen = (Vector2(0,draw_distance).rotated(rotation_angle)).angle()
+			
 		
 		
 		
@@ -581,13 +577,19 @@ func _draw():
 				var containers_posZ1 = (positionZ/100)*lineH1
 				var containers_posZ2 = (positionZ/100)*lineH2
 				
-				
 				if xkusu1 < xkusu2: #flip them right
-					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu1,containers_posZ1-lineH1/2), Vector2(xkusu2,containers_posZ2-lineH2/2), Vector2(xkusu2,containers_posZ2+lineH2/2), Vector2(xkusu1,containers_posZ1+lineH1/2)]) )
+					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu1,containers_posZ1-lineH1*obj.height[0]), Vector2(xkusu2,containers_posZ2-lineH2*obj.height[1]), Vector2(xkusu2,containers_posZ2+lineH2*obj.height[2]), Vector2(xkusu1,containers_posZ1+lineH1*obj.height[3])]) )
 				else:
-					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu2,containers_posZ2-lineH2/2), Vector2(xkusu1,containers_posZ1-lineH1/2), Vector2(xkusu1,containers_posZ1+lineH1/2), Vector2(xkusu2,containers_posZ2+lineH2/2)]) )
+					new_poly.set_polygon( PoolVector2Array([Vector2(xkusu2,containers_posZ2-lineH2*obj.height[1]), Vector2(xkusu1,containers_posZ1-lineH1*obj.height[0]), Vector2(xkusu1,containers_posZ1+lineH1*obj.height[3]), Vector2(xkusu2,containers_posZ2+lineH2*obj.height[2])]) )
 				
 				wall_rendering_now = obj #don't repeat rendering the same object
+				
+				#you know how Wolf3D shades walls EAST-WEST differently than NORTH-SOUTH?
+				#well we could do that but with any angle
+				#get angle obj_line[0] and [1], compare with desired angle and change tint
+				
+				
+				
 				
 			
 		else:
