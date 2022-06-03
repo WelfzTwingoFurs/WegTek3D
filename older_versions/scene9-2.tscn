@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://older_versions/linewall.tscn" type="PackedScene" id=1]
-[ext_resource path="res://player10.tscn" type="PackedScene" id=2]
+[ext_resource path="res://older_versions/player9-2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://older_versions/linewall2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://older_versions/linewall.gd" type="Script" id=4]
-[ext_resource path="res://polygonwall.gd" type="Script" id=5]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( 48, -13 )
@@ -13,17 +12,7 @@ b = Vector2( -54, 66 )
 [node name="scene9-2" type="Node2D"]
 position = Vector2( 0, -1 )
 
-[node name="player10" parent="." instance=ExtResource( 2 )]
-position = Vector2( -32, -42 )
-angles = 90
-
-[node name="polygonwall" type="StaticBody2D" parent="." groups=[
-"polywall",
-]]
-script = ExtResource( 5 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="polygonwall"]
-polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+[node name="player9-2" parent="." instance=ExtResource( 2 )]
 
 [node name="linewall" type="StaticBody2D" parent="." groups=[
 "wall",

@@ -95,6 +95,7 @@ anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
 [node name="ViewArea" type="Area2D" parent="."]
+visible = false
 
 [node name="ViewCol" type="CollisionPolygon2D" parent="ViewArea"]
 polygon = PoolVector2Array( 0, 0, 10, 10, -10, 10 )
