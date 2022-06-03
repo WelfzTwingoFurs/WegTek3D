@@ -1,0 +1,524 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://older_versions/linewall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://player10.tscn" type="PackedScene" id=2]
+[ext_resource path="res://older_versions/linewall2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://older_versions/linewall.gd" type="Script" id=4]
+[ext_resource path="res://polygonwall.gd" type="Script" id=5]
+
+[sub_resource type="SegmentShape2D" id=1]
+a = Vector2( 48, -13 )
+b = Vector2( -54, 66 )
+
+[node name="scene9-2" type="Node2D"]
+position = Vector2( 0, -1 )
+
+[node name="player10" parent="." instance=ExtResource( 2 )]
+position = Vector2( -32, -42 )
+angles = 90
+
+[node name="polygonwall" type="StaticBody2D" parent="." groups=[
+"polywall",
+]]
+script = ExtResource( 5 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="polygonwall"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="linewall" type="StaticBody2D" parent="." groups=[
+"wall",
+]]
+script = ExtResource( 4 )
+height = [ 1, 1, 0, 0 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="linewall"]
+shape = SubResource( 1 )
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 197, 1 )
+
+[node name="linewall5" parent="Node2D" instance=ExtResource( 3 )]
+position = Vector2( -96, 204 )
+
+[node name="linewall7" parent="Node2D" instance=ExtResource( 3 )]
+position = Vector2( -56, 204 )
+
+[node name="little cube" type="Node2D" parent="Node2D"]
+position = Vector2( 380, -17 )
+
+[node name="linewall2" parent="Node2D/little cube" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall3" parent="Node2D/little cube" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall4" parent="Node2D/little cube" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall5" parent="Node2D/little cube" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="linewall" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 443, 30 )
+
+[node name="sides" type="Node2D" parent="Node2D"]
+position = Vector2( 235, -69 )
+
+[node name="coob1" type="Node2D" parent="Node2D/sides"]
+position = Vector2( 73, -39 )
+
+[node name="Node2D" type="Node2D" parent="Node2D/sides/coob1"]
+position = Vector2( -155, -68 )
+
+[node name="linewall2" parent="Node2D/sides/coob1/Node2D" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall4" parent="Node2D/sides/coob1/Node2D" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="Node2D2" type="Node2D" parent="Node2D/sides/coob1"]
+position = Vector2( -135, -68 )
+
+[node name="linewall3" parent="Node2D/sides/coob1/Node2D2" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall4" parent="Node2D/sides/coob1/Node2D2" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall5" parent="Node2D/sides/coob1/Node2D2" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="Node2D3" type="Node2D" parent="Node2D/sides/coob1"]
+position = Vector2( -155, -48 )
+
+[node name="linewall2" parent="Node2D/sides/coob1/Node2D3" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall3" parent="Node2D/sides/coob1/Node2D3" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall5" parent="Node2D/sides/coob1/Node2D3" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="coob2" type="Node2D" parent="Node2D/sides"]
+position = Vector2( -60, -60 )
+
+[node name="Node2D4" type="Node2D" parent="Node2D/sides/coob2"]
+position = Vector2( 58, -47 )
+
+[node name="linewall2" parent="Node2D/sides/coob2/Node2D4" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall4" parent="Node2D/sides/coob2/Node2D4" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall5" parent="Node2D/sides/coob2/Node2D4" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="Node2D5" type="Node2D" parent="Node2D/sides/coob2"]
+position = Vector2( 78, -47 )
+
+[node name="linewall3" parent="Node2D/sides/coob2/Node2D5" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall4" parent="Node2D/sides/coob2/Node2D5" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="Node2D6" type="Node2D" parent="Node2D/sides/coob2"]
+position = Vector2( 78, -27 )
+
+[node name="linewall2" parent="Node2D/sides/coob2/Node2D6" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall3" parent="Node2D/sides/coob2/Node2D6" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall5" parent="Node2D/sides/coob2/Node2D6" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="coob3" type="Node2D" parent="Node2D/sides"]
+position = Vector2( -60, -60 )
+
+[node name="Node2D11" type="Node2D" parent="Node2D/sides/coob3"]
+position = Vector2( -22, 33 )
+
+[node name="linewall2" parent="Node2D/sides/coob3/Node2D11" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall3" parent="Node2D/sides/coob3/Node2D11" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall4" parent="Node2D/sides/coob3/Node2D11" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="Node2D7" type="Node2D" parent="Node2D/sides/coob3"]
+position = Vector2( -22, 53 )
+
+[node name="linewall2" parent="Node2D/sides/coob3/Node2D7" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall5" parent="Node2D/sides/coob3/Node2D7" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="Node2D8" type="Node2D" parent="Node2D/sides/coob3"]
+position = Vector2( -2, 53 )
+
+[node name="linewall3" parent="Node2D/sides/coob3/Node2D8" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall4" parent="Node2D/sides/coob3/Node2D8" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall5" parent="Node2D/sides/coob3/Node2D8" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="coob4" type="Node2D" parent="Node2D/sides"]
+position = Vector2( -60, -60 )
+
+[node name="Node2D10" type="Node2D" parent="Node2D/sides/coob4"]
+position = Vector2( 78, 53 )
+
+[node name="linewall3" parent="Node2D/sides/coob4/Node2D10" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall5" parent="Node2D/sides/coob4/Node2D10" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="Node2D12" type="Node2D" parent="Node2D/sides/coob4"]
+position = Vector2( 78, 33 )
+
+[node name="linewall2" parent="Node2D/sides/coob4/Node2D12" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall3" parent="Node2D/sides/coob4/Node2D12" instance=ExtResource( 1 )]
+position = Vector2( 42, 47 )
+
+[node name="linewall4" parent="Node2D/sides/coob4/Node2D12" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="Node2D9" type="Node2D" parent="Node2D/sides/coob4"]
+position = Vector2( 58, 53 )
+
+[node name="linewall2" parent="Node2D/sides/coob4/Node2D9" instance=ExtResource( 1 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall4" parent="Node2D/sides/coob4/Node2D9" instance=ExtResource( 3 )]
+position = Vector2( 22, 47 )
+
+[node name="linewall5" parent="Node2D/sides/coob4/Node2D9" instance=ExtResource( 3 )]
+position = Vector2( 22, 67 )
+
+[node name="big cube2" type="Node2D" parent="Node2D"]
+position = Vector2( 302, 244 )
+
+[node name="linewall18" parent="Node2D/big cube2" instance=ExtResource( 1 )]
+position = Vector2( -40, -20 )
+
+[node name="linewall9" parent="Node2D/big cube2" instance=ExtResource( 1 )]
+position = Vector2( 40, -40 )
+
+[node name="linewall10" parent="Node2D/big cube2" instance=ExtResource( 1 )]
+position = Vector2( 40, -20 )
+
+[node name="linewall11" parent="Node2D/big cube2" instance=ExtResource( 1 )]
+position = Vector2( 40, 0 )
+
+[node name="linewall19" parent="Node2D/big cube2" instance=ExtResource( 1 )]
+position = Vector2( -40, 0 )
+
+[node name="linewall12" parent="Node2D/big cube2" instance=ExtResource( 1 )]
+position = Vector2( 40, 20 )
+
+[node name="linewall17" parent="Node2D/big cube2" instance=ExtResource( 1 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall20" parent="Node2D/big cube2" instance=ExtResource( 1 )]
+position = Vector2( -40, 20 )
+
+[node name="linewall5" parent="Node2D/big cube2" instance=ExtResource( 3 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall6" parent="Node2D/big cube2" instance=ExtResource( 3 )]
+position = Vector2( -20, -40 )
+
+[node name="linewall7" parent="Node2D/big cube2" instance=ExtResource( 3 )]
+position = Vector2( 0, -40 )
+
+[node name="linewall8" parent="Node2D/big cube2" instance=ExtResource( 3 )]
+position = Vector2( 20, -40 )
+
+[node name="linewall13" parent="Node2D/big cube2" instance=ExtResource( 3 )]
+position = Vector2( -40, 40 )
+
+[node name="linewall14" parent="Node2D/big cube2" instance=ExtResource( 3 )]
+position = Vector2( -20, 40 )
+
+[node name="linewall15" parent="Node2D/big cube2" instance=ExtResource( 3 )]
+position = Vector2( 0, 40 )
+
+[node name="linewall16" parent="Node2D/big cube2" instance=ExtResource( 3 )]
+position = Vector2( 20, 40 )
+
+[node name="big cube3" type="Node2D" parent="Node2D"]
+position = Vector2( 242, 184 )
+
+[node name="linewall18" parent="Node2D/big cube3" instance=ExtResource( 1 )]
+position = Vector2( -40, -20 )
+
+[node name="linewall9" parent="Node2D/big cube3" instance=ExtResource( 1 )]
+position = Vector2( 40, -40 )
+
+[node name="linewall10" parent="Node2D/big cube3" instance=ExtResource( 1 )]
+position = Vector2( 40, -20 )
+
+[node name="linewall11" parent="Node2D/big cube3" instance=ExtResource( 1 )]
+position = Vector2( 40, 0 )
+
+[node name="linewall19" parent="Node2D/big cube3" instance=ExtResource( 1 )]
+position = Vector2( -40, 0 )
+
+[node name="linewall12" parent="Node2D/big cube3" instance=ExtResource( 1 )]
+position = Vector2( 40, 20 )
+
+[node name="linewall17" parent="Node2D/big cube3" instance=ExtResource( 1 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall20" parent="Node2D/big cube3" instance=ExtResource( 1 )]
+position = Vector2( -40, 20 )
+
+[node name="linewall5" parent="Node2D/big cube3" instance=ExtResource( 3 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall6" parent="Node2D/big cube3" instance=ExtResource( 3 )]
+position = Vector2( -20, -40 )
+
+[node name="linewall7" parent="Node2D/big cube3" instance=ExtResource( 3 )]
+position = Vector2( 0, -40 )
+
+[node name="linewall8" parent="Node2D/big cube3" instance=ExtResource( 3 )]
+position = Vector2( 20, -40 )
+
+[node name="linewall13" parent="Node2D/big cube3" instance=ExtResource( 3 )]
+position = Vector2( -40, 40 )
+
+[node name="linewall14" parent="Node2D/big cube3" instance=ExtResource( 3 )]
+position = Vector2( -20, 40 )
+
+[node name="linewall15" parent="Node2D/big cube3" instance=ExtResource( 3 )]
+position = Vector2( 0, 40 )
+
+[node name="linewall16" parent="Node2D/big cube3" instance=ExtResource( 3 )]
+position = Vector2( 20, 40 )
+
+[node name="big cube4" type="Node2D" parent="Node2D"]
+position = Vector2( 262, 284 )
+
+[node name="linewall18" parent="Node2D/big cube4" instance=ExtResource( 1 )]
+position = Vector2( -40, -20 )
+
+[node name="linewall9" parent="Node2D/big cube4" instance=ExtResource( 1 )]
+position = Vector2( 40, -40 )
+
+[node name="linewall10" parent="Node2D/big cube4" instance=ExtResource( 1 )]
+position = Vector2( 40, -20 )
+
+[node name="linewall11" parent="Node2D/big cube4" instance=ExtResource( 1 )]
+position = Vector2( 40, 0 )
+
+[node name="linewall19" parent="Node2D/big cube4" instance=ExtResource( 1 )]
+position = Vector2( -40, 0 )
+
+[node name="linewall12" parent="Node2D/big cube4" instance=ExtResource( 1 )]
+position = Vector2( 40, 20 )
+
+[node name="linewall17" parent="Node2D/big cube4" instance=ExtResource( 1 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall20" parent="Node2D/big cube4" instance=ExtResource( 1 )]
+position = Vector2( -40, 20 )
+
+[node name="linewall5" parent="Node2D/big cube4" instance=ExtResource( 3 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall6" parent="Node2D/big cube4" instance=ExtResource( 3 )]
+position = Vector2( -20, -40 )
+
+[node name="linewall7" parent="Node2D/big cube4" instance=ExtResource( 3 )]
+position = Vector2( 0, -40 )
+
+[node name="linewall8" parent="Node2D/big cube4" instance=ExtResource( 3 )]
+position = Vector2( 20, -40 )
+
+[node name="linewall13" parent="Node2D/big cube4" instance=ExtResource( 3 )]
+position = Vector2( -40, 40 )
+
+[node name="linewall14" parent="Node2D/big cube4" instance=ExtResource( 3 )]
+position = Vector2( -20, 40 )
+
+[node name="linewall15" parent="Node2D/big cube4" instance=ExtResource( 3 )]
+position = Vector2( 0, 40 )
+
+[node name="linewall16" parent="Node2D/big cube4" instance=ExtResource( 3 )]
+position = Vector2( 20, 40 )
+
+[node name="big cube5" type="Node2D" parent="Node2D"]
+position = Vector2( 342, 224 )
+
+[node name="linewall18" parent="Node2D/big cube5" instance=ExtResource( 1 )]
+position = Vector2( -40, -20 )
+
+[node name="linewall9" parent="Node2D/big cube5" instance=ExtResource( 1 )]
+position = Vector2( 40, -40 )
+
+[node name="linewall10" parent="Node2D/big cube5" instance=ExtResource( 1 )]
+position = Vector2( 40, -20 )
+
+[node name="linewall11" parent="Node2D/big cube5" instance=ExtResource( 1 )]
+position = Vector2( 40, 0 )
+
+[node name="linewall19" parent="Node2D/big cube5" instance=ExtResource( 1 )]
+position = Vector2( -40, 0 )
+
+[node name="linewall12" parent="Node2D/big cube5" instance=ExtResource( 1 )]
+position = Vector2( 40, 20 )
+
+[node name="linewall17" parent="Node2D/big cube5" instance=ExtResource( 1 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall20" parent="Node2D/big cube5" instance=ExtResource( 1 )]
+position = Vector2( -40, 20 )
+
+[node name="linewall5" parent="Node2D/big cube5" instance=ExtResource( 3 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall6" parent="Node2D/big cube5" instance=ExtResource( 3 )]
+position = Vector2( -20, -40 )
+
+[node name="linewall7" parent="Node2D/big cube5" instance=ExtResource( 3 )]
+position = Vector2( 0, -40 )
+
+[node name="linewall8" parent="Node2D/big cube5" instance=ExtResource( 3 )]
+position = Vector2( 20, -40 )
+
+[node name="linewall13" parent="Node2D/big cube5" instance=ExtResource( 3 )]
+position = Vector2( -40, 40 )
+
+[node name="linewall14" parent="Node2D/big cube5" instance=ExtResource( 3 )]
+position = Vector2( -20, 40 )
+
+[node name="linewall15" parent="Node2D/big cube5" instance=ExtResource( 3 )]
+position = Vector2( 0, 40 )
+
+[node name="linewall16" parent="Node2D/big cube5" instance=ExtResource( 3 )]
+position = Vector2( 20, 40 )
+
+[node name="big-ass cube" type="Node2D" parent="Node2D"]
+position = Vector2( 40, -39 )
+
+[node name="linewall9" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( 40, -40 )
+
+[node name="linewall10" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( 40, -20 )
+
+[node name="linewall11" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( 40, 0 )
+
+[node name="linewall12" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( 40, 20 )
+
+[node name="linewall5" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -40, -40 )
+
+[node name="linewall6" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -20, -40 )
+
+[node name="linewall7" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( 0, -40 )
+
+[node name="linewall8" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( 20, -40 )
+
+[node name="linewall13" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( 40, 40 )
+
+[node name="linewall14" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( 40, 60 )
+
+[node name="linewall15" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( 40, 80 )
+
+[node name="linewall16" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( 40, 100 )
+
+[node name="linewall17" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -40, 120 )
+height = [ 1, 2, -1, 0 ]
+
+[node name="linewall18" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -20, 120 )
+height = [ 2, 1, 0, -1 ]
+
+[node name="linewall19" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, 120 )
+height = [ 1, 0, 1, 0 ]
+
+[node name="linewall20" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( 20, 120 )
+height = [ 0, 2, 1, 1 ]
+
+[node name="linewall21" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( -120, 60 )
+
+[node name="linewall22" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( -120, 80 )
+
+[node name="linewall23" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( -120, 40 )
+
+[node name="linewall24" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( -120, 100 )
+
+[node name="linewall25" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -120, 120 )
+height = [ 0, 1, 0, 1 ]
+
+[node name="linewall26" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -100, 120 )
+height = [ 1, 2, -1, 0 ]
+
+[node name="linewall27" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -80, 120 )
+height = [ 2, 1, 0, -1 ]
+
+[node name="linewall29" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( -120, -20 )
+
+[node name="linewall30" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( -120, 0 )
+
+[node name="linewall31" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( -120, -40 )
+
+[node name="linewall32" parent="Node2D/big-ass cube" instance=ExtResource( 1 )]
+position = Vector2( -120, 20 )
+
+[node name="linewall33" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -120, -40 )
+
+[node name="linewall34" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -100, -40 )
+
+[node name="linewall35" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -80, -40 )
+
+[node name="linewall36" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -60, -40 )
+
+[node name="linewall28" parent="Node2D/big-ass cube" instance=ExtResource( 3 )]
+position = Vector2( -60, 120 )
+height = [ 1, 1, 0, 0 ]
