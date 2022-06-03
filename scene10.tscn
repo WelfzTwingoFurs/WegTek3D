@@ -9,13 +9,90 @@
 position = Vector2( -17, -19 )
 draw_distance = 1000
 
-[node name="polygonwall" parent="." instance=ExtResource( 1 )]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="polygonwall"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+modulate = Color( 0, 1, 0, 1 )
+position = Vector2( 70, 10 )
 polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
 
-[node name="polygonwall2" parent="." instance=ExtResource( 1 )]
-position = Vector2( -10, 10 )
+[node name="0" parent="." instance=ExtResource( 1 )]
+heights = [ 0, 0, 0, 0 ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="polygonwall2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="0"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 20, 0 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="1"]
 polygon = PoolVector2Array( 0, 0, 10, 10, 0, 10 )
+
+[node name="2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 40, 0 )
+heights = [ 0, 0, 0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="2"]
+polygon = PoolVector2Array( 5, 0, 10, 1, 10, 9, 5, 10, 0, 5 )
+
+[node name="box of sox, cox & rox" type="Node2D" parent="."]
+
+[node name="boxbot" parent="box of sox, cox & rox" instance=ExtResource( 1 )]
+position = Vector2( 60, 0 )
+heights = [ 0, 0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="box of sox, cox & rox/boxbot"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="boxtop" parent="box of sox, cox & rox" instance=ExtResource( 1 )]
+position = Vector2( 60, 0 )
+heights = [ 1, 1, 1, 1 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="box of sox, cox & rox/boxtop"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="boxsidetop" parent="box of sox, cox & rox" instance=ExtResource( 1 )]
+position = Vector2( 60, 0 )
+heights = [ 1, 1, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="box of sox, cox & rox/boxsidetop"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 0, 0, 0 )
+
+[node name="boxsidebot" parent="box of sox, cox & rox" instance=ExtResource( 1 )]
+position = Vector2( 60, 10 )
+heights = [ 1, 1, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="box of sox, cox & rox/boxsidebot"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 0, 0, 0 )
+
+[node name="boxsideleft" parent="box of sox, cox & rox" instance=ExtResource( 1 )]
+position = Vector2( 60, 10 )
+heights = [ 1, 1, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="box of sox, cox & rox/boxsideleft"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="boxsideright" parent="box of sox, cox & rox" instance=ExtResource( 1 )]
+position = Vector2( 70, 10 )
+heights = [ 1, 1, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="box of sox, cox & rox/boxsideright"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 162, 50 )
+heights = [ -1, -1, -1, -1 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="3"]
+polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 162, 50 )
+heights = [ 1, 1, 1, 1 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="4"]
+polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+__meta__ = {
+"_edit_lock_": true
+}
