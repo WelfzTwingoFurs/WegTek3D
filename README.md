@@ -7,8 +7,9 @@ https://github.com/WelfzTwingoFurs/godot-raycaster/
 ############### Raycaster funtime! Written by "Welfz Twingo Furs". ###############
 ##################################################################################
 
-Re-working V.9, with a polygon render rather than a sprite-based like previously.
-Thinking of switching to BSP-logic rather than raycaster-logic, but we'll see!
+All being re-worked! Now, using polygon render rather than a sprite-based one, and
+using BSP-logic rather than raycaster-logic. Not sure if I rename or switch
+projects now, but we'll see that later!
 
 VERSION 8 Features:
 -Field of view;
