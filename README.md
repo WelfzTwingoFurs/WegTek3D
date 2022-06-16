@@ -4,9 +4,9 @@
 
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster/
-##################################################################################
-############### Raycaster funtime! Written by "Welfz Twingo Furs". ###############
-##################################################################################
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@ Raycaster funtime! Written by "Welfz Twingo Furs". @@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 This was re-worked! Now, using polygon render rather than a sprite-based one, and
 using BSP-logic rather than raycaster-logic. Not sure if I rename or switch
@@ -35,7 +35,7 @@ looking up and down scaling, have been deactivated;
 -No in-game options (settings all in editor).
 
 
-##################################################################################
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 Controls:
 -WASD / Arrows:   Move, rotate;
@@ -60,7 +60,7 @@ Debug:
 -F11:  Time-scale =1;
 -F12:  Time-scale =0.
 
-##################################################################################
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 Credits:
 -JJoeyay, for teaching me Godot and inspiring me to make games;
