@@ -4,7 +4,7 @@ var motion = Vector2()
 
 export var angles = 120
 
-var change_checker = []
+onready var change_checker = []
 
 func _ready():
 	$Background.visible = 1
@@ -12,7 +12,7 @@ func _ready():
 	#Turn everything on
 	
 	$ViewArea/ViewCol.polygon = [Vector2(0,0),Vector2(0,draw_distance).rotated(-deg_rad(angles/2)),Vector2(0,draw_distance).rotated( deg_rad(angles/2))]
-	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size]
+	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size*0, sky_stretch]
 	#Checks if things changed and updates
 	
 	recalculate()
@@ -218,7 +218,7 @@ func _physics_process(_delta):
 		lookingZ = lerp(lookingZ, 0, 0.1)
 	
 	
-	posZlookZ = OS.window_size.y*(positionZ/draw_distance/12) + OS.window_size.y*(lookingZ/100)
+	posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*(lookingZ/100)
 	#Used for sky & floor position according to draw_distance
 	
 	
@@ -242,20 +242,15 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	if sky_stretch.y == 1:
 		$Background/Sky.rect_position.y = ($Background/Sky.rect_size.y  /OS.window_size.y) + abs(vbob) +vbob_max +posZlookZ
-		$Background/Sky.flip_v = 1
 		
 	else:
-		$Background/Sky.rect_scale.y = 1
 		$Background/Sky.rect_position.y = -$Background/Sky.rect_size.y + abs(vbob) +vbob_max +posZlookZ
-		$Background/Sky.flip_v = 0
-	
 	
 	if sky_stretch.x == 1:
-		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ( $ViewArea.rotation_degrees*(float(OS.window_size.x)/360) )
+		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ( $ViewArea/ViewCol.rotation_degrees*(float(OS.window_size.x)/360) )
 		
 	else:
-		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ( $ViewArea.rotation_degrees*(float($Background/Sky.texture.get_width())/360) ) 
-		$Background/Sky.rect_scale.x = 1
+		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ( $ViewArea/ViewCol.rotation_degrees*(float($Background/Sky.texture.get_width())/360) ) 
 	
 	########################################################################################################################################################
 	########################################################################################################################################################
@@ -332,7 +327,7 @@ func _physics_process(_delta):
 	
 	
 	
-	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size]:
+	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size, sky_stretch]:
 		recalculate()
 	
 	else:
@@ -373,23 +368,37 @@ func recalculate():
 			change_checker[0] = $View/Feet.texture
 			
 		elif change_checker[3] != feet_stretch:
-			print("-      TEXTURE: feet_stretch changed")
+			print("- FEET_STRETCH: ",feet_stretch,", changed from ",change_checker[3])
 			change_checker[3] = feet_stretch
 			
 		
 	
 	
-	if change_checker[1] != $Background/Sky.texture or change_checker[6] != OS.window_size:
+	if change_checker[1] != $Background/Sky.texture or change_checker[7] != sky_stretch or change_checker[6] != OS.window_size:
 		$Background/Sky.rect_size.y = $Background/Sky.texture.get_height()
-		$Background/Sky.rect_scale.y = -(OS.window_size.y/2)/float($Background/Sky.rect_size.y) 
-		
 		$Background/Sky.rect_size.x = ($Background/Sky.texture.get_width()+OS.window_size.x)*2
-		$Background/Sky.rect_scale.x = (OS.window_size.x/$Background/Sky.texture.get_width())
+		
+		if sky_stretch.y == 1:
+			$Background/Sky.rect_scale.y = -(OS.window_size.y/2)/float($Background/Sky.rect_size.y) 
+			$Background/Sky.flip_v = 1
+		else:
+			$Background/Sky.rect_scale.y = 1
+			$Background/Sky.flip_v = 0
+		
+		
+		if sky_stretch.x == 1:
+			$Background/Sky.rect_scale.x = (OS.window_size.x/$Background/Sky.texture.get_width())
+		else:
+			$Background/Sky.rect_scale.x = 1
+		
+		
 		
 		if change_checker[1] != $Background/Sky.texture:
 			print("-      TEXTURE: Sky changed")
 			change_checker[1] = $Background/Sky.texture
-			
+		elif change_checker[7] != sky_stretch:
+			print("-   SKY_STRETCH: ",sky_stretch,", changed from ",change_checker[7])
+			change_checker[7] = sky_stretch
 		
 	
 	
@@ -465,7 +474,8 @@ var midscreen = 0
 func BSP():
 	for n in array_walls.size():
 		if n == 0:
-			new_container.queue_free()
+			if (weakref(new_container).get_ref()):
+				new_container.queue_free()
 			
 			new_container = $PolyContainer.duplicate()
 			add_child((new_container))
@@ -485,8 +495,31 @@ func BSP():
 			var holyshit = (array_walls[n].points[m]-position).angle() - midscreen
 			var xkusu = tan(holyshit)
 			
+			
+			
+			#if abs(holyshit) > PI/2:
+			#	holyshit = PI/2 * sign(holyshit)
+			#if holyshit > PI*2 or holyshit <
+			
+			#if holyshit < PI/2 or holyshit <
+			
 			var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)) #Logic from other raycasters
 			var lineH = (OS.window_size.y / distance)   /  cos(holyshit)
+			
+			
+			#if abs(holyshit) < PI/2:
+			#	distance *= -1
+			#	lineH *= -1
+			
+			#print(n,"-",m,
+			#": angle=",(array_walls[n].points[m]-position).angle(),
+			#", midscreen=",midscreen,
+			#", holyshit=",holyshit,
+			#", xkusu=",xkusu,
+			#", distance=",distance,
+			#", lineH=",lineH,
+			#",",(array_walls[n].points[m]-position).angle() - rotation_angle,"  ",rotation_angle + PI,
+			#"")
 			
 			
 			var containers_posZ = (positionZ/100)*lineH
@@ -496,21 +529,28 @@ func BSP():
 			
 			if m == array_walls[n].points.size()-1:
 				new_poly.set_polygon( PoolVector2Array(array_polygon) )
+	
+
+
 
 
 
 var array_walls = []
 
-func _on_ViewArea_body_shape_entered(body_id, body, body_shape, local_shape):
+func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("polywall"):
 		if !array_walls.has(body):
 			array_walls.push_back(body)
-			print(body.points)
 
-func _on_ViewArea_body_shape_exited(body_id, body, body_shape, local_shape):
+func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("polywall"):
 		if array_walls.has(body):
 			array_walls.erase(body)
+			
+			if array_walls.size() == 0 && (weakref(new_container).get_ref()):
+				new_container.queue_free()
+
+
 
 
 #var array_objects = []

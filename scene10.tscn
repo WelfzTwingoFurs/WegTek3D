@@ -4,11 +4,10 @@
 [ext_resource path="res://make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://player10.tscn" type="PackedScene" id=3]
 
-[node name="scene9-2" type="Node2D"]
+[node name="scene10" type="Node2D"]
 
 [node name="player10" parent="." instance=ExtResource( 3 )]
-position = Vector2( -17, -19 )
-angles = 90
+position = Vector2( 0, -19 )
 draw_distance = 1000
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -32,6 +31,48 @@ heights = [ 0, 0, 0, 0, 0 ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/2"]
 polygon = PoolVector2Array( 5, 0, 10, 1, 10, 9, 5, 10, 0, 5 )
+
+[node name="3" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 404, 51 )
+heights = [ -2, 0, 2, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/3"]
+polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="4" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 404, 51 )
+heights = [ 2, 4, 6, 4 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/4"]
+polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="testie triagle" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 0, 175 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/testie triagle"]
+polygon = PoolVector2Array( 0, 0, 250, 100, -250, 100 )
+
+[node name="Label" type="Label" parent="Node2D/testie triagle"]
+margin_left = -258.0
+margin_top = -10.0
+margin_right = 272.0
+margin_bottom = 148.0
+text = "                                                                 0
+
+
+
+
+
+2                                                                                                                             1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="box of sox, cox & rox" type="Node2D" parent="Node2D"]
 
@@ -120,7 +161,7 @@ __meta__ = {
 }
 
 [node name="pyramid2" type="Node2D" parent="Node2D"]
-position = Vector2( -285, 112 )
+position = Vector2( -417, 0 )
 
 [node name="pyratop" parent="Node2D/pyramid2" instance=ExtResource( 1 )]
 position = Vector2( 162, 50 )
@@ -188,23 +229,3 @@ heights = [ 2, 1, 0 ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/RAD/D"]
 polygon = PoolVector2Array( 3, 0, 9, 1, 3, 2 )
-
-[node name="3" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 331, 164 )
-heights = [ -2, 0, 2, 0 ]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/3"]
-polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="4" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 331, 164 )
-heights = [ 2, 4, 6, 4 ]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/4"]
-polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
-__meta__ = {
-"_edit_lock_": true
-}

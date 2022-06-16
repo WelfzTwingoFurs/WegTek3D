@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player10.gd" type="Script" id=1]
 [ext_resource path="res://feet2.png" type="Texture" id=2]
-[ext_resource path="res://assets/textures150.png" type="Texture" id=3]
+[ext_resource path="res://textures/grad64.png" type="Texture" id=3]
 [ext_resource path="res://weapon doomarms.png" type="Texture" id=4]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
 [ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=6]
+[ext_resource path="res://make_invisible.gd" type="Script" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.0
@@ -84,7 +85,9 @@ __meta__ = {
 draw_distance = 1001
 
 [node name="Col" type="CollisionShape2D" parent="."]
+modulate = Color( 100, 100, 100, 1 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -96,6 +99,7 @@ anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
 [node name="ViewArea" type="Area2D" parent="."]
+script = ExtResource( 7 )
 
 [node name="ViewCol" type="CollisionPolygon2D" parent="ViewArea"]
 polygon = PoolVector2Array( 0, 0, 10, 10, -10, 10 )
@@ -104,9 +108,7 @@ polygon = PoolVector2Array( 0, 0, 10, 10, -10, 10 )
 
 [node name="Poly0" type="Polygon2D" parent="PolyContainer"]
 texture = ExtResource( 3 )
-texture_offset = Vector2( 10, 0 )
-texture_scale = Vector2( 15, 15 )
-polygon = PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0 )
+texture_scale = Vector2( 6.4, 6.4 )
 uv = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
 
 [node name="PolyContainer2" type="Node2D" parent="."]
