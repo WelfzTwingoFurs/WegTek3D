@@ -1,6 +1,6 @@
-<img src="https://media4.giphy.com/media/JtK88OCKwQtjYn7YYx/giphy.gif">
+<img src="https://media4.giphy.com/media/JtK88OCKwQtjYn7YYx/giphy.gif" height=350px>
 
-<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/splash.png" height=157px width=314px>
+<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/splash.png">
 <hr>
 
 ```text
