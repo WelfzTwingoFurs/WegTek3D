@@ -1,6 +1,7 @@
 <img src="https://media4.giphy.com/media/JtK88OCKwQtjYn7YYx/giphy.gif">
 
-<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/splash.png" height=157px width=314px align="center">
+<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/splash.png" height=157px width=314px>
+<hr>
 
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster/
@@ -71,7 +72,8 @@ Credits:
 
 :D
 ```
-
+<hr>
 <img src="https://media4.giphy.com/media/sOnrCzHT3ndi16DamA/giphy.gif" height=128px align="left">
 
-Old VERSION 8
+Old VERSION 8, & previous<br>
+available in "older-versions"
