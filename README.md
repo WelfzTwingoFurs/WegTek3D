@@ -1,5 +1,6 @@
-<img src="https://media4.giphy.com/media/sOnrCzHT3ndi16DamA/giphy.gif" height=256px align="left"><img src="https://media.giphy.com/media/klDQMFAsJtisWI8Est/giphy.gif" height=256px align="right">  
-<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/assets/textures150.png" align="center">
+<img src="https://media4.giphy.com/media/JtK88OCKwQtjYn7YYx/giphy.gif">
+
+<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/splash.png" height=157px width=314px align="center">
 
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster/
@@ -7,51 +8,44 @@ https://github.com/WelfzTwingoFurs/godot-raycaster/
 ############### Raycaster funtime! Written by "Welfz Twingo Furs". ###############
 ##################################################################################
 
-All being re-worked! Now, using polygon render rather than a sprite-based one, and
+This was re-worked! Now, using polygon render rather than a sprite-based one, and
 using BSP-logic rather than raycaster-logic. Not sure if I rename or switch
 projects now, but we'll see that later!
 
-VERSION 8 Features:
--Field of view;
--Resolution multiplier & divider;
+VERSION 10 Features:
+-Primitive polygon world with height;
+-Field of view, draw distance options;
 -Screen resizable to any size;
--Tilemap world, tiles of custom format;
--Textured walls;
 -Stretchable scrolling sky texture, floor texture;
 -Changeable textures of any size;
 -Flying up and down;
 -Looking up and down;
--Feet when you look down;
--Viewbobbing, viewrolling, look-scaling options;
--Draw distance & fading, depth-shading options;
--NEW experimental polygon-renderer, a WIP.
+-Viewbobbing, viewrolling;
 
 Imperfections:
--No in-game options (settings all in editor);
+-No collision;
+-Vertexes behind player (over 90º) cause major distortion;
 -No sprite objects;
--No floors/ceilings;
--1 texture tilemap at a time;
--View distortion on movement;
--Line spacing is imprecise;
--Wall textures get fuzzy if near position 0,0;
--Walls with thin collisions don't texture correctly;
--Wall textures only properly flipped on square walls;
--Walls are infinitely tall, can't go over or see what's behind them;
--If view-roll is too high, rendering gets cuts off at borders;
--Messy project, WIP.
+-Only 1 texture at a time;
+-No Z_Index polygon priority;
+-No coling (Objects behind others still render);
+-Feet when you look down, Resolution multiplier & divider,
+draw distance fading, depth-shading options,
+looking up and down scaling, have been deactivated;
+-No in-game options (settings all in editor).
+
 
 ##################################################################################
 
 Controls:
 -WASD / Arrows:   Move, rotate;
 -        Shift:  Strafe (hold);
--  Scroll-lock:  Rotate center;
+-  Scroll-lock:   Rotate (dir);
 -PGup & PGdown: Look up & down;
 -         Home:    Look center;
 - Space & Ctrl:  Fly up & down;
 -          End:     Fly center;
--Enter (press):       View map;
-- Enter (hold):  View raycasts.
+-Enter (press):       View map.
 
 Debug:
 - F1: /2 screen-size;
@@ -72,7 +66,12 @@ Credits:
 -JJoeyay, for teaching me Godot and inspiring me to make games;
 -3DSage's 'Make Your Own Raycaster' series on YouTube;
 -Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial';
--Godot Engine v3.3.2-stable Win64, https://godotengine.org/.
+-Godot Engine v3.3.2-stable Win64, https://godotengine.org/;
+-Nic from college, for making me understand BSP logic.
 
-:)
+:D
 ```
+
+<img src="https://media4.giphy.com/media/sOnrCzHT3ndi16DamA/giphy.gif" height=128px align="left">
+
+Old VERSION 8
