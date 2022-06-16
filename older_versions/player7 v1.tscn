@@ -3,7 +3,7 @@
 [ext_resource path="res://older_versions/player7 v1.gd" type="Script" id=1]
 [ext_resource path="res://assets/textures64.png" type="Texture" id=2]
 [ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=3]
-[ext_resource path="res://gradientbig.png" type="Texture" id=4]
+[ext_resource path="res://assets/gradientbig6 v1.png" type="Texture" id=4]
 [ext_resource path="res://assets/feet.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -26,7 +26,7 @@ tracks/0/keys = {
 "values": [ 5, 6 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "strafe"
 length = 0.6
 loop = true
@@ -43,8 +43,7 @@ tracks/0/keys = {
 "values": [ 0, 3 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "walk"
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -80,8 +79,8 @@ hframes = 9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/spin = SubResource( 2 )
-anims/strafe = SubResource( 4 )
-anims/walk = SubResource( 3 )
+anims/strafe = SubResource( 3 )
+anims/walk = SubResource( 4 )
 
 [node name="RayContainer" type="Node2D" parent="."]
 visible = false

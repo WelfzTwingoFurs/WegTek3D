@@ -174,11 +174,11 @@ brightMax = 100
 draw_type = -1
 draw_fade = 1.1
 
-[node name="View" parent="player8" index="3"]
-visible = false
-
 [node name="Feet" parent="player8/View" index="0"]
 visible = false
+
+[node name="Hand" parent="player8/View" index="1"]
+visible = true
 
 [node name="RayContainer" parent="player8" index="4"]
 visible = true
