@@ -5,9 +5,9 @@
 
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster-like
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@ Raycaster-like!! Written by "Welfz Twingo Furs"... @@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@ Raycaster-like!!  Written by "Welfz Twingo Furs"... @@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 This was re-worked! Now, using polygon render rather than a sprite-based one, and
 using BSP-logic rather than raycaster-logic. Not sure if I rename or switch
@@ -30,13 +30,14 @@ Imperfections:
 -Only 1 texture at a time;
 -No Z_Index polygon priority;
 -No coling (Objects behind others still render);
+-Draw distance innacurate to value, depends on Angles FOV;
 -Feet when you look down, Resolution multiplier & divider,
 draw distance fading, depth-shading options,
 looking up and down scaling, have been deactivated;
 -No in-game options (settings all in editor).
 
 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 Controls:
 -WASD / Arrows:   Move, rotate;
@@ -61,7 +62,7 @@ Debug:
 -F11:  Time-scale =1;
 -F12:  Time-scale =0.
 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 Credits:
 -JJoeyay, for teaching me Godot and inspiring me to make games;
