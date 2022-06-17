@@ -28,9 +28,12 @@ Imperfections:
 -Vertexes behind player (over 90º) cause major distortion;
 -No sprite objects;
 -Only 1 texture at a time;
--No Z_Index polygon priority;
 -No coling (Objects behind others still render);
+-No Z_Index polygon priority;
+-Texture distortion (PS1-style, kinda likeable actually);
+-Non-square polygons don't texture properly;
 -Draw distance innacurate to value, depends on Angles FOV;
+-Render Y scaling innacurate;
 -Feet when you look down, Resolution multiplier & divider,
 draw distance fading, depth-shading options,
 looking up and down scaling, have been deactivated;
