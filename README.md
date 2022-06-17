@@ -4,9 +4,9 @@
 <hr>
 
 ```text
-https://github.com/WelfzTwingoFurs/godot-raycaster/
+https://github.com/WelfzTwingoFurs/godot-raycaster-like
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@ Raycaster funtime! Written by "Welfz Twingo Furs". @@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@ Raycaster-like!! Written by "Welfz Twingo Furs"... @@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 This was re-worked! Now, using polygon render rather than a sprite-based one, and
