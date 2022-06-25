@@ -6,12 +6,8 @@
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster-like
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@ Raycaster-like!!  Written by "Welfz Twingo Furs"... @@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@ Raycaster-like!! ... Written by "Welfz Twingo Furs" @@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-This was re-worked! Now, using polygon render rather than a sprite-based one, and
-using BSP-logic rather than raycaster-logic. Not sure if I rename or switch
-projects now, but we'll see that later!
 
 VERSION 10 Features:
 -Primitive polygon world with height;
@@ -44,26 +40,26 @@ looking up and down scaling, have been deactivated;
 
 Controls:
 -WASD / Arrows:   Move, rotate;
--        Shift:  Strafe (hold);
--  Scroll-lock:   Rotate (dir);
+- Shift (hold):         Strafe;
 -PGup & PGdown: Look up & down;
--         Home:    Look center;
 - Space & Ctrl:  Fly up & down;
--          End:     Fly center;
--Enter (press):       View map.
+-Enter(press/hold):   View map.
 
 Debug:
-- F1: /2 screen-size;
-- F2: *2 screen-size;
-- F3:    Fill screen;
--  +:        Zoom in;
--  -:       Zoom out;
-- F5:    Reset scene;
-- F8:     Close game;
-- F9:  Time-scale -1;
--F10:  Time-scale +1;
--F11:  Time-scale =1;
--F12:  Time-scale =0.
+- Scroll-lock (+WASD): Angle;
+- Home:          Look center;
+- End:            Fly center;
+- F1:         /2 screen-size;
+- F2:         *2 screen-size;
+- F3:            Fill screen;
+-  +:                Zoom in;
+-  -:               Zoom out;
+- F5:            Reset scene;
+- F8:             Close game;
+- F9:          Time-scale -1;
+-F10:          Time-scale +1;
+-F11:          Time-scale =1;
+-F12:          Time-scale =0.
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
