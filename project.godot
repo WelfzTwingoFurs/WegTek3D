@@ -16,6 +16,7 @@ run/main_scene="res://scene10.tscn"
 boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
+boot_splash/bg_color=Color( 0.247059, 0, 0.501961, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -24,8 +25,8 @@ Worldconfig="*res://worldconfig.gd"
 
 [display]
 
-window/size/width=1001
-window/size/height=530
+window/size/width=120
+window/size/height=90
 window/size/always_on_top=true
 window/vsync/use_vsync=false
 window/stretch/aspect="expand"
