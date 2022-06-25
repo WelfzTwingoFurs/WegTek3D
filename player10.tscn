@@ -86,6 +86,7 @@ draw_distance = 1001
 
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
+z_index = 4096
 shape = SubResource( 1 )
 disabled = true
 
@@ -99,19 +100,31 @@ anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
 [node name="ViewArea" type="Area2D" parent="."]
+z_index = 4096
 script = ExtResource( 7 )
 
 [node name="ViewCol" type="CollisionPolygon2D" parent="ViewArea"]
 polygon = PoolVector2Array( 0, 0, 10, 10, -10, 10 )
 
 [node name="PolyContainer" type="Node2D" parent="."]
+z_index = -1
 
 [node name="Poly0" type="Polygon2D" parent="PolyContainer"]
 texture = ExtResource( 3 )
 texture_scale = Vector2( 6.4, 6.4 )
 uv = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
 
-[node name="PolyContainer2" type="Node2D" parent="."]
+[node name="Label" type="Label" parent="PolyContainer"]
+margin_left = 36.0
+margin_top = 3.0
+margin_right = 43.0
+margin_bottom = 17.0
+text = "a"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="View" type="Node2D" parent="."]
 visible = false

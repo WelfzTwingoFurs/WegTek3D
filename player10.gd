@@ -1,22 +1,21 @@
 extends KinematicBody2D
+#OS.get_system_time_msecs()
 
 var motion = Vector2()
 
 export var angles = 120
+export var draw_distance = 1000
 
 onready var change_checker = []
 
 func _ready():
 	$Background.visible = 1
-	$View/Feet.visible = 1
+	#$View/Feet.visible = 1
 	#Turn everything on
 	
-	$ViewArea/ViewCol.polygon = [Vector2(0,0),Vector2(0,draw_distance).rotated(-deg_rad(angles/2)),Vector2(0,draw_distance).rotated( deg_rad(angles/2))]
+	$ViewArea/ViewCol.polygon = [Vector2(0,0),   Vector2(0,draw_distance*2).rotated(-deg_rad(angles/2)),   Vector2(0,draw_distance*2).rotated( deg_rad(angles/2))]
 	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size*0, sky_stretch]
 	#Checks if things changed and updates
-	
-	recalculate()
-	new_container = $PolyContainer2
 
 ########        ############        ####        ########        ####    ####
 ####    ####    ####            ####    ####    ####    ####    ####    ####
@@ -67,7 +66,9 @@ var lookingZ = 0
 #View pans up and down
 
 func _physics_process(_delta):
-	# Input, motion, rotation
+	# vv Input, motion, rotation
+	########################################################################################################################################################
+	########################################################################################################################################################
 	########################################################################################################################################################
 	########################################################################################################################################################
 	motion = move_and_slide(motion, Vector2(0,-1))
@@ -125,6 +126,7 @@ func _physics_process(_delta):
 		move_dir.x = 0
 	
 	
+	
 	if Input.is_action_pressed("bug_rotatecenter"):
 		move_dir = Vector2(0,0)
 		
@@ -162,16 +164,54 @@ func _physics_process(_delta):
 				elif input_dir.x == -1:
 					rotation_angle = deg_rad(225)
 	
+	
+	
+	############################################################################
+	############################################################################
+	#Z inputs & math
+	
+	if Input.is_action_pressed("ply_jump"):
+		positionZ += 10 * rotate_rate * Engine.time_scale
+	elif Input.is_action_pressed("ply_crouch"):
+		positionZ -= 10 * rotate_rate * Engine.time_scale
+	elif Input.is_action_pressed("ply_flycenter"):
+		positionZ = lerp(positionZ, 0, 0.1)
+	#print(positionZ)
+	#print(lookingZ)
+	if Input.is_action_pressed("ply_lookup"):
+		if lookingZ < 360:
+			lookingZ += rotate_rate * Engine.time_scale
+	elif Input.is_action_pressed("ply_lookdown"):
+		if lookingZ > -360:
+			lookingZ -= rotate_rate * Engine.time_scale
+	elif Input.is_action_pressed("ply_lookcenter"):
+		lookingZ = lerp(lookingZ, 0, 0.1)
+	
+	if abs(lookingZ) > 360:
+		lookingZ = 360 * sign(lookingZ)
+	
+	posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*(lookingZ/100)
+	#Used for sky & floor position according to draw_distance
+	
+	############################################################################
+	
+	###   ######      ######   ###   ###   #########
+	###   ######      ##  ##   ###   ###   #########
+	###   ###   ###   ##  ##   ###   ###      ###
+	###   ###   ###   ######   ###   ###      ###
+	###   ###   ###   ###      #########      ###
+	###   ###   ###   ###      #########      ###
+	
 	########################################################################################################################################################
 	########################################################################################################################################################
 	########################################################################################################################################################
 	########################################################################################################################################################
-	# Input, motion, rotation
+	# ^^ Input, motion, rotation
 	
 	
 	
 	
-	# SpriteContainer's vbob (position.y)
+	# vv Sprite effects, vbob
 	########################################################################################################################################################
 	########################################################################################################################################################
 	if move_dir != Vector2(0,0):
@@ -189,50 +229,16 @@ func _physics_process(_delta):
 		vbob = -vbob_max
 	elif vbob < -vbob_max:
 		vbob = vbob_max
-	########################################################################################################################################################
-	########################################################################################################################################################
-	########################################################################################################################################################
-	########################################################################################################################################################
-	# SpriteContainer's vbob (position.y)
 	
-	
-	
-	#Z PROCESS
-	########################################################################################################################################################
-	########################################################################################################################################################
-	if Input.is_action_pressed("ply_jump"):
-		positionZ += 1
-	elif Input.is_action_pressed("ply_crouch"):
-		positionZ -= 1
-	elif Input.is_action_pressed("ply_flycenter"):
-		positionZ = lerp(positionZ, 0, 0.1)
-	#print(positionZ)
-	#print(lookingZ)
-	if Input.is_action_pressed("ply_lookup"):
-		if lookingZ < 360:
-			lookingZ += rotate_rate
-	elif Input.is_action_pressed("ply_lookdown"):
-		if lookingZ > -360:
-			lookingZ -= rotate_rate
-	elif Input.is_action_pressed("ply_lookcenter"):
-		lookingZ = lerp(lookingZ, 0, 0.1)
-	
-	
-	posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*(lookingZ/100)
-	#Used for sky & floor position according to draw_distance
-	
+	##  ##  ####      ##    ####     ##    ##    ###    ###  ###  ###  ###
+	##  ##  ##  ##  ##  ##  ##  ##   # ##  # #  #   #  #     #    #    #
+	##  ##  ####    ##  ##  ####     ##    ##   #   #  #     ###  ###  ###
+	##  ##  ##  ##  ##  ##  ##  ##   #     # #  #   #  #     #      #    #
+	  ##    ####      ##    ####     #     # #   ###    ###  ###  ###  ###
 	
 	########################################################################################################################################################
 	########################################################################################################################################################
-	########################################################################################################################################################
-	########################################################################################################################################################
-	# Z process
 	
-	
-	
-	
-	########################################################################################################################################################
-	########################################################################################################################################################
 	#vbob and vroll
 	$PolyContainer.position.y = abs(vbob) +OS.window_size.y*(lookingZ/100)
 	$PolyContainer.rotation_degrees = lerp($PolyContainer.rotation_degrees, (-input_dir.x*vroll_multi),00.1)/vroll_strafe_divi
@@ -271,54 +277,64 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	########################################################################################################################################################
 	
-	if lookingZ < -280: #feet when looking down, imprecise to collision shape NEEDS WERKIN
-		$View/Feet.scale.y = 1#-(OS.window_size.y/lookingZ)*2
-		#$View/Feet.position.y = (OS.window_size.y/$View/Feet.texture.get_height()) + (OS.window_size.y*(lookingZ/100))
-		$View/Feet.position.y = $PolyContainer.position.y
-		
-		
-		
-		#lookingZ 
-		#$View/Feet.position.y
-		#$View/Feet.scale.y
-		
-		#print(lookingZ,":  ",$View/Feet.position.y," ",$View/Feet.scale.y)
-		
-		
-		
-		
-		
-		
-		$View/Feet.visible = 1
-		$View/Feet.rotation_degrees = (-input_dir.x*vroll_strafe_divi)*$View/Feet.scale.y*2
-		#feetY = $View/Feet.position.y
-		
-		
-		
-		if input_dir.y != 0:
-			$AnimationPlayer.play("walk")
-			$AnimationPlayer.playback_speed = input_dir.y
-		
-		elif input_dir.x != 0:
-			if Input.is_action_pressed("ui_select"):
-				if input_dir.x == -1:
-					$AnimationPlayer.play("strafeR")
-				else:
-					$AnimationPlayer.play("strafeL")
-				
-			else:
-				$AnimationPlayer.play("spin")
-				$AnimationPlayer.playback_speed = input_dir.x
-		
-		
-		else:
-			$View/Feet.frame = 0
-			$AnimationPlayer.stop()
+	####      ####      ####    ####      ##      ##  ####  ####  ####
+	##  ##  ##          ##  ##  ##  ##  ##  ##  ##    ##    ##    ##
+	####    ##  ####    ####    ####    ##  ##  ##    ####  ####  ####
+	##  ##  ##    ##    ##      ##  ##  ##  ##  ##    ##      ##    ##
+	####      ####      ##      ##  ##    ##      ##  ####  ####  ####
 	
-	else:
-		$View/Feet.visible = 0
-		$AnimationPlayer.stop()
 	
+#	if lookingZ < -280: #feet when looking down, imprecise to collision shape NEEDS WERKIN
+#		$View/Feet.scale.y = 1#-(OS.window_size.y/lookingZ)*2
+#		#$View/Feet.position.y = (OS.window_size.y/$View/Feet.texture.get_height()) + (OS.window_size.y*(lookingZ/100))
+#		$View/Feet.position.y = $PolyContainer.position.y
+#
+#
+#
+#		#lookingZ 
+#		#$View/Feet.position.y
+#		#$View/Feet.scale.y
+#
+#		#print(lookingZ,":  ",$View/Feet.position.y," ",$View/Feet.scale.y)
+#
+#
+#
+#
+#
+#
+#		$View/Feet.visible = 1
+#		$View/Feet.rotation_degrees = (-input_dir.x*vroll_strafe_divi)*$View/Feet.scale.y*2
+#		#feetY = $View/Feet.position.y
+#
+#
+#
+#		if input_dir.y != 0:
+#			$AnimationPlayer.play("walk")
+#			$AnimationPlayer.playback_speed = input_dir.y
+#
+#		elif input_dir.x != 0:
+#			if Input.is_action_pressed("ui_select"):
+#				if input_dir.x == -1:
+#					$AnimationPlayer.play("strafeR")
+#				else:
+#					$AnimationPlayer.play("strafeL")
+#
+#			else:
+#				$AnimationPlayer.play("spin")
+#				$AnimationPlayer.playback_speed = input_dir.x
+#
+#
+#		else:
+#			$View/Feet.frame = 0
+#			$AnimationPlayer.stop()
+#
+#	else:
+#		$View/Feet.visible = 0
+#		$AnimationPlayer.stop()
+	
+	### ### ### ###
+	##  ##  ##   #
+	#   ### ###  #
 	
 	########################################################################################################################################################
 	########################################################################################################################################################
@@ -329,9 +345,10 @@ func _physics_process(_delta):
 	
 	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size, sky_stretch]:
 		recalculate()
-	
 	else:
-		BSP()#update()
+		BSP()
+	
+	update() #for the map
 
 #####    #####      #####       #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ###  ##       ##           ###         ###
@@ -352,7 +369,7 @@ func _physics_process(_delta):
 
 
 
-export var feet_stretch = 1
+var feet_stretch = 1
 
 
 
@@ -397,7 +414,7 @@ func recalculate():
 			print("-      TEXTURE: Sky changed")
 			change_checker[1] = $Background/Sky.texture
 		elif change_checker[7] != sky_stretch:
-			print("-   SKY_STRETCH: ",sky_stretch,", changed from ",change_checker[7])
+			print("-  SKY_STRETCH: ",sky_stretch,", changed from ",change_checker[7])
 			change_checker[7] = sky_stretch
 		
 	
@@ -417,11 +434,12 @@ func recalculate():
 		var midscreenLast  = OS.window_size.x * (0.25 * tan(( Vector2(0,draw_distance).rotated( deg_rad((angles)/2)) ).angle() ))
 		
 		$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)
-		$PolyContainer.scale.y = (OS.window_size.x/midscreenFirst) - (OS.window_size.x/midscreenLast)
+		$PolyContainer.scale.y = 10#(OS.window_size.x/midscreenFirst) - (OS.window_size.x/midscreenLast)
 		
 		
 		if change_checker[4] != draw_distance or change_checker[5] != angles:
-			$ViewArea/ViewCol.polygon = [Vector2(0,0),Vector2(0,draw_distance).rotated(-deg_rad(angles/2)),Vector2(0,draw_distance).rotated( deg_rad(angles/2))]
+			#$ViewArea/ViewCol.polygon = [Vector2(0,0),Vector2(0,draw_distance).rotated(-deg_rad(angles/2)),Vector2(0,draw_distance).rotated( deg_rad(angles/2))]
+			$ViewArea/ViewCol.polygon = [Vector2(0,0),Vector2(0,draw_distance*2).rotated(-deg_rad(angles/2)),Vector2(0,draw_distance*2).rotated( deg_rad(angles/2))]
 			
 			if change_checker[4] != draw_distance:
 				print("-DRAW DISTANCE: ",draw_distance,", changed from ",change_checker[4])
@@ -433,7 +451,7 @@ func recalculate():
 		
 		
 		elif change_checker[6] != OS.window_size:
-			print("-  RESOLUTION: ",OS.window_size,", changed from ",change_checker[6])
+			print("-   RESOLUTION: ",OS.window_size,", changed from ",change_checker[6])
 			change_checker[6] = OS.window_size
 		
 	
@@ -463,74 +481,83 @@ func recalculate():
 
 
 ##############################################################################################################################################################################################
-export var draw_distance = 1000
-
 var polys = []
 var new_container
 
+var rot_plus90
+var rot_minus90
 
 var midscreen = 0
 
 func BSP():
 	for n in array_walls.size():
+		var new_poly = $PolyContainer/Poly0.duplicate()
+		
+		
 		if n == 0:
 			if (weakref(new_container).get_ref()):
 				new_container.queue_free()
-			
+				
 			new_container = $PolyContainer.duplicate()
 			add_child((new_container))
 			
 			midscreen = (Vector2(0,draw_distance).rotated(rotation_angle)).angle()
 			
+			rot_plus90  = rad_overflow(rotation_angle+(PI/2))
+			rot_minus90 = rad_overflow(rotation_angle-(PI/2))
 		
 		
-		var new_poly = $PolyContainer/Poly0.duplicate()
-		new_container.add_child((new_poly))
 		
-		new_poly.polygon.resize(array_walls[n].points.size())
 		var array_polygon = []
 		
 		for m in array_walls[n].points.size():
-			
 			var holyshit = (array_walls[n].points[m]-position).angle() - midscreen
 			var xkusu = tan(holyshit)
-			
-			
-			
-			#if abs(holyshit) > PI/2:
-			#	holyshit = PI/2 * sign(holyshit)
-			#if holyshit > PI*2 or holyshit <
-			
-			#if holyshit < PI/2 or holyshit <
 			
 			var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)) #Logic from other raycasters
 			var lineH = (OS.window_size.y / distance)   /  cos(holyshit)
 			
 			
-			#if abs(holyshit) < PI/2:
-			#	distance *= -1
-			#	lineH *= -1
+			#var rot_plus90  = rad_overflow(rotation_angle+(PI/2))
+			#var rot_minus90 = rad_overflow(rotation_angle-(PI/2))
+			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
 			
-			#print(n,"-",m,
-			#": angle=",(array_walls[n].points[m]-position).angle(),
-			#", midscreen=",midscreen,
-			#", holyshit=",holyshit,
-			#", xkusu=",xkusu,
-			#", distance=",distance,
-			#", lineH=",lineH,
-			#",",(array_walls[n].points[m]-position).angle() - rotation_angle,"  ",rotation_angle + PI,
-			#"")
+			if rot_object < rot_minus90 && rot_object > rot_plus90: # not working from rotA = 180
+			#	print(OS.get_system_time_msecs(),"\nhere we go\n")
+				xkusu *= -1
+				#lineH *= -1
+				#lineH = (OS.window_size.y / -distance)   /  cos(holyshit)
+				var containers_posZ = (positionZ/100)*lineH
+				array_polygon.append(Vector2(xkusu,containers_posZ+lineH*array_walls[n].heights[m]))
+				
+				new_poly.modulate += Color(1, -0.5, -0.5)
+			
+			else:
+				var containers_posZ = (positionZ/100)*lineH
+				array_polygon.append(Vector2(xkusu,containers_posZ-lineH*array_walls[n].heights[m]))
 			
 			
-			var containers_posZ = (positionZ/100)*lineH
+			#printing biznizz
+			if m == INF:
+			#if m != INF:
+			#if n == m:
+				print(n,"_",m,":  ", #OS.get_system_time_msecs(),"\n",
+				#": angle=",(array_walls[n].points[m]-position).angle(),
+				#", midscreen=",midscreen,
+				#", holyshit=",holyshit,
+				#", xkusu=",xkusu,
+				#", distance=",distance,
+				#", lineH=",lineH,
+				rad_overflow((array_walls[n].points[m]-position).angle()-PI/2),"(A-90); ", rotation_angle,"(Rot_A), ",rad_overflow(rotation_angle-(PI/2)), "(-90=L), ", rad_overflow(rotation_angle+(PI/2)), "(+90=R)",
+				"")
 			
-			
-			array_polygon.append(Vector2(xkusu,containers_posZ-lineH*array_walls[n].heights[m]))
-			
+			#THE END, time to render polygon
 			if m == array_walls[n].points.size()-1:
+				#var new_poly = $PolyContainer/Poly0.duplicate()
+				new_poly.polygon.resize(array_walls[n].points.size())
 				new_poly.set_polygon( PoolVector2Array(array_polygon) )
-	
-
+				
+				new_container.add_child((new_poly))
 
 
 
@@ -552,7 +579,6 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 
 
-
 #var array_objects = []
 #
 #func _on_ViewArea_body_entered(body):
@@ -567,8 +593,6 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 #		if !array_objects.has(body):
 #			array_objects.push_back(body)
 #			print(body)
-
-
 
 
 ########        ########            ####        ####            ####  
@@ -586,6 +610,143 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 ################################################################################
 
 
+
+
+
+export var map_draw = 2
+
+func _draw():
+	if Input.is_action_pressed("ui_accept"):
+		var shine1 = Color((randi() % 2),(randi() % 2),(randi() % 2))
+		var orange = Color(1, 0.5, 0)
+		
+		draw_line(Vector2(0,0), Vector2(0,draw_distance).rotated(rotation_angle), Color(1,1,1), 1)
+		if sign(map_draw) == 1:
+			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), shine1, 1)
+			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
+			draw_line(Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
+			
+			draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle+PI/2), Color(1,0,0, 0.4), 1)
+			draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(1,0,0, 0.4), 1)
+		
+		
+		
+		
+		
+		if abs(map_draw) == 1: #walls in area
+			for n in array_walls.size():
+				for m in array_walls[n].points.size():
+					if m < array_walls[n].points.size()-1:
+						draw_line(array_walls[n].points[m]-position, array_walls[n].points[m+1]-position, orange, 1)
+					else:
+						draw_line(array_walls[n].points[array_walls[n].points.size()-1]-position, array_walls[n].points[0]-position, orange, 1)
+		
+		
+		
+		elif abs(map_draw) == 2: #all walls
+			var targets_in_scene = []
+			targets_in_scene = get_tree().get_nodes_in_group("polywall") #Who is spawned
+			
+			if targets_in_scene.size() != 0: #If anyone at all
+				for item in targets_in_scene:
+					if (weakref(item).get_ref()): #If they are, then
+					
+						for n in targets_in_scene.size():
+							for m in targets_in_scene[n].points.size():
+								if m < targets_in_scene[n].points.size()-1:
+									draw_line(targets_in_scene[n].points[m]-position, targets_in_scene[n].points[m+1]-position, orange, 1)
+								else:
+									draw_line(targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position, targets_in_scene[n].points[0]-position, orange, 1)
+						targets_in_scene = []
+		
+		
+		
+		
+		
+		
+		
+		
+		elif abs(map_draw) == 3: #3D walls in area
+			for n in array_walls.size():
+				for m in array_walls[n].points.size():
+					if m < array_walls[n].points.size()-1:
+						draw_line(((array_walls[n].heights[m]+1) / (positionZ/150))*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / (positionZ/150))*(array_walls[n].points[m+1]-position), orange, 1)
+					else:
+						draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / (positionZ/150))*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / (positionZ/150))*(array_walls[n].points[0]-position), orange, 1)
+			
+		
+		elif abs(map_draw) == 4: #all 3D walls
+			var targets_in_scene = []
+			targets_in_scene = get_tree().get_nodes_in_group("polywall") #Who is spawned
+			
+			if targets_in_scene.size() != 0: #If anyone at all
+				for item in targets_in_scene:
+					if (weakref(item).get_ref()): #If they are, then
+						
+						var posZ = positionZ/200
+						
+						for n in targets_in_scene.size():
+							for m in targets_in_scene[n].points.size():
+								if m < targets_in_scene[n].points.size()-1:
+									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / posZ) * (targets_in_scene[n].points[ m                               ]-position),  ((targets_in_scene[n].heights[m+1]+1) / posZ)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									#draw_line((1+targets_in_scene[n].heights[ m                                 ] * posZ/10) * (targets_in_scene[n].points[ m                               ]-position),  (1+targets_in_scene[n].heights[m+1] * posZ/10)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									
+								
+								else:
+									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / posZ)*(targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / posZ)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									#draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * posZ/10)*(targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * posZ/10)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									
+						targets_in_scene = []
+		
+		
+		
+		
+		elif abs(map_draw) == 5: #3D walls in area 2
+			for n in array_walls.size():
+				for m in array_walls[n].points.size():
+					if m < array_walls[n].points.size()-1:
+						#draw_line(((array_walls[n].heights[m]+1) / (positionZ/150))*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / (positionZ/150))*(array_walls[n].points[m+1]-position), orange, 1)
+						draw_line(((array_walls[n].heights[ m                                 ]+1) / (positionZ/200)) * (array_walls[n].points[ m                               ]-position),  ((array_walls[n].heights[m+1]+1) / (positionZ/200))*(array_walls[n].points[m+1]-position), orange, 1)
+						
+					else:
+						#draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / (positionZ/150))*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / (positionZ/150))*(array_walls[n].points[0]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * (positionZ/200)/10)*(array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * (positionZ/200)/10)*(array_walls[n].points[ 0 ]-position), orange, 1)
+						
+		
+		elif abs(map_draw) == 6: #all 3D walls 2
+			var targets_in_scene = []
+			targets_in_scene = get_tree().get_nodes_in_group("polywall") #Who is spawned
+			
+			if targets_in_scene.size() != 0: #If anyone at all
+				for item in targets_in_scene:
+					if (weakref(item).get_ref()): #If they are, then
+						
+						var posZ = positionZ/200
+						
+						for n in targets_in_scene.size():
+							for m in targets_in_scene[n].points.size():
+								if m < targets_in_scene[n].points.size()-1:
+									#draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / posZ) * (targets_in_scene[n].points[ m                               ]-position),  ((targets_in_scene[n].heights[m+1]+1) / posZ)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									draw_line((1+targets_in_scene[n].heights[ m                                 ] * posZ/10) * (targets_in_scene[n].points[ m                               ]-position),  (1+targets_in_scene[n].heights[m+1] * posZ/10)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									
+								
+								else:
+									#draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / posZ)*(targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / posZ)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * posZ/10)*(targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * posZ/10)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									
+						targets_in_scene = []
+		
+		
+		
+
+
+
+	####    ####                ####            ############
+####    ####    ####        ####    ####        ####        ####
+####    ####    ####        ####    ####        ####        ####
+####            ####        ############        ############
+####            ####        ####    ####        ####
+####            ####        ####    ####        ####
 
 
 
@@ -639,3 +800,18 @@ func deg_rad(N):
 	return N
 
 
+func rad_overflow(N):
+	if N > PI*2:
+		N -= PI*2
+	elif N < 0:
+		N += PI*2
+	
+	return N
+
+func deg_overflow(N):
+	if N > 360:
+		N -= 360
+	elif N < 360:
+		N += 360
+	
+	return N
