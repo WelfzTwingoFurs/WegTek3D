@@ -350,11 +350,11 @@ func _physics_process(_delta):
 	
 	update() #for the map
 
-#####    #####      #####       #####  ##########   ##########  #########
-##   ##  ##   ##  ##     ###  ##       ##           ###         ###
-#####    #####    ##     ###  ##       ##########   ##########  #########
-##       ##   ##  ##     ###  ##       ##                  ###         ##
-##       ##   ##    #####       #####  ##########   ##########  #########
+#####    #####      #####      #####  ##########   ##########  #########
+##   ##  ##   ##  ##     ##  ##       ##           ###         ###
+#####    #####    ##     ##  ##       ##########   ##########  #########
+##       ##   ##  ##     ##  ##       ##                  ###         ##
+##       ##   ##    #####      #####  ##########   ##########  #########
 
 ################################################################################
 ################################################################################
@@ -374,6 +374,12 @@ var feet_stretch = 1
 
 
 func recalculate():
+	if sky_stretch.x + sky_stretch.y > 2:
+		print("M I S T A K E: sky_stretch value invalid")
+	if abs(map_draw) > 6:
+		print("M I S T A K E: map_draw value invalid!")
+	
+	
 	if change_checker[0] != $View/Feet.texture or change_checker[3] != feet_stretch or change_checker[6] != OS.window_size:
 		if feet_stretch == 1:
 			$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
@@ -522,15 +528,15 @@ func BSP():
 			#var rot_minus90 = rad_overflow(rotation_angle-(PI/2))
 			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
 			
-			if rot_object < rot_minus90 && rot_object > rot_plus90: # not working from rotA = 180
-			#	print(OS.get_system_time_msecs(),"\nhere we go\n")
-				xkusu *= -1
-				#lineH *= -1
-				#lineH = (OS.window_size.y / -distance)   /  cos(holyshit)
-				var containers_posZ = (positionZ/100)*lineH
-				array_polygon.append(Vector2(xkusu,containers_posZ+lineH*array_walls[n].heights[m]))
+			
+			#stretching fix conditions
+			if rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object < rot_minus90 or rot_object > rot_plus90):
+					print(n,"!",m," and coc ",OS.get_system_time_msecs())
+					new_poly.modulate += Color(-1, 0, -0.5)
 				
-				new_poly.modulate += Color(1, -0.5, -0.5)
+			elif rot_object < rot_minus90 && rot_object > rot_plus90:
+					print(n,"?",m," and bals ",OS.get_system_time_msecs())
+					new_poly.modulate += Color(2, 0, -0.5)
 			
 			else:
 				var containers_posZ = (positionZ/100)*lineH
@@ -538,20 +544,21 @@ func BSP():
 			
 			
 			#printing biznizz
-			if m == INF:
+			#if m == INF:
 			#if m != INF:
-			#if n == m:
-				print(n,"_",m,":  ", #OS.get_system_time_msecs(),"\n",
+			#if m == 0:
+			#	print(n,"_",m,":  ", #OS.get_system_time_msecs(),"\n",
+			#	rotation_angle,"(Rot_A) =? ",   rot_object,"(A-90) <? ",   rot_minus90,"(-90=L), >? ",   rot_plus90, "(+90=R)",
+			#	"")
 				#": angle=",(array_walls[n].points[m]-position).angle(),
 				#", midscreen=",midscreen,
 				#", holyshit=",holyshit,
 				#", xkusu=",xkusu,
 				#", distance=",distance,
 				#", lineH=",lineH,
-				rad_overflow((array_walls[n].points[m]-position).angle()-PI/2),"(A-90); ", rotation_angle,"(Rot_A), ",rad_overflow(rotation_angle-(PI/2)), "(-90=L), ", rad_overflow(rotation_angle+(PI/2)), "(+90=R)",
-				"")
 			
-			#THE END, time to render polygon
+			
+			#THE END
 			if m == array_walls[n].points.size()-1:
 				#var new_poly = $PolyContainer/Poly0.duplicate()
 				new_poly.polygon.resize(array_walls[n].points.size())
@@ -626,8 +633,9 @@ func _draw():
 			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
 			draw_line(Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
 			
-			draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle+PI/2), Color(1,0,0, 0.4), 1)
-			draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(1,0,0, 0.4), 1)
+			#draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle+PI/2), Color(1,0,0, 0.4), 1)
+			#draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(1,0,0, 0.4), 1)
+			draw_line(Vector2(0,9999).rotated(rotation_angle+PI/2), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(0,1,0), 1)
 		
 		
 		

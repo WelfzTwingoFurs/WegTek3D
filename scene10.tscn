@@ -9,15 +9,16 @@
 
 [node name="player10" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, -39 )
-angles = 90
-draw_distance = 400
+draw_distance = 1000
+skycolor = Color( 0, 0.25098, 1, 1 )
 map_draw = 6
 
 [node name="Sky" parent="player10/Background" index="0"]
+modulate = Color( 1.97, 0, 1.28, 0.95 )
 texture = ExtResource( 4 )
 
 [node name="Floor" parent="player10/Background" index="1"]
-modulate = Color( 0.486275, 0.227451, 0.380392, 1 )
+modulate = Color( 2.3098, 0.580392, 0, 1 )
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 2 )
