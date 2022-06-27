@@ -499,7 +499,6 @@ func BSP():
 	for n in array_walls.size():
 		var new_poly = $PolyContainer/Poly0.duplicate()
 		
-		
 		if n == 0:
 			if (weakref(new_container).get_ref()):
 				new_container.queue_free()
@@ -531,12 +530,10 @@ func BSP():
 			
 			#stretching fix conditions
 			if rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object < rot_minus90 or rot_object > rot_plus90):
-					print(n,"!",m," and coc ",OS.get_system_time_msecs())
-					new_poly.modulate += Color(-1, 0, -0.5)
+				new_poly.modulate += Color(-1, 0, -0.5)
 				
 			elif rot_object < rot_minus90 && rot_object > rot_plus90:
-					print(n,"?",m," and bals ",OS.get_system_time_msecs())
-					new_poly.modulate += Color(2, 0, -0.5)
+				new_poly.modulate += Color(2, 0, -0.5)
 			
 			else:
 				var containers_posZ = (positionZ/100)*lineH
