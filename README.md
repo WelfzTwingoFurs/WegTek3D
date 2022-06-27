@@ -6,7 +6,7 @@
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster-like
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@ Raycaster-like!! ... Written by "Welfz Twingo Furs" @@@@@@@@@@@@@@@
+@@@@@@@@@@@# Godot Raycaster-like!! ... Written by "Welfz Twingo Furs" #@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 VERSION 10 Features:
