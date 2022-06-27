@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/textures64.png" type="Texture" id=2]
 [ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=3]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=4]
-[ext_resource path="res://assets/feet.png" type="Texture" id=5]
+[ext_resource path="res://assets/feet2.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.5
