@@ -709,13 +709,17 @@ func _draw():
 		elif abs(map_draw) == 5: #3D walls in area 2
 			for n in array_walls.size():
 				for m in array_walls[n].points.size():
+					var posZ = positionZ/200
+					
 					if m < array_walls[n].points.size()-1:
 						#draw_line(((array_walls[n].heights[m]+1) / (positionZ/150))*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / (positionZ/150))*(array_walls[n].points[m+1]-position), orange, 1)
-						draw_line(((array_walls[n].heights[ m                                 ]+1) / (positionZ/200)) * (array_walls[n].points[ m                               ]-position),  ((array_walls[n].heights[m+1]+1) / (positionZ/200))*(array_walls[n].points[m+1]-position), orange, 1)
+						#draw_line(((array_walls[n].heights[ m                                 ]+1) / (positionZ/200)) * (array_walls[n].points[ m                               ]-position),  ((array_walls[n].heights[m+1]+1) / (positionZ/200))*(array_walls[n].points[m+1]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[ m                                 ] * posZ/10) * (array_walls[n].points[ m                               ]-position),  (1+array_walls[n].heights[m+1] * posZ/10)*(array_walls[n].points[m+1]-position), orange, 1)
 						
 					else:
 						#draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / (positionZ/150))*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / (positionZ/150))*(array_walls[n].points[0]-position), orange, 1)
-						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * (positionZ/200)/10)*(array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * (positionZ/200)/10)*(array_walls[n].points[ 0 ]-position), orange, 1)
+						#draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * (positionZ/200)/10)*(array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * (positionZ/200)/10)*(array_walls[n].points[ 0 ]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * posZ/10)*(array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * posZ/10)*(array_walls[n].points[ 0 ]-position), orange, 1)
 						
 		
 		elif abs(map_draw) == 6: #all 3D walls 2
