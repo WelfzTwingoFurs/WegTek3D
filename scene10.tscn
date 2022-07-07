@@ -31,45 +31,85 @@ script = ExtResource( 2 )
 [node name="the amalgamation" type="Node2D" parent="Node2D"]
 position = Vector2( -24, 25 )
 
-[node name="testie weirdie 90" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
+[node name="weirdie 90" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
 position = Vector2( -618, 338 )
-heights = [ -1, -1, -1, -1, -1 ]
+heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation/testie weirdie 90"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation/weirdie 90"]
 polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 
-[node name="testie weirdie 270" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
+[node name="weirdie 270" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
 position = Vector2( -68, 338 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-heights = [ -1, -1, -1, -1, -1 ]
+heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation/testie weirdie 270"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation/weirdie 270"]
 polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 
-[node name="testie weirdie 180" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
+[node name="weirdie 180" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
 position = Vector2( -218, 188 )
 rotation = 1.5708
-heights = [ -1, -1, -1, -1, -1 ]
+heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation/testie weirdie 180"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation/weirdie 180"]
 polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 
-[node name="testie weirdie 360" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
-position = Vector2( -218, 738 )
+[node name="weirdie 360" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
+position = Vector2( -464, 738 )
 rotation = 4.71239
-scale = Vector2( 1, -1 )
-heights = [ -1, -1, -1, -1, -1 ]
+heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation/testie weirdie 360"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation/weirdie 360"]
 polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 
 [node name="Position2D" type="Position2D" parent="Node2D/the amalgamation"]
 position = Vector2( -341, 461 )
+
+[node name="the amalgamation T W O" type="Node2D" parent="Node2D"]
+position = Vector2( -34, 650 )
+
+[node name="weirdie 90" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
+position = Vector2( -608, 338 )
+heights = [ 0, 0, 0, 0, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation T W O/weirdie 90"]
+polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
+
+[node name="weirdie 180" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
+position = Vector2( -208, 188 )
+rotation = 1.5708
+heights = [ 0, 0, 0, 0, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation T W O/weirdie 180"]
+polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
+
+[node name="weirdie 270" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
+position = Vector2( -58, 584 )
+rotation = 3.14159
+heights = [ 0, 0, 0, 0, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation T W O/weirdie 270"]
+polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
+
+[node name="weirdie 360" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
+position = Vector2( -454, 738 )
+rotation = -1.5708
+heights = [ 0, 0, 0, 0, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/the amalgamation T W O/weirdie 360"]
+polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
+
+[node name="Position2D2" type="Position2D" parent="Node2D/the amalgamation T W O"]
+position = Vector2( -331, 461 )
 
 [node name="angle   limit3-4 check" type="CollisionPolygon2D" parent="Node2D"]
 position = Vector2( -255.835, -434.125 )
