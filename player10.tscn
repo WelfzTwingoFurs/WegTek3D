@@ -3,7 +3,7 @@
 [ext_resource path="res://player10.gd" type="Script" id=1]
 [ext_resource path="res://assets/feet2.png" type="Texture" id=2]
 [ext_resource path="res://textures/grad64.png" type="Texture" id=3]
-[ext_resource path="res://assets/weapon doomarms.png" type="Texture" id=4]
+[ext_resource path="res://Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
 [ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=6]
 [ext_resource path="res://make_invisible.gd" type="Script" id=7]
@@ -92,6 +92,7 @@ disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+script = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/spin = SubResource( 2 )
@@ -123,10 +124,6 @@ z_index = 4096
 texture = ExtResource( 2 )
 hframes = 9
 frame = 6
-
-[node name="Hand" type="Sprite" parent="View"]
-visible = false
-texture = ExtResource( 4 )
 
 [node name="Background" type="Node2D" parent="."]
 visible = false
