@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player10.gd" type="Script" id=1]
 [ext_resource path="res://assets/feet2.png" type="Texture" id=2]
 [ext_resource path="res://textures/grad64.png" type="Texture" id=3]
+[ext_resource path="res://assets/weapon doomarms.png" type="Texture" id=4]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
 [ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=6]
 [ext_resource path="res://make_invisible.gd" type="Script" id=7]
@@ -113,18 +114,6 @@ texture = ExtResource( 3 )
 texture_scale = Vector2( 6.4, 6.4 )
 uv = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
 
-[node name="Label" type="Label" parent="PolyContainer"]
-margin_left = 36.0
-margin_top = 3.0
-margin_right = 43.0
-margin_bottom = 17.0
-text = "a"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="View" type="Node2D" parent="."]
 visible = false
 
@@ -134,6 +123,10 @@ z_index = 4096
 texture = ExtResource( 2 )
 hframes = 9
 frame = 6
+
+[node name="Hand" type="Sprite" parent="View"]
+visible = false
+texture = ExtResource( 4 )
 
 [node name="Background" type="Node2D" parent="."]
 visible = false

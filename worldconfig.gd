@@ -7,10 +7,14 @@ var texture_size = 10
 
 ############# zoom #########
 var config = 1
-# 0 = Screen's aspect ratio, zooming in ## For sprite games, keeps pixels square
-# 1 = Any window size, no auto-stretch  ## For 3D, window stretches free, rendering stretches with it
+# 0 = Window stretches & Image keeps aspect-ratio
+# 1 = Window & Image stretch together
 var step = 0
 var zoom = 1
+var Camera2D
+var zoom_config = 1
+# 0 = Software exploit zoom
+# 1 = Better and obvious Camera2D zoom
 ##################################
 
 func _process(_delta):
@@ -75,6 +79,7 @@ func _process(_delta):
 		if Input.is_action_just_pressed("bug_fillscreen"): # F3 - reset/fill screen (not fullscreen)
 			config = 1
 			zoom = 1
+			Camera2D.zoom = Vector2(1,1)
 			step = 0
 		
 		
@@ -87,9 +92,14 @@ func _process(_delta):
 					step = 1
 				
 				else:
-					config = 0
-					zoom += 0.1
-					step = 1
+					if zoom_config == 0:
+						config = 0
+						zoom += 0.1
+						step = 1
+				
+					elif zoom_config == 1:
+						Camera2D.zoom -= Vector2(1,1)
+						zoom += 1
 		
 		if Input.is_action_just_pressed("bug_zoomminus"): # - Zoom out
 			if zoom > 1:
@@ -97,13 +107,16 @@ func _process(_delta):
 				zoom -= 1
 				step = 1
 			
-			elif zoom > 0.2:
-				config = 0
-				zoom -= 0.1
-				step = 1
+			else:
+				if zoom_config == 0:
+					if zoom > 0.2:
+						config = 0
+						zoom -= 0.1
+						step = 1
 		
-		
-		
+				elif zoom_config == 1:
+					Camera2D.zoom += Vector2(1,1)
+					zoom -= 1
 		
 		
 		
