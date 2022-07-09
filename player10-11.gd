@@ -520,7 +520,6 @@ func BSP():
 		
 		
 		var array_polygon = []
-		var array_stretched = []
 		
 		for m in array_walls[n].points.size():
 			#var rot_plus90  = rad_overflow(rotation_angle+(PI/2))
@@ -530,9 +529,66 @@ func BSP():
 			
 			#stretching fix conditions
 			if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object < rot_minus90 or rot_object > rot_plus90))   or   (rot_object < rot_minus90 && rot_object > rot_plus90):
-				array_stretched.append(m) #clipwping part 1
-				array_polygon.append(null) #do this to keep order in array
+				#var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
+				var rot_object_plus  = rad_overflow((array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]-position).angle()-PI/2)
+				var rot_object_minus = rad_overflow((array_walls[n].points[ array_looping(m-1, array_walls[n].points.size()) ]-position).angle()-PI/2)
+				var activator = Vector2(0,0)
 				
+				if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object_plus < rot_minus90 or rot_object_plus > rot_plus90))   or   (rot_object_plus < rot_minus90 && rot_object_plus > rot_plus90):
+					activator.x = 1
+				
+				if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object_minus < rot_minus90 or rot_object_minus > rot_plus90))   or   (rot_object_minus < rot_minus90 && rot_object_minus > rot_plus90):
+					activator.y = 1
+				
+				
+				if (activator.x == 1) && (activator.y == 1):  #both neighbours bad, delete
+					break
+				
+				else:
+					var limitPlus  = position+(Vector2(0,100).rotated(rotation_angle+PI/2))
+					var limitMinus = position+(Vector2(0,100).rotated(rotation_angle-PI/2))
+					var point1 = array_walls[n].points[m]
+					var point2
+					var new_position
+					
+					
+					#if (activator.x == 0) && (activator.y) == 0:#no bad neighbours, make 2 new points
+					#	point2 = array_walls[n].points[m-1]
+					#	var point3 = array_walls[n].points[m+1]
+					#	pass
+					
+					if (activator.x == 0) && (activator.y == 1):#plus neighbour bad, go with minus neighbour
+						point2 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
+					
+					else:#if (activator.x == 1) && (activator.y == 0):#plus neighbour bad, go with minus neighbour
+						point2 = array_walls[n].points[ array_looping(m-1, array_walls[n].points.size()) ]
+					
+					
+					new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))
+					var holyshit = (new_position-position).angle() - midscreen
+					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(holyshit) #Logic from other raycasters
+					
+					array_polygon.append(Vector2(tan(holyshit), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m]))
+					
+					
+					if (activator.x == 0) && (activator.y) == 0:#no bad neighbours, make 2 new points
+						var point3 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
+						
+						new_position = new_position(point1,point3,limitPlus,limitMinus,(point1.x - point3.x)*(limitPlus.y - limitMinus.y) - (point1.y - point3.y)*(limitPlus.x - limitMinus.x))
+						holyshit = (new_position-position).angle() - midscreen
+						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(holyshit) #Logic from other raycasters
+						
+						array_polygon.append(Vector2(tan(holyshit), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m]))
+						
+						
+						
+						
+						
+						
+						
+						
+						
+			
 			
 			else:
 				var holyshit = (array_walls[n].points[m]-position).angle() - midscreen
@@ -546,71 +602,7 @@ func BSP():
 			
 			
 			
-			if m == array_walls[n].points.size()-1:#done half-processing the last point, time wrap it up
-				
-				if array_stretched.size() > 1:
-					var limitPlus  = position+(Vector2(0,100).rotated(rotation_angle+PI/2))
-					var limitMinus = position+(Vector2(0,100).rotated(rotation_angle-PI/2))
-					var point1
-					var point2
-					var new_position
-					var array_deletion = []
-					
-					
-					for o in array_stretched.size():
-						point1 = array_walls[n].points[array_stretched[o]]   #first defective
-						
-						if o == 0:#first defective
-							if array_stretched[o] == 0:
-								point2 = array_walls[n].points[array_walls[n].points.size()-1]
-							else:
-								point2 = array_walls[n].points[array_stretched[o]-1] #point before it
-							
-							new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))# + Vector2(0,10).rotated(rotation_angle)
-							
-							var holyshit = (new_position-position).angle() - midscreen
-							var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(holyshit) #Logic from other raycasters
-							
-							array_polygon[array_stretched[o]] = Vector2(tan(holyshit), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])
-							
-						
-						
-						elif o == array_stretched.size()-1: #last defective
-							if array_stretched[o] == array_walls[n].points.size()-1:
-								point2 = array_walls[n].points[0]
-							else:
-								point2 = array_walls[n].points[array_stretched[o]+1] #point after it
-							
-							new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))# + Vector2(0,10).rotated(rotation_angle)
-							
-							var holyshit = (new_position-position).angle() - midscreen
-							var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(holyshit) #Logic from other raycasters
-							
-							array_polygon[array_stretched[o]] = Vector2(tan(holyshit), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])
-							
-							
-							for p in array_deletion.size(): #Now time to delete unused
-								array_polygon.remove(array_deletion[p])
-							
-						
-						
-						else:#if middle
-							array_deletion.append(array_stretched[o]) #delete position from polygon array!!! but not now, make queue for deletion later
-							
-						
-						
-						
-				
-				
-				elif array_stretched.size() == 1:
-					array_polygon.remove(array_stretched[0])
-				
-				
-				
-				#for x in array_polygon.size()-1:
-				#	if array_polygon[x] == null:
-				#		array_polygon.erase(array_polygon[x])
-				
+			if m == array_walls[n].points.size()-1:#The fucking end so fucking far
 				
 				#var new_poly = $PolyContainer/Poly0.duplicate()
 				new_poly.polygon.resize(array_walls[n].points.size())
@@ -637,17 +629,21 @@ func new_position(point1,point2,limitPlus,limitMinus,det): #This math works unti
 	return(new_position)
 
 
-func array_looping(to_check, array_size):
-	array_size -= 1
+func array_looping(to_check, array_size):#This is causing issues big time BIG time
+	#array_size -= 1
 	
 	if to_check < 0:
 		to_check += array_size
 	
 	elif to_check == array_size:
-		to_check -= array_size
-		
-	#elif to_check > array_size-1:
+	#elif to_check > array_size:
+		to_check -= array_size 
+	
+	#elif to_check > array_size:
 	#	to_check -=  array_size-(to_check-array_size)
+	
+	else:
+		print("uh? ",to_check," ",array_size)
 	
 	return(to_check)
 
