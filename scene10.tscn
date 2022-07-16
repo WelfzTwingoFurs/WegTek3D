@@ -10,8 +10,8 @@
 
 [node name="player10" parent="." instance=ExtResource( 3 )]
 position = Vector2( -365, 486 )
-draw_distance = 250
 skycolor = Color( 0.2, 0.211765, 0.301961, 1 )
+sky_stretch = Vector2( 0, 1 )
 vbob_max = 6.0
 vbob_speed = 0.13
 vroll_multi = -2.0
@@ -29,7 +29,7 @@ texture = ExtResource( 5 )
 script = ExtResource( 2 )
 
 [node name="the amalgamation" type="Node2D" parent="Node2D"]
-position = Vector2( -24, 25 )
+position = Vector2( -420, 7 )
 
 [node name="weirdie 90" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
 position = Vector2( -618, 338 )
@@ -71,7 +71,7 @@ polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 position = Vector2( -341, 461 )
 
 [node name="the amalgamation T W O" type="Node2D" parent="Node2D"]
-position = Vector2( -34, 650 )
+position = Vector2( -430, 632 )
 
 [node name="weirdie 90" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
 position = Vector2( -608, 338 )
@@ -111,19 +111,22 @@ polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
 [node name="Position2D2" type="Position2D" parent="Node2D/the amalgamation T W O"]
 position = Vector2( -331, 461 )
 
-[node name="angle   limit3-4 check" type="CollisionPolygon2D" parent="Node2D"]
-position = Vector2( -255.835, -434.125 )
-build_mode = 1
-polygon = PoolVector2Array( -611.165, 297.125, -611.165, 497.125 )
+[node name="spiky" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( -1387, 204 )
+scale = Vector2( 3, 1.5 )
+heights = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+bug_label = true
 
-[node name="position player check" type="Position2D" parent="Node2D"]
-position = Vector2( -866.835, -37.125 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/spiky"]
+polygon = PoolVector2Array( -257, 7.33334, 43.6667, 0.666672, -23, 174, -22, 41.3333, -45.6667, 43.3333, -69.6667, 231.333, -91.3333, 43.3333, -137, 44, -123.667, 311.333 )
 
-[node name="position point1 check" type="Position2D" parent="Node2D"]
-position = Vector2( -867, -85.991 )
+[node name="DIE-MOND" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( -53, 323 )
+heights = [ 0, 0, 0, 0 ]
+bug_label = true
 
-[node name="position point2 check" type="Position2D" parent="Node2D"]
-position = Vector2( -867, -85.991 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/DIE-MOND"]
+polygon = PoolVector2Array( -159, 201, -79, 503, -171, 557, -250, 500 )
 
 [node name="0" parent="Node2D" instance=ExtResource( 1 )]
 position = Vector2( 1, 1 )
@@ -785,5 +788,19 @@ bug_label = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/BIG BOY2"]
 polygon = PoolVector2Array( 0, 0, 250, 500, 17, 1000, -250, 500 )
+
+[node name="angle   limit3-4 check" type="CollisionPolygon2D" parent="Node2D"]
+position = Vector2( -255.835, -434.125 )
+build_mode = 1
+polygon = PoolVector2Array( -611.165, 297.125, -611.165, 497.125 )
+
+[node name="position player check" type="Position2D" parent="Node2D"]
+position = Vector2( -866.835, -37.125 )
+
+[node name="position point1 check" type="Position2D" parent="Node2D"]
+position = Vector2( -867, -85.991 )
+
+[node name="position point2 check" type="Position2D" parent="Node2D"]
+position = Vector2( -867, -85.991 )
 
 [editable path="player10"]

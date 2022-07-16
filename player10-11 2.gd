@@ -736,6 +736,16 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 export var map_draw = 2
 
 func _draw():
+	if Worldconfig.zoom < 1:
+		#draw_line(Vector2(-abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+		draw_line(Vector2(-abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+		draw_line(Vector2(-abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+		
+		draw_line(Vector2(-abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(-abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+		draw_line(Vector2(abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+		
+	
+	
 	if Input.is_action_pressed("ui_accept"): #Must always update otherwise it doesn't dissapear
 		var shine1 = Color((randi() % 2),(randi() % 2),(randi() % 2))
 		var orange = Color(1, 0.5, 0)
