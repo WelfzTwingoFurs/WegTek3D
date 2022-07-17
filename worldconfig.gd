@@ -12,9 +12,9 @@ var config = 1
 var step = 0
 var zoom = 1
 var Camera2D
-var zoom_config = 1
-# 0 = Software exploit zoom
-# 1 = Better and obvious Camera2D zoom
+#var zoom_config = 0
+# 0 = Software exploit zoom-out
+# 1 = Better and obvious Camera2D zoom-out
 ##################################
 
 func _process(_delta):
@@ -86,37 +86,55 @@ func _process(_delta):
 		
 		
 		if Input.is_action_just_pressed("bug_zoomplus"): # + Zoom in
-				if zoom > 0.9:
-					config = 0
+			if zoom > 0:
+				config = 0
+				zoom += 1
+				if zoom == 0:
+					zoom = 1
+				
+				step = 1
+				
+				
+				
+			
+			else:
+#				if zoom_config == 0:
+#					config = 0
+#					zoom += 0.1
+#					step = 1
+#
+#				elif zoom_config == 1:
+					Camera2D.zoom -= Vector2(1,1)
 					zoom += 1
-					step = 1
-				
-				else:
-					if zoom_config == 0:
-						config = 0
-						zoom += 0.1
-						step = 1
-				
-					elif zoom_config == 1:
-						Camera2D.zoom -= Vector2(1,1)
-						zoom += 1
+					if zoom == 0:
+						zoom = 1
+					
+					print("=  WORLDCONFIG: config=",config,", zoom=",zoom)
+		
 		
 		if Input.is_action_just_pressed("bug_zoomminus"): # - Zoom out
 			if zoom > 1:
 				config = 0
 				zoom -= 1
+				if zoom == 0:
+					zoom = -1
+				
 				step = 1
 			
 			else:
-				if zoom_config == 0:
-					if zoom > 0.2:
-						config = 0
-						zoom -= 0.1
-						step = 1
-		
-				elif zoom_config == 1:
+#				if zoom_config == 0:
+#					if zoom > 0.2:
+#						config = 0
+#						zoom -= 0.1
+#						step = 1
+#
+#				elif zoom_config == 1:
 					Camera2D.zoom += Vector2(1,1)
 					zoom -= 1
+					if zoom == 0:
+						zoom = -1
+					
+					print("=  WORLDCONFIG: config=",config,", zoom=",zoom)
 		
 		
 		
@@ -129,12 +147,14 @@ func _process(_delta):
 			print("=  WORLDCONFIG: time=",Engine.time_scale)
 		
 		
-		if Input.is_action_just_pressed("bug_speeddown"): #9
-			Engine.time_scale -= 0.2
+		#if Input.is_action_just_pressed("bug_speeddown"): #9
+		if Input.is_action_pressed("bug_speeddown"): #9
+			Engine.time_scale -= 0.025
 			print("=  WORLDCONFIG: time=",Engine.time_scale)
 		
-		elif Input.is_action_just_pressed("bug_speedup"): #10
-			Engine.time_scale += 0.2
+		#elif Input.is_action_just_pressed("bug_speedup"): #10
+		elif Input.is_action_pressed("bug_speedup"): #10
+			Engine.time_scale += 0.025
 			print("=  WORLDCONFIG: time=",Engine.time_scale)
 		
 		elif Input.is_action_just_pressed("bug_speedres"): #11
