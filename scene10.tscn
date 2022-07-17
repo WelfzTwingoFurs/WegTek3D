@@ -10,12 +10,10 @@
 
 [node name="player10" parent="." instance=ExtResource( 3 )]
 position = Vector2( -365, 486 )
-skycolor = Color( 0.2, 0.211765, 0.301961, 1 )
 sky_stretch = Vector2( 0, 1 )
-vbob_max = 6.0
-vbob_speed = 0.13
-vroll_multi = -2.0
-map_draw = 1
+
+[node name="Console" parent="player10" index="1"]
+visible = true
 
 [node name="Sky" parent="player10/Background" index="0"]
 modulate = Color( 1, 1, 1, 1 )

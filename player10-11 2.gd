@@ -370,12 +370,14 @@ func _physics_process(_delta):
 
 
 
-
+#		draw_line(Vector2(-abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+#		draw_line(Vector2(-abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+#		
+#		draw_line(Vector2(-abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(-abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+#		draw_line(Vector2(abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
 
 
 var feet_stretch = 1
-
-
 
 func recalculate():
 	if sky_stretch.x + sky_stretch.y > 2:
@@ -403,7 +405,9 @@ func recalculate():
 	
 	if change_checker[1] != $Background/Sky.texture or change_checker[7] != sky_stretch or change_checker[6] != OS.window_size:
 		$Background/Sky.rect_size.y = $Background/Sky.texture.get_height()
-		$Background/Sky.rect_size.x = ($Background/Sky.texture.get_width()+OS.window_size.x)*2
+		#$Background/Sky.rect_size.x = ($Background/Sky.texture.get_width()+OS.window_size.x)
+		#$Background/Sky.rect_size.x = $Background/Sky.texture.get_width()*2
+		
 		
 		if sky_stretch.y == 1:
 			$Background/Sky.rect_scale.y = -(OS.window_size.y/2)/float($Background/Sky.rect_size.y) 
@@ -414,8 +418,10 @@ func recalculate():
 		
 		
 		if sky_stretch.x == 1:
+			$Background/Sky.rect_size.x = $Background/Sky.texture.get_width()*2
 			$Background/Sky.rect_scale.x = (OS.window_size.x/$Background/Sky.texture.get_width())
 		else:
+			$Background/Sky.rect_size.x = ($Background/Sky.texture.get_width()+OS.window_size.x)
 			$Background/Sky.rect_scale.x = 1
 		
 		
