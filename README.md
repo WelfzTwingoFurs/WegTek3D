@@ -5,38 +5,37 @@
 
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster-like
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@# Godot Raycaster-like!! ... Written by "Welfz Twingo Furs" #@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+###################################################################################
+############ Godot Raycaster-like!! ... Written by "Welfz Twingo Furs" ############
+###################################################################################
 
 VERSION 10 Features:
 -Primitive polygon world with height;
 -Field of view, draw distance options;
 -Screen resizable to any size;
--Stretchable scrolling sky texture, floor texture;
--Changeable textures of any size;
+-Scrolling sky texture, floor texture;
+-Changeable textures in any size;
 -Flying up and down;
 -Looking up and down;
 -Viewbobbing, viewrolling;
+-Polygon clipping (99% done), vertexes behind camera don't distort.
 
 Imperfections:
 -No collision;
--Vertexes behind player (over 90º) cause major distortion;
 -No sprite objects;
 -Only 1 texture at a time;
 -No coling (Objects behind others still render);
 -No Z_Index polygon priority;
 -Texture distortion (PS1-style, kinda likeable actually);
 -Non-square polygons don't texture properly;
--Draw distance innacurate to value, depends on Angles FOV;
--Render Y scaling innacurate;
+-Draw distance innacurate to value(depends on Angles FOV);
 -Feet when you look down, Resolution multiplier & divider,
 draw distance fading, depth-shading options,
 looking up and down scaling, have been deactivated;
--No in-game options (settings all in editor).
+-No in-game options (all settings in editor).
 
 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+###################################################################################
 
 Controls:
 -WASD / Arrows:   Move, rotate;
@@ -61,7 +60,7 @@ Debug:
 -F11:          Time-scale =1;
 -F12:          Time-scale =0.
 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+###################################################################################
 
 Credits:
 -JJoeyay, for teaching me Godot and inspiring me to make games;
