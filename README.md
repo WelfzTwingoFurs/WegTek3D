@@ -10,15 +10,15 @@ https://github.com/WelfzTwingoFurs/godot-raycaster-like
 ###################################################################################
 
 VERSION 10 Features:
--Primitive polygon world with height;
--Field of view, draw distance options;
--Screen resizable to any size;
--Scrolling sky texture, floor texture;
--Changeable textures in any size;
+-Polygon world with height;
 -Flying up and down;
 -Looking up and down;
--Viewbobbing, viewrolling;
+-Field of view (FOV), draw distance options;
 -Polygon clipping (99% done), vertexes behind camera don't distort.
+-Screen resizable to any size;
+-Scrolling sky texture, floor texture;
+-Changeable textures of any size;
+-Viewbobbing, viewrolling options;
 
 Imperfections:
 -No collision;
@@ -26,12 +26,13 @@ Imperfections:
 -Only 1 texture at a time;
 -No coling (Objects behind others still render);
 -No Z_Index polygon priority;
--Texture distortion (PS1-style, kinda likeable actually);
--Non-square polygons don't texture properly;
--Draw distance innacurate to value(depends on Angles FOV);
--Feet when you look down, Resolution multiplier & divider,
-draw distance fading, depth-shading options,
-looking up and down scaling, have been deactivated;
+-Heavy texture distortion up-close;
+-Non-square polygons don't texture properly (& intervenes with clipping);
+-Draw distance innacurate to value (depending on Angles FOV);
+-No Y FOV;
+-Polygons outside screen still render, and they're huge;
+-Feet when you look down, draw distance fading,
+depth-shading options, have been deactivated;
 -No in-game options (all settings in editor).
 
 
@@ -45,20 +46,20 @@ Controls:
 -Enter(press/hold):   View map.
 
 Debug:
-- Scroll-lock (+WASD): Angle;
-- Home:          Look center;
-- End:            Fly center;
-- F1:         /2 screen-size;
-- F2:         *2 screen-size;
-- F3:            Fill screen;
--  +:                Zoom in;
--  -:               Zoom out;
-- F5:            Reset scene;
-- F8:             Close game;
-- F9:          Time-scale -1;
--F10:          Time-scale +1;
--F11:          Time-scale =1;
--F12:          Time-scale =0.
+- Scroll-lock (+WASD):   Angle;
+- Home:            Look center;
+- End:              Fly center;
+- F1:           /2 screen-size;
+- F2:           *2 screen-size;
+- F3:        Reset/Fill screen;
+-  +:                  Zoom in;
+-  -:                 Zoom out;
+- F5:              Reset scene;
+- F8:               Close game;
+- F9:             Time-scale -;
+- F10:            Time-scale +;
+- F11:           Time-scale =1;
+- F12:           Time-scale =0.
 
 ###################################################################################
 
