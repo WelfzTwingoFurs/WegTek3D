@@ -8,7 +8,7 @@
 [ext_resource path="res://older_versions/Tile10-Texture.tscn" type="PackedScene" id=6]
 [ext_resource path="res://older_versions/TileCol.gd" type="Script" id=8]
 [ext_resource path="res://older_versions/,test-spinning body.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/textures150.png" type="Texture" id=10]
+[ext_resource path="res://older_versions/textures150.png" type="Texture" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )

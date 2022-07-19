@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://older_versions/player7.gd" type="Script" id=1]
-[ext_resource path="res://assets/textures64.png" type="Texture" id=2]
+[ext_resource path="res://older_versions/textures64.png" type="Texture" id=2]
 [ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=3]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=4]
 [ext_resource path="res://assets/feet2.png" type="Texture" id=5]
