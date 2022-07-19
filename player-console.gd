@@ -29,8 +29,11 @@ func _process(_delta):
 		
 		
 		text = str(
-			"[Worldconfig], config=",Worldconfig.config,", zoom=",Worldconfig.zoom,", Camera2D.zoom=",Worldconfig.Camera2D.zoom,", step=",Worldconfig.step,
-			"\n ...not much else to type here right now but I felt like making it"
+			"[Engine] time_scale=",Engine.time_scale,";;  [OS] window_size=",OS.window_size,
+			";; \n",
+			"[Worldconfig] config=",Worldconfig.config,", zoom=",Worldconfig.zoom,", Camera2D.zoom=",Worldconfig.Camera2D.zoom,", step=",Worldconfig.step,
+			";; \n",
+			"...not much else to type here right now but I felt like making it"
 			)
 
 

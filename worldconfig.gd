@@ -44,7 +44,7 @@ func _process(_delta):
 			OS.center_window() # Window res*2
 			
 			step = -1
-			print("=  WORLDCONFIG: config=",config,", zoom=",zoom)
+			print("=  WORLDCONFIG: config=",config,", zoom=",zoom,";; [SceneTree] STRETCH_MODE_VIEWPORT, STRETCH_ASPECT_KEEP")
 	
 	
 	
@@ -60,7 +60,7 @@ func _process(_delta):
 			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(OS.window_size.x, OS.window_size.y))
 			
 			step = -1
-			print("=  WORLDCONFIG: config=",config,", zoom=",zoom)
+			print("=  WORLDCONFIG: config=",config,", zoom=",zoom,";; [SceneTree] STRETCH_MODE_DISABLED, STRETCH_ASPECT_EXPAND")
 	
 	
 	
@@ -109,7 +109,7 @@ func _process(_delta):
 					if zoom == 0:
 						zoom = 1
 					
-					print("=  WORLDCONFIG: config=",config,", zoom=",zoom)
+					print("=  WORLDCONFIG: config=",config,", zoom=",zoom,", Camera2D.zoom=",Camera2D.zoom)
 		
 		
 		if Input.is_action_just_pressed("bug_zoomminus"): # - Zoom out
@@ -134,7 +134,7 @@ func _process(_delta):
 					if zoom == 0:
 						zoom = -1
 					
-					print("=  WORLDCONFIG: config=",config,", zoom=",zoom)
+					print("=  WORLDCONFIG: config=",config,", zoom=",zoom,", Camera2D.zoom=",Camera2D.zoom)
 		
 		
 		
