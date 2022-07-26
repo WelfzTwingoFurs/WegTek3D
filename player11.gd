@@ -9,6 +9,8 @@ export var draw_distance = 1000
 onready var change_checker = []
 
 func _ready():
+	Worldconfig.player = self
+	
 	$Background.visible = 1
 	#$View/Feet.visible = 1
 	#Turn everything on
@@ -133,7 +135,7 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("bug_rotatecenter"):
 		move_dir = Vector2(0,0)
 		
-		print(rotation_angle," = ", rad_deg(rotation_angle))
+		#print(rotation_angle," = ", rad_deg(rotation_angle))
 		
 		
 		if abs(input_dir.x) != abs(input_dir.y):
@@ -501,7 +503,6 @@ func recalculate():
 
 
 ##############################################################################################################################################################################################
-var polys = []
 var new_container
 
 var rot_plus90
@@ -528,7 +529,7 @@ func BSP():
 		
 		
 		var array_polygon = []
-		#var outtasight = []
+		var outtasight = []
 		
 		for m in array_walls[n].points.size():
 			#var rot_plus90  = rad_overflow(rotation_angle+(PI/2))
@@ -552,7 +553,7 @@ func BSP():
 				
 				
 				if (activator.x == 1) && (activator.y == 1):  #both neighbours bad, delete
-					break
+					pass
 				
 				else:
 					var limitPlus  = position+(Vector2(0,100).rotated(rotation_angle+PI/2))
@@ -579,7 +580,7 @@ func BSP():
 					
 					array_polygon.append(Vector2(tan(holyshit), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m]))
 					
-					#if (array_polygon[m].y+$PolyContainer.position.y > abs(get_viewport().size.y)/2)  or  (array_polygon[m].y+$PolyContainer.position.y < -abs(get_viewport().size.y)/2):
+					#if ((array_polygon[m].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
 					#	outtasight.append(0)
 					
 					if (activator.x == 0) && (activator.y) == 0:#no bad neighbours, make 2 new points
@@ -591,7 +592,7 @@ func BSP():
 						
 						array_polygon.append(Vector2(tan(holyshit), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m]))
 						
-						#if (array_polygon[m+1].y+$PolyContainer.position.y > abs(get_viewport().size.y)/2)  or  (array_polygon[m+1].y+$PolyContainer.position.y < -abs(get_viewport().size.y)/2):
+						#if ((array_polygon[m+1].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[m+1].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
 						#	outtasight.append(0)
 			
 			
@@ -610,7 +611,7 @@ func BSP():
 			
 			
 			
-			#	if (array_polygon[m].y+$PolyContainer.position.y > abs(get_viewport().size.y)/2)  or  (array_polygon[m].y+$PolyContainer.position.y < -abs(get_viewport().size.y)/2):
+			#	if ((array_polygon[m].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
 			#		outtasight.append(0)
 			
 			
@@ -618,15 +619,15 @@ func BSP():
 			if m == array_walls[n].points.size()-1:#The fucking end so fucking far
 				
 				
-				#if outtasight.size() > new_poly.polygon.size()-1:
-				#	new_poly.queue_free()
-				#	break
+				if outtasight.size() > new_poly.polygon.size():
+					new_poly.queue_free()
 				
-				#var new_poly = $PolyContainer/Poly0.duplicate()
-				new_poly.polygon.resize(array_walls[n].points.size())
-				new_poly.set_polygon( PoolVector2Array(array_polygon) )
-				
-				new_container.add_child((new_poly))
+				else:
+					#var new_poly = $PolyContainer/Poly0.duplicate()
+					new_poly.polygon.resize(array_walls[n].points.size())
+					new_poly.set_polygon( PoolVector2Array(array_polygon) )
+					
+					new_container.add_child((new_poly))
 
 
 
@@ -891,7 +892,7 @@ func _draw():
 						targets_in_scene = []
 		
 		
-		print(position)
+		#print(position)
 
 
 	####    ####                ####            ############
