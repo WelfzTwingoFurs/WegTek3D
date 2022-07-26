@@ -14,12 +14,8 @@ __meta__ = {
 
 [node name="player10" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, -1 )
-draw_distance = 500
-sky_stretch = Vector2( 0, 0 )
+draw_distance = 10000
 map_draw = 1
-
-[node name="Console" parent="player10" index="2"]
-visible = true
 
 [node name="Sky" parent="player10/Background" index="0"]
 modulate = Color( 1, 1, 1, 1 )
@@ -32,114 +28,10 @@ texture = ExtResource( 5 )
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="espin 0-1" type="KinematicBody2D" parent="Node2D" groups=[
-"polywall",
-]]
-position = Vector2( 0, 337 )
-script = ExtResource( 6 )
-heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-bug_label = true
-rotation_angle = 0
-speed = 0
-rate = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/espin 0-1"]
-polygon = PoolVector2Array( -10, -100, 10, -100, 0, 0 )
-
-[node name="espin 1-2" type="KinematicBody2D" parent="Node2D" groups=[
-"polywall",
-]]
-position = Vector2( -1, 452 )
-script = ExtResource( 6 )
-heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-bug_label = true
-rotation_angle = 0
-speed = 0
-rate = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/espin 1-2"]
-polygon = PoolVector2Array( 0, 0, -10, -100, 10, -100 )
-
-[node name="espin 2-0" type="KinematicBody2D" parent="Node2D" groups=[
-"polywall",
-]]
-position = Vector2( 0, 568 )
-script = ExtResource( 6 )
-heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-bug_label = true
-rotation_angle = 0
-speed = 0
-rate = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/espin 2-0"]
-polygon = PoolVector2Array( 10, -100, 0, 0, -10, -100 )
-
-[node name="espin big-blocky" type="KinematicBody2D" parent="Node2D" groups=[
-"polywall",
-]]
-position = Vector2( 0, 814 )
-script = ExtResource( 6 )
-heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-bug_label = true
-rotation_angle = 0
-speed = 0
-rate = 2
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/espin big-blocky"]
-polygon = PoolVector2Array( 1, -1, 100, -10, 100, 10, 1, 1, 10, 100, -10, 100, -1, 1, -100, 10, -100, -10, -1, -1, -10, -100, 10, -100 )
-
-[node name="espin big-spiky" type="KinematicBody2D" parent="Node2D" groups=[
-"polywall",
-]]
-position = Vector2( 0, 1054 )
-script = ExtResource( 6 )
-heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-bug_label = true
-rotation_angle = 0
-speed = 0
-rate = 2
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/espin big-spiky"]
-polygon = PoolVector2Array( -10, -10, 0, -100, 10, -10, 100, 0, 10, 10, 0, 100, -10, 10, -100, 0 )
-
-[node name="espin" type="KinematicBody2D" parent="Node2D" groups=[
-"polywall",
-]]
-position = Vector2( 0, 1358 )
-scale = Vector2( 3, 3 )
-script = ExtResource( 6 )
-heights = [ -1, -1, -1, -1 ]
-bug_label = true
-rotation_angle = 0
-speed = 0
-rate = 2
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/espin"]
-polygon = PoolVector2Array( 0, -50, 50, 0, 0, 50, -50, 0 )
-
-[node name="weirdie 181" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( -211, 167 )
-scale = Vector2( 0.5, 0.5 )
-heights = [ 0, 0, 0, 0, 0 ]
-bug_label = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/weirdie 181"]
-polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
-
-[node name="weirdie 361" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( -361, 166 )
-scale = Vector2( 0.5, 0.5 )
-heights = [ 0, 0, 0, 0, 0 ]
-bug_label = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/weirdie 361"]
-polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
-
 [node name="Clipping-Test" type="Node2D" parent="Node2D"]
-position = Vector2( 1029, -606 )
+position = Vector2( 0, 1126 )
 
 [node name="tri-012" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
-modulate = Color( 0, 1, 1, 1 )
 position = Vector2( 0, 578 )
 scale = Vector2( 3, 1 )
 heights = [ -1, -1, -1 ]
@@ -149,7 +41,6 @@ bug_label = true
 polygon = PoolVector2Array( 0, 0, 50, 0, 0, 100 )
 
 [node name="tri-012 2" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
-modulate = Color( 100, 0, 0, 1 )
 position = Vector2( 0, 796 )
 rotation = 3.14159
 scale = Vector2( 3, 1 )
@@ -160,7 +51,6 @@ bug_label = true
 polygon = PoolVector2Array( 0, 0, 50, 0, 0, 100 )
 
 [node name="tri-120" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
-modulate = Color( 0, 1, 1, 1 )
 position = Vector2( 0, 817 )
 scale = Vector2( 3, 1 )
 heights = [ -1, -1, -1 ]
@@ -170,7 +60,6 @@ bug_label = true
 polygon = PoolVector2Array( 0, 100, 0, 0, 50, 0 )
 
 [node name="tri-120 2" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
-modulate = Color( 100, 0, 0, 1 )
 position = Vector2( 0, 1050 )
 rotation = 3.14159
 scale = Vector2( 3, 1 )
@@ -181,7 +70,6 @@ bug_label = true
 polygon = PoolVector2Array( 0, 100, 0, 0, 50, 0 )
 
 [node name="tri-201" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
-modulate = Color( 0, 100, 0, 1 )
 position = Vector2( 0, 1088 )
 scale = Vector2( 3, 1 )
 heights = [ -1, -1, -1 ]
@@ -191,7 +79,6 @@ bug_label = true
 polygon = PoolVector2Array( 50, 0, 0, 100, 0, 0 )
 
 [node name="tri-201 2" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
-modulate = Color( 0, 100, 0, 1 )
 position = Vector2( 0, 1311 )
 scale = Vector2( 3, -1 )
 heights = [ -1, -1, -1 ]
@@ -208,10 +95,10 @@ bug_label = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/DIE-MOND"]
 polygon = PoolVector2Array( -150, 200, -50, 500, -150, 550, -250, 500 )
 
-[node name="espinner" type="Node2D" parent="Node2D/Clipping-Test"]
-position = Vector2( 0, 2227 )
+[node name="espinners" type="Node2D" parent="Node2D/Clipping-Test"]
+position = Vector2( 0, 1949 )
 
-[node name="spin-bunch" type="KinematicBody2D" parent="Node2D/Clipping-Test/espinner" groups=[
+[node name="spin-bunch" type="KinematicBody2D" parent="Node2D/Clipping-Test/espinners" groups=[
 "polywall",
 ]]
 position = Vector2( 0, 70 )
@@ -222,10 +109,10 @@ rotation_angle = 0
 speed = 0
 rate = 1
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espinner/spin-bunch"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espinners/spin-bunch"]
 polygon = PoolVector2Array( 1, -1, -1, -1, -10, -100, 10, -100 )
 
-[node name="spin-bunch2" type="KinematicBody2D" parent="Node2D/Clipping-Test/espinner" groups=[
+[node name="spin-bunch2" type="KinematicBody2D" parent="Node2D/Clipping-Test/espinners" groups=[
 "polywall",
 ]]
 position = Vector2( 0, 70 )
@@ -236,10 +123,10 @@ rotation_angle = 0
 speed = 0
 rate = 1
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espinner/spin-bunch2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espinners/spin-bunch2"]
 polygon = PoolVector2Array( 1, -1, 100, -10, 100, 10, 1, 1 )
 
-[node name="spin-bunch3" type="KinematicBody2D" parent="Node2D/Clipping-Test/espinner" groups=[
+[node name="spin-bunch3" type="KinematicBody2D" parent="Node2D/Clipping-Test/espinners" groups=[
 "polywall",
 ]]
 position = Vector2( 0, 70 )
@@ -250,10 +137,10 @@ rotation_angle = 0
 speed = 0
 rate = 1
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espinner/spin-bunch3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espinners/spin-bunch3"]
 polygon = PoolVector2Array( 1, 1, 10, 100, -10, 100, -1, 1 )
 
-[node name="spin-bunch4" type="KinematicBody2D" parent="Node2D/Clipping-Test/espinner" groups=[
+[node name="spin-bunch4" type="KinematicBody2D" parent="Node2D/Clipping-Test/espinners" groups=[
 "polywall",
 ]]
 position = Vector2( 0, 70 )
@@ -264,8 +151,111 @@ rotation_angle = 0
 speed = 0
 rate = 1
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espinner/spin-bunch4"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espinners/spin-bunch4"]
 polygon = PoolVector2Array( -1, 1, -100, 10, -100, -10, -1, -1 )
+
+[node name="espin 0-1" type="KinematicBody2D" parent="Node2D/Clipping-Test" groups=[
+"polywall",
+]]
+position = Vector2( 0, -789 )
+script = ExtResource( 6 )
+heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+bug_label = true
+rotation_angle = 0
+speed = 0
+rate = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espin 0-1"]
+polygon = PoolVector2Array( -10, -100, 10, -100, 0, 0 )
+
+[node name="espin 1-2" type="KinematicBody2D" parent="Node2D/Clipping-Test" groups=[
+"polywall",
+]]
+position = Vector2( -1, -674 )
+script = ExtResource( 6 )
+heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+bug_label = true
+rotation_angle = 0
+speed = 0
+rate = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espin 1-2"]
+polygon = PoolVector2Array( 0, 0, -10, -100, 10, -100 )
+
+[node name="espin 2-0" type="KinematicBody2D" parent="Node2D/Clipping-Test" groups=[
+"polywall",
+]]
+position = Vector2( 0, -558 )
+script = ExtResource( 6 )
+heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+bug_label = true
+rotation_angle = 0
+speed = 0
+rate = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espin 2-0"]
+polygon = PoolVector2Array( 10, -100, 0, 0, -10, -100 )
+
+[node name="espin big-blocky" type="KinematicBody2D" parent="Node2D/Clipping-Test" groups=[
+"polywall",
+]]
+position = Vector2( 0, -312 )
+script = ExtResource( 6 )
+heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+bug_label = true
+rotation_angle = 0
+speed = 0
+rate = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espin big-blocky"]
+polygon = PoolVector2Array( 1, -1, 100, -10, 100, 10, 1, 1, 10, 100, -10, 100, -1, 1, -100, 10, -100, -10, -1, -1, -10, -100, 10, -100 )
+
+[node name="espin big-spiky" type="KinematicBody2D" parent="Node2D/Clipping-Test" groups=[
+"polywall",
+]]
+position = Vector2( 0, -72 )
+script = ExtResource( 6 )
+heights = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+bug_label = true
+rotation_angle = 0
+speed = 0
+rate = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espin big-spiky"]
+polygon = PoolVector2Array( -10, -10, 0, -100, 10, -10, 100, 0, 10, 10, 0, 100, -10, 10, -100, 0 )
+
+[node name="espin" type="KinematicBody2D" parent="Node2D/Clipping-Test" groups=[
+"polywall",
+]]
+position = Vector2( 0, 232 )
+scale = Vector2( 3, 3 )
+script = ExtResource( 6 )
+heights = [ -1, -1, -1, -1 ]
+bug_label = true
+rotation_angle = 0
+speed = 0
+rate = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espin"]
+polygon = PoolVector2Array( 0, -50, 50, 0, 0, 50, -50, 0 )
+
+[node name="weirdie 181" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
+position = Vector2( -211, -959 )
+scale = Vector2( 0.5, 0.5 )
+heights = [ 0, 0, 0, 0, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/weirdie 181"]
+polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
+
+[node name="weirdie 361" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
+position = Vector2( -361, -960 )
+scale = Vector2( 0.5, 0.5 )
+heights = [ 0, 0, 0, 0, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/weirdie 361"]
+polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
 
 [node name="the amalgamation" type="Node2D" parent="Node2D"]
 position = Vector2( -577, -188 )
