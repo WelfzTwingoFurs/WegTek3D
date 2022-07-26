@@ -17,6 +17,8 @@ var Camera2D
 # 1 = Better and obvious Camera2D zoom-out
 ##################################
 
+var player
+
 func _process(_delta):
 	### STOCK zoom configuration ###
 	### zoom process ###
@@ -144,17 +146,19 @@ func _process(_delta):
 			Engine.time_scale = 1
 			var thefunctionreloadcurrentscenereturnsavaluebutthisvalueisneverused = get_tree()
 			thefunctionreloadcurrentscenereturnsavaluebutthisvalueisneverused.reload_current_scene()
-			print("=  WORLDCONFIG: time=",Engine.time_scale)
+			#print("=  WORLDCONFIG: time=",Engine.time_scale)
 		
 		
 		#if Input.is_action_just_pressed("bug_speeddown"): #9
 		if Input.is_action_pressed("bug_speeddown"): #9
-			Engine.time_scale -= 0.025
-			print("=  WORLDCONFIG: time=",Engine.time_scale)
+			if Engine.time_scale > 0.025:
+				Engine.time_scale -= 0.025
 		
 		#elif Input.is_action_just_pressed("bug_speedup"): #10
 		elif Input.is_action_pressed("bug_speedup"): #10
 			Engine.time_scale += 0.025
+		
+		elif Input.is_action_just_released("bug_speeddown") or Input.is_action_just_released("bug_speedup"):
 			print("=  WORLDCONFIG: time=",Engine.time_scale)
 		
 		elif Input.is_action_just_pressed("bug_speedres"): #11

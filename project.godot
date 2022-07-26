@@ -10,8 +10,8 @@ config_version=4
 
 [application]
 
-config/name="a-werid"
-config/description="How about \"Ultimatrix\", cool but maybe a bit pretentious? Oh nevermind that's the Ben 10 wristwatch... I LOVE IT"
+config/name="a-weird 3D engine"
+config/description="Welfz Twingo Furs 2022 suckaasss :)"
 run/main_scene="res://scene10.tscn"
 boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
