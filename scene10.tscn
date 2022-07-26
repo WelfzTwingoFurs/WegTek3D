@@ -18,7 +18,7 @@ draw_distance = 500
 sky_stretch = Vector2( 0, 0 )
 map_draw = 1
 
-[node name="Console" parent="player10" index="1"]
+[node name="Console" parent="player10" index="2"]
 visible = true
 
 [node name="Sky" parent="player10/Background" index="0"]
