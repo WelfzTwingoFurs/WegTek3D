@@ -93,10 +93,17 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="Console" type="Label" parent="."]
 visible = false
-margin_right = 39.0
-margin_bottom = 9.0
+margin_right = 4096.0
+margin_bottom = 4096.0
 custom_colors/font_color_shadow = Color( 0, 0, 1, 0.498039 )
 custom_constants/line_spacing = 0
 text = "WAZA"
@@ -107,19 +114,6 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
-
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/spin = SubResource( 2 )
-anims/strafeL = SubResource( 3 )
-anims/strafeR = SubResource( 4 )
-anims/walk = SubResource( 5 )
 
 [node name="ViewArea" type="Area2D" parent="."]
 z_index = 4096
@@ -148,6 +142,12 @@ visible = false
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="View"]
+anims/spin = SubResource( 2 )
+anims/strafeL = SubResource( 3 )
+anims/strafeR = SubResource( 4 )
+anims/walk = SubResource( 5 )
 
 [node name="Feet" type="Sprite" parent="View"]
 visible = false
