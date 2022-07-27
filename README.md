@@ -49,20 +49,20 @@ CONTROL KEYS:
 -Enter(press/hold):   View map.
 
 DEBUG KEYS:
-- Scroll-lock (+WASD):   Angle;
+- Scroll-lock (+Move):   Angle;
 - Home:            Look center;
-- End:              Fly center;
-- F1:           /2 screen-size;
-- F2:           *2 screen-size;
-- F3:        Reset/Fill screen;
--  +:                  Zoom in;
--  -:                 Zoom out;
-- F5:              Reset scene;
-- F8:               Close game;
-- F9:             Time-scale -;
-- F10:            Time-scale +;
-- F11:           Time-scale =1;
-- F12:           Time-scale =0.
+-  End:             Fly center;
+-   F1:         /2 screen-size;
+-   F2:         *2 screen-size;
+-   F3:      Reset/Fill screen;
+-    +:                Zoom in;
+-    -:               Zoom out;
+-   F5:            Reset scene;
+-   F8:             Close game;
+-   F9:           Time-scale -;
+-  F10:           Time-scale +;
+-  F11:          Time-scale =1;
+-  F12:          Time-scale =0.
 
 ###################################################################################
 
