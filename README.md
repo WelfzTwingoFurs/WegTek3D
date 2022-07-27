@@ -1,6 +1,6 @@
 <i>NOTE: Low-FPS recording, game runs real smoof!</i><br>
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png">
-<img src="https://media3.giphy.com/media/IByynGXEVS4IB823tI/giphy.gif" height=256px>
+<img src="https://media3.giphy.com/media/IByynGXEVS4IB823tI/giphy.gif" height=350px>
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png">
 <hr>
 
