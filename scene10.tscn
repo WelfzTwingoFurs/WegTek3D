@@ -4,7 +4,7 @@
 [ext_resource path="res://make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://player10.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/skybox IEV.png" type="Texture" id=4]
-[ext_resource path="res://textures/gradbluesimple64.png" type="Texture" id=5]
+[ext_resource path="res://textures/gradsimple64.png" type="Texture" id=5]
 [ext_resource path="res://spin-body.gd" type="Script" id=6]
 
 [node name="scene10" type="Node2D"]
