@@ -569,10 +569,10 @@ func BSP():
 						point2 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
 						height2 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
 					
-					#else:
-						#if (activator.x == 1) && (activator.y == 0):#plus neighbour bad, go with minus neighbour
-					#####if (activator.x == 0) && (activator.y) == 0:#no bad neighbours, make 2 new points
-					elif ((activator.x == 1) && (activator.y == 0))  or  ((activator.x == 0) && (activator.y) == 0):
+					#elif (activator.x == 1) && (activator.y == 0):#plus neighbour bad, go with minus neighbour
+					#elif (activator.x == 0) && (activator.y) == 0:#no bad neighbours, make 2 new points
+					#elif ((activator.x == 1) && (activator.y == 0))  or  (activator.x == activator.y):
+					else:
 						point2 = array_walls[n].points[ array_looping(m-1, array_walls[n].points.size()) ]
 						height2 = array_walls[n].heights[ array_looping(m-1, array_walls[n].heights.size()) ]
 					
@@ -588,15 +588,26 @@ func BSP():
 					
 					if height1 == height2:
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+						
 					else:
 						var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
 						var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
 						
-						new_height =  (distX_2/dist1_2)*(height1-height2)
+						new_height = (distX_2/dist1_2)*(height1-height2)
+						#funny bizniz right here
 						if height2 > height1:
 							new_height += height2
+						###
+						if height2 < height1:
+							if new_height < height2:
+								new_height += height2
+							elif new_height > height1:
+								new_height += height2
+								#new_height -= abs(height2)
 						
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*new_height)) #OVER
+						
+						
 					
 					#if ((array_polygon[m].y+$PolyContainer.posdition.y) > get_viewport().size.y/2)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/2):
 					#	outtasight.append(0)
@@ -606,25 +617,36 @@ func BSP():
 					
 					#if (activator.x == 0) && (activator.y) == 0:#no bad neighbours, make 2 new points
 					if activator.x == activator.y:#no bad neighbours, make extra new point
-						point2 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
-						height2 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
+						var point3 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
+						var height3 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
 						
-						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
-						#func new_position(point1,point2,limitPlus,limitMinus,det):
+						new_position = new_position(point1,point3,limitPlus,limitMinus,(point1.x - point3.x)*(limitPlus.y - limitMinus.y) - (point1.y - point3.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
+						#func new_position(point1,point3,limitPlus,limitMinus,det):
 						xkusu = (new_position-position).angle() - midscreen
 						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
-						if height1 == height2:
+						if height1 == height3:
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
-						else:
-							var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
-							var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
 							
-							new_height =  (distX_2/dist1_2)*(height1-height2)
-							if height2 > height1:
-								new_height += height2
+						else:
+							var dist1_3 = sqrt(pow((point3.x - point1.x), 2) + pow((point3.y - point1.y), 2)) #Logic from other raycasters
+							var distX_3 = sqrt(pow((point3.x - new_position.x), 2) + pow((point3.y - new_position.y), 2)) #Logic from other raycasters
+							
+							new_height = (distX_3/dist1_3)*(height1-height3)
+							#funny bizniz right here
+							if height3 > height1:
+								new_height += height3
+							###
+							if height3 < height1:
+								if new_height < height3:
+									new_height += height3
+								elif new_height > height1:
+									new_height += height3
+									#new_height -= abs(height2)
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*new_height)) #OVER
+							
+							
 						
 						#if ((array_polygon[ array_looping(m+1, array_walls[n].points.size()) ].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[ array_looping(m+1, array_walls[n].points.size()) ].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
 						#	outtasight.append(0)
@@ -789,10 +811,16 @@ func _draw():
 		if abs(map_draw) == 1: #walls in area
 			for n in array_walls.size():
 				for m in array_walls[n].points.size():
-					if m < array_walls[n].points.size()-1:
-						draw_line(array_walls[n].points[m]-position, array_walls[n].points[m+1]-position, orange, 1)
+					var zoomies
+					if Worldconfig.zoom > 0:
+						zoomies = float(1)/Worldconfig.zoom
 					else:
-						draw_line(array_walls[n].points[array_walls[n].points.size()-1]-position, array_walls[n].points[0]-position, orange, 1)
+						zoomies = Worldconfig.Camera2D.zoom
+					
+					if m < array_walls[n].points.size()-1:
+						draw_line((array_walls[n].points[m]-position)*zoomies, (array_walls[n].points[m+1]-position)*zoomies, orange, 1)
+					else:
+						draw_line((array_walls[n].points[array_walls[n].points.size()-1]-position)*zoomies, (array_walls[n].points[0]-position)*zoomies, orange, 1)
 		
 		
 		
@@ -806,10 +834,16 @@ func _draw():
 					
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
-								if m < targets_in_scene[n].points.size()-1:
-									draw_line(targets_in_scene[n].points[m]-position, targets_in_scene[n].points[m+1]-position, orange, 1)
+								var zoomies
+								if Worldconfig.zoom > 0:
+									zoomies = float(1)/Worldconfig.zoom
 								else:
-									draw_line(targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position, targets_in_scene[n].points[0]-position, orange, 1)
+									zoomies = Worldconfig.Camera2D.zoom
+								
+								if m < targets_in_scene[n].points.size()-1:
+									draw_line((targets_in_scene[n].points[m]-position)*zoomies, (targets_in_scene[n].points[m+1]-position)*zoomies, orange, 1)
+								else:
+									draw_line((targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position)*zoomies, (targets_in_scene[n].points[0]-position)*zoomies, orange, 1)
 						targets_in_scene = []
 		
 		
@@ -822,7 +856,7 @@ func _draw():
 		elif abs(map_draw) == 3: #3D walls in area
 			for n in array_walls.size():
 				for m in array_walls[n].points.size():
-					var posZ = positionZ/200
+					var posZ = positionZ/100
 					
 					if m < array_walls[n].points.size()-1:
 						draw_line(((array_walls[n].heights[m]+1) / posZ)*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / posZ)*(array_walls[n].points[m+1]-position), orange, 1)
@@ -837,7 +871,7 @@ func _draw():
 			if targets_in_scene.size() != 0: #If anyone at all
 				for item in targets_in_scene:
 					if (weakref(item).get_ref()): #If they are, then
-						var posZ = positionZ/200
+						var posZ = positionZ/100
 						
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():

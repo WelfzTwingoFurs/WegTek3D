@@ -3,8 +3,8 @@
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=1]
 [ext_resource path="res://make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://player10.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/skybox duke3D.png" type="Texture" id=4]
-[ext_resource path="res://assets/gradientverybig2.png" type="Texture" id=5]
+[ext_resource path="res://assets/skybox IEV.png" type="Texture" id=4]
+[ext_resource path="res://textures/gradbluesimple64.png" type="Texture" id=5]
 [ext_resource path="res://spin-body.gd" type="Script" id=6]
 
 [node name="scene10" type="Node2D"]
@@ -13,20 +13,288 @@ __meta__ = {
 }
 
 [node name="player10" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, -1 )
+position = Vector2( 1156, 866 )
 draw_distance = 10000
+skycolor = Color( 0.66, 0.24002, 0.1122, 1 )
 map_draw = 1
 
+[node name="Poly0" parent="player10/PolyContainer" index="0"]
+texture = ExtResource( 5 )
+
 [node name="Sky" parent="player10/Background" index="0"]
-modulate = Color( 1, 1, 1, 1 )
+modulate = Color( 0.5, 0.085, 0.5, 1 )
 texture = ExtResource( 4 )
 
 [node name="Floor" parent="player10/Background" index="1"]
-modulate = Color( 0.345098, 0.517647, 0, 1 )
-texture = ExtResource( 5 )
+modulate = Color( 0.342925, 0.0817, 0.43, 1 )
+position = Vector2( -52, 236 )
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 2 )
+
+[node name="pyramid3" type="Node2D" parent="Node2D"]
+position = Vector2( -2971, 2051 )
+scale = Vector2( 10, 10 )
+
+[node name="pyratop" parent="Node2D/pyramid3" instance=ExtResource( 1 )]
+position = Vector2( 162, 50 )
+heights = [ 0, 0, 20, 20 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/pyramid3/pyratop"]
+polygon = PoolVector2Array( -50, -50, 50, -50, 0, 0, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="pyraright" parent="Node2D/pyramid3" instance=ExtResource( 1 )]
+position = Vector2( 162, 50 )
+heights = [ 0, 0, 20, 20 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/pyramid3/pyraright"]
+polygon = PoolVector2Array( 50, -50, 50, 50, 0, 0, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="pyrabot" parent="Node2D/pyramid3" instance=ExtResource( 1 )]
+position = Vector2( 162, 50 )
+heights = [ 0, 0, 20, 20 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/pyramid3/pyrabot"]
+polygon = PoolVector2Array( 50, 50, -50, 50, 0, 0, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="pyraleft" parent="Node2D/pyramid3" instance=ExtResource( 1 )]
+position = Vector2( 162, 50 )
+heights = [ 0, 0, 20, 20 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/pyramid3/pyraleft"]
+polygon = PoolVector2Array( -50, 50, -50, -50, 0, 0, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double1" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 359, 1021 )
+scale = Vector2( 4, 2 )
+heights = [ 0, 5, 10 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double1"]
+polygon = PoolVector2Array( 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double2" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 363, 1360 )
+scale = Vector2( 4, 2 )
+heights = [ 0, 5, 10 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double2"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double3" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 725, 1022 )
+scale = Vector2( 4, 2 )
+heights = [ 10, 0, 5 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double3"]
+polygon = PoolVector2Array( 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double4" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 729, 1360 )
+scale = Vector2( 4, 2 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double4"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope3421" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1323, 1039 )
+scale = Vector2( 3, 1.5 )
+heights = [ 6, 10, 0, -4 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/eslope3421"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope1342" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1326, 1459 )
+scale = Vector2( 3, 1.5 )
+heights = [ -4, 6, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/eslope1342"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope2134" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1737, 1036 )
+scale = Vector2( 3, 1.5 )
+heights = [ 0, -4, 6, 10 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/eslope2134"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope4213" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1734, 1461 )
+scale = Vector2( 3, 1.5 )
+heights = [ 10, 0, -4, 6 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/eslope4213"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="triangle-wall" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 2430, 911 )
+rotation = 1.5708
+scale = Vector2( 1, 10 )
+heights = [ 0, 0, 10 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/triangle-wall"]
+polygon = PoolVector2Array( 0, 0, 0, 100, 0, 100 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="triangle-wall2" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 307, 900 )
+rotation = 1.5708
+scale = Vector2( 1, -10 )
+heights = [ 0, 0, 10 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/triangle-wall2"]
+polygon = PoolVector2Array( 0, 0, 0, 100, 0, 100 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="long slopy" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 462, 523 )
+rotation = 1.5708
+scale = Vector2( 1, -10 )
+heights = [ 5, 5, 0, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/long slopy"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="pyratop" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 977, 240 )
+scale = Vector2( 4, 4 )
+heights = [ 0, 0, 10 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/pyratop"]
+polygon = PoolVector2Array( -50, -50, 50, -50, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="testie triagle" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 355, 5 )
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/testie triagle"]
+polygon = PoolVector2Array( 0, 0, 250, 150, -250, 100 )
+
+[node name="cummmmm" type="Label" parent="Node2D/testie triagle"]
+visible = false
+margin_left = -258.0
+margin_top = -10.0
+margin_right = 272.0
+margin_bottom = 157.0
+text = "                                                                 0
+
+
+
+
+
+2
+
+
+                                                                                                                               1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="box of sox, cox & rox2" type="Node2D" parent="Node2D"]
+position = Vector2( -108, -489 )
+scale = Vector2( 10, 10 )
+
+[node name="boxbot" parent="Node2D/box of sox, cox & rox2" instance=ExtResource( 1 )]
+position = Vector2( 60, 0 )
+heights = [ 0.0, 0.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox2/boxbot"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="boxtop" parent="Node2D/box of sox, cox & rox2" instance=ExtResource( 1 )]
+position = Vector2( 60, 0 )
+heights = [ 10.0, 10.0, 10, 10 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox2/boxtop"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="boxsidetop" parent="Node2D/box of sox, cox & rox2" instance=ExtResource( 1 )]
+position = Vector2( 60, 0 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox2/boxsidetop"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 0, 0, 0 )
+
+[node name="boxsidebot" parent="Node2D/box of sox, cox & rox2" instance=ExtResource( 1 )]
+position = Vector2( 60, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox2/boxsidebot"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 0, 0, 0 )
+
+[node name="boxsideleft" parent="Node2D/box of sox, cox & rox2" instance=ExtResource( 1 )]
+position = Vector2( 60, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox2/boxsideleft"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="boxsideright" parent="Node2D/box of sox, cox & rox2" instance=ExtResource( 1 )]
+position = Vector2( 70, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox2/boxsideright"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
 
 [node name="Clipping-Test" type="Node2D" parent="Node2D"]
 position = Vector2( 0, 1126 )
@@ -239,29 +507,11 @@ rate = 2
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/espin"]
 polygon = PoolVector2Array( 0, -50, 50, 0, 0, 50, -50, 0 )
 
-[node name="weirdie 181" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
-position = Vector2( -211, -959 )
-scale = Vector2( 0.5, 0.5 )
-heights = [ 0, 0, 0, 0, 0 ]
-bug_label = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/weirdie 181"]
-polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
-
-[node name="weirdie 361" parent="Node2D/Clipping-Test" instance=ExtResource( 1 )]
-position = Vector2( -361, -960 )
-scale = Vector2( 0.5, 0.5 )
-heights = [ 0, 0, 0, 0, 0 ]
-bug_label = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Clipping-Test/weirdie 361"]
-polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
-
 [node name="the amalgamation" type="Node2D" parent="Node2D"]
-position = Vector2( -577, -188 )
+position = Vector2( -513, -1852 )
 
 [node name="weirdie 90" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
-position = Vector2( -618, 338 )
+position = Vector2( -1050, 2178 )
 heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
 
@@ -269,7 +519,7 @@ bug_label = true
 polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 
 [node name="weirdie 270" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
-position = Vector2( -68, 338 )
+position = Vector2( -500, 2178 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
 heights = [ 0, 0, 0, 0, 0 ]
@@ -279,7 +529,7 @@ bug_label = true
 polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 
 [node name="weirdie 180" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
-position = Vector2( -218, 188 )
+position = Vector2( -650, 2028 )
 rotation = 1.5708
 heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
@@ -288,7 +538,7 @@ bug_label = true
 polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 
 [node name="weirdie 360" parent="Node2D/the amalgamation" instance=ExtResource( 1 )]
-position = Vector2( -464, 738 )
+position = Vector2( -896, 2578 )
 rotation = 4.71239
 heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
@@ -297,13 +547,13 @@ bug_label = true
 polygon = PoolVector2Array( 0, 0, 227.273, 110, 227.273, 136.364, 0, 250 )
 
 [node name="Position2D" type="Position2D" parent="Node2D/the amalgamation"]
-position = Vector2( -341, 461 )
+position = Vector2( -773, 2301 )
 
 [node name="the amalgamation T W O" type="Node2D" parent="Node2D"]
-position = Vector2( -587, 437 )
+position = Vector2( -523, -1227 )
 
 [node name="weirdie 90" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
-position = Vector2( -608, 338 )
+position = Vector2( -1040, 2178 )
 heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
 
@@ -311,7 +561,7 @@ bug_label = true
 polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
 
 [node name="weirdie 180" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
-position = Vector2( -208, 188 )
+position = Vector2( -640, 2028 )
 rotation = 1.5708
 heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
@@ -320,7 +570,7 @@ bug_label = true
 polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
 
 [node name="weirdie 270" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
-position = Vector2( -58, 584 )
+position = Vector2( -490, 2424 )
 rotation = 3.14159
 heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
@@ -329,7 +579,7 @@ bug_label = true
 polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
 
 [node name="weirdie 360" parent="Node2D/the amalgamation T W O" instance=ExtResource( 1 )]
-position = Vector2( -454, 738 )
+position = Vector2( -886, 2578 )
 rotation = -1.5708
 heights = [ 0, 0, 0, 0, 0 ]
 bug_label = true
@@ -338,10 +588,10 @@ bug_label = true
 polygon = PoolVector2Array( 227.273, 110, 0, 0, 0, 250, 227.273, 136.364 )
 
 [node name="Position2D2" type="Position2D" parent="Node2D/the amalgamation T W O"]
-position = Vector2( -331, 461 )
+position = Vector2( -763, 2301 )
 
 [node name="spiky" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( -131, -741 )
+position = Vector2( -2024, 1219 )
 scale = Vector2( 3, 1.5 )
 heights = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 bug_label = true
@@ -414,54 +664,8 @@ heights = [ 0.5, 0.5, 0, 0 ]
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox/boxsideright"]
 polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
 
-[node name="bot slope" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 404, 51 )
-heights = [ 0, 2, 4, 2 ]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/bot slope"]
-polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="top slope" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 404, 51 )
-heights = [ 4, 6, 8, 6 ]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/top slope"]
-polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="testie triagle" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 471, 166 )
-bug_label = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/testie triagle"]
-polygon = PoolVector2Array( 0, 0, 250, 150, -250, 100 )
-
-[node name="cummmmm" type="Label" parent="Node2D/testie triagle"]
-visible = false
-margin_left = -258.0
-margin_top = -10.0
-margin_right = 272.0
-margin_bottom = 157.0
-text = "                                                                 0
-
-
-
-
-
-2
-
-
-                                                                                                                               1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="pyramid" type="Node2D" parent="Node2D"]
+position = Vector2( -584, 2 )
 
 [node name="pyratop" parent="Node2D/pyramid" instance=ExtResource( 1 )]
 position = Vector2( 162, 50 )
@@ -965,6 +1169,26 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="bot slope" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( -424, -468 )
+heights = [ 0, 2, 4, 2 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/bot slope"]
+polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="top slope" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( -424, -468 )
+heights = [ 4, 6, 8, 6 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/top slope"]
+polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="stop" parent="Node2D" instance=ExtResource( 1 )]
 position = Vector2( -315, -304 )
 scale = Vector2( 10, 10 )
@@ -983,27 +1207,15 @@ bug_label = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/pointy"]
 polygon = PoolVector2Array( -2, 4.4, 6.3, 6.1, 8, 14.4, 8, 4.4 )
 
-[node name="big slope" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 404, -228 )
-scale = Vector2( 2, 2 )
-heights = [ -3, -1, 1, -1 ]
-bug_label = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/big slope"]
-polygon = PoolVector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="BIG BOY" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 1545, -1001 )
+position = Vector2( -2034, 14 )
 bug_label = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/BIG BOY"]
 polygon = PoolVector2Array( 0, 0, 250, 1000, -250, 1000 )
 
 [node name="BIG BOY2" parent="Node2D" instance=ExtResource( 1 )]
-position = Vector2( 914, -1001 )
+position = Vector2( -2665, 14 )
 heights = [ 0, 0, 0, 0 ]
 bug_label = true
 
