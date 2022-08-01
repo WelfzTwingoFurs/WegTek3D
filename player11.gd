@@ -531,6 +531,7 @@ func BSP():
 		
 		var array_polygon = []
 		#var outtasight = []
+		var z_index_calcu = Vector2(0,0)
 		
 		for m in array_walls[n].points.size():
 			#var rot_plus90  = rad_overflow(rotation_angle+(PI/2))
@@ -569,10 +570,7 @@ func BSP():
 						point2 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
 						height2 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
 					
-					#elif (activator.x == 1) && (activator.y == 0):#plus neighbour bad, go with minus neighbour
-					#elif (activator.x == 0) && (activator.y) == 0:#no bad neighbours, make 2 new points
-					#elif ((activator.x == 1) && (activator.y == 0))  or  (activator.x == activator.y):
-					else:
+					else:#plus/both neighbour bad, go with minus neighbour
 						point2 = array_walls[n].points[ array_looping(m-1, array_walls[n].points.size()) ]
 						height2 = array_walls[n].heights[ array_looping(m-1, array_walls[n].heights.size()) ]
 					
@@ -584,8 +582,8 @@ func BSP():
 					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					
 					
+					z_index_calcu += new_position
 					var new_height
-					
 					if height1 == height2:
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
@@ -603,28 +601,24 @@ func BSP():
 								new_height += height2
 							elif new_height > height1:
 								new_height += height2
-								#new_height -= abs(height2)
 						
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*new_height)) #OVER
-						
-						
 					
 					#if ((array_polygon[m].y+$PolyContainer.posdition.y) > get_viewport().size.y/2)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/2):
 					#	outtasight.append(0)
 					
 					
-					
-					
-					#if (activator.x == 0) && (activator.y) == 0:#no bad neighbours, make 2 new points
-					if activator.x == activator.y:#no bad neighbours, make extra new point
+					if activator.x == activator.y:#both bad neighbours, make extra new point
 						var point3 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
 						var height3 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
 						
 						new_position = new_position(point1,point3,limitPlus,limitMinus,(point1.x - point3.x)*(limitPlus.y - limitMinus.y) - (point1.y - point3.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
-						#func new_position(point1,point3,limitPlus,limitMinus,det):
+						
 						xkusu = (new_position-position).angle() - midscreen
 						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
+						
+						z_index_calcu += new_position
 						if height1 == height3:
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 							
@@ -633,7 +627,7 @@ func BSP():
 							var distX_3 = sqrt(pow((point3.x - new_position.x), 2) + pow((point3.y - new_position.y), 2)) #Logic from other raycasters
 							
 							new_height = (distX_3/dist1_3)*(height1-height3)
-							#funny bizniz right here
+							
 							if height3 > height1:
 								new_height += height3
 							###
@@ -645,14 +639,11 @@ func BSP():
 									#new_height -= abs(height2)
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*new_height)) #OVER
-							
-							
+						
 						
 						#if ((array_polygon[ array_looping(m+1, array_walls[n].points.size()) ].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[ array_looping(m+1, array_walls[n].points.size()) ].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
 						#	outtasight.append(0)
 						
-						
-			
 			
 			
 			else:#all vertices in front of camera
@@ -661,23 +652,37 @@ func BSP():
 				var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)) #Logic from other raycasters
 				var lineH = (OS.window_size.y / distance)   /  cos(xkusu)
 				
-				
+				z_index_calcu += array_walls[n].points[m]
 				array_polygon.append(Vector2(tan(xkusu),((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
-				#Polygon over
+				
 				
 				#if ((array_polygon[m].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
 				#	outtasight.append(0)
+				
+				
+				
 			
 			
 			
-			if m == array_walls[n].points.size()-1:#The fucking end so fucking far
+			
+			
+			if m == array_walls[n].points.size()-1:
 				#if outtasight.size() > new_poly.polygon.size():
 				#	new_poly.queue_free()
 				
 				#else:
-				new_poly.polygon.resize(array_walls[n].points.size())
-				new_poly.set_polygon( PoolVector2Array(array_polygon) )
+				if array_polygon.size() != 0:
+					z_index_calcu = Vector2(z_index_calcu.x/array_polygon.size(), z_index_calcu.y/array_polygon.size()) #average position
+					var distance = sqrt(pow((z_index_calcu.x - position.x), 2) + pow((z_index_calcu.y - position.y), 2)) #Logic from other raycasters
+					z_index_calcu = -(distance*(float(8192)/draw_distance)-4096)
+					
+					if abs(z_index_calcu) > 4096:
+						new_poly.z_index = 4096*sign(z_index_calcu)
+					else:
+						new_poly.z_index = z_index_calcu
 				
+				
+				new_poly.polygon = array_polygon
 				new_container.add_child((new_poly))
 
 

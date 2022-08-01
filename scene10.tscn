@@ -13,7 +13,7 @@ __meta__ = {
 }
 
 [node name="player10" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1156, 866 )
+position = Vector2( 1299, 2348 )
 draw_distance = 10000
 skycolor = Color( 0.66, 0.24002, 0.1122, 1 )
 map_draw = 1
@@ -31,6 +31,82 @@ position = Vector2( -52, 236 )
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 2 )
+
+[node name="Position2D" type="Position2D" parent="Node2D"]
+position = Vector2( 977, 106.667 )
+
+[node name="wall index-test" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1244, 2402 )
+rotation = 1.5708
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="wall index-test2" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1440, 2402 )
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test2"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="wall index-test3" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1571, 2402 )
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test3"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="wall index-test4" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1695, 2402 )
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test4"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="wall index-test5" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1831, 2407 )
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test5"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="wall index-test6" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 1974, 2409 )
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test6"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="wall index-test7" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 2110, 2409 )
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test7"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="wall index-test8" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 2237, 2420 )
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test8"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
+
+[node name="wall index-test9" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 2379, 2419 )
+scale = Vector2( 10, 10 )
+heights = [ 10.0, 10.0, 0, 0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/wall index-test9"]
+polygon = PoolVector2Array( 0, -10, 0, 0, 0, 0, 0, -10 )
 
 [node name="pyramid3" type="Node2D" parent="Node2D"]
 position = Vector2( -2971, 2051 )
