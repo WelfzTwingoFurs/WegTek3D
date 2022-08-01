@@ -14,26 +14,25 @@ https://github.com/WelfzTwingoFurs/godot-raycaster-like
 
 FEATURES:
 -Polygon world with height;
--Flying up and down;
--Looking up and down;
+-Flying up and down & looking up and down;
 -Field of view (FOV), draw distance options;
--Polygon clipping (vertexes behind camera don't distort), 99% done.
+-Clipping (vertexes behind camera don't distort);
+-Z_Index sorting
 -Screen resizable to any size;
--Scrolling sky texture, floor texture;
--Changeable textures of any size;
 -Viewbobbing, viewrolling options;
+-Scrolling sky texture, floor texture;
+-Changeable textures of any size.
 
 IMPERFECTIONS:
 -No collision;
 -No sprite objects;
 -Only 1 texture at a time;
--No coling (Objects behind others still render);
--No Z_Index polygon priority;
+-No culling (Objects behind others still render);
+-No camera-edge clipping (polygons outside screen still render);
 -Heavy texture distortion up-close;
 -Non-square polygons don't texture properly (& intervenes with clipping);
 -Draw distance innacurate to value (depending on Angles FOV);
 -No Y FOV;
--Polygons outside screen still render, and they're huge;
 -Feet when you look down, draw distance fading,
 depth-shading options, have been deactivated;
 -No in-game options (all settings in editor).
@@ -70,7 +69,7 @@ SPECIAL THANKS:
 -JJoeyay, for teaching me Godot and inspiring me to make games;
 -3DSage's 'Make Your Own Raycaster' series on YouTube;
 -Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial';
--Nic from college, for making me understand BSP logic.
+-Nic from college, for making me understand the polygon processing logic.
 
 8)
 ```
