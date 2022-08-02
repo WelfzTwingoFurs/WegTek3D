@@ -4,7 +4,7 @@
 [ext_resource path="res://make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://player10.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/skybox IEV.png" type="Texture" id=4]
-[ext_resource path="res://textures/gradsimple64.png" type="Texture" id=5]
+[ext_resource path="res://textures/gato64.png" type="Texture" id=5]
 [ext_resource path="res://spin-body.gd" type="Script" id=6]
 
 [node name="scene10" type="Node2D"]
@@ -16,6 +16,8 @@ __meta__ = {
 position = Vector2( 1299, 2348 )
 draw_distance = 10000
 skycolor = Color( 0.66, 0.24002, 0.1122, 1 )
+sky_stretch = Vector2( 2, 1.5 )
+texture_map = true
 map_draw = 1
 
 [node name="Poly0" parent="player10/PolyContainer" index="0"]
@@ -30,10 +32,8 @@ modulate = Color( 0.342925, 0.0817, 0.43, 1 )
 position = Vector2( -52, 236 )
 
 [node name="Node2D" type="Node2D" parent="."]
+z_index = 4096
 script = ExtResource( 2 )
-
-[node name="Position2D" type="Position2D" parent="Node2D"]
-position = Vector2( 977, 106.667 )
 
 [node name="wall index-test" parent="Node2D" instance=ExtResource( 1 )]
 position = Vector2( 1244, 2402 )

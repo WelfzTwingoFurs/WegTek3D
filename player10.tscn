@@ -139,7 +139,6 @@ __meta__ = {
 }
 
 [node name="Poly0" type="Polygon2D" parent="PolyContainer"]
-z_as_relative = false
 texture = ExtResource( 3 )
 texture_scale = Vector2( 6.4, 6.4 )
 uv = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )

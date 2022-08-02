@@ -18,6 +18,7 @@ func _ready():
 	$ViewArea/ViewCol.polygon = [Vector2(0,0),   Vector2(0,draw_distance*2).rotated(-deg_rad(angles/2)),   Vector2(0,draw_distance*2).rotated( deg_rad(angles/2))]
 	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size*0, sky_stretch]
 	#Checks if things changed and updates
+	
 
 ########        ############        ####        ########        ####    ####
 ####    ####    ####            ####    ####    ####    ####    ####    ####
@@ -250,14 +251,14 @@ func _physics_process(_delta):
 	
 	
 	########################################################################################################################################################
-	if sky_stretch.y == 1:
-		$Background/Sky.rect_position.y = ($Background/Sky.rect_size.y  /OS.window_size.y) +vbob_max +posZlookZ + abs(vbob)
+	if sky_stretch.y > 0:
+		$Background/Sky.rect_position.y = ($Background/Sky.rect_size.y/OS.window_size.y) +vbob_max +posZlookZ + abs(vbob)
 		
 	else:
 		$Background/Sky.rect_position.y = -$Background/Sky.rect_size.y +vbob_max +posZlookZ + abs(vbob)
 	
-	if sky_stretch.x == 1:
-		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ( $ViewArea/ViewCol.rotation_degrees*(float(OS.window_size.x)/360) )
+	if sky_stretch.x > 0:
+		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ($ViewArea/ViewCol.rotation_degrees*(float(OS.window_size.x)/360))
 		
 	else:
 		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ( $ViewArea/ViewCol.rotation_degrees*(float($Background/Sky.texture.get_width())/360) ) 
@@ -384,12 +385,6 @@ func _physics_process(_delta):
 var feet_stretch = 1
 
 func recalculate():
-	if sky_stretch.x + sky_stretch.y > 2:
-		print("M I S T A K E: sky_stretch value invalid")
-	if abs(map_draw) > 6:
-		print("M I S T A K E: map_draw value invalid!")
-	
-	
 	if change_checker[0] != $View/Feet.texture or change_checker[3] != feet_stretch or change_checker[6] != OS.window_size:
 		if feet_stretch == 1:
 			$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
@@ -413,17 +408,17 @@ func recalculate():
 		#$Background/Sky.rect_size.x = $Background/Sky.texture.get_width()*2
 		
 		
-		if sky_stretch.y == 1:
-			$Background/Sky.rect_scale.y = -(OS.window_size.y/2)/float($Background/Sky.rect_size.y) 
+		if sky_stretch.y > 0:
+			$Background/Sky.rect_scale.y = ( -(OS.window_size.y/2)/float($Background/Sky.rect_size.y) )*sky_stretch.y
 			$Background/Sky.flip_v = 1
 		else:
 			$Background/Sky.rect_scale.y = 1
 			$Background/Sky.flip_v = 0
 		
 		
-		if sky_stretch.x == 1:
-			$Background/Sky.rect_size.x = $Background/Sky.texture.get_width()*2
-			$Background/Sky.rect_scale.x = (OS.window_size.x/$Background/Sky.texture.get_width())
+		if sky_stretch.x > 0:
+			$Background/Sky.rect_size.x = sky_stretch.x*($Background/Sky.texture.get_width())*2
+			$Background/Sky.rect_scale.x = (OS.window_size.x/$Background/Sky.texture.get_width())/sky_stretch.x
 		else:
 			$Background/Sky.rect_size.x = ($Background/Sky.texture.get_width()+OS.window_size.x)
 			$Background/Sky.rect_scale.x = 1
@@ -511,6 +506,8 @@ var rot_minus90
 
 var midscreen = 0
 
+export(bool) var texture_try = 0
+
 func BSP():
 	for n in array_walls.size():
 		var new_poly = $PolyContainer/Poly0.duplicate()
@@ -532,6 +529,7 @@ func BSP():
 		var array_polygon = []
 		#var outtasight = []
 		var z_index_calcu = Vector2(0,0)
+		var array_uv = []
 		
 		for m in array_walls[n].points.size():
 			#var rot_plus90  = rad_overflow(rotation_angle+(PI/2))
@@ -581,8 +579,16 @@ func BSP():
 					var xkusu = (new_position-position).angle() - midscreen
 					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					
-					
 					z_index_calcu += new_position
+					if texture_try:# && (m > 0):
+					#	if new_position == array_uv[m-1]:
+					#		array_uv.append(Vector2(new_position.x, array_walls[n].heights[m]))
+					#	else:
+					#		array_uv.append(array_walls[n].points[m])
+					#else:
+						array_uv.append(new_position)
+					
+					
 					var new_height
 					if height1 == height2:
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
@@ -617,8 +623,16 @@ func BSP():
 						xkusu = (new_position-position).angle() - midscreen
 						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
-						
 						z_index_calcu += new_position
+						if texture_try:# && (m > 0):
+						#	if new_position == array_uv[m-1]:
+						#		array_uv.append(Vector2(new_position.x, array_walls[n].heights[m]))
+						#	else:
+						#		array_uv.append(array_walls[n].points[m])
+						#else:
+							array_uv.append(new_position)
+						
+						
 						if height1 == height3:
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 							
@@ -652,14 +666,20 @@ func BSP():
 				var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)) #Logic from other raycasters
 				var lineH = (OS.window_size.y / distance)   /  cos(xkusu)
 				
-				z_index_calcu += array_walls[n].points[m]
 				array_polygon.append(Vector2(tan(xkusu),((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 				
 				
+				z_index_calcu += array_walls[n].points[m]
+				if texture_try:# && (m > 0):
+				#	if array_walls[n].points[m] == array_uv[m-1]:
+				#		array_uv.append(Vector2(array_walls[n].points[m].x, array_walls[n].heights[m]))
+				#	else:
+				#		array_uv.append(array_walls[n].points[m])
+				#else:
+					array_uv.append(array_walls[n].points[m])
+				
 				#if ((array_polygon[m].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
 				#	outtasight.append(0)
-				
-				
 				
 			
 			
@@ -671,7 +691,7 @@ func BSP():
 				#	new_poly.queue_free()
 				
 				#else:
-				if array_polygon.size() != 0:
+				if array_polygon.size() != 0: #Z_Index
 					z_index_calcu = Vector2(z_index_calcu.x/array_polygon.size(), z_index_calcu.y/array_polygon.size()) #average position
 					var distance = sqrt(pow((z_index_calcu.x - position.x), 2) + pow((z_index_calcu.y - position.y), 2)) #Logic from other raycasters
 					z_index_calcu = -(distance*(float(8192)/draw_distance)-4096)
@@ -681,9 +701,17 @@ func BSP():
 					else:
 						new_poly.z_index = z_index_calcu
 				
+				if texture_try:
+					#Texture mapping
+					if array_uv.size() != 4:
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()/64
+						new_poly.uv = array_uv
+						new_poly.texture_rotation_degrees = array_walls[n].rotation_degrees
+					
 				
 				new_poly.polygon = array_polygon
 				new_container.add_child((new_poly))
+				
 
 
 
@@ -785,6 +813,9 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 export var map_draw = 2
 
 func _draw():
+	if abs(map_draw) > 6:
+		print("M I S T A K E: map_draw value invalid!")
+	
 	if Worldconfig.zoom < 1:
 		#draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
 		draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
@@ -1009,6 +1040,14 @@ func deg_overflow(N):
 		N += 360
 	
 	return N
+
+
+func array_multiply(array, mult):
+	for n in array.size():
+		array[n] = array[n]*mult
+	
+	return array
+
 
 
 
