@@ -5,7 +5,7 @@
 [ext_resource path="res://player10.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/skybox IEV.png" type="Texture" id=4]
 [ext_resource path="res://textures/gato64.png" type="Texture" id=5]
-[ext_resource path="res://spin-body.gd" type="Script" id=6]
+[ext_resource path="res://polywall-move.gd" type="Script" id=6]
 
 [node name="scene10" type="Node2D"]
 __meta__ = {
@@ -15,9 +15,9 @@ __meta__ = {
 [node name="player10" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1299, 2348 )
 draw_distance = 10000
-skycolor = Color( 0.66, 0.24002, 0.1122, 1 )
-sky_stretch = Vector2( 2, 1.5 )
-texture_map = true
+skycolor = Color( 0.658824, 0.239216, 0.113725, 1 )
+sky_stretch = Vector2( 1, 1.5 )
+texture_try = true
 map_draw = 1
 
 [node name="Poly0" parent="player10/PolyContainer" index="0"]
@@ -34,6 +34,100 @@ position = Vector2( -52, 236 )
 [node name="Node2D" type="Node2D" parent="."]
 z_index = 4096
 script = ExtResource( 2 )
+
+[node name="case-double9" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 401, 3073 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double9"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double10" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 216, 2900 )
+scale = Vector2( 4, 4 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double10"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double11" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 80, 2714 )
+scale = Vector2( 8, 8 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double11"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double12" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 137, 2495 )
+scale = Vector2( 12, 12 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double12"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double5" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 401, 2554 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double5"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double6" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 387, 2497 )
+scale = Vector2( 2, 2 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double6"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double7" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 438, 2457 )
+scale = Vector2( 3, 3 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double7"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double8" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 520, 2404 )
+scale = Vector2( 4, 4 )
+heights = [ 5, 10, 0 ]
+bug_label = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/case-double8"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="wall index-test" parent="Node2D" instance=ExtResource( 1 )]
 position = Vector2( 1244, 2402 )

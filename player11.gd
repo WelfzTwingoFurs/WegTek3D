@@ -428,9 +428,20 @@ func recalculate():
 		if change_checker[1] != $Background/Sky.texture:
 			print("-      TEXTURE: Sky changed")
 			change_checker[1] = $Background/Sky.texture
-		elif change_checker[7] != sky_stretch:
+			
+		
+		
+		if sky_stretch.x < 1 && sky_stretch.x != 0:
+			print(">M I S T A K E: sky_stretch.x gotta be =0 or >1!")
+			if sky_stretch.x < 0:
+				sky_stretch.x = 0
+			else:
+				sky_stretch.x = 1
+		
+		if change_checker[7] != sky_stretch:
 			print("-  SKY_STRETCH: ",sky_stretch,", changed from ",change_checker[7])
 			change_checker[7] = sky_stretch
+			
 		
 	
 	
@@ -517,7 +528,7 @@ func BSP():
 				new_container.queue_free()
 				
 			new_container = $PolyContainer.duplicate()
-			add_child((new_container))
+			add_child(new_container)
 			
 			midscreen = (Vector2(0,draw_distance).rotated(rotation_angle)).angle()
 			
@@ -528,31 +539,27 @@ func BSP():
 		
 		var array_polygon = []
 		#var outtasight = []
-		var z_index_calcu = Vector2(0,0)
-		var array_uv = []
+		#var array_uv = []
 		
 		for m in array_walls[n].points.size():
-			#var rot_plus90  = rad_overflow(rotation_angle+(PI/2))
-			#var rot_minus90 = rad_overflow(rotation_angle-(PI/2))
 			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
 			
 			
 			#stretching fix conditions
 			if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object < rot_minus90 or rot_object > rot_plus90))   or   (rot_object < rot_minus90 && rot_object > rot_plus90):
-				#var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
 				var rot_object_plus  = rad_overflow((array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]-position).angle()-PI/2)
 				var rot_object_minus = rad_overflow((array_walls[n].points[ array_looping(m-1, array_walls[n].points.size()) ]-position).angle()-PI/2)
-				var activator = Vector2(0,0)
+				var neighbours_pm = Vector2(0,0)
 				
 				
 				if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object_plus < rot_minus90 or rot_object_plus > rot_plus90))   or   (rot_object_plus < rot_minus90 && rot_object_plus > rot_plus90):
-					activator.x = 1
+					neighbours_pm.x = 1
 				
 				if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object_minus < rot_minus90 or rot_object_minus > rot_plus90))   or   (rot_object_minus < rot_minus90 && rot_object_minus > rot_plus90):
-					activator.y = 1
+					neighbours_pm.y = 1
 				
 				
-				if (activator.x == 1) && (activator.y == 1):  #both neighbours bad, delete
+				if (neighbours_pm.x == 1) && (neighbours_pm.y == 1):  #both neighbours bad, delete
 					pass
 				
 				else:
@@ -564,7 +571,7 @@ func BSP():
 					var height2
 					
 					
-					if (activator.x == 0) && (activator.y == 1):#minus neighbour bad, go with plus neighbour
+					if (neighbours_pm.x == 0) && (neighbours_pm.y == 1):#minus neighbour bad, go with plus neighbour
 						point2 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
 						height2 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
 					
@@ -579,17 +586,10 @@ func BSP():
 					var xkusu = (new_position-position).angle() - midscreen
 					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					
-					z_index_calcu += new_position
-					if texture_try:# && (m > 0):
-					#	if new_position == array_uv[m-1]:
-					#		array_uv.append(Vector2(new_position.x, array_walls[n].heights[m]))
-					#	else:
-					#		array_uv.append(array_walls[n].points[m])
-					#else:
-						array_uv.append(new_position)
 					
 					
-					var new_height
+					
+					
 					if height1 == height2:
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
@@ -597,12 +597,11 @@ func BSP():
 						var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
 						var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
 						
-						new_height = (distX_2/dist1_2)*(height1-height2)
-						#funny bizniz right here
-						if height2 > height1:
+						var new_height = (distX_2/dist1_2)*(height1-height2)
+						
+						if height2 > height1: #dont know
 							new_height += height2
-						###
-						if height2 < height1:
+						elif height2 < height1:# why, OK
 							if new_height < height2:
 								new_height += height2
 							elif new_height > height1:
@@ -614,42 +613,34 @@ func BSP():
 					#	outtasight.append(0)
 					
 					
-					if activator.x == activator.y:#both bad neighbours, make extra new point
-						var point3 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
-						var height3 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
+					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
+						point2 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
+						height2 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
 						
-						new_position = new_position(point1,point3,limitPlus,limitMinus,(point1.x - point3.x)*(limitPlus.y - limitMinus.y) - (point1.y - point3.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
+						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 						
 						xkusu = (new_position-position).angle() - midscreen
 						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
-						z_index_calcu += new_position
-						if texture_try:# && (m > 0):
-						#	if new_position == array_uv[m-1]:
-						#		array_uv.append(Vector2(new_position.x, array_walls[n].heights[m]))
-						#	else:
-						#		array_uv.append(array_walls[n].points[m])
-						#else:
-							array_uv.append(new_position)
 						
 						
-						if height1 == height3:
+						
+						if height1 == height2:
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 							
 						else:
-							var dist1_3 = sqrt(pow((point3.x - point1.x), 2) + pow((point3.y - point1.y), 2)) #Logic from other raycasters
-							var distX_3 = sqrt(pow((point3.x - new_position.x), 2) + pow((point3.y - new_position.y), 2)) #Logic from other raycasters
+							var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
+							var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
 							
-							new_height = (distX_3/dist1_3)*(height1-height3)
+							var new_height = (distX_2/dist1_2)*(height1-height2)
 							
-							if height3 > height1:
-								new_height += height3
-							###
-							if height3 < height1:
-								if new_height < height3:
-									new_height += height3
+							if height2 > height1: #dont know
+								new_height += height2
+							elif height2 < height1:# why, OK
+								if new_height < height2:
+									new_height += height2
 								elif new_height > height1:
-									new_height += height3
+									new_height += height2
 									#new_height -= abs(height2)
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ/100)*lineH)-lineH*new_height)) #OVER
@@ -669,14 +660,6 @@ func BSP():
 				array_polygon.append(Vector2(tan(xkusu),((positionZ/100)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 				
 				
-				z_index_calcu += array_walls[n].points[m]
-				if texture_try:# && (m > 0):
-				#	if array_walls[n].points[m] == array_uv[m-1]:
-				#		array_uv.append(Vector2(array_walls[n].points[m].x, array_walls[n].heights[m]))
-				#	else:
-				#		array_uv.append(array_walls[n].points[m])
-				#else:
-					array_uv.append(array_walls[n].points[m])
 				
 				#if ((array_polygon[m].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
 				#	outtasight.append(0)
@@ -692,25 +675,59 @@ func BSP():
 				
 				#else:
 				if array_polygon.size() != 0: #Z_Index
-					z_index_calcu = Vector2(z_index_calcu.x/array_polygon.size(), z_index_calcu.y/array_polygon.size()) #average position
-					var distance = sqrt(pow((z_index_calcu.x - position.x), 2) + pow((z_index_calcu.y - position.y), 2)) #Logic from other raycasters
-					z_index_calcu = -(distance*(float(8192)/draw_distance)-4096)
+					var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2)) *(float(8192)/draw_distance)-4096)
 					
 					if abs(z_index_calcu) > 4096:
 						new_poly.z_index = 4096*sign(z_index_calcu)
 					else:
 						new_poly.z_index = z_index_calcu
 				
-				if texture_try:
-					#Texture mapping
-					if array_uv.size() != 4:
-						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()/64
-						new_poly.uv = array_uv
-						new_poly.texture_rotation_degrees = array_walls[n].rotation_degrees
-					
+				
+				if texture_try: #Texture mapping
+					if array_walls[n].points.size() != 4:
+						new_poly.texture_scale /= 10
+						new_poly.uv = array_walls[n].points
+#					var howmany = array_walls[n].points.size()
+#
+#					if  howmany == 3:
+#						#new_poly.offset = Vector2(0,0)
+#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()
+#						new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
+#					elif howmany == 4:
+#						#new_poly.offset = Vector2(0,0)
+#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()
+#						new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
+#					elif howmany == 5:
+#						new_poly.offset = Vector2(0,1)
+#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/2
+#						new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
+#					elif howmany == 6:
+#						new_poly.offset = Vector2(1,2)
+#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/4
+#						new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
+#					elif howmany == 7:
+#						new_poly.offset = Vector2(1,0)
+#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/4
+#						new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
+#					elif howmany == 8:
+#						#new_poly.offset = Vector2(0,0)
+#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/6
+#						new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
+#					elif  howmany == 9:
+#						new_poly.offset = Vector2(1,-2)
+#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/6
+#						new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
+#					elif howmany == 10:
+#						new_poly.offset = Vector2(0,-1)
+#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/6
+#						new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
+						
+				
+				
 				
 				new_poly.polygon = array_polygon
 				new_container.add_child((new_poly))
+				# Over!
 				
 
 
@@ -718,7 +735,6 @@ func BSP():
 
 
 
-#determinante = (array_walls[n].points[array_stretched[0]].x - array_walls[n].points[array_stretched[0]-1].x)  *  ((Vector2(0,9999).rotated(rotation_angle+PI/2)).y - (Vector2(0,9999).rotated(rotation_angle-PI/2)).y)   -   (array_walls[n].points[array_stretched[0]].y - array_walls[n].points[array_stretched[0]-1].y)  *  ((Vector2(0,9999).rotated(rotation_angle+PI/2)).x - (Vector2(0,9999).rotated(rotation_angle-PI/2)).x)
 func new_position(point1,point2,limitPlus,limitMinus,det):
 	var new_position
 	
@@ -814,7 +830,8 @@ export var map_draw = 2
 
 func _draw():
 	if abs(map_draw) > 6:
-		print("M I S T A K E: map_draw value invalid!")
+		print(">M I S T A K E: map_draw value invalid!")
+		map_draw = 6*sign(map_draw)
 	
 	if Worldconfig.zoom < 1:
 		#draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
@@ -847,11 +864,11 @@ func _draw():
 		if abs(map_draw) == 1: #walls in area
 			for n in array_walls.size():
 				for m in array_walls[n].points.size():
-					var zoomies
-					if Worldconfig.zoom > 0:
-						zoomies = float(1)/Worldconfig.zoom
-					else:
-						zoomies = Worldconfig.Camera2D.zoom
+					var zoomies = 1
+					#if Worldconfig.zoom > 0:
+					#	zoomies = float(1)/Worldconfig.zoom
+					#else:
+					#	zoomies = Worldconfig.Camera2D.zoom
 					
 					if m < array_walls[n].points.size()-1:
 						draw_line((array_walls[n].points[m]-position)*zoomies, (array_walls[n].points[m+1]-position)*zoomies, orange, 1)
@@ -870,11 +887,11 @@ func _draw():
 					
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
-								var zoomies
-								if Worldconfig.zoom > 0:
-									zoomies = float(1)/Worldconfig.zoom
-								else:
-									zoomies = Worldconfig.Camera2D.zoom
+								var zoomies = 1
+								#if Worldconfig.zoom > 0:
+								#	zoomies = float(1)/Worldconfig.zoom
+								#else:
+								#	zoomies = Worldconfig.Camera2D.zoom
 								
 								if m < targets_in_scene[n].points.size()-1:
 									draw_line((targets_in_scene[n].points[m]-position)*zoomies, (targets_in_scene[n].points[m+1]-position)*zoomies, orange, 1)
@@ -1048,8 +1065,11 @@ func array_multiply(array, mult):
 	
 	return array
 
-
-
+func array_divide(array, div):
+	for n in array.size():
+		array[n] = array[n]/div
+	
+	return array
 
 func array_looping(to_check, array_size):
 	if to_check < 0:
