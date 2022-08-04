@@ -1,5 +1,5 @@
-<i>NOTE: Low-color & low-FPS recording, game runs real smoof!</i><br>
-<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="ello there">
+<i>NOTE: Low color & FPS recording, game runs real smoof!</i><br>
+<img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="ello there dude">
 <img src="https://media3.giphy.com/media/cFraOiAcTPDb14GSZJ/giphy.gif" height=350px title="making gifs that work in github IS REALLY ANNOYING">
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="whats good chap">
 <hr>
@@ -14,25 +14,27 @@ https://github.com/WelfzTwingoFurs/godot-raycaster-like
 
 FEATURES:
 -Polygon world with height;
--Flying up and down & looking up and down;
+-Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
 -Clipping (vertexes behind camera don't distort);
--Z_Index sorting
+-Z_Index sorting (Polygons in front of polygons behind);
 -Screen resizable to any size;
 -Viewbobbing, viewrolling options;
--Scrolling sky texture, floor texture;
--Changeable textures of any size.
+-Scrolling sky texture & stretch options, floor texture;
+-All changeable textures to any size;
+-Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
+-No Y FOV;
 -No collision;
 -No sprite objects;
--Only 1 texture at a time;
--No culling (Objects behind others still render);
--No camera-edge clipping (polygons outside screen still render);
+-Only 1 texture at a time (lazy, it just needs configuring);
 -Heavy texture distortion up-close;
 -Non-square polygons don't texture properly (& intervenes with clipping);
+-No camera-edge clipping (polys outside screen still render);
+-No culling (polygons behind others still render);
 -Draw distance innacurate to value (depending on Angles FOV);
--No Y FOV;
+-Floor texture position slightly innacurate to aspect ratio;
 -Feet when you look down, draw distance fading,
 depth-shading options, have been deactivated;
 -No in-game options (all settings in editor).
@@ -45,7 +47,8 @@ CONTROL KEYS:
 - Shift (hold):         Strafe;
 -PGup & PGdown: Look up & down;
 - Space & Ctrl:  Fly up & down;
--Enter(press/hold):   View map.
+- Enter (hold):       View map;
+-    Quote ('): Console toggle.
 
 DEBUG KEYS:
 - Scroll-lock (+Move):   Angle;
@@ -58,8 +61,8 @@ DEBUG KEYS:
 -    -:               Zoom out;
 -   F5:            Reset scene;
 -   F8:             Close game;
--   F9:           Time-scale -;
--  F10:           Time-scale +;
+-   F9 (hold):    Time-scale -;
+-  F10 (hold):    Time-scale +;
 -  F11:          Time-scale =1;
 -  F12:          Time-scale =0.
 
