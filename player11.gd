@@ -684,43 +684,43 @@ func BSP():
 				
 				
 				if texture_try: #Texture mapping
-					if array_walls[n].points.size() != 4:
-						new_poly.texture_scale /= 10
-						new_poly.uv = array_walls[n].points
-#					var howmany = array_walls[n].points.size()
-#
-#					if  howmany == 3:
-#						#new_poly.offset = Vector2(0,0)
-#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()
-#						new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
-#					elif howmany == 4:
-#						#new_poly.offset = Vector2(0,0)
-#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()
-#						new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
-#					elif howmany == 5:
-#						new_poly.offset = Vector2(0,1)
-#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/2
-#						new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
-#					elif howmany == 6:
-#						new_poly.offset = Vector2(1,2)
-#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/4
-#						new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
-#					elif howmany == 7:
-#						new_poly.offset = Vector2(1,0)
-#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/4
-#						new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
-#					elif howmany == 8:
-#						#new_poly.offset = Vector2(0,0)
-#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/6
-#						new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
-#					elif  howmany == 9:
-#						new_poly.offset = Vector2(1,-2)
-#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/6
-#						new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
-#					elif howmany == 10:
-#						new_poly.offset = Vector2(0,-1)
-#						new_poly.scale = $PolyContainer/Poly0.texture.get_size()/6
-#						new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
+#					if array_walls[n].points.size() != 4:
+#						new_poly.texture_scale /= 10
+#						new_poly.uv = array_walls[n].points
+					var howmany = array_walls[n].points.size()
+					
+					if  howmany == 3:
+						#new_poly.texture_offset = Vector2(0,0)
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()
+						new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
+					elif howmany == 4:
+						#new_poly.texture_offset = Vector2(0,0)
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()
+						new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
+					elif howmany == 5:
+						new_poly.texture_offset = Vector2(0,1)
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()/2
+						new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
+					elif howmany == 6:
+						new_poly.texture_offset = Vector2(1,2)
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()/4
+						new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
+					elif howmany == 7:
+						new_poly.texture_offset = Vector2(1,0)
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()/4
+						new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
+					elif howmany == 8:
+						#new_poly.texture_offset = Vector2(0,0)
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()/6
+						new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
+					elif  howmany == 9:
+						new_poly.texture_offset = Vector2(1,-2)
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()/6
+						new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
+					elif howmany == 10:
+						new_poly.texture_offset = Vector2(0,-1)
+						new_poly.texture_scale = $PolyContainer/Poly0.texture.get_size()/6
+						new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
 						
 				
 				
