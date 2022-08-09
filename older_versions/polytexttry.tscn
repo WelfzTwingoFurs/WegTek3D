@@ -1,0 +1,125 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://textures/gato64.png" type="Texture" id=1]
+
+[node name="must be square you dumbass" type="Node2D"]
+
+[node name="tri" type="Polygon2D" parent="."]
+texture = ExtResource( 1 )
+texture_scale = Vector2( 64, 64 )
+polygon = PoolVector2Array( 0, 0, 1, 1, 0, 1 )
+uv = PoolVector2Array( 0, 0, 1, 1, 0, 1 )
+
+[node name="quad" type="Polygon2D" parent="."]
+position = Vector2( 2, 0 )
+texture = ExtResource( 1 )
+texture_scale = Vector2( 64, 64 )
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+uv = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+
+[node name="pent" type="Polygon2D" parent="."]
+position = Vector2( 2, -3 )
+texture = ExtResource( 1 )
+texture_offset = Vector2( 0, 1 )
+texture_scale = Vector2( 32, 32 )
+polygon = PoolVector2Array( 2, 4, 3, 3, 4, 4, 4, 5, 2, 5 )
+uv = PoolVector2Array( 2, 4, 3, 3, 4, 4, 4, 5, 2, 5 )
+
+[node name="hex" type="Polygon2D" parent="."]
+position = Vector2( 8, -2 )
+texture = ExtResource( 1 )
+texture_offset = Vector2( 1, 2 )
+texture_scale = Vector2( 16, 16 )
+polygon = PoolVector2Array( -1, 3, 1, 2, 3, 3, 3, 5, 1, 6, -1, 5 )
+uv = PoolVector2Array( -1, 3, 1, 2, 3, 3, 3, 5, 1, 6, -1, 5 )
+
+[node name="hept" type="Polygon2D" parent="."]
+position = Vector2( 9, 0 )
+texture = ExtResource( 1 )
+texture_offset = Vector2( 1, 0 )
+texture_scale = Vector2( 16, 16 )
+polygon = PoolVector2Array( 4, 1, 5, 0, 6, 1, 7, 3, 6, 4, 4, 4, 3, 3 )
+uv = PoolVector2Array( 4, 1, 5, 0, 6, 1, 7, 3, 6, 4, 4, 4, 3, 3 )
+vertex_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1 )
+
+[node name="oct" type="Polygon2D" parent="."]
+position = Vector2( 17, 0 )
+texture = ExtResource( 1 )
+texture_scale = Vector2( 10.5, 10.5 )
+polygon = PoolVector2Array( 1, 1, 3, 0, 5, 1, 6, 3, 5, 5, 3, 6, 1, 5, 0, 3 )
+uv = PoolVector2Array( 1, 1, 3, 0, 5, 1, 6, 3, 5, 5, 3, 6, 1, 5, 0, 3 )
+
+[node name="non" type="Polygon2D" parent="."]
+position = Vector2( 25, -2 )
+texture = ExtResource( 1 )
+texture_offset = Vector2( 1, -2 )
+texture_scale = Vector2( 10.5, 10.5 )
+polygon = PoolVector2Array( 0, 3, 2, 2, 4, 3, 5, 5, 4, 7, 3, 8, 1, 8, 0, 7, -1, 5 )
+uv = PoolVector2Array( 0, 3, 2, 2, 4, 3, 5, 5, 4, 7, 3, 8, 1, 8, 0, 7, -1, 5 )
+
+[node name="dec" type="Polygon2D" parent="."]
+position = Vector2( 31, -1 )
+texture = ExtResource( 1 )
+texture_offset = Vector2( 0, -1 )
+texture_scale = Vector2( 10.5, 10.5 )
+polygon = PoolVector2Array( 1, 2, 2, 1, 4, 1, 5, 2, 6, 4, 5, 6, 4, 7, 2, 7, 1, 6, 0, 4 )
+uv = PoolVector2Array( 1, 2, 2, 1, 4, 1, 5, 2, 6, 4, 5, 6, 4, 7, 2, 7, 1, 6, 0, 4 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 29, -10 )
+
+[node name="tri1" type="Polygon2D" parent="."]
+position = Vector2( 0, -10 )
+texture = ExtResource( 1 )
+texture_scale = Vector2( 6.4, 6.4 )
+polygon = PoolVector2Array( 0, 0, 10, 10, 0, 10 )
+uv = PoolVector2Array( 0, 0, 10, 10, 0, 10 )
+vertex_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 )
+
+[node name="quad1" type="Polygon2D" parent="."]
+position = Vector2( 11, -10 )
+texture = ExtResource( 1 )
+texture_scale = Vector2( 6.4, 6.4 )
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+uv = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+vertex_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1 )
+
+[node name="penta1" type="Polygon2D" parent="."]
+position = Vector2( 22, -10 )
+texture = ExtResource( 1 )
+texture_scale = Vector2( 6.4, 6.4 )
+polygon = PoolVector2Array( 0, 4, 5, 0, 10, 4, 8, 10, 2, 10 )
+uv = PoolVector2Array( 0, 4, 5, 0, 10, 4, 8, 10, 2, 10 )
+
+[node name="hexa1" type="Polygon2D" parent="."]
+position = Vector2( 33, -10 )
+texture = ExtResource( 1 )
+texture_scale = Vector2( 6.4, 6.4 )
+polygon = PoolVector2Array( 0, 3, 5, 0, 10, 3, 10, 7, 5, 10, 0, 7 )
+uv = PoolVector2Array( 0, 3, 5, 0, 10, 3, 10, 7, 5, 10, 0, 7 )
+vertex_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1 )
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 29, -10 )
+
+[node name="tri2" type="Polygon2D" parent="."]
+texture = ExtResource( 1 )
+texture_scale = Vector2( 6.4, 6.4 )
+polygon = PoolVector2Array( -23, 35, 27, 43, 12, 83 )
+uv = PoolVector2Array( 0, 0, 10, 10, 0, 10 )
+vertex_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 )
+
+[node name="quad2" type="Polygon2D" parent="."]
+position = Vector2( 11, 0 )
+texture = ExtResource( 1 )
+texture_scale = Vector2( 6.4, 6.4 )
+polygon = PoolVector2Array( 29, 21, 37, 24, 27, 76, 21, 24 )
+uv = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+vertex_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1 )
+
+[node name="penta2" type="Polygon2D" parent="."]
+position = Vector2( 29, 0 )
+texture = ExtResource( 1 )
+texture_scale = Vector2( 6.4, 6.4 )
+polygon = PoolVector2Array( 79, 45, 58, 61, 99, 55, 61, 89, 19, 48 )
+uv = PoolVector2Array( 0, 4, 5, 0, 10, 4, 8, 10, 2, 10 )
