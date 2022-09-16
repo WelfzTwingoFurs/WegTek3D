@@ -1,0 +1,197 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://player12.gd" type="Script" id=1]
+[ext_resource path="res://assets/feet2.png" type="Texture" id=2]
+[ext_resource path="res://textures/grad64.png" type="Texture" id=3]
+[ext_resource path="res://Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
+[ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=6]
+[ext_resource path="res://make_invisible.gd" type="Script" id=7]
+[ext_resource path="res://player-console.gd" type="Script" id=8]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 3.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "spin"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 5, 6 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "strafeL"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 2 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 4 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[node name="player12" type="KinematicBody2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Col" type="CollisionShape2D" parent="."]
+modulate = Color( 100, 100, 100, 1 )
+z_index = 4096
+shape = SubResource( 1 )
+disabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 4096
+current = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Console" type="Label" parent="Camera2D"]
+visible = false
+margin_right = 4096.0
+margin_bottom = 4096.0
+custom_colors/font_color_shadow = Color( 0, 0, 1, 0.498039 )
+custom_constants/line_spacing = 0
+text = "WAZA"
+autowrap = true
+clip_text = true
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ViewArea" type="Area2D" parent="."]
+z_index = 4096
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="ViewCol" type="CollisionPolygon2D" parent="ViewArea"]
+modulate = Color( 5, 5, 5, 1 )
+polygon = PoolVector2Array( 0, 0, 10, 10, -10, 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PolyContainer" type="Node2D" parent="."]
+z_index = -1
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Poly0" type="Polygon2D" parent="PolyContainer"]
+texture = ExtResource( 3 )
+texture_scale = Vector2( 6.4, 6.4 )
+uv = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="View" type="Node2D" parent="."]
+visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="View"]
+anims/spin = SubResource( 2 )
+anims/strafeL = SubResource( 3 )
+anims/strafeR = SubResource( 4 )
+anims/walk = SubResource( 5 )
+
+[node name="Feet" type="Sprite" parent="View"]
+visible = false
+z_index = 4096
+texture = ExtResource( 2 )
+hframes = 9
+frame = 6
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Background" type="Node2D" parent="."]
+visible = false
+z_index = -4096
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Sky" type="TextureRect" parent="Background"]
+modulate = Color( 0.290196, 0.211765, 0.376471, 1 )
+margin_left = -180.0
+margin_top = -108.0
+margin_right = 180.0
+margin_bottom = 109.0
+texture = ExtResource( 6 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor" type="Sprite" parent="Background"]
+modulate = Color( 0.486275, 0.32549, 0.227451, 1 )
+texture = ExtResource( 5 )
+
+[connection signal="body_shape_entered" from="ViewArea" to="." method="_on_ViewArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ViewArea" to="." method="_on_ViewArea_body_shape_exited"]

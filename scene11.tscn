@@ -1,14 +1,12 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=31 format=2]
 
-[ext_resource path="res://player10.tscn" type="PackedScene" id=1]
+[ext_resource path="res://player12.tscn" type="PackedScene" id=1]
 [ext_resource path="res://textures/gradsimple64.png" type="Texture" id=2]
-[ext_resource path="res://assets/skybox doomBW.png" type="Texture" id=3]
 [ext_resource path="res://assets/gradientverybig2.png" type="Texture" id=4]
-[ext_resource path="res://player12.gd" type="Script" id=5]
 [ext_resource path="res://map-wall.gd" type="Script" id=6]
 [ext_resource path="res://make_invisible.gd" type="Script" id=7]
 [ext_resource path="res://map-floor.gd" type="Script" id=8]
-[ext_resource path="res://plagio.png" type="Texture" id=9]
+[ext_resource path="res://assets/skybox bubsysnes.png" type="Texture" id=9]
 [ext_resource path="res://map-sector.gd" type="Script" id=10]
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=11]
 
@@ -147,9 +145,8 @@ b = Vector2( -40, 28 )
 
 [node name="scene11" type="Node2D"]
 
-[node name="player10" parent="." instance=ExtResource( 1 )]
+[node name="player12" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1068, -176 )
-script = ExtResource( 5 )
 draw_distance = 10000
 skycolor = Color( 1, 0, 0.301961, 1 )
 sky_stretch = Vector2( 1, 3 )
@@ -158,23 +155,22 @@ vbob_speed = 0.1
 vroll_multi = -2.5
 texture_try = true
 
-[node name="Col" parent="player10" index="0"]
+[node name="Col" parent="player12" index="0"]
 shape = SubResource( 1 )
 
-[node name="Poly0" parent="player10/PolyContainer" index="0"]
+[node name="Poly0" parent="player12/PolyContainer" index="0"]
 texture = ExtResource( 2 )
 
-[node name="AnimationPlayer" parent="player10/View" index="0"]
+[node name="AnimationPlayer" parent="player12/View" index="0"]
 anims/spin = SubResource( 2 )
 anims/strafeL = SubResource( 3 )
 anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
-[node name="Sky" parent="player10/Background" index="0"]
+[node name="Sky" parent="player12/Background" index="0"]
 modulate = Color( 1, 0, 1, 1 )
-texture = ExtResource( 3 )
 
-[node name="Floor" parent="player10/Background" index="1"]
+[node name="Floor" parent="player12/Background" index="1"]
 modulate = Color( 0.498039, 0, 1, 1 )
 position = Vector2( -52, 236 )
 texture = ExtResource( 4 )
@@ -570,4 +566,4 @@ heights = [ 0, 10 ]
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector0"]
 polygon = PoolVector2Array( 0, 150, 250, 0, 500, 150, 500, 350, 250, 500, 0, 350 )
 
-[editable path="player10"]
+[editable path="player12"]
