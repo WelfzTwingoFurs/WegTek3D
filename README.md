@@ -16,6 +16,7 @@ FEATURES:
 -Polygon world with height;
 -Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
+-Properly scaling Y FOV;
 -Clipping (vertexes behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
 -Screen resizable to any size;
@@ -25,16 +26,14 @@ FEATURES:
 -Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
--No Y FOV;
 -No collision;
 -No sprite objects;
--Only 1 texture at a time (lazy, it just needs configuring);
 -Heavy texture distortion up-close;
--Non-square polygons don't texture properly (& intervenes with clipping);
+-Clipping intervenes with texturing;
 -No camera-edge clipping (polys outside screen still render);
 -No culling (polygons behind others still render);
 -Draw distance innacurate to value (depending on Angles FOV);
--Floor texture position slightly innacurate to aspect ratio;
+-Floor texture position innacurate to aspect ratio;
 -Feet when you look down, draw distance fading,
 depth-shading options, have been deactivated;
 -No in-game options (all settings in editor).
