@@ -16,7 +16,7 @@ FEATURES:
 -Polygon world with height;
 -Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
--Properly scaling Y FOV;
+-Properly scaling Y rendering to FOV + aspect-ratio;
 -Clipping (vertexes behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind) in 3D;
 -Screen resizable to any size;
