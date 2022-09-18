@@ -27,8 +27,8 @@ func _ready():
 		#point_in_the_middle(x=(x1+x2)/2,y=(y1+y2)/2)
 		#position = to_global(Vector2((spawn_shape_position[0].x + spawn_shape_position[1].x)/2, (spawn_shape_position[0].y + spawn_shape_position[1].y)/2))
 	if spawn_shape_position != null:
-		#$CollisionShape2D.shape.a = spawn_shape_position[0]
-		#$CollisionShape2D.shape.b = spawn_shape_position[1]
+		$CollisionShape2D.shape.a = spawn_shape_position[0]
+		$CollisionShape2D.shape.b = spawn_shape_position[1]
 		$CollisionShape2D.shape.set_a(spawn_shape_position[0])
 		$CollisionShape2D.shape.set_b(spawn_shape_position[1])
 	
@@ -77,7 +77,7 @@ func _ready():
 			add_child(new_label)
 			labels.append(new_label)
 	
-	#was_position = position
+	was_position = to_global(position) #Remove this line for refresh, walls actually where they are
 
 
 
