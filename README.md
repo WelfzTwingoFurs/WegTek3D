@@ -18,7 +18,7 @@ FEATURES:
 -Field of view (FOV), draw distance options;
 -Properly scaling Y FOV;
 -Clipping (vertexes behind camera don't distort);
--Z_Index sorting (Polygons in front of polygons behind);
+-Z_Index sorting (Polygons in front of polygons behind) in 3D;
 -Screen resizable to any size;
 -Viewbobbing, viewrolling options;
 -Scrolling sky texture & stretch options, floor texture;
@@ -30,11 +30,10 @@ IMPERFECTIONS:
 -No sprite objects;
 -Heavy texture distortion up-close;
 -Clipping intervenes with texturing;
--Z_Index sorting not on Z (only 2D coordinates);
 -No camera-edge clipping (polys outside screen still render);
 -No culling (polygons behind others still render);
 -Draw distance innacurate to value (depending on Angles FOV);
--Floor texture position innacurate to aspect ratio;
+-Floor sprite position innacurate;
 -Feet when you look down, draw distance fading,
 depth-shading options, have been deactivated;
 -No in-game options (all settings in editor).
