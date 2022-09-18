@@ -20,17 +20,18 @@ var average_position = Vector2()
 var average_height = 0
 var spawn_shape_position #used for transferring shape positions for a clone being spawned by sector
 
+onready var Col = $CollisionShape2D
+onready var ColShape = $CollisionShape2D.shape
 onready var ColShapeA = $CollisionShape2D.shape.a
 onready var ColShapeB = $CollisionShape2D.shape.b
 
 func _ready():
-		#point_in_the_middle(x=(x1+x2)/2,y=(y1+y2)/2)
-		#position = to_global(Vector2((spawn_shape_position[0].x + spawn_shape_position[1].x)/2, (spawn_shape_position[0].y + spawn_shape_position[1].y)/2))
 	if spawn_shape_position != null:
-		$CollisionShape2D.shape.a = spawn_shape_position[0]
-		$CollisionShape2D.shape.b = spawn_shape_position[1]
-		$CollisionShape2D.shape.set_a(spawn_shape_position[0])
-		$CollisionShape2D.shape.set_b(spawn_shape_position[1])
+		var shape = SegmentShape2D.new()
+		shape.a = spawn_shape_position[0]
+		shape.b = spawn_shape_position[1]
+		$CollisionShape2D.shape = shape
+		
 	
 	if $CollisionShape2D.position != Vector2(0,0) or $CollisionShape2D.scale != Vector2(1,1) or $CollisionShape2D.rotation_degrees != 0:
 		#print(">M I S T A K E: map-wall's ColShape2D position !=(0,0), scale !=(1,1), or rotation != 0. Do these with the StaticBody instead. At: ",points)
@@ -96,6 +97,9 @@ func _process(_delta):
 		
 		average_position = points[0] + points[1]
 		average_position = Vector2(average_position.x/points.size(), average_position.y/points.size()) #Used for Z_INDEX sorting in rendering
+		
+		was_position = to_global(position)
+	
 	
 	if was_zoom != Worldconfig.zoom:
 		for n in labels.size():

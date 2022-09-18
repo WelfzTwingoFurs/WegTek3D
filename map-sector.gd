@@ -11,6 +11,11 @@ export var plus1_mode = 0
 # 3, bot*extra
 # 4, bot/extra
 
+export (Array, String) var textures = ["res://icon.png","res://icon.png","res://icon.png"]
+#'skip' if we don't wanna make this one!
+#for 3: floor, ceiling, all walls
+#for polygon.size()/2 + 2: floor, ceiling, wall01, wall12, wall20
+
 
 var new_wall = preload("res://map-wall for sector.tscn")
 var new_floor = preload("res://map-floor for sector.tscn")
@@ -88,6 +93,9 @@ func _ready():
 		else:
 			queue_free()
 			
+		
+		#make_new_wall.ColShapeA = ($CollisionPolygon2D.polygon[n])
+		#make_new_wall.ColShapeB = ($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
 		
 		add_child(make_new_wall)
 		
