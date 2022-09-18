@@ -33,7 +33,7 @@ IMPERFECTIONS:
 -No camera-edge clipping (polys outside screen still render);
 -No culling (polygons behind others still render);
 -Draw distance innacurate to value (depending on Angles FOV);
--Floor sprite position innacurate;
+-Floor sprite position X slightly innacurate;
 -Feet when you look down, draw distance fading,
 depth-shading options, have been deactivated;
 -No in-game options (all settings in editor).
