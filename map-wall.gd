@@ -8,6 +8,7 @@ export (Array, float) var heights = [1,0]
 export(String) var texture_path = "res://textures/wireframe64.png"
 export var texture_repeat = Vector2(1,1) #Be sure to set texture_repeat at Import!
 export var texture_rotate = 0
+export var texture_offset = Vector2(0,0)
 
 var points
 var was_position
@@ -16,7 +17,11 @@ export(bool) var bug_label = 0
 var labels = []
 
 var average_position = Vector2()
+var average_height = 0
 var spawn_shape_position #used for transferring shape positions for a clone being spawned by sector
+
+onready var ColShapeA = $CollisionShape2D.shape.a
+onready var ColShapeB = $CollisionShape2D.shape.b
 
 func _ready():
 		#point_in_the_middle(x=(x1+x2)/2,y=(y1+y2)/2)
@@ -26,7 +31,6 @@ func _ready():
 		#$CollisionShape2D.shape.b = spawn_shape_position[1]
 		$CollisionShape2D.shape.set_a(spawn_shape_position[0])
 		$CollisionShape2D.shape.set_b(spawn_shape_position[1])
-		texture_path = "res://textures/gradsimple64.png"
 	
 	if $CollisionShape2D.position != Vector2(0,0) or $CollisionShape2D.scale != Vector2(1,1) or $CollisionShape2D.rotation_degrees != 0:
 		print(">M I S T A K E: map-wall's ColShape2D position !=(0,0), scale !=(1,1), or rotation != 0. Do these with the StaticBody instead. At: ",points)
@@ -52,9 +56,14 @@ func _ready():
 	average_position = points[0] + points[1]
 	average_position = Vector2(average_position.x/2, average_position.y/2) #Used for Z_INDEX sorting in rendering
 	
+	for n in heights.size():
+		average_height += heights[n]
+		if n == heights.size()-1:
+			average_height /= heights.size()
+		
+		
 	
-	if bug_label:
-		for n in heights.size():
+		if bug_label:
 			var new_label = Label.new()
 			
 			new_label.set_position(points[n]-position)

@@ -3,9 +3,9 @@ extends StaticBody2D
 export (Array, float) var heights = [0,0,0,10,10,10]
 #for 2: floor=[0], ceiling=[1]
 #for =polygon.size()*2: floor=[n], ceiling=[n*2]
-#for =polygon.size()+1:
+#for =polygon.size()+1:...
 export var plus1_mode = 0
-#floor = heights, ceiling =
+#floor = heights, ceiling = +1, aka while
 # 1, extra
 # 2, bot+extra
 # 3, bot*extra
@@ -32,8 +32,17 @@ func _ready():
 		#make_new_wall.CollisionShape2D.shape.set_a($CollisionPolygon2D.polygon[n])
 		#make_new_wall.CollisionShape2D.shape.set_b($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
 		#make_new_wall.spawn_shape_position = [to_global($CollisionPolygon2D.polygon[n]), to_global($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])]
+#		make_new_wall.$CollisionShape2D.shape.set_a($CollisionPolygon2D.polygon[n])
+#		make_new_wall.$CollisionShape2D.shape.set_b($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
+#		make_new_wall.ColShape.shape.set_a($CollisionPolygon2D.polygon[n])
+#		make_new_wall.ColShape.shape.set_b($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
+#		make_new_wall.ColShape.set_a($CollisionPolygon2D.polygon[n])
+#		make_new_wall.ColShape.set_b($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
+#		make_new_wall.ColShape.a = ($CollisionPolygon2D.polygon[n])
+#		make_new_wall.ColShape.b = ($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
+#		make_new_wall.ColShapeA = ($CollisionPolygon2D.polygon[n])
+#		make_new_wall.ColShapeB = ($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
 		make_new_wall.spawn_shape_position = [$CollisionPolygon2D.polygon[n], $CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())]]
-		
 		
 		
 		if heights.size() == 2:
@@ -47,29 +56,25 @@ func _ready():
 				
 			elif plus1_mode == 2:
 				#BOT: current, next. TOP: current+extra, previous+extra
-				make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[n]+heights[heights.size()-1],   heights[array_looping(n-1, $CollisionPolygon2D.polygon.size())]+heights[heights.size()-1]]
-				#make_new_ceiling.heights.append(array_looping(n, $CollisionPolygon2D.polygon.size())+heights[heights.size()-1])
-				
+				make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]+heights[heights.size()-1],   heights[n]+heights[heights.size()-1]]
 			elif plus1_mode == 3:
-				make_new_wall.heights = [heights[n],heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],heights[n]*heights[heights.size()-1],heights[n]*heights[heights.size()-1]]
-				make_new_ceiling.heights = [heights[n]*heights[heights.size()-1]]
-				
+				make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]*heights[heights.size()-1],   heights[n]*heights[heights.size()-1]]
 			elif plus1_mode == 4:
-				make_new_wall.heights = [heights[n],heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],heights[n]/heights[heights.size()-1],heights[n]/heights[heights.size()-1]]
-				make_new_ceiling.heights = [heights[n]/heights[heights.size()-1]]
+				make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]/heights[heights.size()-1],   heights[n]/heights[heights.size()-1]]
 			
 			
 			if n == $CollisionPolygon2D.polygon.size()-1:
-				make_new_floor.heights = array_shifting(make_new_wall.heights,4)# polygon size? still only tested on squares
+				make_new_floor.heights = array_except_last(heights)
 				
 				if plus1_mode == 1:
 					make_new_ceiling.heights = [heights[heights.size()-1]]
 				
-				#elif plus1_mode == 2:
-					#make_new_ceiling.heights = array_shifting(make_new_ceiling.heights,4)
-					#make_new_wall.heights = array_shifting(make_new_wall.heights,0)
-					#make_new_ceiling.heights = array_plus(make_new_ceiling.heights, heights[heights.size()-1])
-				
+				elif plus1_mode == 2:
+					make_new_ceiling.heights = array_plus(array_except_last(heights), heights[heights.size()-1])
+				elif plus1_mode == 3:
+					make_new_ceiling.heights = array_multiply(array_except_last(heights), heights[heights.size()-1])
+				elif plus1_mode == 3:
+					make_new_ceiling.heights = array_divide(array_except_last(heights), heights[heights.size()-1])
 			#make_new_floor.heights.append(array_looping(n+shifter,array.size())))
 			
 			
@@ -129,6 +134,25 @@ func array_plus(array, plus):
 	
 	return array
 
+func array_multiply(array, mult):
+	for n in array.size():
+		array[n] = array[n]*mult
+	
+	return array
+
+func array_divide(array, div):
+	for n in array.size():
+		array[n] = array[n]/div
+	
+	return array
+
+
+func array_except_last(array):
+	var new_array = []
+	for n in array.size()-1:
+		new_array.append(array[n])
+	
+	return new_array
 
 
 

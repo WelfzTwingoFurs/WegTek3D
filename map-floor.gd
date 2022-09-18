@@ -5,9 +5,10 @@ export (Array, float) var heights = []
 #for heights.size(): points = heights
 
 
-export(String) var texture_path = "res://textures/wireframe64.png"
+export(String) var texture_path = "res://textures/gradsimple64.png"
 export var texture_repeat = Vector2(1,1) #Be sure to set texture_repeat at Import!
-export var texture_rotate = 0
+export(float) var texture_rotate = 0
+export var texture_offset = Vector2(0,0)
 
 var points = []
 var was_position
@@ -16,6 +17,7 @@ export(bool) var bug_label = 0
 var labels = []
 
 var average_position = Vector2()
+var average_height = 0
 var spawn_shape_position #used for transferring shape positions for a clone being spawned by sector
 
 func _ready():
@@ -36,12 +38,18 @@ func _ready():
 	
 	################################################################################################################################################################
 	
+	for n in heights.size():
+		average_height += heights[n]
+		if n == heights.size()-1:
+			average_height /= heights.size()
+	
 	for n in $CollisionPolygon2D.polygon.size():
 		points.append(to_global($CollisionPolygon2D.polygon[n]))
 		average_position += points[n]
 		
 		if n == $CollisionPolygon2D.polygon.size()-1:
 			average_position = Vector2(average_position.x/$CollisionPolygon2D.polygon.size(), average_position.y/$CollisionPolygon2D.polygon.size())
+
 		
 		
 		if bug_label:
@@ -55,16 +63,17 @@ func _ready():
 			add_child(new_label)
 			labels.append(new_label)
 	
-	was_position = position
+	#was_position = position
 
 
 
 
 func _process(_delta):
-	if was_position != position: #Even tho meant to be static, very useful for editing in real time
+	if was_position != to_global(position): #Even tho meant to be static, very useful for editing in real time
 		for n in points.size():
 			points[n] = (to_global($CollisionPolygon2D.polygon[n]))
 			
+		was_position = to_global(position)
 	
 	
 	
