@@ -675,7 +675,7 @@ func BSP():
 				#else:
 				if array_polygon.size() != 0: #Z_Index
 					#var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2)) *(float(8192)/draw_distance)-4096)
-					var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2)) + pow((array_walls[n].average_height - positionZ), 2) *(float(8192)/draw_distance)-4096)
+					var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
 					
 					if abs(z_index_calcu) > 4096:
 						new_poly.z_index = 4096*sign(z_index_calcu)

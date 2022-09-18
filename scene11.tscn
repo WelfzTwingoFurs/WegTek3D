@@ -251,6 +251,56 @@ texture = ExtResource( 4 )
 z_index = 4096
 script = ExtResource( 7 )
 
+[node name="floor0" type="StaticBody2D" parent="Node2D" groups=[
+"render",
+]]
+script = ExtResource( 8 )
+heights = [ 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/floor0"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor3" type="StaticBody2D" parent="Node2D" groups=[
+"render",
+]]
+script = ExtResource( 8 )
+heights = [ 30.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/floor3"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor6" type="StaticBody2D" parent="Node2D" groups=[
+"render",
+]]
+script = ExtResource( 8 )
+heights = [ 60.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/floor6"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor9" type="StaticBody2D" parent="Node2D" groups=[
+"render",
+]]
+script = ExtResource( 8 )
+heights = [ 90.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/floor9"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor12" type="StaticBody2D" parent="Node2D" groups=[
+"render",
+]]
+script = ExtResource( 8 )
+heights = [ 120.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/floor12"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
 [node name="piramide q roda" type="Node2D" parent="Node2D"]
 position = Vector2( 1732, -102 )
 
@@ -737,9 +787,6 @@ texture_offset = Vector2( 64, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/testie dudes/map-wall (4 heights)"]
 shape = SubResource( 9 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="map-floor (0)" type="StaticBody2D" parent="Node2D/testie dudes" groups=[
 "render",
