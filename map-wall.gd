@@ -77,12 +77,12 @@ func _ready():
 			add_child(new_label)
 			labels.append(new_label)
 	
-	was_position = position
+	#was_position = position
 
 
 
 func _process(_delta):
-	if was_position != position: #Even tho meant to be static, very useful for editing in real time
+	if was_position != to_global(position): #Even tho meant to be static, very useful for editing in real time
 		if heights.size() == 3:
 			points = [to_global($CollisionShape2D.shape.a), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.a)]
 		else:
