@@ -252,7 +252,6 @@ b = Vector2( -40, 28 )
 
 [node name="player12" parent="." instance=ExtResource( 1 )]
 position = Vector2( -284, -112 )
-z_index = 4096
 draw_distance = 10000
 skycolor = Color( 0.188235, 0, 0.301961, 1 )
 sky_stretch = Vector2( 1, 3 )
