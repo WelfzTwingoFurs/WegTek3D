@@ -30,6 +30,7 @@ IMPERFECTIONS:
 -No sprite objects;
 -Heavy texture distortion up-close;
 -Clipping intervenes with texturing;
+-Z_Index sorting not on Z (only 2D coordinates);
 -No camera-edge clipping (polys outside screen still render);
 -No culling (polygons behind others still render);
 -Draw distance innacurate to value (depending on Angles FOV);
