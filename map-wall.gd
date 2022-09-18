@@ -33,8 +33,14 @@ func _ready():
 		$CollisionShape2D.shape.set_b(spawn_shape_position[1])
 	
 	if $CollisionShape2D.position != Vector2(0,0) or $CollisionShape2D.scale != Vector2(1,1) or $CollisionShape2D.rotation_degrees != 0:
-		print(">M I S T A K E: map-wall's ColShape2D position !=(0,0), scale !=(1,1), or rotation != 0. Do these with the StaticBody instead. At: ",points)
-		queue_free()
+		#print(">M I S T A K E: map-wall's ColShape2D position !=(0,0), scale !=(1,1), or rotation != 0. Do these with the StaticBody instead. At: ",points)
+		#queue_free()
+		position += $CollisionShape2D.position
+		$CollisionShape2D.position = Vector2(0,0)
+		scale *= $CollisionShape2D.scale
+		$CollisionShape2D.scale = Vector2(1,1)
+		rotation_degrees = $CollisionShape2D.rotation_degrees
+		$CollisionShape2D.rotation_degrees = 0
 	
 	if heights.size() < 2 or heights.size() > 4:#or heights.size() == 3
 		print(">M I S T A K E: map-wall's heights array size(",heights.size(),") <2, or >4. Must be =2 or =4. At: ",points)

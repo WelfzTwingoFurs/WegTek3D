@@ -25,8 +25,15 @@ func _ready():
 		$CollisionPolygon2D.polygon = spawn_shape_position
 	
 	if $CollisionPolygon2D.position != Vector2(0,0) or $CollisionPolygon2D.scale != Vector2(1,1) or $CollisionPolygon2D.rotation_degrees != 0:
-		print(">M I S T A K E: map-floor's ColPoly2D position !=(0,0), scale !=(1,1), or rotation != 0. Do these with the StaticBody instead. At: ",position)
-		queue_free()
+		#print(">M I S T A K E: map-floor's ColPoly2D position !=(0,0), scale !=(1,1), or rotation != 0. Do these with the StaticBody instead. At: ",position)
+		#queue_free()
+		position += $CollisionPolygon2D.position
+		$CollisionPolygon2D.position = Vector2(0,0)
+		scale *= $CollisionPolygon2D.scale
+		$CollisionPolygon2D.scale = Vector2(1,1)
+		rotation_degrees = $CollisionPolygon2D.rotation_degrees
+		$CollisionPolygon2D.rotation_degrees = 0
+		
 	
 	if heights.size() != $CollisionPolygon2D.polygon.size():
 		if heights.size() == 1:
