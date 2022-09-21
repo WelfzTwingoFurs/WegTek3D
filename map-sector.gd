@@ -12,7 +12,7 @@ export var plus1_mode = 0
 # 4, bot/extra
 
 export (Array, String) var textures = ["res://icon.png","res://icon.png","res://icon.png"]
-#'skip' if we don't wanna make this one!
+#"" if we don't wanna make this one!
 #for 3: floor, ceiling, all walls
 #for polygon.size()/2 + 2: floor, ceiling, wall01, wall12, wall20
 
@@ -33,83 +33,100 @@ func _ready():
 	
 	
 	for n in $CollisionPolygon2D.polygon.size():
-		var make_new_wall = new_wall.instance()
-		#make_new_wall.CollisionShape2D.shape.set_a($CollisionPolygon2D.polygon[n])
-		#make_new_wall.CollisionShape2D.shape.set_b($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
-		#make_new_wall.spawn_shape_position = [to_global($CollisionPolygon2D.polygon[n]), to_global($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])]
-#		make_new_wall.$CollisionShape2D.shape.set_a($CollisionPolygon2D.polygon[n])
-#		make_new_wall.$CollisionShape2D.shape.set_b($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
-#		make_new_wall.ColShape.shape.set_a($CollisionPolygon2D.polygon[n])
-#		make_new_wall.ColShape.shape.set_b($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
-#		make_new_wall.ColShape.set_a($CollisionPolygon2D.polygon[n])
-#		make_new_wall.ColShape.set_b($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
-#		make_new_wall.ColShape.a = ($CollisionPolygon2D.polygon[n])
-#		make_new_wall.ColShape.b = ($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
-#		make_new_wall.ColShapeA = ($CollisionPolygon2D.polygon[n])
-#		make_new_wall.ColShapeB = ($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
-		make_new_wall.spawn_shape_position = [$CollisionPolygon2D.polygon[n], $CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())]]
-		
-		
-		if heights.size() == 2:
-			make_new_wall.heights = [heights[0],heights[1]]
+		#if (textures.size() == 2 && textures[2] != "")  or  (textures.size() == ($CollisionPolygon2D.polygon.size()/2 + 2) && textures[n+2] != ""):
+		if textures[n] != "":
+			var make_new_wall = new_wall.instance()
 			
-		
-		elif heights.size() == $CollisionPolygon2D.polygon.size()+1:
-			if plus1_mode == 1:
-				#BOT: current, next. TOP: extra, extra
-				make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[heights.size()-1],   heights[heights.size()-1]]
+			make_new_wall.spawn_shape_position = [$CollisionPolygon2D.polygon[n], $CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())]]
+			
+			
+			if heights.size() == 2:
+				make_new_wall.heights = [heights[0],heights[1]]
 				
-			elif plus1_mode == 2:
-				#BOT: current, next. TOP: current+extra, previous+extra
-				make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]+heights[heights.size()-1],   heights[n]+heights[heights.size()-1]]
-			elif plus1_mode == 3:
-				make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]*heights[heights.size()-1],   heights[n]*heights[heights.size()-1]]
-			elif plus1_mode == 4:
-				make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]/heights[heights.size()-1],   heights[n]/heights[heights.size()-1]]
 			
-			
-			if n == $CollisionPolygon2D.polygon.size()-1:
-				make_new_floor.heights = array_except_last(heights)
-				
+			elif heights.size() == $CollisionPolygon2D.polygon.size()+1:
 				if plus1_mode == 1:
-					make_new_ceiling.heights = [heights[heights.size()-1]]
-				
+					#BOT: current, next. TOP: extra, extra
+					make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[heights.size()-1],   heights[heights.size()-1]]
+					
 				elif plus1_mode == 2:
-					make_new_ceiling.heights = array_plus(array_except_last(heights), heights[heights.size()-1])
+					#BOT: current, next. TOP: current+extra, previous+extra
+					make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]+heights[heights.size()-1],   heights[n]+heights[heights.size()-1]]
 				elif plus1_mode == 3:
-					make_new_ceiling.heights = array_multiply(array_except_last(heights), heights[heights.size()-1])
-				elif plus1_mode == 3:
-					make_new_ceiling.heights = array_divide(array_except_last(heights), heights[heights.size()-1])
-			#make_new_floor.heights.append(array_looping(n+shifter,array.size())))
+					make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]*heights[heights.size()-1],   heights[n]*heights[heights.size()-1]]
+				elif plus1_mode == 4:
+					make_new_wall.heights = [heights[n],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())],   heights[array_looping(n+1, $CollisionPolygon2D.polygon.size())]/heights[heights.size()-1],   heights[n]/heights[heights.size()-1]]
+				
+				
+#				if n == $CollisionPolygon2D.polygon.size()-1:
+#					make_new_floor.heights = array_except_last(heights)
+#
+#					if plus1_mode == 1:
+#						make_new_ceiling.heights = [heights[heights.size()-1]]
+#
+#					elif plus1_mode == 2:
+#						make_new_ceiling.heights = array_plus(array_except_last(heights), heights[heights.size()-1])
+#					elif plus1_mode == 3:
+#						make_new_ceiling.heights = array_multiply(array_except_last(heights), heights[heights.size()-1])
+#					elif plus1_mode == 3:
+#						make_new_ceiling.heights = array_divide(array_except_last(heights), heights[heights.size()-1])
+				
+				
+				
 			
+			elif heights.size() == $CollisionPolygon2D.polygon.size()*2:
+				make_new_wall.heights = [heights[n],heights[n*2]]
+				#make_new_floor.heights.append(heights[n])
+				#make_new_ceiling.heights.append(heights[n*2])
+				
+				
+			else:
+				queue_free()
+				
+			
+			
+			add_child(make_new_wall)
 			
 		
-		elif heights.size() == $CollisionPolygon2D.polygon.size()*2:
-			make_new_wall.heights = [heights[n],heights[n*2]]
-			make_new_floor.heights.append(heights[n])
-			make_new_ceiling.heights.append(heights[n*2])
-			
-			
-		else:
-			queue_free()
-			
 		
-		#make_new_wall.ColShapeA = ($CollisionPolygon2D.polygon[n])
-		#make_new_wall.ColShapeB = ($CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())])
+		if textures[textures.size()-2] != "":
+			if heights.size() == $CollisionPolygon2D.polygon.size()+1:
+				if n == $CollisionPolygon2D.polygon.size()-1:
+					make_new_floor.heights = array_except_last(heights)
+			
+			elif heights.size() == $CollisionPolygon2D.polygon.size()*2:
+				make_new_floor.heights.append(heights[n])
 		
-		add_child(make_new_wall)
 		
+		if textures[textures.size()-1] != "":
+			if heights.size() == $CollisionPolygon2D.polygon.size()+1:
+				if n == $CollisionPolygon2D.polygon.size()-1:
+					if plus1_mode == 1:
+						make_new_ceiling.heights = [heights[heights.size()-1]]
+					elif plus1_mode == 2:
+						make_new_ceiling.heights = array_plus(array_except_last(heights), heights[heights.size()-1])
+					elif plus1_mode == 3:
+						make_new_ceiling.heights = array_multiply(array_except_last(heights), heights[heights.size()-1])
+					elif plus1_mode == 3:
+						make_new_ceiling.heights = array_divide(array_except_last(heights), heights[heights.size()-1])
+					
+			
+			elif heights.size() == $CollisionPolygon2D.polygon.size()*2:
+				make_new_ceiling.heights.append(heights[n*2])
 	
 	
-	if heights.size() == 2:
-		make_new_floor.heights   = [heights[0]]
-		make_new_ceiling.heights = [heights[1]]
 	
-	#elif heights.size() == $CollisionPolygon2D.polygon.size()+1:
-	#	
+	if textures[0] != "":
+		if heights.size() == 2:
+			make_new_floor.heights   = [heights[0]]
+		
+		add_child(make_new_floor)
 	
-	add_child(make_new_floor)
-	add_child(make_new_ceiling)
+	if textures[1] != "":
+		if heights.size() == 2:
+			make_new_ceiling.heights = [heights[1]]
+		
+		add_child(make_new_ceiling)
 	
 
 

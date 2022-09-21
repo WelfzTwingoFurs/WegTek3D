@@ -274,6 +274,9 @@ anims/strafeL = SubResource( 3 )
 anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
+[node name="Background" parent="player12" index="5"]
+visible = false
+
 [node name="Sky" parent="player12/Background" index="0"]
 modulate = Color( 1, 0.72549, 0, 0.501961 )
 texture = ExtResource( 5 )
@@ -281,14 +284,14 @@ texture = ExtResource( 5 )
 [node name="Floor" parent="player12/Background" index="1"]
 modulate = Color( 2, 0.67, 1, 1 )
 texture = ExtResource( 4 )
-centered = true
 
 [node name="Node2D" type="Node2D" parent="."]
 z_index = 4096
 script = ExtResource( 7 )
 
 [node name="Doom2" type="Node2D" parent="Node2D"]
-position = Vector2( -187, -587 )
+position = Vector2( 471, -799 )
+scale = Vector2( 2, 2 )
 
 [node name="Sprite2" type="Sprite" parent="Node2D/Doom2"]
 modulate = Color( 1, 1, 1, 0.164706 )
@@ -303,6 +306,7 @@ __meta__ = {
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ 0, 100 ]
+textures = [ "a", "a", "", "a", "", "a", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/start0 100"]
 polygon = PoolVector2Array( 330.5, 119, 304.5, 133, 290.5, 133, 277.5, 119, 277.5, 106, 330.5, 106 )
@@ -311,6 +315,7 @@ polygon = PoolVector2Array( 330.5, 119, 304.5, 133, 290.5, 133, 277.5, 119, 277.
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ 0, 50 ]
+textures = [ "a", "a", "", "a", "", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/tunnel0 50"]
 polygon = PoolVector2Array( 223.5, 159, 263.5, 159, 290.5, 133, 277.5, 119, 223.5, 119 )
@@ -319,6 +324,7 @@ polygon = PoolVector2Array( 223.5, 159, 263.5, 159, 290.5, 133, 277.5, 119, 223.
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ 0, 200 ]
+textures = [ "a", "", "a", "a", "a", "res://icon.png", "" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/outside0 200"]
 polygon = PoolVector2Array( 196.5, 133, 223.5, 159, 223.5, 119, 223.5, 92, 209.5, 92 )
@@ -327,6 +333,7 @@ polygon = PoolVector2Array( 196.5, 133, 223.5, 159, 223.5, 119, 223.5, 92, 209.5
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -10, 200 ]
+textures = [ "a", "a", "", "a", "a", "a", "a", "", "a", "a", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/entry-10 100"]
 polygon = PoolVector2Array( 236.5, 79, 263.5, 106, 277.5, 106, 330.5, 106, 344.5, 106, 371.5, 79, 357.5, 11, 317.5, 11, 290.5, 11, 250.5, 11 )
@@ -335,6 +342,7 @@ polygon = PoolVector2Array( 236.5, 79, 263.5, 106, 277.5, 106, 330.5, 106, 344.5
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -10, 200 ]
+textures = [ "a", "a", "a", "a", "", "" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/pillarL-10 101"]
 polygon = PoolVector2Array( 263.5, 79, 277.5, 79, 277.5, 65, 263.5, 65 )
@@ -343,6 +351,7 @@ polygon = PoolVector2Array( 263.5, 79, 277.5, 79, 277.5, 65, 263.5, 65 )
 position = Vector2( -330, -99 )
 script = ExtResource( 10 )
 heights = [ -10, 200 ]
+textures = [ "a", "a", "a", "a", "", "" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/pillarL-10 102"]
 polygon = PoolVector2Array( 263, 79, 277, 79, 277, 65, 263, 65 )
@@ -351,6 +360,7 @@ polygon = PoolVector2Array( 263, 79, 277, 79, 277, 65, 263, 65 )
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -8, -10 ]
+textures = [ "a", "a", "a", "a", "" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair-8 100"]
 polygon = PoolVector2Array( 304.5, 79, 344.5, 11, 263.5, 11 )
@@ -359,6 +369,7 @@ polygon = PoolVector2Array( 304.5, 79, 344.5, 11, 263.5, 11 )
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -6, -8 ]
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair-6 100"]
 polygon = PoolVector2Array( 304.5, 65, 337.5, 11, 271.5, 11 )
@@ -367,6 +378,7 @@ polygon = PoolVector2Array( 304.5, 65, 337.5, 11, 271.5, 11 )
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -4, -6 ]
+textures = [ "a", "a", "a", "a", "" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair-4 100"]
 polygon = PoolVector2Array( 304.5, 52, 330.5, 11, 277.5, 11 )
@@ -375,6 +387,7 @@ polygon = PoolVector2Array( 304.5, 52, 330.5, 11, 277.5, 11 )
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -2, -4 ]
+textures = [ "a", "a", "a", "a", "" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair-2 100"]
 polygon = PoolVector2Array( 304.5, 38, 324.5, 11, 283.5, 11 )
@@ -383,17 +396,10 @@ polygon = PoolVector2Array( 304.5, 38, 324.5, 11, 283.5, 11 )
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ 0, -2 ]
+textures = [ "a", "a", "a", "a", "" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair0 100"]
 polygon = PoolVector2Array( 317.5, 11, 290.5, 11, 304.5, 25 )
-
-[node name="corridors" type="StaticBody2D" parent="Node2D/Doom2"]
-position = Vector2( -397.5, -99 )
-script = ExtResource( 10 )
-heights = [ 0, 200 ]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/corridors"]
-polygon = PoolVector2Array( 317.5, 11, 290.5, 11, 290.5, -70, 344.5, -70, 344.5, -100, 371.5, -100, 371.5, -70, 425.5, -70, 425.5, -43, 411.5, -43, 411.5, 11, 384.482, 11, 384.5, -43, 317.5, -43 )
 
 [node name="lasagna" type="Node2D" parent="Node2D"]
 
@@ -856,6 +862,7 @@ polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
 position = Vector2( -791, 346 )
 script = ExtResource( 10 )
 heights = [ 0, 100 ]
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector0"]
 polygon = PoolVector2Array( 0, 150, 250, 0, 500, 150, 500, 350, 250, 500, 0, 350 )
@@ -866,6 +873,7 @@ position = Vector2( -138, 355 )
 script = ExtResource( 10 )
 heights = [ 0.0, 10.0, 20.0, 30.0, 100.0 ]
 plus1_mode = 1
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector1"]
 polygon = PoolVector2Array( 250, 0, 500, 150, 250, 500, 0, 350 )
@@ -876,6 +884,7 @@ position = Vector2( 435, 426 )
 script = ExtResource( 10 )
 heights = [ 0.0, 10.0, 20.0, 30.0, 100.0 ]
 plus1_mode = 2
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector2"]
 polygon = PoolVector2Array( 250, 0, 500, 150, 250, 500, 0, 350 )
@@ -886,6 +895,7 @@ position = Vector2( 1025, 462 )
 script = ExtResource( 10 )
 heights = [ 0.0, 10.0, 20.0, 30.0, 10.0 ]
 plus1_mode = 3
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector3"]
 polygon = PoolVector2Array( 250, 0, 500, 150, 250, 500, 0, 350 )
@@ -896,6 +906,7 @@ position = Vector2( 1594, 478 )
 script = ExtResource( 10 )
 heights = [ 0.0, 100.0, 200.0, 300.0, 10.0 ]
 plus1_mode = 4
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector4"]
 polygon = PoolVector2Array( 250, 0, 500, 150, 250, 500, 0, 350 )

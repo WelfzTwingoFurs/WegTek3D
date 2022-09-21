@@ -59,10 +59,11 @@ func _process(_delta):
 			)
 	
 	else:
+		rect_scale /= 1.5
 		if Engine.time_scale > 0.9:
-			text = str(int(Engine.time_scale),"*",Engine.get_frames_per_second())
+			text = str(int(Engine.time_scale),", ",Engine.get_frames_per_second())
 		else:
-			text = str(Engine.time_scale,"*",Engine.get_frames_per_second())
+			text = str(Engine.time_scale,", ",Engine.get_frames_per_second())
 
 
 

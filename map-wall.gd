@@ -84,7 +84,7 @@ func _ready():
 			add_child(new_label)
 			labels.append(new_label)
 	
-	was_position = to_global(position) #Remove this line for refresh, walls actually where they are
+	#was_position = to_global(position) #Remove this line for refresh, walls actually where they are
 
 
 

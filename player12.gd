@@ -464,7 +464,8 @@ func recalculate():
 		$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)
 		$PolyContainer.scale.y = $PolyContainer.scale.x/OS.window_size.y
 		
-		#lookingZ = 0
+		lookingZ = 0
+		
 		
 		if change_checker[4] != draw_distance or change_checker[5] != angles:
 			#$ViewArea/ViewCol.polygon = [Vector2(0,0),Vector2(0,draw_distance).rotated(-deg_rad(angles/2)),Vector2(0,draw_distance).rotated( deg_rad(angles/2))]
@@ -542,6 +543,7 @@ func BSP():
 		var array_polygon = []
 		#var outtasight = []
 		#var array_uv = []
+		var distances = []
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
@@ -669,23 +671,25 @@ func BSP():
 			
 			
 			
-			
+			distances.append(-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
 			
 			if m == array_walls[n].points.size()-1:
 				#if outtasight.size() > new_poly.polygon.size():
 				#	new_poly.queue_free()
 				
 				#else:
-				if array_polygon.size() != 0: #Z_Index
-					#var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2)) *(float(8192)/draw_distance)-4096)
-					#var z_index_calcu = -(sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
-					var z_index_calcu = -(sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
-					#make average_pos into closest vertex
-					
-					if abs(z_index_calcu) > 4096:
-						new_poly.z_index = 4096*sign(z_index_calcu)
-					else:
-						new_poly.z_index = z_index_calcu
+				#if array_polygon.size() != 0: #Z_Index
+				#var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2)) *(float(8192)/draw_distance)-4096)
+				#make 2D to 3D
+				#var z_index_calcu = -(sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
+				#make average_pos into closest vertex
+				var z_index_calcu = distances.min()
+				
+				
+				if abs(z_index_calcu) > 4096:
+					new_poly.z_index = 4096*sign(z_index_calcu)
+				else:
+					new_poly.z_index = z_index_calcu
 				
 				
 				
@@ -1080,6 +1084,7 @@ func array_divide(array, div):
 		array[n] = array[n]/div
 	
 	return array
+
 
 func array_looping(to_check, array_size):
 	if to_check < 0:
