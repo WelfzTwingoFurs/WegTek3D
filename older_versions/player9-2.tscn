@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/textures150.png" type="Texture" id=1]
+[ext_resource path="res://older_versions/textures150.png" type="Texture" id=1]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=2]
 [ext_resource path="res://older_versions/weapon doomarms.png" type="Texture" id=3]
 [ext_resource path="res://assets/feet2.png" type="Texture" id=4]
