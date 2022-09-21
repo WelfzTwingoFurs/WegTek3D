@@ -1,16 +1,20 @@
 extends Label
 
-#var change_checker = Vector2(0,0)
+var change_checker = []
+var on = false
+
+func _ready():
+	change_checker = [OS.window_size*0, Worldconfig.zoom]
+	visible = true
 
 func _process(_delta):
 	if Input.is_action_just_pressed("bug_console"):
-		visible = !visible
+		on = !on
 		margin_bottom = 9999999
 		margin_right = 9999999
 	
 	
-	if visible:
-	#if change_checker != OS.window_size:
+	if change_checker != [OS.window_size, Worldconfig.zoom]:
 		if Worldconfig.zoom > 0:
 			#margin_bottom = (abs(get_viewport().size.y) / 2)
 			margin_top    = (-abs(get_viewport().size.y)/ 2)
@@ -28,8 +32,11 @@ func _process(_delta):
 			
 			rect_scale = Worldconfig.Camera2D.zoom *2
 			#change_checker = OS.window_size
-		
-		
+	
+	
+	
+	
+	if on:
 		text = str(
 			"[Worldconfig] config=",Worldconfig.config,", zoom=",Worldconfig.zoom,", Camera2D.zoom=",Worldconfig.Camera2D.zoom#,", step=",Worldconfig.step
 			,";;  [Engine] time_scale=",Engine.time_scale,", FPS:",Engine.get_frames_per_second()#,";;  [OS] window_size=",OS.window_size
@@ -50,7 +57,12 @@ func _process(_delta):
 			,"\n"
 			,"array_walls(",Worldconfig.player.array_walls.size(),")","=",Worldconfig.player.array_walls
 			)
-
+	
+	else:
+		if Engine.time_scale > 0.9:
+			text = str(int(Engine.time_scale),"*",Engine.get_frames_per_second())
+		else:
+			text = str(Engine.time_scale,"*",Engine.get_frames_per_second())
 
 
 
