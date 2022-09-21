@@ -192,7 +192,6 @@ __meta__ = {
 [node name="Floor" type="Sprite" parent="Background"]
 modulate = Color( 0.486275, 0.32549, 0.227451, 1 )
 texture = ExtResource( 5 )
-centered = false
 __meta__ = {
 "_edit_lock_": true
 }
