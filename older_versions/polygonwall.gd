@@ -2,6 +2,7 @@ extends StaticBody2D
 
 onready var points = []
 var was_position
+var average_position = Vector2()
 
 export var heights = [0,0,0]
 
@@ -10,6 +11,11 @@ export(bool) var bug_label = 0
 func _ready():
 	for n in $CollisionPolygon2D.polygon.size():
 		points.append(to_global($CollisionPolygon2D.polygon[n]))
+		
+		average_position += points[n]
+		if n == $CollisionPolygon2D.polygon.size()-1:
+			average_position = Vector2(average_position.x/$CollisionPolygon2D.polygon.size(), average_position.y/$CollisionPolygon2D.polygon.size())
+		
 	was_position = position
 	
 	
