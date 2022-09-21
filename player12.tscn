@@ -192,6 +192,10 @@ __meta__ = {
 [node name="Floor" type="Sprite" parent="Background"]
 modulate = Color( 0.486275, 0.32549, 0.227451, 1 )
 texture = ExtResource( 5 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [connection signal="body_shape_entered" from="ViewArea" to="." method="_on_ViewArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="ViewArea" to="." method="_on_ViewArea_body_shape_exited"]

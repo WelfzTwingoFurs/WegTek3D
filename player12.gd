@@ -446,7 +446,9 @@ func recalculate():
 	
 	
 	if change_checker[2] != $Background/Floor.texture or change_checker[6] != OS.window_size:
-		$Background/Floor.scale = Vector2( (OS.window_size.x/$Background/Floor.texture.get_width())+1,    (OS.window_size.y/($Background/Floor.texture.get_height()/2))  )
+		#$Background/Floor.scale = Vector2( (OS.window_size.x/$Background/Floor.texture.get_width())+1,    (OS.window_size.y/($Background/Floor.texture.get_height()/2))  )
+		$Background/Floor.scale = Vector2( (OS.window_size.x/$Background/Floor.texture.get_width()) + (abs(vroll_multi)*10),    (OS.window_size.y/($Background/Floor.texture.get_height()/2))  )
+		
 		
 		if change_checker[2] != $Background/Floor.texture:
 			print("-      TEXTURE: Floor changed")
@@ -460,7 +462,7 @@ func recalculate():
 		var midscreenLast  = OS.window_size.x * (0.25 * tan(( Vector2(0,draw_distance).rotated( deg_rad((angles)/2)) ).angle() ))
 		
 		$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)
-		$PolyContainer.scale.y = (($PolyContainer.scale.x/OS.window_size.y)/angles)*angles
+		$PolyContainer.scale.y = $PolyContainer.scale.x/OS.window_size.y
 		
 		
 		if change_checker[4] != draw_distance or change_checker[5] != angles:
@@ -675,7 +677,8 @@ func BSP():
 				#else:
 				if array_polygon.size() != 0: #Z_Index
 					#var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2)) *(float(8192)/draw_distance)-4096)
-					var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
+					#var z_index_calcu = -(sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
+					var z_index_calcu = -(sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
 					
 					if abs(z_index_calcu) > 4096:
 						new_poly.z_index = 4096*sign(z_index_calcu)
