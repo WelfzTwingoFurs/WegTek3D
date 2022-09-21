@@ -184,17 +184,17 @@ func _physics_process(_delta):
 		positionZ = lerp(positionZ, 0, 0.1)
 	#print(positionZ)
 	#print(lookingZ)
-	if Input.is_action_pressed("ply_lookup"):
-		if lookingZ < 3.6:
+	if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
+		if lookingZ < $PolyContainer.scale.y*3.6:
 			lookingZ += rotate_rate*0.01 #* Engine.time_scale
 	elif Input.is_action_pressed("ply_lookdown"):
-		if lookingZ > -3.6:
+		if lookingZ > $PolyContainer.scale.y*-3.6:
 			lookingZ -= rotate_rate*0.01 #* Engine.time_scale
 	elif Input.is_action_pressed("ply_lookcenter"):
 		lookingZ = lerp(lookingZ, 0, 0.1)
 	
-	if abs(lookingZ) > 3.6:# don't overflow
-		lookingZ = 3.6 * sign(lookingZ)
+	if abs(lookingZ) > $PolyContainer.scale.y*3.6:# don't overflow
+		lookingZ = ($PolyContainer.scale.y*3.6) * sign(lookingZ)
 	
 	posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*lookingZ
 	#Used for sky & floor position according to draw_distance
@@ -464,6 +464,7 @@ func recalculate():
 		$PolyContainer.scale.x = abs(midscreenFirst - midscreenLast)
 		$PolyContainer.scale.y = $PolyContainer.scale.x/OS.window_size.y
 		
+		#lookingZ = 0
 		
 		if change_checker[4] != draw_distance or change_checker[5] != angles:
 			#$ViewArea/ViewCol.polygon = [Vector2(0,0),Vector2(0,draw_distance).rotated(-deg_rad(angles/2)),Vector2(0,draw_distance).rotated( deg_rad(angles/2))]
@@ -679,6 +680,7 @@ func BSP():
 					#var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2)) *(float(8192)/draw_distance)-4096)
 					#var z_index_calcu = -(sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
 					var z_index_calcu = -(sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
+					#make average_pos into closest vertex
 					
 					if abs(z_index_calcu) > 4096:
 						new_poly.z_index = 4096*sign(z_index_calcu)
