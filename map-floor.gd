@@ -16,8 +16,6 @@ var was_zoom
 export(bool) var bug_label = 0
 var labels = []
 
-var average_position = Vector2()
-var average_height = 0
 var spawn_shape_position #used for transferring shape positions for a clone being spawned by sector
 
 func _ready():
@@ -45,19 +43,9 @@ func _ready():
 	
 	################################################################################################################################################################
 	
-	for n in heights.size():
-		average_height += heights[n]
-		if n == heights.size()-1:
-			average_height /= heights.size()
 	
 	for n in $CollisionPolygon2D.polygon.size():
 		points.append(to_global($CollisionPolygon2D.polygon[n]))
-		average_position += points[n]
-		
-		if n == $CollisionPolygon2D.polygon.size()-1:
-			average_position = Vector2(average_position.x/$CollisionPolygon2D.polygon.size(), average_position.y/$CollisionPolygon2D.polygon.size())
-
-		
 		
 		if bug_label:
 			var new_label = Label.new()
@@ -81,7 +69,7 @@ func _process(_delta):
 			points[n] = (to_global($CollisionPolygon2D.polygon[n]))
 			
 		was_position = to_global(position)
-	
+		
 	
 	
 	if was_zoom != Worldconfig.zoom:

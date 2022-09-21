@@ -9,7 +9,8 @@ b = Vector2( 0, 1 )
 "render",
 ]]
 script = ExtResource( 1 )
-texture_path = "res://textures/dukenukem64.png"
+texture_path = "res://textures/gradsimpleII64.png"
+texture_repeat = Vector2( -1, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

@@ -16,8 +16,6 @@ var was_zoom
 export(bool) var bug_label = 0
 var labels = []
 
-var average_position = Vector2()
-var average_height = 0
 var spawn_shape_position #used for transferring shape positions for a clone being spawned by sector
 
 onready var Col = $CollisionShape2D
@@ -60,16 +58,8 @@ func _ready():
 	else:
 		points = [to_global($CollisionShape2D.shape.a), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.a)]
 	
-	average_position = points[0] + points[1]
-	average_position = Vector2(average_position.x/2, average_position.y/2) #Used for Z_INDEX sorting in rendering
 	
 	for n in heights.size():
-		average_height += heights[n]
-		if n == heights.size()-1:
-			average_height /= heights.size()
-		
-		
-	
 		if bug_label:
 			var new_label = Label.new()
 			
@@ -94,9 +84,6 @@ func _process(_delta):
 			points = [to_global($CollisionShape2D.shape.a), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.a)]
 		else:
 			points = [to_global($CollisionShape2D.shape.a), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.a)]
-		
-		average_position = points[0] + points[1]
-		average_position = Vector2(average_position.x/points.size(), average_position.y/points.size()) #Used for Z_INDEX sorting in rendering
 		
 		was_position = to_global(position)
 	

@@ -116,13 +116,13 @@ func _ready():
 	
 	
 	
-	if textures[0] != "":
+	if textures[textures.size()-2] != "":
 		if heights.size() == 2:
 			make_new_floor.heights   = [heights[0]]
 		
 		add_child(make_new_floor)
 	
-	if textures[1] != "":
+	if textures[textures.size()-1] != "":
 		if heights.size() == 2:
 			make_new_ceiling.heights = [heights[1]]
 		
