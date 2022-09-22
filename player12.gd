@@ -276,7 +276,7 @@ func _physics_process(_delta):
 		VisualServer.set_default_clear_color(skycolor)
 	
 	
-	$Background/Floor.position.y = (OS.window_size.y) +posZlookZ + abs(vbob)
+	$Background/Floor.position.y = OS.window_size.y+posZlookZ + abs(vbob)
 	#Floor.scale = Vector2( (OS.window_size.x/Floor.texture.get_width())+1+lookZscale,    (OS.window_size.y/(Floor.texture.get_height()/2))  ) 
 	
 	########################################################################################################################################################
@@ -541,7 +541,7 @@ func BSP():
 		
 		
 		var array_polygon = []
-		#var outtasight = []
+		var outtasight = []
 		#var array_uv = []
 		var distances = []
 		
@@ -612,9 +612,7 @@ func BSP():
 								new_height += height2
 						
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*new_height)) #OVER
-					
-					#if ((array_polygon[m].y+$PolyContainer.posdition.y) > get_viewport().size.y/2)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/2):
-					#	outtasight.append(0)
+						
 					
 					
 					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
@@ -631,7 +629,7 @@ func BSP():
 						
 						if height1 == height2:
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_walls[n].heights[m])) #OVER
-							
+						
 						else:
 							var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
 							var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
@@ -645,13 +643,9 @@ func BSP():
 									new_height += height2
 								elif new_height > height1:
 									new_height += height2
-									#new_height -= abs(height2)
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*new_height)) #OVER
-						
-						
-						#if ((array_polygon[ array_looping(m+1, array_walls[n].points.size()) ].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[ array_looping(m+1, array_walls[n].points.size()) ].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
-						#	outtasight.append(0)
+							
 						
 			
 			
@@ -663,27 +657,22 @@ func BSP():
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 				
-				
-				
-				#if ((array_polygon[m].y+$PolyContainer.position.y) > get_viewport().size.y/10)  or  ((array_polygon[m].y+$PolyContainer.position.y) < -get_viewport().size.y/10):
-				#	outtasight.append(0)
-				
 			
+			
+			if array_polygon.size() > 0:
+				#$Sprite.position = (array_polygon[array_polygon.size()-1]+$PolyContainer.position)*$PolyContainer.scale
+				if (abs((array_polygon[array_polygon.size()-1].x+$PolyContainer.position.x)*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs((array_polygon[array_polygon.size()-1].y+$PolyContainer.position.y)*$PolyContainer.scale.y) > OS.window_size.y/2):
+					outtasight.append(0)
+					
 			
 			
 			distances.append(-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
 			
-			if m == array_walls[n].points.size()-1:
-				#if outtasight.size() > new_poly.polygon.size():
-				#	new_poly.queue_free()
-				
-				#else:
-				#if array_polygon.size() != 0: #Z_Index
-				#var z_index_calcu = -( sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2)) *(float(8192)/draw_distance)-4096)
-				#make 2D to 3D
-				#var z_index_calcu = -(sqrt(pow((array_walls[n].average_position.x - position.x), 2) + pow((array_walls[n].average_position.y - position.y), 2) + pow((array_walls[n].average_height - positionZ), 2)) *(float(8192)/draw_distance)-4096)
-				#make average_pos into closest vertex
+			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
 				var z_index_calcu = distances.min()
+				
+				if outtasight.size() > array_polygon.size()-1:
+					new_poly.queue_free()
 				
 				
 				if abs(z_index_calcu) > 4096:

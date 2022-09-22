@@ -251,7 +251,7 @@ b = Vector2( -40, 28 )
 [node name="scene11" type="Node2D"]
 
 [node name="player12" parent="." instance=ExtResource( 1 )]
-position = Vector2( -284, -112 )
+position = Vector2( -42, -2344 )
 draw_distance = 10000
 skycolor = Color( 0.0235294, 0.027451, 0.0705882, 1 )
 sky_stretch = Vector2( 1, 8 )
@@ -262,7 +262,7 @@ vbob_speed = 0.1
 vroll_multi = -2.5
 texture_try = true
 
-[node name="Col" parent="player12" index="0"]
+[node name="Col" parent="player12" index="1"]
 shape = SubResource( 1 )
 
 [node name="Poly0" parent="player12/PolyContainer" index="0"]
@@ -274,7 +274,7 @@ anims/strafeL = SubResource( 3 )
 anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
-[node name="Background" parent="player12" index="5"]
+[node name="Background" parent="player12" index="6"]
 visible = false
 
 [node name="Sky" parent="player12/Background" index="0"]
@@ -289,11 +289,24 @@ texture = ExtResource( 4 )
 z_index = 4096
 script = ExtResource( 7 )
 
+[node name="101" parent="Node2D" groups=[
+"render",
+] instance=ExtResource( 11 )]
+modulate = Color( 2, 2, 2, 1 )
+position = Vector2( -23, -2179 )
+scale = Vector2( 100, 1 )
+script = ExtResource( 8 )
+heights = [ 100, 100.0, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/101"]
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
+
 [node name="Doom2" type="Node2D" parent="Node2D"]
-position = Vector2( 471, -799 )
-scale = Vector2( 2, 2 )
+position = Vector2( 56, -4364 )
+scale = Vector2( 3, 3 )
 
 [node name="Sprite2" type="Sprite" parent="Node2D/Doom2"]
+visible = false
 modulate = Color( 1, 1, 1, 0.164706 )
 position = Vector2( 0.5, 0 )
 z_index = 4096
@@ -302,104 +315,549 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="start0 100" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="START" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="start0 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ 0, 100 ]
 textures = [ "a", "a", "", "a", "", "a", "res://icon.png", "res://icon.png" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/start0 100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/start0 100"]
 polygon = PoolVector2Array( 330.5, 119, 304.5, 133, 290.5, 133, 277.5, 119, 277.5, 106, 330.5, 106 )
 
-[node name="tunnel0 50" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="tunnel0 50" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ 0, 50 ]
 textures = [ "a", "a", "", "a", "", "res://icon.png", "res://icon.png" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/tunnel0 50"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/tunnel0 50"]
 polygon = PoolVector2Array( 223.5, 159, 263.5, 159, 290.5, 133, 277.5, 119, 223.5, 119 )
 
-[node name="outside0 200" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="outside0 200" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
-heights = [ 0, 200 ]
-textures = [ "a", "", "a", "a", "a", "res://icon.png", "" ]
+heights = [ 0, 50 ]
+textures = [ "", "", "a", "", "", "b", "" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/outside0 200"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/outside0 200"]
 polygon = PoolVector2Array( 196.5, 133, 223.5, 159, 223.5, 119, 223.5, 92, 209.5, 92 )
 
-[node name="entry-10 100" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="entry-10 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
-heights = [ -10, 200 ]
+heights = [ -10, 150 ]
 textures = [ "a", "a", "", "a", "a", "a", "a", "", "a", "a", "res://icon.png", "res://icon.png" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/entry-10 100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/entry-10 100"]
 polygon = PoolVector2Array( 236.5, 79, 263.5, 106, 277.5, 106, 330.5, 106, 344.5, 106, 371.5, 79, 357.5, 11, 317.5, 11, 290.5, 11, 250.5, 11 )
 
-[node name="pillarL-10 101" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="pillarL-10 101" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
-heights = [ -10, 200 ]
+heights = [ -10, 150 ]
 textures = [ "a", "a", "a", "a", "", "" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/pillarL-10 101"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/pillarL-10 101"]
 polygon = PoolVector2Array( 263.5, 79, 277.5, 79, 277.5, 65, 263.5, 65 )
 
-[node name="pillarL-10 102" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="pillarL-10 102" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -330, -99 )
 script = ExtResource( 10 )
-heights = [ -10, 200 ]
+heights = [ -10, 150 ]
 textures = [ "a", "a", "a", "a", "", "" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/pillarL-10 102"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/pillarL-10 102"]
 polygon = PoolVector2Array( 263, 79, 277, 79, 277, 65, 263, 65 )
 
-[node name="stair-8 100" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="stair-8 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -8, -10 ]
 textures = [ "a", "a", "a", "a", "" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair-8 100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair-8 100"]
 polygon = PoolVector2Array( 304.5, 79, 344.5, 11, 263.5, 11 )
 
-[node name="stair-6 100" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="stair-6 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -6, -8 ]
-textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair-6 100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair-6 100"]
 polygon = PoolVector2Array( 304.5, 65, 337.5, 11, 271.5, 11 )
 
-[node name="stair-4 100" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="stair-4 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -4, -6 ]
 textures = [ "a", "a", "a", "a", "" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair-4 100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair-4 100"]
 polygon = PoolVector2Array( 304.5, 52, 330.5, 11, 277.5, 11 )
 
-[node name="stair-2 100" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="stair-2 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ -2, -4 ]
 textures = [ "a", "a", "a", "a", "" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair-2 100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair-2 100"]
 polygon = PoolVector2Array( 304.5, 38, 324.5, 11, 283.5, 11 )
 
-[node name="stair0 100" type="StaticBody2D" parent="Node2D/Doom2"]
+[node name="stair0 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
 heights = [ 0, -2 ]
 textures = [ "a", "a", "a", "a", "" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/stair0 100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair0 100"]
 polygon = PoolVector2Array( 317.5, 11, 290.5, 11, 304.5, 25 )
+
+[node name="CORRIDORS" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="corridorL" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "a", "a", "", "a", "a" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorL"]
+polygon = PoolVector2Array( 317.5, 11, 290.5, 11, 290.5, -70, 317.5, -70, 317.5, -43 )
+
+[node name="corridorML" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "a", "", "a", "", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorML"]
+polygon = PoolVector2Array( 371.591, -70, 344.512, -70, 317.5, -70, 317.5, -43, 384.5, -43, 384.5, -70 )
+
+[node name="corridorMR" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "a", "", "", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorMR"]
+polygon = PoolVector2Array( 425.5, -70, 425.5, -43, 411.5, -43, 384.5, -43, 384.5, -70 )
+
+[node name="octagon" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 80 ]
+textures = [ "", "a", "a", "a", "a", "a", "a", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/octagon"]
+polygon = PoolVector2Array( 425.5, -70, 425.5, -43, 438.5, -29, 452.5, -29, 472.5, -49, 472.5, -63, 452.5, -83, 438.5, -83 )
+
+[node name="corridorR" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorR"]
+polygon = PoolVector2Array( 384.5, -43, 384.5, 92, 411.5, 79, 411.5, -43 )
+
+[node name="corridorT" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorT"]
+polygon = PoolVector2Array( 344.5, -100, 344.5, -70, 371.5, -70, 371.5, -100 )
+
+[node name="AREATOP" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="main" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 150 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/main"]
+polygon = PoolVector2Array( 344.5, -100, 300.5, -100, 277.5, -149, 277.5, -245, 304.5, -272, 411.5, -272, 438.5, -245, 438.5, -149, 415.5, -100, 371.5, -100 )
+
+[node name="pillarL" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 25, 100 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/pillarL"]
+polygon = PoolVector2Array( 330.5, -218, 344.5, -218, 344.5, -204, 330.5, -204 )
+
+[node name="platformLB" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -423.5, -98.5 )
+script = ExtResource( 10 )
+heights = [ 0, 25 ]
+textures = [ "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/platformLB"]
+polygon = PoolVector2Array( 330.5, -245.5, 371.5, -245.5, 371.5, -176.5, 330.5, -176.5 )
+
+[node name="platformLT" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -423.5, -98.5 )
+script = ExtResource( 10 )
+heights = [ 100, 150 ]
+textures = [ "a", "a", "a", "a", "b", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/platformLT"]
+polygon = PoolVector2Array( 330.5, -245.5, 371.5, -245.5, 371.5, -176.5, 330.5, -176.5 )
+
+[node name="pillarR" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -357, -99 )
+script = ExtResource( 10 )
+heights = [ 25, 100 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/pillarR"]
+polygon = PoolVector2Array( 330.5, -218, 344.5, -218, 344.5, -204, 330.5, -204 )
+
+[node name="platformRB" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -357, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 25 ]
+textures = [ "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/platformRB"]
+polygon = PoolVector2Array( 330.5, -245.5, 371.5, -245.5, 371.5, -176.5, 330.5, -176.5 )
+
+[node name="platformRT" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -357, -99 )
+script = ExtResource( 10 )
+heights = [ 100, 150 ]
+textures = [ "a", "a", "a", "a", "b", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/platformRT"]
+polygon = PoolVector2Array( 330.5, -245.5, 371.5, -245.5, 371.5, -176.5, 330.5, -176.5 )
+
+[node name="AREA2" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="main" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "", "a", "", "a", "", "a", "", "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/main"]
+polygon = PoolVector2Array( 559.5, 159, 559.5, 145.915, 559.5, 106, 559.5, 92, 533.5, 79, 519.5, 79, 411.5, 79, 384.5, 92, 356.5, 134, 356.5, 148, 375, 173.5, 552.5, 173.5 )
+
+[node name="mainBL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "", "", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/mainBL"]
+polygon = PoolVector2Array( 383.5, 186, 375, 173.5, 458.5, 173.5, 458.5, 177.875, 458.5, 186 )
+
+[node name="mainBR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "", "", "a", "", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/mainBR"]
+polygon = PoolVector2Array( 546.5, 186, 552.5, 173.5, 512.5, 173.5, 512.5, 178, 512.5, 186, 526.515, 186 )
+
+[node name="pillarmidL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -263, -31.5 )
+script = ExtResource( 10 )
+heights = [ 10, 130 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarmidL"]
+polygon = PoolVector2Array( 263.5, 79, 277.5, 79, 277.5, 65, 263.5, 65 )
+
+[node name="pillarbaseBL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -263, -31.5 )
+script = ExtResource( 10 )
+heights = [ -10, 10 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarbaseBL"]
+polygon = PoolVector2Array( 264, 85.5, 277, 85.5, 284, 78.5, 284, 65.5, 277, 58.5, 263.5, 58.5, 257, 65.5, 257, 78.5 )
+
+[node name="pillarbaseTL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -263, -31.5 )
+script = ExtResource( 10 )
+heights = [ 150, 130 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarbaseTL"]
+polygon = PoolVector2Array( 264, 85.5, 277, 85.5, 284, 78.5, 284, 65.5, 277, 58.5, 263.5, 58.5, 257, 65.5, 257, 78.5 )
+
+[node name="pillarmidR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -154.5, -45 )
+script = ExtResource( 10 )
+heights = [ 10, 150 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarmidR"]
+polygon = PoolVector2Array( 263, 79, 277, 79, 277, 65, 263, 65 )
+
+[node name="pillarbaseBR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -155, -45.5 )
+script = ExtResource( 10 )
+heights = [ -10, 10 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarbaseBR"]
+polygon = PoolVector2Array( 264, 86.5, 277, 86.5, 284, 79.5, 284, 65.5, 277, 58.5, 263.5, 58.5, 257, 65.5, 257, 79.5 )
+
+[node name="pillarbaseTR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -155, -45.5 )
+script = ExtResource( 10 )
+heights = [ 150, 130 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarbaseTR"]
+polygon = PoolVector2Array( 264, 86.5, 277, 86.5, 284, 79.5, 284, 65.5, 277, 58.5, 263.5, 58.5, 257, 65.5, 257, 79.5 )
+
+[node name="elevator top" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 100, 150 ]
+textures = [ "a", "a", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/elevator top"]
+polygon = PoolVector2Array( 330.5, 148, 304.5, 148, 304.5, 134, 330.5, 134 )
+
+[node name="elevator zone" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 150 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/elevator zone"]
+polygon = PoolVector2Array( 330.5, 148, 356.5, 148, 356.5, 134, 330.5, 134 )
+
+[node name="secretT" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -168.5, -141 )
+script = ExtResource( 10 )
+heights = [ -10, 20 ]
+textures = [ "a", "a", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/secretT"]
+polygon = PoolVector2Array( 330.5, 148, 357.5, 148, 357.5, 134, 330.5, 134 )
+
+[node name="secretB" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -168.5, -87 )
+script = ExtResource( 10 )
+heights = [ -10, 20 ]
+textures = [ "a", "a", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/secretB"]
+polygon = PoolVector2Array( 330.5, 147, 357.5, 147, 357.5, 134, 330.5, 134 )
+
+[node name="endB" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -168.5, -87 )
+script = ExtResource( 10 )
+heights = [ -10, 20 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/endB"]
+polygon = PoolVector2Array( 304.5, 67, 304.5, 46, 290.5, 46, 290.5, 67 )
+
+[node name="endT" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -168.5, -87 )
+script = ExtResource( 10 )
+heights = [ -10, 40 ]
+textures = [ "a", "", "a", "a", "a", "a", "a", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/endT"]
+polygon = PoolVector2Array( 317.5, 40, 304.5, 46, 290.5, 46, 277.5, 40, 277.5, 26, 290.5, 13, 304.5, 13, 317.5, 26 )
+
+[node name="cocktip" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "a", "a", "a", "a", "", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cocktip"]
+polygon = PoolVector2Array( 465.5, 106, 452.5, 101, 433.5, 104, 430.5, 112, 448.5, 121, 485, 134, 479.5, 119 )
+
+[node name="cockmid" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "a", "", "a", "a", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockmid"]
+polygon = PoolVector2Array( 465.5, 143, 448.5, 121, 485, 134, 506.5, 146, 508.5, 151, 480.5, 151 )
+
+[node name="cockL1" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "", "", "a", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockL1"]
+polygon = PoolVector2Array( 465.5, 143, 465.5, 151.5, 470, 156.5, 480.5, 151 )
+
+[node name="cockL2" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "a", "", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockL2"]
+polygon = PoolVector2Array( 465.5, 151.5, 460.5, 161, 465.5, 165.5, 470, 156.5 )
+
+[node name="cockR1" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "", "a", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockR1"]
+polygon = PoolVector2Array( 494.5, 151, 508.5, 151, 511.5, 161, 502, 157.5 )
+
+[node name="cockR2" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockR2"]
+polygon = PoolVector2Array( 511.5, 161, 506.5, 166, 502, 157.5 )
+
+[node name="cockshaft" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -5, 0 ]
+textures = [ "", "a", "a", "a", "a", "a", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockshaft"]
+polygon = PoolVector2Array( 465.5, 173, 465.5, 165.5, 470, 156.5, 480.5, 151, 494.5, 151, 502, 157.5, 506.5, 166, 506.5, 173 )
+
+[node name="cockwindow" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 15, 100 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockwindow"]
+polygon = PoolVector2Array( 465.5, 176, 465.5, 173, 506.5, 173, 506.5, 176 )
+
+[node name="cockpillarR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -153, -1.5 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockpillarR"]
+polygon = PoolVector2Array( 268, 80.5, 273, 80.5, 278, 75.5, 278, 68.5, 273, 63.5, 267, 63.5, 262, 68.5, 262, 75.5 )
+
+[node name="cockpillarL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -211, -1.5 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "", "a", "a", "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockpillarL"]
+polygon = PoolVector2Array( 267, 80.5, 272, 80.5, 279, 75.5, 279, 68, 274, 63.5, 267, 63.5, 262, 68.5, 262, 75.5 )
+
+[node name="OUTSIDE" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="door in" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -10, 20 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/door in"]
+polygon = PoolVector2Array( 523.5, 50.5, 523.5, 45.5, 509.5, 45.5, 508.5, 50.5 )
+
+[node name="hillbotL" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -25, -20 ]
+textures = [ "a", "", "", "", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillbotL"]
+polygon = PoolVector2Array( 503.5, 86.5, 543.5, 86.5, 493.5, 35.5, 462.5, 35.5, 462.5, 45.5 )
+
+[node name="hillbotR" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -25, -20 ]
+textures = [ "a", "", "", "", "a" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillbotR"]
+polygon = PoolVector2Array( 543.5, 86.5, 560.5, 50.5, 508, 50.5 )
+
+[node name="hillbotT" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -25, 200 ]
+textures = [ "a", "", "a", "b", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillbotT"]
+polygon = PoolVector2Array( 503.5, 35.5, 493.5, 35.5, 503.5, 46 )
+
+[node name="hillmidL" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -20, -15 ]
+textures = [ "", "a", "a", "a", "a", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillmidL"]
+polygon = PoolVector2Array( 509, 51, 503.5, 45.5, 494.5, 59.5, 503.5, 72.5, 516.5, 72.5, 520.5, 68.5 )
+
+[node name="hillmidR" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -20, -15 ]
+textures = [ "", "a", "a", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillmidR"]
+polygon = PoolVector2Array( 514.5, 59.5, 523.5, 50.5, 530.5, 59.5, 520.5, 68.5 )
+
+[node name="hilltop" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -15, -10 ]
+textures = [ "a", "", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hilltop"]
+polygon = PoolVector2Array( 514.5, 59.5, 523.5, 50.5, 508.5, 50.5 )
+
+[node name="main" type="StaticBody2D" parent="Node2D/Doom2"]
+visible = false
+position = Vector2( 588, 629 )
+script = ExtResource( 10 )
+heights = [ -25, 25 ]
+textures = [ "", "", "", "", "", "", "", "", "", "", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/main"]
+polygon = PoolVector2Array( 597.5, 113.5, 597.5, 59.5, 592.5, 50.5, 560.5, 50.5, 457.5, 50.5, 375.5, 50.5, 342, 86, 341.5, 194.5, 432.5, 209.5, 544, 195 )
+
+[node name="maintopL" type="StaticBody2D" parent="Node2D/Doom2"]
+visible = false
+position = Vector2( 588, 629 )
+script = ExtResource( 10 )
+heights = [ -25, 200 ]
+textures = [ "", "", "", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/maintopL"]
+polygon = PoolVector2Array( 467.5, 50.5, 462.5, 45.5, 457.5, 50.5 )
+
+[node name="maintopR" type="StaticBody2D" parent="Node2D/Doom2"]
+visible = false
+position = Vector2( 588, 629 )
+script = ExtResource( 10 )
+heights = [ -25, 200 ]
+textures = [ "", "", "", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/maintopR"]
+polygon = PoolVector2Array( 560.5, 50.5, 584, 32.5, 592.5, 50.5 )
 
 [node name="lasagna" type="Node2D" parent="Node2D"]
 
@@ -482,7 +940,7 @@ modulate = Color( 1, 0, 0, 0.886275 )
 position = Vector2( -250, -250 )
 script = ExtResource( 8 )
 heights = [ 0.0, 0.0, -250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, -1.5 )
 texture_rotate = 135.0
 
@@ -497,7 +955,7 @@ position = Vector2( -250, 250 )
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 0.0, 0.0, -250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, -1.5 )
 texture_rotate = 135.0
 
@@ -513,7 +971,7 @@ rotation = 1.5708
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 0.0, 0.0, -250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, -1.5 )
 texture_rotate = 135.0
 
@@ -528,7 +986,7 @@ position = Vector2( 250, -250 )
 rotation = 1.5708
 script = ExtResource( 8 )
 heights = [ 0.0, 0.0, -250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, -1.5 )
 texture_rotate = 135.0
 
@@ -545,7 +1003,7 @@ modulate = Color( 1, 1, 0, 0.835294 )
 position = Vector2( -250, -250 )
 script = ExtResource( 8 )
 heights = [ 0.0, 0.0, 250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, 1.5 )
 texture_rotate = 135.0
 
@@ -560,7 +1018,7 @@ position = Vector2( -250, 250 )
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 0.0, 0.0, 250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, 1.5 )
 texture_rotate = 135.0
 
@@ -576,7 +1034,7 @@ rotation = 1.5708
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 0.0, 0.0, 250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, 1.5 )
 texture_rotate = 135.0
 
@@ -591,7 +1049,7 @@ position = Vector2( 250, -250 )
 rotation = 1.5708
 script = ExtResource( 8 )
 heights = [ 0.0, 0.0, 250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, 1.5 )
 texture_rotate = 135.0
 
@@ -671,7 +1129,7 @@ modulate = Color( 1, 0, 1, 0.176471 )
 position = Vector2( -250, -250 )
 script = ExtResource( 8 )
 heights = [ 1000.0, 1000.0, 1250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, 1.5 )
 texture_rotate = 135.0
 
@@ -686,7 +1144,7 @@ position = Vector2( -250, 250 )
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 1000.0, 1000.0, 1250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, 1.5 )
 texture_rotate = 135.0
 
@@ -702,7 +1160,7 @@ rotation = 1.5708
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 1000.0, 1000.0, 1250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, 1.5 )
 texture_rotate = 135.0
 
@@ -717,7 +1175,7 @@ position = Vector2( 250, -250 )
 rotation = 1.5708
 script = ExtResource( 8 )
 heights = [ 1000.0, 1000.0, 1250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, 1.5 )
 texture_rotate = 135.0
 
@@ -742,7 +1200,7 @@ modulate = Color( 0, 1, 0, 0.670588 )
 position = Vector2( -250, -250 )
 script = ExtResource( 8 )
 heights = [ 500.0, 500.0, 250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, -1.5 )
 texture_rotate = 135.0
 
@@ -757,7 +1215,7 @@ position = Vector2( -250, 250 )
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 500.0, 500.0, 250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, -1.5 )
 texture_rotate = 135.0
 
@@ -773,7 +1231,7 @@ rotation = 1.5708
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 500.0, 500.0, 250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, -1.5 )
 texture_rotate = 135.0
 
@@ -788,7 +1246,7 @@ position = Vector2( 250, -250 )
 rotation = 1.5708
 script = ExtResource( 8 )
 heights = [ 500.0, 500.0, 250.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, -1.5 )
 texture_rotate = 135.0
 
@@ -805,7 +1263,7 @@ modulate = Color( 0, 1, 1, 0.341176 )
 position = Vector2( -250, -250 )
 script = ExtResource( 8 )
 heights = [ 500.0, 500.0, 750.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, 1.5 )
 texture_rotate = 135.0
 
@@ -820,7 +1278,7 @@ position = Vector2( -250, 250 )
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 500.0, 500.0, 750.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, 1.5 )
 texture_rotate = 135.0
 
@@ -836,7 +1294,7 @@ rotation = 1.5708
 scale = Vector2( 1, -1 )
 script = ExtResource( 8 )
 heights = [ 500.0, 500.0, 750.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( -2, 1.5 )
 texture_rotate = 135.0
 
@@ -851,11 +1309,137 @@ position = Vector2( 250, -250 )
 rotation = 1.5708
 script = ExtResource( 8 )
 heights = [ 500.0, 500.0, 750.0 ]
-texture_path = "res://textures/kensilverman64.png"
+texture_path = "res://textures/dukenukem64.png"
 texture_repeat = Vector2( 2, 1.5 )
 texture_rotate = 135.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/3/right3"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="4" type="Node2D" parent="Node2D/piramide q foda"]
+modulate = Color( 0, 0, 1, 1 )
+
+[node name="top4" type="StaticBody2D" parent="Node2D/piramide q foda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/4/top4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot4" type="StaticBody2D" parent="Node2D/piramide q foda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/4/bot4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left4" type="StaticBody2D" parent="Node2D/piramide q foda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/4/left4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right4" type="StaticBody2D" parent="Node2D/piramide q foda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/4/right4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="5" type="Node2D" parent="Node2D/piramide q foda"]
+modulate = Color( 0.945098, 0, 1, 0 )
+
+[node name="top5" type="StaticBody2D" parent="Node2D/piramide q foda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/5/top5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot5" type="StaticBody2D" parent="Node2D/piramide q foda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/5/bot5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left5" type="StaticBody2D" parent="Node2D/piramide q foda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/5/left5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right5" type="StaticBody2D" parent="Node2D/piramide q foda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/5/right5"]
 polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
 
 [node name="map-sector0" type="StaticBody2D" parent="Node2D"]
@@ -1161,9 +1745,9 @@ modulate = Color( 1, 1, 1, 0.164706 )
 z_index = -999
 texture = ExtResource( 3 )
 
-[node name="cubes" type="Node2D" parent="Node2D"]
+[node name="squares" type="Node2D" parent="Node2D"]
 
-[node name="0,001" parent="Node2D/cubes" groups=[
+[node name="0,001" parent="Node2D/squares" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 modulate = Color( 2, 2, 2, 1 )
@@ -1171,10 +1755,10 @@ position = Vector2( -375, -57 )
 script = ExtResource( 8 )
 heights = [ 0.001, 0.001, 0.0, 0.0 ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cubes/0,001"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/0,001"]
 polygon = PoolVector2Array( 0, 0, 0.001, 0, 0.001, 0, 0, 0 )
 
-[node name="0,01" parent="Node2D/cubes" groups=[
+[node name="0,01" parent="Node2D/squares" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 modulate = Color( 2, 2, 2, 1 )
@@ -1182,10 +1766,10 @@ position = Vector2( -374, -57 )
 script = ExtResource( 8 )
 heights = [ 0.01, 0.01, 0.0, 0.0 ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cubes/0,01"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/0,01"]
 polygon = PoolVector2Array( 0, 0, 0.01, 0, 0.01, 0, 0, 0 )
 
-[node name="0,1" parent="Node2D/cubes" groups=[
+[node name="0,1" parent="Node2D/squares" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 modulate = Color( 2, 2, 2, 1 )
@@ -1193,10 +1777,10 @@ position = Vector2( -373, -57 )
 script = ExtResource( 8 )
 heights = [ 0.1, 0.1, 0.0, 0.0 ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cubes/0,1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/0,1"]
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 0, 0, 0 )
 
-[node name="1" parent="Node2D/cubes" groups=[
+[node name="1" parent="Node2D/squares" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 modulate = Color( 2, 2, 2, 1 )
@@ -1204,10 +1788,10 @@ position = Vector2( -372, -57 )
 script = ExtResource( 8 )
 heights = [ 1, 1.0, 0.0, 0.0 ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cubes/1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/1"]
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
 
-[node name="10" parent="Node2D/cubes" groups=[
+[node name="10" parent="Node2D/squares" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 modulate = Color( 2, 2, 2, 1 )
@@ -1216,10 +1800,10 @@ scale = Vector2( 10, 1 )
 script = ExtResource( 8 )
 heights = [ 10, 10.0, 0.0, 0.0 ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cubes/10"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/10"]
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
 
-[node name="100" parent="Node2D/cubes" groups=[
+[node name="100" parent="Node2D/squares" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 modulate = Color( 2, 2, 2, 1 )
@@ -1228,7 +1812,7 @@ scale = Vector2( 100, 1 )
 script = ExtResource( 8 )
 heights = [ 100, 100.0, 0.0, 0.0 ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cubes/100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/100"]
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
 
 [node name="box of sox, cox & rox" type="Node2D" parent="Node2D"]
