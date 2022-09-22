@@ -659,10 +659,10 @@ func BSP():
 				
 			
 			
-			if array_polygon.size() > 0:
-				#$Sprite.position = (array_polygon[array_polygon.size()-1]+$PolyContainer.position)*$PolyContainer.scale
-				if (abs((array_polygon[array_polygon.size()-1].x+$PolyContainer.position.x)*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs((array_polygon[array_polygon.size()-1].y+$PolyContainer.position.y)*$PolyContainer.scale.y) > OS.window_size.y/2):
-					outtasight.append(0)
+			#if array_polygon.size() > 0:
+			#	$Sprite.position = (array_polygon[array_polygon.size()-1]+$PolyContainer.position)*$PolyContainer.scale
+			#	if (abs(array_polygon[array_polygon.size()-1].x*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y) > OS.window_size.y/2):
+			#		outtasight.append(0)
 					
 			
 			
@@ -671,8 +671,9 @@ func BSP():
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
 				var z_index_calcu = distances.min()
 				
-				if outtasight.size() > array_polygon.size()-1:
-					new_poly.queue_free()
+				#if outtasight.size() > array_polygon.size()-1:
+				#	new_poly.queue_free()
+				#	pass
 				
 				
 				if abs(z_index_calcu) > 4096:
