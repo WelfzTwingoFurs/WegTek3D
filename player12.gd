@@ -185,18 +185,19 @@ func _physics_process(_delta):
 	#print(positionZ)
 	#print(lookingZ)
 	if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
-		if lookingZ < $PolyContainer.scale.y*3.6:
+		if lookingZ < $PolyContainer.scale.y*10:
 			lookingZ += rotate_rate*0.01 #* Engine.time_scale
 	elif Input.is_action_pressed("ply_lookdown"):
-		if lookingZ > $PolyContainer.scale.y*-3.6:
+		if lookingZ > -$PolyContainer.scale.y*10:
 			lookingZ -= rotate_rate*0.01 #* Engine.time_scale
 	elif Input.is_action_pressed("ply_lookcenter"):
 		lookingZ = lerp(lookingZ, 0, 0.1)
 	
-	if abs(lookingZ) > $PolyContainer.scale.y*3.6:# don't overflow
-		lookingZ = ($PolyContainer.scale.y*3.6) * sign(lookingZ)
+	if abs(lookingZ) > $PolyContainer.scale.y*10:# don't overflow
+		lookingZ = ($PolyContainer.scale.y*10) * sign(lookingZ)
 	
-	posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*lookingZ
+	#posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*lookingZ
+	posZlookZ = ( (OS.window_size.y*(positionZ/draw_distance/10)) * ($PolyContainer.scale.y*10) )  +  OS.window_size.y*lookingZ
 	#Used for sky & floor position according to draw_distance
 	
 	
@@ -541,7 +542,7 @@ func BSP():
 		
 		
 		var array_polygon = []
-		var outtasight = []
+		var outtasight = 0
 		#var array_uv = []
 		var distances = []
 		
@@ -659,10 +660,10 @@ func BSP():
 				
 			
 			
-			#if array_polygon.size() > 0:
-			#	$Sprite.position = (array_polygon[array_polygon.size()-1]+$PolyContainer.position)*$PolyContainer.scale
-			#	if (abs(array_polygon[array_polygon.size()-1].x*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y) > OS.window_size.y/2):
-			#		outtasight.append(0)
+			if array_polygon.size() > 0 && lookingZ == 0:
+				#$Sprite.position = (array_polygon[array_polygon.size()-1])*$PolyContainer.scale+Vector2(0, OS.window_size.y*lookingZ)
+				if (abs(array_polygon[array_polygon.size()-1].x*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y) > OS.window_size.y/2):
+					outtasight +=1
 					
 			
 			
@@ -671,9 +672,8 @@ func BSP():
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
 				var z_index_calcu = distances.min()
 				
-				#if outtasight.size() > array_polygon.size()-1:
-				#	new_poly.queue_free()
-				#	pass
+				if outtasight > array_polygon.size()-1:
+					break
 				
 				
 				if abs(z_index_calcu) > 4096:
