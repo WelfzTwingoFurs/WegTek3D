@@ -521,7 +521,7 @@ var rot_minus90
 
 var midscreen = 0
 
-export(bool) var texture_try = 0
+export(bool) var textures_on = 0
 
 func BSP():
 	for n in array_walls.size():
@@ -567,6 +567,7 @@ func BSP():
 				if (neighbours_pm.x == 1) && (neighbours_pm.y == 1):  #both neighbours bad, delete
 					pass
 				
+				
 				else:
 					var limitPlus  = position+(Vector2(0,100).rotated(rotation_angle+PI/2))
 					var limitMinus = position+(Vector2(0,100).rotated(rotation_angle-PI/2))
@@ -599,17 +600,15 @@ func BSP():
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
 					else:#Need to make diagonal clipping
-						var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
-						var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
+						var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2))             #broken (0% -> valid neighbour (100%)
+						var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #broken (05) -> it's new (X%), logic from other raycasters
 						
 						var new_height = (distX_2/dist1_2)*(height1-height2)
 						
 						if height2 > height1: #dont know
 							new_height += height2
 						elif height2 < height1:# why, OK
-							if new_height < height2:
-								new_height += height2
-							elif new_height > height1:
+							if (new_height < height2) or (new_height > height1):
 								new_height += height2
 						
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*new_height)) #OVER
@@ -626,12 +625,10 @@ func BSP():
 						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
 						
-						
-						
-						if height1 == height2:
+						if height1 == height2:#No diagonals
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
-						else:
+						else:#diagonal
 							var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
 							var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
 							
@@ -639,10 +636,8 @@ func BSP():
 							
 							if height2 > height1: #dont know
 								new_height += height2
-							elif height2 < height1:# why, OK
+							elif (height2 < height1) or (new_height > height1):# why, OK
 								if new_height < height2:
-									new_height += height2
-								elif new_height > height1:
 									new_height += height2
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*new_height)) #OVER
@@ -660,9 +655,10 @@ func BSP():
 				
 			
 			
-			if array_polygon.size() > 0 && lookingZ == 0:
+			if array_polygon.size() > 0:# && lookingZ == 0:
 				#$Sprite.position = (array_polygon[array_polygon.size()-1])*$PolyContainer.scale+Vector2(0, OS.window_size.y*lookingZ)
-				if (abs(array_polygon[array_polygon.size()-1].x*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y) > OS.window_size.y/2):
+				#if (abs(array_polygon[array_polygon.size()-1].x*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y) > OS.window_size.y/2):
+				if abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
 					outtasight +=1
 					
 			
@@ -677,19 +673,18 @@ func BSP():
 				
 				
 				if abs(z_index_calcu) > 4096:
-					new_poly.z_index = 4096*sign(z_index_calcu)
+					break#new_poly.z_index = 4096*sign(z_index_calcu) #if we don't cull it gets inverted since things will stack at 4096
 				else:
 					new_poly.z_index = z_index_calcu
 				
 				
-				
-				new_poly.texture = load(array_walls[n].texture_path)
-				new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
 				new_poly.modulate = array_walls[n].modulate
 				
-				if texture_try: #Texture mapping
-					var howmany = array_polygon.size()
-					
+				if textures_on: #Texture mapping
+					new_poly.texture = load(array_walls[n].texture_path)
+					new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
+					new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+					var howmany = array_polygon.size() #m+1
 					
 					if  howmany == 3:
 						new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
@@ -732,7 +727,7 @@ func BSP():
 				
 				
 				new_poly.polygon = array_polygon
-				new_container.add_child((new_poly))
+		new_container.add_child((new_poly))
 				# Over!
 				
 
