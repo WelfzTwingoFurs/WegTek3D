@@ -254,7 +254,7 @@ tracks/5/keys = {
 [node name="scene11" type="Node2D"]
 
 [node name="player12" parent="." instance=ExtResource( 1 )]
-position = Vector2( -1770, -404 )
+position = Vector2( -1449, -429 )
 draw_distance = 10000
 skycolor = Color( 0.333333, 0, 0, 1 )
 sky_stretch = Vector2( 1, 5 )
@@ -292,14 +292,28 @@ script = ExtResource( 7 )
 
 [node name="SPRITES" type="Node2D" parent="Node2D"]
 
-[node name="SPRITE4" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+[node name="spriteman8" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
 position = Vector2( -1489, -273 )
 rotation = 3.14159
 script = ExtResource( 12 )
+vframes = 5
+rotations = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/SPRITE4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman8"]
+shape = SubResource( 12 )
+
+[node name="spriteman4" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( -1399, -274 )
+rotation = 3.14159
+script = ExtResource( 12 )
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman4"]
 shape = SubResource( 12 )
 
 [node name="car" type="Node2D" parent="Node2D"]

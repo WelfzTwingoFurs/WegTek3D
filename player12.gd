@@ -742,21 +742,36 @@ func BSP():
 			
 			var frame_rot = 0
 			var angletester = (rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180
-			#print(angletester)
 			
-			if angletester < 40 or angletester > 320:
-				frame_rot = 40
-			elif angletester < 80 or angletester > 280:
-				frame_rot = 30
-			elif angletester < 120 or angletester > 240:
-				frame_rot = 20
-			elif angletester < 160 or angletester > 200:
-				frame_rot = 10
+#			if angletester < 40 or angletester > 320:
+#				frame_rot = 40
+#			elif angletester < 80 or angletester > 280:
+#				frame_rot = 30
+#			elif angletester < 120 or angletester > 240:
+#				frame_rot = 20
+#			elif angletester < 160 or angletester > 200:
+#				frame_rot = 10
+			#360/9 = 40... THINK NERD!!
+			#40, 40*2, 40*3 // 360-40, 360-40*2
 			
-			if angletester < 180:
-				new_sprite.flip_h = true
+			for n in array_sprites[o].rotations:
+				if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
+					frame_rot = (n*10) - 10
+					if frame_rot < 0:
+						frame_rot = 0
+					
+					new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
+					break
+					#is sprite frame valid, if not, ROTATE IT
 			
-			new_sprite.frame = array_sprites[o].anim + frame_rot
+			if array_sprites[o].rotations == 8:
+				if angletester > 180:
+					new_sprite.flip_h = true
+			elif array_sprites[o].rotations == 4:
+				if angletester < 180:
+					new_sprite.flip_h = true
+			
+			#new_sprite.frame = array_sprites[o].anim + frame_rot
 			
 			new_container.add_child(new_sprite)
 		

@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export var positionZ = 0
-export var texture = "res://assets/sprites test.png"
-export var vframes = 5
 export var anim = 0
+export var texture = "res://assets/sprites 8rot.png"
+export var vframes = 4
+export var rotations = 4
