@@ -9,6 +9,7 @@ https://github.com/WelfzTwingoFurs/godot-raycaster-like
  [created using Godot Engine v3.3.2-stable Win64, at https://www.godotengine.org/]
 
 FEATURES:
+-Ssprite objects WIP;
 -Polygon world with height;
 -Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
@@ -23,15 +24,13 @@ FEATURES:
 -Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
+-No shading;
 -No collision;
--No sprite objects;
 -Heavy texture distortion up-close;
 -Clipping intervenes with texturing;
 -No camera-edge clipping (poly pieces outside screen still render);
 -No world culling (polygons behind others still render);
--Draw distance innacurate to value (depending on Angles FOV);
--Feet when you look down, draw distance fading,
-depth-shading options, have been deactivated;
+-Draw distance innacurate to value depending on Angles FOV;
 -No in-game options (all settings in editor).
 
 
