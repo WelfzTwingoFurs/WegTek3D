@@ -64,7 +64,7 @@ DEBUG KEYS:
 ###################################################################################
 
 SPECIAL THANKS:
--JJoeyay, for teaching me Godot and inspiring me to make games;
+-JJoeyay/Taffyko, for teaching me Godot and inspiring me to make games;
 -3DSage's 'Make Your Own Raycaster' series on YouTube;
 -Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial';
 -Nic from college, for making me understand the polygon processing logic.
