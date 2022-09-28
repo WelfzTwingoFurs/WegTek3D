@@ -10,6 +10,7 @@ onready var change_checker = []
 
 func _ready():
 	Worldconfig.player = self
+	Worldconfig.Camera2D = $Camera2D
 	
 	$Background.visible = 1
 	#$View/Feet.visible = 1
@@ -544,7 +545,7 @@ func BSP():
 		var array_polygon = []
 		var outtasight = 0
 		#var array_uv = []
-		var distances = []
+		var min_distance = INF
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
@@ -552,8 +553,8 @@ func BSP():
 			
 			#stretching fix conditions
 			if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object < rot_minus90 or rot_object > rot_plus90))   or   (rot_object < rot_minus90 && rot_object > rot_plus90):
-				var rot_object_plus  = rad_overflow((array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]-position).angle()-PI/2)
-				var rot_object_minus = rad_overflow((array_walls[n].points[ array_looping(m-1, array_walls[n].points.size()) ]-position).angle()-PI/2)
+				var rot_object_plus  = rad_overflow((array_walls[n].points[ (m+1) % array_walls[n].points.size() ]-position).angle()-PI/2)
+				var rot_object_minus = rad_overflow((array_walls[n].points[ (m-1) % array_walls[n].points.size() ]-position).angle()-PI/2)
 				var neighbours_pm = Vector2(0,0) #pm = "plus, minus"
 				
 				
@@ -578,12 +579,12 @@ func BSP():
 					
 					
 					if (neighbours_pm.x == 0) && (neighbours_pm.y == 1):#minus neighbour bad, go with plus neighbour
-						point2 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
-						height2 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
+						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
+						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ]
 					
 					else:#plus/both neighbour bad, go with minus neighbour
-						point2 = array_walls[n].points[ array_looping(m-1, array_walls[n].points.size()) ]
-						height2 = array_walls[n].heights[ array_looping(m-1, array_walls[n].heights.size()) ]
+						point2 = array_walls[n].points[ (m-1) % array_walls[n].points.size() ]
+						height2 = array_walls[n].heights[ (m-1) % array_walls[n].heights.size() ]
 					
 					
 					
@@ -616,8 +617,8 @@ func BSP():
 					
 					
 					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
-						point2 = array_walls[n].points[ array_looping(m+1, array_walls[n].points.size()) ]
-						height2 = array_walls[n].heights[ array_looping(m+1, array_walls[n].heights.size()) ]
+						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
+						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ]
 						
 						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 						
@@ -652,7 +653,6 @@ func BSP():
 				var lineH = (OS.window_size.y / distance)   /  cos(xkusu)
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ)*lineH)-lineH*array_walls[n].heights[m])) #OVER
-				
 			
 			
 			if array_polygon.size() > 0:# && lookingZ == 0:
@@ -663,17 +663,19 @@ func BSP():
 					
 			
 			
-			distances.append(-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
+			if (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096)) < min_distance:
+				min_distance = (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
 			
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
-				var z_index_calcu = distances.min()
+				var z_index_calcu = min_distance
 				
 				if outtasight > array_polygon.size()-1:
 					break
 				
 				
 				if abs(z_index_calcu) > 4096:
-					break#new_poly.z_index = 4096*sign(z_index_calcu) #if we don't cull it gets inverted since things will stack at 4096
+					break
+					#new_poly.z_index = 4096*sign(z_index_calcu) #if we don't cull it gets inverted since things will stack at 4096
 				else:
 					new_poly.z_index = z_index_calcu
 				
