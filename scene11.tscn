@@ -254,7 +254,7 @@ tracks/5/keys = {
 [node name="scene11" type="Node2D"]
 
 [node name="player12" parent="." instance=ExtResource( 1 )]
-position = Vector2( -2509, -680 )
+position = Vector2( -1770, -404 )
 draw_distance = 10000
 skycolor = Color( 0.333333, 0, 0, 1 )
 sky_stretch = Vector2( 1, 5 )
@@ -290,40 +290,16 @@ texture = ExtResource( 4 )
 z_index = 4096
 script = ExtResource( 7 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="Node2D" groups=[
+[node name="SPRITES" type="Node2D" parent="Node2D"]
+
+[node name="SPRITE4" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -2516, -584 )
+position = Vector2( -1489, -273 )
+rotation = 3.14159
 script = ExtResource( 12 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/KinematicBody2D"]
-shape = SubResource( 12 )
-
-[node name="KinematicBody2D2" type="KinematicBody2D" parent="Node2D" groups=[
-"rendersprite",
-]]
-position = Vector2( -2506, -784 )
-script = ExtResource( 12 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/KinematicBody2D2"]
-shape = SubResource( 12 )
-
-[node name="KinematicBody2D3" type="KinematicBody2D" parent="Node2D" groups=[
-"rendersprite",
-]]
-position = Vector2( -2629, -690 )
-script = ExtResource( 12 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/KinematicBody2D3"]
-shape = SubResource( 12 )
-
-[node name="KinematicBody2D4" type="KinematicBody2D" parent="Node2D" groups=[
-"rendersprite",
-]]
-position = Vector2( -2381, -688 )
-script = ExtResource( 12 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/KinematicBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/SPRITE4"]
 shape = SubResource( 12 )
 
 [node name="car" type="Node2D" parent="Node2D"]

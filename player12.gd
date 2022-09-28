@@ -526,22 +526,19 @@ export(bool) var textures_on = 0
 export(bool) var cull_on = 1
 
 func BSP():
+	if (weakref(new_container).get_ref()):
+		new_container.queue_free()
+		
+	new_container = $PolyContainer.duplicate()
+	add_child(new_container)
+	
+	midscreen = (Vector2(0,draw_distance).rotated(rotation_angle)).angle()
+	
+	rot_plus90  = rad_overflow(rotation_angle+(PI/2))
+	rot_minus90 = rad_overflow(rotation_angle-(PI/2))
+	
 	for n in array_walls.size():
 		var new_poly = $PolyContainer/Poly0.duplicate()
-		
-		if n == 0:
-			if (weakref(new_container).get_ref()):
-				new_container.queue_free()
-				
-			new_container = $PolyContainer.duplicate()
-			add_child(new_container)
-			
-			midscreen = (Vector2(0,draw_distance).rotated(rotation_angle)).angle()
-			
-			rot_plus90  = rad_overflow(rotation_angle+(PI/2))
-			rot_minus90 = rad_overflow(rotation_angle-(PI/2))
-		
-		
 		
 		var array_polygon = []
 		var outtasight = 0
@@ -740,10 +737,26 @@ func BSP():
 			new_sprite.z_index = -(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2)) *(float(8192)/draw_distance)-4096)
 			
 			new_sprite.texture = load(array_sprites[o].texture)
-			new_sprite.hframes = array_sprites[o].frames.x
-			new_sprite.vframes = array_sprites[o].frames.y
+			new_sprite.vframes = array_sprites[o].vframes
 			
-			new_sprite.frame = array_sprites[o].anim
+			
+			var frame_rot = 0
+			var angletester = (rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180
+			#print(angletester)
+			
+			if angletester < 40 or angletester > 320:
+				frame_rot = 40
+			elif angletester < 80 or angletester > 280:
+				frame_rot = 30
+			elif angletester < 120 or angletester > 240:
+				frame_rot = 20
+			elif angletester < 160 or angletester > 200:
+				frame_rot = 10
+			
+			if angletester < 180:
+				new_sprite.flip_h = true
+			
+			new_sprite.frame = array_sprites[o].anim + frame_rot
 			
 			new_container.add_child(new_sprite)
 		
@@ -805,7 +818,7 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		if array_sprites.has(body):
 			array_sprites.erase(body)
 	
-	if array_walls.size() == 0 && (weakref(new_container).get_ref()):
+	if array_walls.size() == 0 && array_sprites.size() == 0 && (weakref(new_container).get_ref()):
 		new_container.queue_free()
 
 
