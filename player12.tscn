@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://player12.gd" type="Script" id=1]
 [ext_resource path="res://assets/feet2.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=6]
 [ext_resource path="res://make_invisible.gd" type="Script" id=7]
 [ext_resource path="res://player-console.gd" type="Script" id=8]
-[ext_resource path="res://assets/Welfz.png" type="Texture" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.0
@@ -82,12 +81,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 9 )
-hframes = 10
-frame = 1
 
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
