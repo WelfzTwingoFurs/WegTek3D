@@ -13,10 +13,9 @@ __meta__ = {
 }
 
 [node name="player10" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1299, 2348 )
+position = Vector2( -98, 5091 )
 script = ExtResource( 7 )
 draw_distance = 10000
-texture_try = true
 
 [node name="Sky" parent="player10/Background" index="0"]
 modulate = Color( 0.5, 0.085, 0.5, 1 )
