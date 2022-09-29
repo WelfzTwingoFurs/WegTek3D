@@ -30,7 +30,7 @@ IMPERFECTIONS:
 -Clipping intervenes with texturing;
 -No camera-edge clipping (poly pieces outside screen still render);
 -No world culling (polygons behind others still render);
--Draw distance innacurate to value depending on Angles FOV;
+-Draw distance innacurate to value, depending on Angles FOV;
 -No in-game options (all settings in editor).
 
 
