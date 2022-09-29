@@ -745,7 +745,7 @@ func BSP():
 			#new_sprite.scale = Vector2(lineH/new_sprite.texture.get_width(), lineH/new_sprite.texture.get_height()*500) * array_sprites[o].scale_extra #Y is OK, X is not still
 			new_sprite.scale.y = lineH * array_sprites[o].scale_extra.y #Y is OK, X is not still
 			#new_sprite.scale.x = lineH/$PolyContainer.scale.x * array_sprites[o].scale_extra.x 
-			new_sprite.scale.x = (((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * array_sprites[o].scale_extra.x
+			new_sprite.scale.x = ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.3) * array_sprites[o].scale_extra.x
 			
 			
 			#lets re-use it

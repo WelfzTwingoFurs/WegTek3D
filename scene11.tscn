@@ -299,7 +299,6 @@ position = Vector2( -699, 179 )
 rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 31
-scale_extra = Vector2( 0.8, 0.8 )
 vframes = 5
 rotations = 8
 
@@ -314,7 +313,6 @@ rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 31
 anim = 2
-scale_extra = Vector2( 0.8, 0.8 )
 texture = "res://assets/sprites 4rot.png"
 vframes = 3
 
@@ -371,7 +369,6 @@ rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 61
 anim = 1
-scale_extra = Vector2( 1.2, 1.5 )
 vframes = 5
 rotations = 8
 
@@ -400,7 +397,6 @@ rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 29
 anim = 2
-scale_extra = Vector2( 0.75, 0.75 )
 vframes = 5
 rotations = 8
 
@@ -415,7 +411,6 @@ rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 12
 anim = 3
-scale_extra = Vector2( 0.3, 0.3 )
 vframes = 5
 rotations = 8
 
