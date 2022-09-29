@@ -23,6 +23,7 @@ FEATURES:
 -Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
+-No sound;
 -No shading;
 -No collision;
 -Heavy texture distortion up-close;
