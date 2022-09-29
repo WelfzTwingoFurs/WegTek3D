@@ -68,7 +68,7 @@ SPECIAL THANKS:
 -Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial';
 -Nic from college, for making me understand the polygon processing logic.
 
-8)
+<3
 ```
 <hr>
 <img src="https://media4.giphy.com/media/sOnrCzHT3ndi16DamA/giphy.gif" height=128px align="left">
