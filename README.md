@@ -9,8 +9,8 @@ https://github.com/WelfzTwingoFurs/godot-raycaster-like
  [created using Godot Engine v3.3.2-stable Win64, at https://www.godotengine.org/]
 
 FEATURES:
--Ssprite objects WIP;
 -Polygon world with height;
+-Sprite objects;
 -Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
 -Properly scaling Y rendering to FOV + aspect-ratio;
