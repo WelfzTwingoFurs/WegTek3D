@@ -738,14 +738,10 @@ func BSP():
 			
 			new_sprite.texture = load(array_sprites[o].texture)
 			new_sprite.vframes = array_sprites[o].vframes
-			#new_sprite.offset.y = new_sprite.texture.get_height()
+			new_sprite.offset.y = -new_sprite.texture.get_height()/10
 			
-			#new_sprite.scale = Vector2(lineH/$PolyContainer.scale.x, lineH/$PolyContainer.scale.y) * array_sprites[o].scale_extra
-			#new_sprite.scale = Vector2(lineH/$PolyContainer.scale.x, lineH/new_sprite.texture.get_height()*500) * array_sprites[o].scale_extra #Y is OK, X is not still
-			#new_sprite.scale = Vector2(lineH/new_sprite.texture.get_width(), lineH/new_sprite.texture.get_height()*500) * array_sprites[o].scale_extra #Y is OK, X is not still
-			new_sprite.scale.y = lineH * array_sprites[o].scale_extra.y #Y is OK, X is not still
-			#new_sprite.scale.x = lineH/$PolyContainer.scale.x * array_sprites[o].scale_extra.x 
-			new_sprite.scale.x = ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.3) * array_sprites[o].scale_extra.x
+			
+			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.3) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
 			
 			
 			#lets re-use it
@@ -753,7 +749,6 @@ func BSP():
 			if abs(xkusu) > 4096:
 				break
 			new_sprite.z_index = xkusu
-			
 			
 			
 			var frame_rot = 0
