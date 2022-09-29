@@ -664,10 +664,12 @@ func BSP():
 			
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
 				if outtasight > array_polygon.size()-1:
+					new_poly.visible = 0
 					break
 				
 				
 				if abs(min_distance) > 4096:
+					new_poly.queue_free()
 					break #if we don't cull it gets inverted since things will stack at 4096
 					#new_poly.z_index = 4096*sign(min_distance) 
 				else:
@@ -733,16 +735,47 @@ func BSP():
 			var lineH = (OS.window_size.y /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) 
 			
 			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_sprites[o].positionZ)
-			new_sprite.scale = Vector2(float(lineH)/$PolyContainer.scale.x, float(lineH)/$PolyContainer.scale.y)
-			new_sprite.z_index = -(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2)) *(float(8192)/draw_distance)-4096)
 			
 			new_sprite.texture = load(array_sprites[o].texture)
 			new_sprite.vframes = array_sprites[o].vframes
+			#new_sprite.offset.y = new_sprite.texture.get_height()
+			
+			#new_sprite.scale = Vector2(lineH/$PolyContainer.scale.x, lineH/$PolyContainer.scale.y) * array_sprites[o].scale_extra
+			#new_sprite.scale = Vector2(lineH/$PolyContainer.scale.x, lineH/new_sprite.texture.get_height()*500) * array_sprites[o].scale_extra #Y is OK, X is not still
+			#new_sprite.scale = Vector2(lineH/new_sprite.texture.get_width(), lineH/new_sprite.texture.get_height()*500) * array_sprites[o].scale_extra #Y is OK, X is not still
+			new_sprite.scale.y = lineH * array_sprites[o].scale_extra.y #Y is OK, X is not still
+			#new_sprite.scale.x = lineH/$PolyContainer.scale.x * array_sprites[o].scale_extra.x 
+			new_sprite.scale.x = (((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * array_sprites[o].scale_extra.x
+			
+			
+			#lets re-use it
+			xkusu = -(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2)) *(float(8192)/draw_distance)-4096)
+			if abs(xkusu) > 4096:
+				break
+			new_sprite.z_index = xkusu
+			
 			
 			
 			var frame_rot = 0
 			var angletester = (rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180
 			
+			for n in array_sprites[o].rotations:
+				if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
+					frame_rot = (n*10) - 10
+					if frame_rot < 0:
+						frame_rot = 0
+					
+					new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
+					break
+					
+			
+			if angletester < 180:
+				new_sprite.flip_h = true
+			
+			
+			new_container.add_child(new_sprite)
+			
+
 #			if angletester < 40 or angletester > 320:
 #				frame_rot = 40
 #			elif angletester < 80 or angletester > 280:
@@ -753,30 +786,6 @@ func BSP():
 #				frame_rot = 10
 			#360/9 = 40... THINK NERD!!
 			#40, 40*2, 40*3 // 360-40, 360-40*2
-			
-			for n in array_sprites[o].rotations:
-				if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
-					frame_rot = (n*10) - 10
-					if frame_rot < 0:
-						frame_rot = 0
-					
-					new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
-					break
-					#is sprite frame valid, if not, ROTATE IT
-			
-			if array_sprites[o].rotations == 8:
-				if angletester > 180:
-					new_sprite.flip_h = true
-			elif array_sprites[o].rotations == 4:
-				if angletester < 180:
-					new_sprite.flip_h = true
-			
-			#new_sprite.frame = array_sprites[o].anim + frame_rot
-			
-			new_container.add_child(new_sprite)
-		
-
-
 
 
 

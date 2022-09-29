@@ -26,9 +26,9 @@ func _process(_delta):
 		
 		else:
 			#margin_bottom = (OS.window_size.y)  * (1-Worldconfig.zoom)/2
+			#margin_right  = (OS.window_size.x)  * (1-Worldconfig.zoom)/4
 			margin_top    = (-OS.window_size.y) * (1-Worldconfig.zoom)/2
 			margin_left   = (-OS.window_size.x) * (1-Worldconfig.zoom)/2
-			#margin_right  = (OS.window_size.x)  * (1-Worldconfig.zoom)/4
 			
 			rect_scale = Worldconfig.Camera2D.zoom *2
 			#change_checker = OS.window_size
@@ -61,9 +61,10 @@ func _process(_delta):
 	else:
 		rect_scale /= 1.5
 		if Engine.time_scale > 0.9:
-			text = str(int(Engine.time_scale),", ",Engine.get_frames_per_second())
+			#text = str(Engine.get_frames_per_second())
+			text = str("[",Worldconfig.player.array_walls.size(),"], ",int(Engine.time_scale)," * ",Engine.get_frames_per_second())
 		else:
-			text = str(Engine.time_scale,", ",Engine.get_frames_per_second())
+			text = str("[",Worldconfig.player.array_walls.size(),"], ",Engine.time_scale," * ",Engine.get_frames_per_second())
 
 
 
