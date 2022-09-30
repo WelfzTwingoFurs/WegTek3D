@@ -26,6 +26,8 @@ IMPERFECTIONS:
 -No sound;
 -No shading;
 -No collision;
+-Z-sorting inaccurate with touching/nearby polygons;
+-Camera-edge culling only checks if all vertices are off-screen;
 -Heavy texture distortion up-close;
 -Clipping intervenes with texturing;
 -No camera-edge clipping (poly pieces outside screen still render);
