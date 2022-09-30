@@ -253,7 +253,7 @@ tracks/5/keys = {
 [node name="scene11" type="Node2D"]
 
 [node name="player12" parent="." instance=ExtResource( 1 )]
-position = Vector2( -837, 23 )
+position = Vector2( -314, -749 )
 draw_distance = 10000
 skycolor = Color( 0.333333, 0, 0, 1 )
 sky_stretch = Vector2( 1, 5 )
@@ -295,7 +295,7 @@ script = ExtResource( 7 )
 [node name="spriteman8" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -699, 179 )
+position = Vector2( -667, -464 )
 rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = -2
@@ -308,11 +308,10 @@ shape = SubResource( 6 )
 [node name="spriteman4" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -609, 178 )
+position = Vector2( -577, -465 )
 rotation = 3.14159
 script = ExtResource( 12 )
-positionZ = 17
-anim = 2
+positionZ = 15
 texture = "res://assets/sprites 4rot.png"
 vframes = 3
 
@@ -322,10 +321,11 @@ shape = SubResource( 6 )
 [node name="spriteman2" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -510, 178 )
+position = Vector2( -478, -465 )
 rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 25
+anim = 2
 texture = "res://assets/sprites 2rot.png"
 vframes = 2
 rotations = 3
@@ -333,36 +333,57 @@ rotations = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman2"]
 shape = SubResource( 6 )
 
+[node name="spriteman1" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( -400, -466 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 33
+scale_extra = Vector2( 0.5, 0.5 )
+texture = "res://icon.png"
+vframes = 1
+hframes = 1
+rotations = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman1"]
+shape = SubResource( 6 )
+
 [node name="coin" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -519, 37 )
+position = Vector2( -355, -794 )
 rotation = 3.14159
 script = ExtResource( 12 )
-texture = "res://assets/sprite coin.png"
+positionZ = 24
+texture = "res://assets/sprites coin1 (JoeyTheRabbit, TSR).png"
 vframes = 9
+hframes = 1
 rotations = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/coin"]
+position = Vector2( -151, -144 )
 shape = SubResource( 6 )
 
 [node name="coin2" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -222, 38 )
+position = Vector2( -58, -793 )
 rotation = 3.14159
 script = ExtResource( 12 )
-texture = "res://assets/sprites coin2.png"
+texture = "res://assets/sprites coin2 (teh_supar_hackr, TSR).png"
 vframes = 20
+hframes = 1
 rotations = 39
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/coin2"]
+position = Vector2( 69.0004, -145 )
 shape = SubResource( 6 )
 
 [node name="tekrat" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -218, 184 )
+position = Vector2( 40, -459 )
 rotation = 3.14159
 script = ExtResource( 12 )
 anim = 3
@@ -376,7 +397,7 @@ shape = SubResource( 6 )
 [node name="et" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -176, 183 )
+position = Vector2( 156, -462 )
 rotation = 3.14159
 script = ExtResource( 12 )
 anim = 2
@@ -390,7 +411,7 @@ shape = SubResource( 6 )
 [node name="doom" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -109, 179 )
+position = Vector2( 280, -459 )
 rotation = 3.14159
 script = ExtResource( 12 )
 anim = 1
@@ -404,7 +425,7 @@ shape = SubResource( 6 )
 [node name="duke" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
 ]]
-position = Vector2( -33, 181 )
+position = Vector2( 420, -438 )
 rotation = 3.14159
 script = ExtResource( 12 )
 anim = 4
@@ -413,6 +434,97 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/duke"]
+shape = SubResource( 6 )
+
+[node name="bin" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 548, -444 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 17
+anim = 2
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/bin"]
+shape = SubResource( 6 )
+
+[node name="callahan" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 646, -445 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 28
+anim = 3
+scale_extra = Vector2( 1.6, 1.6 )
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/callahan"]
+shape = SubResource( 6 )
+
+[node name="snake" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 723, -443 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 42
+anim = 4
+scale_extra = Vector2( 2.5, 2.5 )
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/snake"]
+shape = SubResource( 6 )
+
+[node name="billy" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 837, -446 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 28
+scale_extra = Vector2( 1.1, 1.1 )
+texture = "res://assets/sprites 2rot.png"
+vframes = 2
+rotations = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/billy"]
+shape = SubResource( 6 )
+
+[node name="armakumi" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 898, -448 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 38
+anim = 4
+scale_extra = Vector2( 1.5, 1.5 )
+texture = "res://assets/sprites 2rot.png"
+vframes = 2
+rotations = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/armakumi"]
+shape = SubResource( 6 )
+
+[node name="mrK" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 974, -447 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 45
+anim = 5
+scale_extra = Vector2( 1.8, 1.8 )
+texture = "res://assets/sprites 2rot.png"
+vframes = 2
+rotations = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/mrK"]
 shape = SubResource( 6 )
 
 [node name="car" type="Node2D" parent="Node2D"]
@@ -2254,41 +2366,41 @@ heights = [ 100, 100.0, 0.0, 0.0 ]
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/100"]
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
 
-[node name="box of sox, cox & rox" type="Node2D" parent="Node2D"]
+[node name="fox\'s box of sox, cox & rox" type="Node2D" parent="Node2D"]
 position = Vector2( -1015, -50 )
 scale = Vector2( 100, 100 )
 
-[node name="boxbot" parent="Node2D/box of sox, cox & rox" groups=[
+[node name="boxbot" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 script = ExtResource( 8 )
 heights = [ 0, 0.0, 0.0, 0.0 ]
 texture_path = "res://textures/quadrado64.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox/boxbot"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxbot"]
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
 
-[node name="boxtop" parent="Node2D/box of sox, cox & rox" groups=[
+[node name="boxtop" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 script = ExtResource( 8 )
 heights = [ 100, 100.0, 100.0, 100.0 ]
 texture_path = "res://textures/quadrado64.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox/boxtop"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxtop"]
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
 
-[node name="boxsidetop" parent="Node2D/box of sox, cox & rox" groups=[
+[node name="boxsidetop" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 script = ExtResource( 8 )
 heights = [ 100, 100.0, 0.0, 0.0 ]
 texture_path = "res://textures/quadrado64.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox/boxsidetop"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxsidetop"]
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
 
-[node name="boxsidebot" parent="Node2D/box of sox, cox & rox" groups=[
+[node name="boxsidebot" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 position = Vector2( 0, 1 )
@@ -2296,10 +2408,10 @@ script = ExtResource( 8 )
 heights = [ 100, 100.0, 0.0, 0.0 ]
 texture_path = "res://textures/quadrado64.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox/boxsidebot"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxsidebot"]
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
 
-[node name="boxsideleft" parent="Node2D/box of sox, cox & rox" groups=[
+[node name="boxsideleft" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
 "render",
 ] instance=ExtResource( 11 )]
 position = Vector2( 0, 1 )
@@ -2307,18 +2419,18 @@ script = ExtResource( 8 )
 heights = [ 100, 100.0, 0.0, 0.0 ]
 texture_path = "res://textures/quadrado64.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox/boxsideleft"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxsideleft"]
 polygon = PoolVector2Array( 0, -1, 0, 0, 0, 0, 0, -1 )
 
-[node name="boxsideright" parent="Node2D/box of sox, cox & rox" groups=[
+[node name="boxsideright" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
 "render",
 ] instance=ExtResource( 11 )]
-position = Vector2( 0, 1 )
+position = Vector2( 1, 1 )
 script = ExtResource( 8 )
 heights = [ 100, 100.0, 0.0, 0.0 ]
 texture_path = "res://textures/quadrado64.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/box of sox, cox & rox/boxsideright"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxsideright"]
 polygon = PoolVector2Array( 0, -1, 0, 0, 0, 0, 0, -1 )
 
 [editable path="player12"]

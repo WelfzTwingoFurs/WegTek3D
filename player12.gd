@@ -738,6 +738,7 @@ func BSP():
 			
 			new_sprite.texture = load(array_sprites[o].texture)
 			new_sprite.vframes = array_sprites[o].vframes
+			new_sprite.hframes = array_sprites[o].hframes
 			new_sprite.offset.y = -new_sprite.texture.get_height()/10
 			
 			
@@ -750,23 +751,23 @@ func BSP():
 				break
 			new_sprite.z_index = xkusu
 			
-			
-			var frame_rot = 0
-			var angletester = (rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180
-			
-			for n in array_sprites[o].rotations:
-				if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
-					frame_rot = (n*10) - 10
-					if frame_rot < 0:
-						frame_rot = 0
-					
-					new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
-					break
-					
-			
-			if angletester < 180:
-				new_sprite.flip_h = true
-			
+			if array_sprites[o].rotations != 1:
+				var frame_rot = 0
+				var angletester = (rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180
+				
+				for n in array_sprites[o].rotations:
+					if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
+						frame_rot = (n*new_sprite.hframes) - new_sprite.hframes
+						if frame_rot < 0:
+							frame_rot = 0
+						
+						new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
+						break
+						
+				
+				if angletester < 180:
+					new_sprite.flip_h = true
+				
 			
 			new_container.add_child(new_sprite)
 			
@@ -971,9 +972,9 @@ func _draw():
 				for m in array_walls[n].points.size():
 					
 					if m < array_walls[n].points.size()-1:
-						draw_line(((array_walls[n].heights[m]+1) / positionZ)*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / positionZ)*(array_walls[n].points[m+1]-position), orange, 1)
+						draw_line(((array_walls[n].heights[m]+1) / lookingZ/1000)*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / lookingZ/1000)*(array_walls[n].points[m+1]-position), orange, 1)
 					else:
-						draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / positionZ)*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / positionZ)*(array_walls[n].points[0]-position), orange, 1)
+						draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / lookingZ/1000)*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / lookingZ/1000)*(array_walls[n].points[0]-position), orange, 1)
 			
 		
 		elif abs(map_draw) == 4: #all 3D walls
@@ -987,10 +988,10 @@ func _draw():
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / positionZ) * (targets_in_scene[n].points[ m                                 ]-position),  ((targets_in_scene[n].heights[m+1]+1) / positionZ)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  ((targets_in_scene[n].heights[m+1]+1) / lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), orange, 1)
 									
 								else:
-									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / positionZ) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / positionZ)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
 									
 						
 						targets_in_scene = []
@@ -1004,10 +1005,10 @@ func _draw():
 					
 					
 					if m < array_walls[n].points.size()-1:
-						draw_line((1+array_walls[n].heights[ m                            ] * positionZ) * (array_walls[n].points[ m                            ]-position),  (1+array_walls[n].heights[m+1] * positionZ)*(array_walls[n].points[m+1]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[ m                            ] * lookingZ/1000) * (array_walls[n].points[ m                            ]-position),  (1+array_walls[n].heights[m+1] * lookingZ/1000)*(array_walls[n].points[m+1]-position), orange, 1)
 						
 					else:
-						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * positionZ) * (array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * positionZ)*(array_walls[n].points[ 0 ]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * lookingZ/1000) * (array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * lookingZ/1000)*(array_walls[n].points[ 0 ]-position), orange, 1)
 						
 		
 		elif abs(map_draw) == 6: #all 3D walls 2
@@ -1023,11 +1024,11 @@ func _draw():
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line((1+targets_in_scene[n].heights[ m                                 ] * positionZ) * (targets_in_scene[n].points[ m                                 ]-position),  (1+targets_in_scene[n].heights[m+1] * positionZ)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									draw_line((1+targets_in_scene[n].heights[ m                                 ] * lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  (1+targets_in_scene[n].heights[m+1] * lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), orange, 1)
 									
 								
 								else:
-									draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * positionZ) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * positionZ)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
 									
 						targets_in_scene = []
 		
