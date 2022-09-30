@@ -543,7 +543,7 @@ func BSP():
 		var array_polygon = []
 		var outtasight = 0
 		var min_distance = INF
-		#var min_distance = []
+		var array_shading = []
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
@@ -659,10 +659,17 @@ func BSP():
 					outtasight +=1
 					
 			
+			var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
 			
-			if (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096)) < min_distance:
-				min_distance = (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
+			if shading:
+				var C = -(distance*(float(1*darkness)/draw_distance)-1)
+				array_shading.append(Color(C,C,C))
+			
+			#if (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096)) < min_distance:
+			#	min_distance = (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
 			#min_distance.append(-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
+			if -(distance*(float(8192)/draw_distance)-4096) < min_distance:
+				min_distance = -(distance*(float(8192)/draw_distance)-4096)
 			
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
 				if outtasight > array_polygon.size()-1:
@@ -726,6 +733,8 @@ func BSP():
 							
 		#end of M loop, back to N
 		
+		if shading:
+			new_poly.vertex_colors = array_shading
 		new_poly.polygon = array_polygon
 		new_container.add_child(new_poly) #Over!!!!
 		
@@ -763,7 +772,7 @@ func BSP():
 				new_sprite.z_index = -4095
 				
 			else:
-				var C =  -(xkusu*(float(1)/draw_distance)-1)
+				var C =  -(xkusu*(float(1*darkness)/draw_distance)-1)
 				#new_sprite.modulate = Color8(C,C,C,255)
 				new_sprite.modulate = array_sprites[o].modulate*C
 				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
@@ -793,7 +802,8 @@ func BSP():
 			new_container.add_child(new_sprite)
 			
 
-
+export(bool) var shading = true
+export(float) var darkness = 1
 
 
 func new_position(point1,point2,limitPlus,limitMinus,det):
