@@ -743,25 +743,31 @@ func BSP():
 			
 			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_sprites[o].positionZ)
 			
-			if abs(new_sprite.position.y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
+			new_sprite.texture = load(array_sprites[o].texture)
+			
+			if cull_on && (abs(new_sprite.position.y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2):
 				continue
 			
-			new_sprite.texture = load(array_sprites[o].texture)
+			
 			new_sprite.vframes = array_sprites[o].vframes
 			new_sprite.hframes = array_sprites[o].hframes
 			new_sprite.offset.y = -new_sprite.texture.get_height()/10
 			
 			
 			#lets re-use it
-			xkusu = -(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2)) *(float(8192)/draw_distance)-4096)
-			if abs(xkusu) > 4096:
+			#xkusu = -(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2)) *(float(8192)/draw_distance)-4096)
+			xkusu = sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2))
+			if abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096:
 				#break
 				new_sprite.modulate = Color(0,0,0,0.5)
 				new_sprite.z_index = -4095
 				
 			else:
-				new_sprite.modulate = array_sprites[o].modulate
-				new_sprite.z_index = xkusu
+				var C =  -(xkusu*(float(1)/draw_distance)-1)
+				#new_sprite.modulate = Color8(C,C,C,255)
+				new_sprite.modulate = array_sprites[o].modulate*C
+				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
+				new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
 				
 			
 			
