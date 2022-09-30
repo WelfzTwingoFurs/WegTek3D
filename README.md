@@ -18,6 +18,7 @@ FEATURES:
 -Camera-edge culling option (polys outside screen won't render);
 -Z_Index sorting (Polygons in front of polygons behind) in 3D;
 -Basic horizon fading;
+-Depth shading;
 -Viewbobbing, viewrolling options;
 -Scrolling sky texture & stretch options, floor texture;
 -All changeable textures to any size;
@@ -25,7 +26,6 @@ FEATURES:
 
 IMPERFECTIONS:
 -No sound;
--No shading;
 -No collision;
 -Z-sorting inaccurate with touching/nearby polygons;
 -Camera-edge culling only checks if all vertices are off-screen;
