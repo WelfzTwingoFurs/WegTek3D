@@ -543,6 +543,7 @@ func BSP():
 		var array_polygon = []
 		var outtasight = 0
 		var min_distance = INF
+		#var min_distance = []
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
@@ -661,70 +662,72 @@ func BSP():
 			
 			if (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096)) < min_distance:
 				min_distance = (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
+			#min_distance.append(-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
 			
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
 				if outtasight > array_polygon.size()-1:
-					new_poly.visible = 0
-					break
-				
-				
-				if abs(min_distance) > 4096:
+					#new_poly.visible = 0
 					new_poly.queue_free()
-					break #if we don't cull it gets inverted since things will stack at 4096
-					#new_poly.z_index = 4096*sign(min_distance) 
+					break
+					#continue
+				
+				
+				#min_distance = min_distance.min()
+				if abs(min_distance) > 4096:
+					#new_poly.z_index = 4096*sign(min_distance)
+					#new_poly.visible = 0
+					#break #if we don't cull it gets inverted since things will stack at -4096
+					new_poly.z_index = -4095
+					new_poly.modulate = Color(0,0,0,0.5)
+					
 				else:
 					new_poly.z_index = min_distance
-		
-		
-		new_poly.modulate = array_walls[n].modulate
-		
-		if textures_on: #Texture mapping
-			new_poly.texture = load(array_walls[n].texture_path)
-			new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
-			#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-			var howmany = array_polygon.size() #m+1
-			
-			if  howmany == 3:
-				new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-				new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-				new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
-			elif howmany == 4:
-				new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-				new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-				new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
-			elif howmany == 5:
-				new_poly.texture_offset = Vector2(0,1) + array_walls[n].texture_offset
-				new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/2
-				new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
-			elif howmany == 6:
-				new_poly.texture_offset = Vector2(1,2) + array_walls[n].texture_offset
-				new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
-				new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
-			elif howmany == 7:
-				new_poly.texture_offset = Vector2(1,0) + array_walls[n].texture_offset
-				new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
-				new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
-			elif howmany == 8:
-				new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-				new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-				new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
-			elif  howmany == 9:
-				new_poly.texture_offset = Vector2(1,-2) + array_walls[n].texture_offset
-				new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-				new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
-			elif howmany == 10:
-				new_poly.texture_offset = Vector2(0,-1) + array_walls[n].texture_offset
-				new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-				new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
-				
-			
-		
+					
+					new_poly.modulate = array_walls[n].modulate
+					
+					if textures_on: #Texture mapping
+						new_poly.texture = load(array_walls[n].texture_path)
+						new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
+						#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+						var howmany = array_polygon.size() #m+1
+						
+						if  howmany == 3:
+							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+							new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
+						elif howmany == 4:
+							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+							new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
+						elif howmany == 5:
+							new_poly.texture_offset = Vector2(0,1) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/2
+							new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
+						elif howmany == 6:
+							new_poly.texture_offset = Vector2(1,2) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
+							new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
+						elif howmany == 7:
+							new_poly.texture_offset = Vector2(1,0) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
+							new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
+						elif howmany == 8:
+							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+							new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
+						elif  howmany == 9:
+							new_poly.texture_offset = Vector2(1,-2) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+							new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
+						elif howmany == 10:
+							new_poly.texture_offset = Vector2(0,-1) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+							new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
+							
+		#end of M loop, back to N
 		
 		new_poly.polygon = array_polygon
-		
-		#end of M loop, back to N
-		new_container.add_child(new_poly)
-		# Over!
+		new_container.add_child(new_poly) #Over!!!!
 		
 	
 	if (weakref(new_container).get_ref()):
@@ -734,7 +737,14 @@ func BSP():
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
 			var lineH = (OS.window_size.y /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) 
 			
+			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.3) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			if new_sprite.scale.x < 0:
+				continue
+			
 			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_sprites[o].positionZ)
+			
+			if abs(new_sprite.position.y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
+				continue
 			
 			new_sprite.texture = load(array_sprites[o].texture)
 			new_sprite.vframes = array_sprites[o].vframes
@@ -742,14 +752,19 @@ func BSP():
 			new_sprite.offset.y = -new_sprite.texture.get_height()/10
 			
 			
-			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.3) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
-			
-			
 			#lets re-use it
 			xkusu = -(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2)) *(float(8192)/draw_distance)-4096)
 			if abs(xkusu) > 4096:
-				break
-			new_sprite.z_index = xkusu
+				#break
+				new_sprite.modulate = Color(0,0,0,0.5)
+				new_sprite.z_index = -4095
+				
+			else:
+				new_sprite.modulate = array_sprites[o].modulate
+				new_sprite.z_index = xkusu
+				
+			
+			
 			
 			if array_sprites[o].rotations != 1:
 				var frame_rot = 0
@@ -771,17 +786,6 @@ func BSP():
 			
 			new_container.add_child(new_sprite)
 			
-
-#			if angletester < 40 or angletester > 320:
-#				frame_rot = 40
-#			elif angletester < 80 or angletester > 280:
-#				frame_rot = 30
-#			elif angletester < 120 or angletester > 240:
-#				frame_rot = 20
-#			elif angletester < 160 or angletester > 200:
-#				frame_rot = 10
-			#360/9 = 40... THINK NERD!!
-			#40, 40*2, 40*3 // 360-40, 360-40*2
 
 
 
