@@ -17,6 +17,7 @@ FEATURES:
 -Clipping (vertexes behind camera don't distort);
 -Camera-edge culling option (polys outside screen won't render);
 -Z_Index sorting (Polygons in front of polygons behind) in 3D;
+-Basic horizon fading;
 -Viewbobbing, viewrolling options;
 -Scrolling sky texture & stretch options, floor texture;
 -All changeable textures to any size;
