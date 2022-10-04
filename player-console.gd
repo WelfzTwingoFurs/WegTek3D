@@ -55,16 +55,18 @@ func _process(_delta):
 			,"lookingZ=",Worldconfig.player.lookingZ,", posZlookZ=",Worldconfig.player.posZlookZ,", vbob=",Worldconfig.player.vbob
 			,", vroll_strafe_divi=",Worldconfig.player.vroll_strafe_divi
 			,"\n"
-			,"array_walls(",Worldconfig.player.array_walls.size(),")","=",Worldconfig.player.array_walls
+			,"array_walls(",Worldconfig.player.array_walls.size(),") =",Worldconfig.player.array_walls
+			,"\n"
+			,"array_sprites(",Worldconfig.player.array_sprites.size(),") =",Worldconfig.player.array_sprites
 			)
 	
 	else:
 		rect_scale /= 1.5
 		if Engine.time_scale > 0.9:
 			#text = str(Engine.get_frames_per_second())
-			text = str("[",Worldconfig.player.array_walls.size(),"], ",int(Engine.time_scale)," * ",Engine.get_frames_per_second())
+			text = str("[",Worldconfig.player.array_walls.size(),"]+[",Worldconfig.player.array_sprites.size(),"]. ",int(Engine.time_scale)," * ",Engine.get_frames_per_second())
 		else:
-			text = str("[",Worldconfig.player.array_walls.size(),"], ",Engine.time_scale," * ",Engine.get_frames_per_second())
+			text = str("[",Worldconfig.player.array_walls.size(),"]+[",Worldconfig.player.array_sprites.size(),"]. ",Engine.time_scale," * ",Engine.get_frames_per_second())
 
 
 

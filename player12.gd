@@ -783,7 +783,7 @@ func BSP():
 			
 			if array_sprites[o].rotations != 1:
 				var frame_rot = 0
-				var angletester = (rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180
+				var angletester = int(((rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180)) % 360
 				
 				for n in array_sprites[o].rotations:
 					if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
@@ -804,6 +804,8 @@ func BSP():
 
 export(bool) var shading = true
 export(float) var darkness = 1
+export(bool) var flip_frontback_sprites = false
+
 
 
 func new_position(point1,point2,limitPlus,limitMinus,det):
