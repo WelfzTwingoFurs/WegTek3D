@@ -791,8 +791,10 @@ func BSP():
 						if frame_rot < 0:
 							frame_rot = 0
 						
-						new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
-						break
+						if range(array_sprites[o].vframes*array_sprites[o].hframes).has(array_sprites[o].anim + frame_rot):
+							#new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
+							new_sprite.frame = (array_sprites[o].anim + frame_rot) #% (array_sprites[o].vframes*10)
+							break
 						
 				
 				if angletester < 180:

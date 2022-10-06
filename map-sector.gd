@@ -12,6 +12,7 @@ export var plus1_mode = 0
 # 4, bot/extra
 
 export (Array, String) var textures = ["res://icon.png","res://icon.png","res://icon.png"]
+export (Array, Color) var colors = [Color(1,1,1,1),Color(1,1,1,1),Color(1,1,1,1)]
 #"" if we don't wanna make this one!
 #for 3: floor, ceiling, all walls
 #for polygon.size()/2 + 2: floor, ceiling, wall01, wall12, wall20
@@ -36,6 +37,11 @@ func _ready():
 		#if (textures.size() == 2 && textures[2] != "")  or  (textures.size() == ($CollisionPolygon2D.polygon.size()/2 + 2) && textures[n+2] != ""):
 		if textures[n] != "":
 			var make_new_wall = new_wall.instance()
+			
+			make_new_wall.texture_path = textures[n]
+			if range(colors.size()).has(n):
+				make_new_wall.modulate = colors[n]
+			
 			
 			make_new_wall.spawn_shape_position = [$CollisionPolygon2D.polygon[n], $CollisionPolygon2D.polygon[array_looping(n+1, $CollisionPolygon2D.polygon.size())]]
 			
@@ -90,6 +96,10 @@ func _ready():
 		
 		
 		if textures[textures.size()-2] != "":
+			make_new_floor.texture_path = textures[textures.size()-2]
+			if range(colors.size()).has(n):
+				make_new_floor.modulate = colors[colors.size()-2]
+			
 			if heights.size() == $CollisionPolygon2D.polygon.size()+1:
 				if n == $CollisionPolygon2D.polygon.size()-1:
 					make_new_floor.heights = array_except_last(heights)
@@ -99,6 +109,10 @@ func _ready():
 		
 		
 		if textures[textures.size()-1] != "":
+			make_new_ceiling.texture_path = textures[textures.size()-1]
+			if range(colors.size()).has(n):
+				make_new_ceiling.modulate = colors[colors.size()-1]
+			
 			if heights.size() == $CollisionPolygon2D.polygon.size()+1:
 				if n == $CollisionPolygon2D.polygon.size()-1:
 					if plus1_mode == 1:
@@ -128,6 +142,7 @@ func _ready():
 		
 		add_child(make_new_ceiling)
 	
+	$CollisionPolygon2D.queue_free()
 
 
 
