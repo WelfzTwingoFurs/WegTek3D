@@ -50,7 +50,7 @@ var rotation_angle = 0
 
 export var speed = 100
 var input_dir = Vector2(0,0)
-var move_dir = Vector2(0,0)
+var move_dir = Vector3(0,0,0)
 
 
 export var vbob_max = 4.0
@@ -61,11 +61,6 @@ export var vroll_multi = -1.5
 var vroll_strafe_divi = 1 #changes if strafing
 
 
-
-var positionZ = 0
-#var motionZ = 0
-#const GRAVITY = 1
-#const JUMP = -10
 
 var posZlookZ = 0
 #Used for sky & floor position according to draw_distance
@@ -177,14 +172,6 @@ func _physics_process(_delta):
 	############################################################################
 	#Z inputs & math
 	
-	if Input.is_action_pressed("ply_jump"):
-		positionZ += 1 * rotate_rate * Engine.time_scale
-	elif Input.is_action_pressed("ply_crouch"):
-		positionZ -= 1 * rotate_rate * Engine.time_scale
-	elif Input.is_action_pressed("ply_flycenter"):
-		positionZ = lerp(positionZ, 0, 0.1)
-	#print(positionZ)
-	#print(lookingZ)
 	if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
 		if lookingZ < $PolyContainer.scale.y*10:
 			lookingZ += rotate_rate*0.01 #* Engine.time_scale
@@ -219,7 +206,7 @@ func _physics_process(_delta):
 	# vv Sprite effects, vbob
 	########################################################################################################################################################
 	########################################################################################################################################################
-	if move_dir != Vector2(0,0):
+	if move_dir != Vector3(0,0,0):
 		if move_dir.y == 1:
 			vbob += vbob_speed
 		else:
@@ -358,6 +345,41 @@ func _physics_process(_delta):
 	
 	
 	update() #for the map
+	
+	collide()
+	
+	if motionZ < 0:
+		move_dir.z = -1
+	elif motionZ > 0:
+		move_dir.z = -1
+	elif motionZ == 0:
+		move_dir.z = 0
+	
+	if col_floors.size() != 0:
+		if on_floor == 1:
+			if Input.is_action_pressed("ply_jump"):
+				motionZ += JUMP
+				on_floor = 0
+		
+		if on_floor == 0:
+			motionZ -= GRAVITY
+		
+		positionZ += motionZ
+	
+	else:
+		if Input.is_action_pressed("ply_jump"):
+			positionZ += 1 * rotate_rate * Engine.time_scale
+			move_dir.z = 1
+		elif Input.is_action_pressed("ply_crouch"):
+			positionZ -= 1 * rotate_rate * Engine.time_scale
+			move_dir.z = -1
+		elif Input.is_action_pressed("ply_flycenter"):
+			positionZ = lerp(positionZ, 0, 0.1)
+		else:
+			move_dir.z = 0
+	#print(positionZ)
+	#print(lookingZ)
+	
 
 #####    #####      #####      #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ##  ##       ##           ###         ###
@@ -377,12 +399,77 @@ func _physics_process(_delta):
 
 
 
-#		draw_line(Vector2(-abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
-#		draw_line(Vector2(-abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Color(1,1,1), 1)
-#		
-#		draw_line(Vector2(-abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(-abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
-#		draw_line(Vector2(abs(get_viewport().size.x)/2, abs(get_viewport().size.y)/2), Vector2(abs(get_viewport().size.x)/2, -abs(get_viewport().size.y)/2), Color(1,1,1), 1)
+################################################################################
+var motionZ = 0
+export var GRAVITY = 1
+var positionZ = 0
+#var motionZ = 0
+#const GRAVITY = 1
+const JUMP = 10
 
+var on_floor = 0
+var col_floors = []
+var col_walls = []
+
+
+export var ply_height = 50
+
+func collide():
+	for n in col_floors.size():
+	#if col_floors != null:
+		if move_dir.z == -1:
+			if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
+				positionZ = col_floors[n].heights[0]# + ply_height
+				
+				if motionZ < 0:
+					motionZ = 0
+					on_floor = 1
+		
+		if move_dir.z == 1:
+			if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
+				positionZ = col_floors[n].heights[0] - ply_height -1
+				
+				if motionZ > 0:
+					motionZ -= JUMP
+					on_floor = 0
+
+
+
+func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
+	if body.is_in_group("floor"):
+		if !col_floors.has(body):
+			col_floors.push_back(body)
+
+func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
+	if body.is_in_group("floor"):
+		on_floor = 0
+		if col_floors.has(body):
+			col_floors.erase(body)
+
+## ### #  #  # ##  ##
+## ### #  #  # ##  ##
+#  # # #  #  # # # #
+#  # # #  #  # # # #
+#  # # #  #  # # # #
+## ### ## ## # ##  ##
+## ### ## ## # ##  ##
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+
+
+
+
+
+
+
+
+
+
+################################################################################
 
 var feet_stretch = 1
 
@@ -511,15 +598,6 @@ func recalculate():
 
 
 ##############################################################################################################################################################################################
-
-
-
-
-
-
-
-
-##############################################################################################################################################################################################
 var new_container
 
 var rot_plus90
@@ -601,7 +679,7 @@ func BSP():
 					
 					
 					if height1 == height2:#No diagonals, we're done
-						array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
 					else:#Need to make diagonal clipping
 						#var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2))             #broken (0% -> valid neighbour (100%)
@@ -615,7 +693,7 @@ func BSP():
 							if (new_height < height2) or (new_height > height1):
 								new_height += height2
 						
-						array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*new_height)) #OVER
+						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
 						
 					
 					
@@ -630,7 +708,7 @@ func BSP():
 						
 						
 						if height1 == height2:#No diagonals
-							array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
 						else:#diagonal
 							#var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
@@ -644,7 +722,7 @@ func BSP():
 								if new_height < height2:
 									new_height += height2
 							
-							array_polygon.append(Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*new_height)) #OVER
+							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
 							
 						
 			
@@ -655,7 +733,7 @@ func BSP():
 				#var lineH = (OS.window_size.y / distance)   /  cos(xkusu)
 				var lineH = (OS.window_size.y / sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)))   /  cos(xkusu)
 				
-				array_polygon.append(Vector2(tan(xkusu),((positionZ)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+				array_polygon.append(Vector2(tan(xkusu),((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 			
 			if cull_on && array_polygon.size() > 0:# && lookingZ == 0:
 				#$Sprite.position = (array_polygon[array_polygon.size()-1])*$PolyContainer.scale+Vector2(0, OS.window_size.y*lookingZ)

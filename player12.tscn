@@ -8,7 +8,7 @@
 [ext_resource path="res://player-console.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 3.0
+radius = 1.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "spin"
@@ -82,11 +82,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Col" type="CollisionShape2D" parent="."]
+[node name="ColArea" type="Area2D" parent="."]
+
+[node name="Col" type="CollisionShape2D" parent="ColArea"]
 modulate = Color( 100, 100, 100, 1 )
 z_index = 4096
 shape = SubResource( 1 )
-disabled = true
 __meta__ = {
 "_edit_lock_": true
 }
@@ -192,5 +193,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]
 [connection signal="body_shape_entered" from="ViewArea" to="." method="_on_ViewArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="ViewArea" to="." method="_on_ViewArea_body_shape_exited"]

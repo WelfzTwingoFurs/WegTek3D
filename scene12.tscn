@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player13.gd" type="Script" id=1]
+[ext_resource path="res://player12.tscn" type="PackedScene" id=2]
+[ext_resource path="res://map-floor.gd" type="Script" id=3]
+
+[node name="scene12" type="Node2D"]
+
+[node name="player12" parent="." instance=ExtResource( 2 )]
+position = Vector2( 6, 67 )
+script = ExtResource( 1 )
+draw_distance = 10000
+ply_height = 45
+textures_on = true
+cull_on = false
+shading = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+position = Vector2( -47, 33 )
+script = ExtResource( 3 )
+heights = [ -10.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+position = Vector2( -47, 133 )
+script = ExtResource( 3 )
+heights = [ -5.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+position = Vector2( -47, 182 )
+script = ExtResource( 3 )
+heights = [ 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D3"]
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+position = Vector2( -47, 182 )
+script = ExtResource( 3 )
+heights = [ 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D4"]
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+position = Vector2( -47, 297 )
+script = ExtResource( 3 )
+heights = [ 50.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D6"]
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+position = Vector2( -47, 182 )
+script = ExtResource( 3 )
+heights = [ -20.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D5"]
+polygon = PoolVector2Array( 285, -225, 332, 265, -187, 313, -138, -205 )

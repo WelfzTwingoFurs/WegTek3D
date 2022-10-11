@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://player12.tscn" type="PackedScene" id=1]
 [ext_resource path="res://queue_free.gd" type="Script" id=2]
@@ -13,10 +13,7 @@
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=11]
 [ext_resource path="res://sprite object.gd" type="Script" id=12]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 3.0
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "spin"
 length = 0.6
 loop = true
@@ -33,7 +30,7 @@ tracks/0/keys = {
 "values": [ 5, 6 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "strafeL"
 length = 0.6
 loop = true
@@ -50,7 +47,7 @@ tracks/0/keys = {
 "values": [ 3, 2 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -66,7 +63,7 @@ tracks/0/keys = {
 "values": [ 1, 4 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -82,26 +79,49 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=5]
 
-[sub_resource type="SegmentShape2D" id=34]
+[sub_resource type="SegmentShape2D" id=6]
+a = Vector2( -340, 195 )
+b = Vector2( -60, 195 )
+
+[sub_resource type="SegmentShape2D" id=7]
+a = Vector2( -340, 195 )
+b = Vector2( -560, 195 )
+
+[sub_resource type="SegmentShape2D" id=8]
+a = Vector2( -560, 49 )
+b = Vector2( -560, 195 )
+
+[sub_resource type="SegmentShape2D" id=9]
 a = Vector2( -60, 57 )
 b = Vector2( -60, 147 )
 
-[sub_resource type="SegmentShape2D" id=37]
-a = Vector2( 22, 49 )
+[sub_resource type="SegmentShape2D" id=10]
+a = Vector2( 22, 67 )
 b = Vector2( 22, 251 )
 
-[sub_resource type="SegmentShape2D" id=38]
+[sub_resource type="SegmentShape2D" id=11]
+a = Vector2( -141, 36.75 )
+b = Vector2( -112, 36.75 )
+
+[sub_resource type="SegmentShape2D" id=12]
+a = Vector2( 179, 39 )
+b = Vector2( 179, 106 )
+
+[sub_resource type="SegmentShape2D" id=13]
+a = Vector2( 179, 39 )
+b = Vector2( 179, 70 )
+
+[sub_resource type="SegmentShape2D" id=14]
 a = Vector2( -23.75, 48.7501 )
 b = Vector2( 27.5, 48.7501 )
 
-[sub_resource type="SegmentShape2D" id=39]
+[sub_resource type="SegmentShape2D" id=15]
 a = Vector2( -9.99976, 48.7504 )
 b = Vector2( 13.7502, 48.7504 )
 
-[sub_resource type="Animation" id=6]
-resource_name = "_ready"
+[sub_resource type="Animation" id=16]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("rotation test:rotation_degrees")
@@ -128,98 +148,98 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0, 360.0 ]
 }
 
-[sub_resource type="SegmentShape2D" id=8]
+[sub_resource type="SegmentShape2D" id=17]
 a = Vector2( -9, 74 )
 b = Vector2( -9, 64 )
 
-[sub_resource type="SegmentShape2D" id=9]
+[sub_resource type="SegmentShape2D" id=18]
 a = Vector2( 0, 64 )
 b = Vector2( -4, 64 )
 
-[sub_resource type="SegmentShape2D" id=10]
+[sub_resource type="SegmentShape2D" id=19]
 a = Vector2( 0, 73 )
 b = Vector2( -4, 64 )
 
-[sub_resource type="SegmentShape2D" id=11]
+[sub_resource type="SegmentShape2D" id=20]
 a = Vector2( -4, 73 )
 b = Vector2( 0, 64 )
 
-[sub_resource type="SegmentShape2D" id=12]
+[sub_resource type="SegmentShape2D" id=21]
 a = Vector2( -4, 73 )
 b = Vector2( 0, 73 )
 
-[sub_resource type="SegmentShape2D" id=13]
+[sub_resource type="SegmentShape2D" id=22]
 a = Vector2( 4, 73 )
 b = Vector2( 8, 73 )
 
-[sub_resource type="SegmentShape2D" id=14]
+[sub_resource type="SegmentShape2D" id=23]
 a = Vector2( 4, 73 )
 b = Vector2( 6, 64 )
 
-[sub_resource type="SegmentShape2D" id=15]
+[sub_resource type="SegmentShape2D" id=24]
 a = Vector2( 8, 73 )
 b = Vector2( 6, 64 )
 
-[sub_resource type="SegmentShape2D" id=16]
+[sub_resource type="SegmentShape2D" id=25]
 a = Vector2( -124, -46 )
 b = Vector2( -119, -46 )
 
-[sub_resource type="SegmentShape2D" id=17]
+[sub_resource type="SegmentShape2D" id=26]
 a = Vector2( -124, -46 )
 b = Vector2( -119, -54 )
 
-[sub_resource type="SegmentShape2D" id=18]
+[sub_resource type="SegmentShape2D" id=27]
 a = Vector2( -124, -54 )
 b = Vector2( -119, -54 )
 
-[sub_resource type="SegmentShape2D" id=19]
+[sub_resource type="SegmentShape2D" id=28]
 a = Vector2( -111, -54 )
 b = Vector2( -116, -54 )
 
-[sub_resource type="SegmentShape2D" id=20]
+[sub_resource type="SegmentShape2D" id=29]
 a = Vector2( -111, -54 )
 b = Vector2( -116, -45 )
 
-[sub_resource type="SegmentShape2D" id=21]
+[sub_resource type="SegmentShape2D" id=30]
 a = Vector2( -123, -46 )
 b = Vector2( -118, -54 )
 
-[sub_resource type="SegmentShape2D" id=22]
+[sub_resource type="SegmentShape2D" id=31]
 a = Vector2( -123, -54 )
 b = Vector2( -118, -54 )
 
-[sub_resource type="SegmentShape2D" id=23]
+[sub_resource type="SegmentShape2D" id=32]
 a = Vector2( -123, -54 )
 b = Vector2( -120, -50 )
 
-[sub_resource type="SegmentShape2D" id=24]
+[sub_resource type="SegmentShape2D" id=33]
 a = Vector2( -123, -45 )
 b = Vector2( -118, -54 )
 
-[sub_resource type="SegmentShape2D" id=25]
+[sub_resource type="SegmentShape2D" id=34]
 a = Vector2( -123, -54 )
 b = Vector2( -117, -54 )
 
-[sub_resource type="SegmentShape2D" id=26]
+[sub_resource type="SegmentShape2D" id=35]
 a = Vector2( -124, -55 )
 b = Vector2( -120, -50 )
 
-[sub_resource type="SegmentShape2D" id=27]
+[sub_resource type="SegmentShape2D" id=36]
 a = Vector2( -124, -54 )
 b = Vector2( -120, -50 )
 
-[sub_resource type="SegmentShape2D" id=28]
+[sub_resource type="SegmentShape2D" id=37]
 a = Vector2( -124, -54 )
 b = Vector2( -120, -58 )
 
-[sub_resource type="SegmentShape2D" id=29]
+[sub_resource type="SegmentShape2D" id=38]
 a = Vector2( -125, -58 )
 b = Vector2( -120, -58 )
 
-[sub_resource type="CircleShape2D" id=30]
+[sub_resource type="CircleShape2D" id=39]
 radius = 200.0
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=40]
 length = 4.5
 loop = true
 tracks/0/type = "value"
@@ -271,7 +291,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=41]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -298,15 +318,15 @@ tracks/1/keys = {
 "values": [ 360.0, 0.0 ]
 }
 
-[sub_resource type="SegmentShape2D" id=33]
+[sub_resource type="SegmentShape2D" id=42]
 a = Vector2( -54, -25 )
 b = Vector2( -129, -25 )
 
-[sub_resource type="SegmentShape2D" id=35]
+[sub_resource type="SegmentShape2D" id=43]
 a = Vector2( 65, -25 )
 b = Vector2( 182, -25 )
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id=44]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("map-wall (2 heights):texture_repeat")
@@ -384,8 +404,8 @@ tracks/5/keys = {
 [node name="scene11" type="Node2D"]
 
 [node name="player12" parent="." instance=ExtResource( 1 )]
-position = Vector2( -2096, -1524 )
-draw_distance = 8192
+position = Vector2( -3026, -1472 )
+draw_distance = 10000
 skycolor = Color( 1, 1, 1, 1 )
 sky_stretch = Vector2( 1, 5 )
 rotate_rate = 4.0
@@ -395,16 +415,14 @@ vbob_speed = 0.1
 vroll_multi = -2.5
 textures_on = true
 cull_on = false
+shading = false
 map_draw = 1
 
-[node name="Col" parent="player12" index="0"]
-shape = SubResource( 1 )
-
 [node name="AnimationPlayer" parent="player12/View" index="0"]
-anims/spin = SubResource( 2 )
-anims/strafeL = SubResource( 3 )
-anims/strafeR = SubResource( 4 )
-anims/walk = SubResource( 5 )
+anims/spin = SubResource( 1 )
+anims/strafeL = SubResource( 2 )
+anims/strafeR = SubResource( 3 )
+anims/walk = SubResource( 4 )
 
 [node name="Background" parent="player12" index="5"]
 visible = false
@@ -421,37 +439,104 @@ texture = ExtResource( 4 )
 z_index = 4096
 script = ExtResource( 7 )
 
-[node name="chair sprite" type="KinematicBody2D" parent="Node2D" groups=[
+[node name="cafofo sprites" type="Node2D" parent="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="chair sprite" type="KinematicBody2D" parent="Node2D/cafofo sprites" groups=[
 "rendersprite",
 ]]
-modulate = Color( 0, 1, 0, 1 )
-position = Vector2( -2432, -1143 )
+position = Vector2( -2936, -1523 )
 rotation = 3.14159
 scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 12 )
-positionZ = -2
 scale_extra = Vector2( 1, 1.2 )
 texture = "res://assets/sprites chair (agaures, Zdoom forums).png"
 vframes = 5
 hframes = 1
 rotations = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/chair sprite"]
-shape = SubResource( 7 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo sprites/chair sprite"]
+shape = SubResource( 5 )
+
+[node name="chair sprite2" type="KinematicBody2D" parent="Node2D/cafofo sprites" groups=[
+"rendersprite",
+]]
+modulate = Color( 0.623529, 0.235294, 0, 1 )
+position = Vector2( -3017, -1524 )
+rotation = 3.14159
+scale = Vector2( 0.8, 0.8 )
+script = ExtResource( 12 )
+scale_extra = Vector2( 0.8, 1 )
+texture = "res://assets/sprites chair (agaures, Zdoom forums).png"
+vframes = 5
+hframes = 1
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo sprites/chair sprite2"]
+shape = SubResource( 5 )
 
 [node name="cafofo" type="Node2D" parent="Node2D"]
 position = Vector2( -359, 396 )
-scale = Vector2( 0.8, 0.8 )
 
 [node name="S-room" type="StaticBody2D" parent="Node2D/cafofo"]
 position = Vector2( -2928, -2033 )
 script = ExtResource( 10 )
 heights = [ 0, 200 ]
-textures = [ "res://textures/solid1.png", "res://textures/solid1.png", "", "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png", "", "res://textures/solid1.png", "res://textures/solid1.png" ]
+textures = [ "res://textures/solid1.png", "res://textures/solid1.png", "", "res://textures/solid1.png", "", "", "", "res://textures/solid1.png", "res://textures/solid1.png" ]
 colors = [ Color( 0, 0, 0, 1 ), Color( 0.0941176, 0.0745098, 0.2, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 0.952941, 0.568627, 1 ), Color( 1, 1, 1, 1 ) ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-room"]
-polygon = PoolVector2Array( 0, 0, 500, 0, 500, 362.245, 500, 451.7, 500, 500, 0, 500, 0, 354.045, 0, 152 )
+polygon = PoolVector2Array( 0, 0, 500, 0, 500, 362.245, 500, 451.7, 500, 500, 0, 500, 0, 354.045, 0, 170 )
+
+[node name="W-roomB" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2368, -1728 )
+script = ExtResource( 6 )
+heights = [ 0.0, 200.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-roomB"]
+shape = SubResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-roomB2" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2368, -1728 )
+script = ExtResource( 6 )
+heights = [ 45.0, 200.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-roomB2"]
+shape = SubResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-roomL" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2368, -1728 )
+script = ExtResource( 6 )
+heights = [ 45.0, 200.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-roomL"]
+shape = SubResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="W-doortop" type="StaticBody2D" parent="Node2D/cafofo" groups=[
 "render",
@@ -464,7 +549,7 @@ texture_path = "res://textures/solid1.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-doortop"]
-shape = SubResource( 34 )
+shape = SubResource( 9 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -480,23 +565,39 @@ texture_path = "res://textures/solid1.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-Windowtop"]
-shape = SubResource( 37 )
+shape = SubResource( 10 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="W-Windowtop2" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+[node name="W-Windowbot" type="StaticBody2D" parent="Node2D/cafofo" groups=[
 "render",
 ]]
 modulate = Color( 0, 0, 0, 1 )
 position = Vector2( -2950, -1930 )
 script = ExtResource( 6 )
-heights = [ 70.0, 0.0 ]
+heights = [ 70.0, 45.0 ]
 texture_path = "res://textures/solid1.png"
 texture_repeat = Vector2( 10, 10 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-Windowtop2"]
-shape = SubResource( 37 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-Windowbot"]
+shape = SubResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-Glass" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.2, 0.188235, 0.329412, 0.529412 )
+position = Vector2( -2950, -1930 )
+script = ExtResource( 6 )
+heights = [ 70.0, 150.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-Glass"]
+shape = SubResource( 10 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -505,12 +606,48 @@ __meta__ = {
 modulate = Color( 0.623529, 0.270588, 0.0156863, 1 )
 position = Vector2( -2928, -2033 )
 script = ExtResource( 10 )
-heights = [ 5, 190 ]
+heights = [ 2, 190 ]
 textures = [ "", "res://textures/solid1.png", "res://textures/solid1.png", "", "", "" ]
 colors = [ Color( 0.623529, 0.270588, 0.0156863, 1 ), Color( 0.623529, 0.270588, 0.0156863, 1 ), Color( 0.623529, 0.270588, 0.0156863, 1 ), Color( 0.623529, 0.270588, 0.0156863, 1 ) ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-drawer"]
 polygon = PoolVector2Array( 0, 0, 155, 0, 155, 95, 0, 95 )
+
+[node name="S-tablehold" type="StaticBody2D" parent="Node2D/cafofo"]
+modulate = Color( 0.219608, 1, 0, 1 )
+position = Vector2( -2928, -2033 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "", "res://textures/solid1.png", "res://textures/solid1.png", "", "" ]
+colors = [ Color( 0.443137, 0.258824, 0.0235294, 1 ), Color( 0.443137, 0.258824, 0.0235294, 1 ), Color( 0.443137, 0.258824, 0.0235294, 1 ), Color( 0.443137, 0.258824, 0.0235294, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-tablehold"]
+polygon = PoolVector2Array( 209, 6, 159, 6, 159, 64, 209, 64 )
+
+[node name="S-gavetas" type="StaticBody2D" parent="Node2D/cafofo"]
+modulate = Color( 0.219608, 1, 0, 1 )
+position = Vector2( -2800, -2074 )
+script = ExtResource( 10 )
+heights = [ 75, 50 ]
+textures = [ "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/wireframe64.png", "res://textures/solid1.png", "res://textures/solid1.png", "" ]
+colors = [ Color( 0.313726, 1, 0, 1 ), Color( 1, 0.560784, 0, 1 ), Color( 0.266667, 1, 0, 1 ), Color( 1, 0.560784, 0, 1 ), Color( 0.0392157, 0.254902, 0.0156863, 1 ), Color( 0, 0, 0, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-gavetas"]
+polygon = PoolVector2Array( 50, 43, 29, 43, 29, 64, 50, 64 )
+
+[node name="W-callendar" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2607, -2069 )
+script = ExtResource( 6 )
+heights = [ 75.0, 115.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-callendar"]
+shape = SubResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="F-tableT" type="StaticBody2D" parent="Node2D/cafofo" groups=[
 "render",
@@ -536,12 +673,68 @@ texture_path = "res://textures/solid1.png"
 texture_repeat = Vector2( -1, -1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-tableR"]
-polygon = PoolVector2Array( 180, 300, 180, -50, 245, -49, 245, 300 )
+polygon = PoolVector2Array( 180, 300, 180, -50, 245, -50, 245, 300 )
+
+[node name="W-poster" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2608, -2069 )
+script = ExtResource( 6 )
+heights = [ 125.0, 75.0 ]
+texture_path = "res://textures/dukenukem64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-poster"]
+shape = SubResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-console" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2610, -1718 )
+script = ExtResource( 6 )
+heights = [ 160.0, 190.0 ]
+texture_path = "res://textures/gradsimple64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-console"]
+shape = SubResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-console2" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2610, -1679 )
+script = ExtResource( 6 )
+heights = [ 160.0, 190.0 ]
+texture_path = "res://textures/grad64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-console2"]
+shape = SubResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-console3" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2610, -1640 )
+script = ExtResource( 6 )
+heights = [ 160.0, 190.0 ]
+texture_path = "res://textures/gradsimpleII64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-console3"]
+shape = SubResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="S-PC" type="StaticBody2D" parent="Node2D/cafofo"]
 modulate = Color( 0, 0, 0, 1 )
 position = Vector2( -2928, -2033 )
-scale = Vector2( 1, 1 )
+rotation = 0.00952425
 script = ExtResource( 10 )
 heights = [ 50, 80 ]
 textures = [ "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png" ]
@@ -554,32 +747,81 @@ polygon = PoolVector2Array( 439.25, 5.49988, 496.75, 5.49988, 496.75, 25.4999, 4
 "render",
 ]]
 position = Vector2( -2575, -2068.75 )
-scale = Vector2( 1, 1 )
 script = ExtResource( 6 )
 heights = [ 80.0, 60.0 ]
-texture_path = "res://splash.png"
+texture_path = "res://textures/quadrado64.png"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-moniscreen"]
-shape = SubResource( 38 )
+shape = SubResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="w-monibase" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+[node name="w-monistand" type="StaticBody2D" parent="Node2D/cafofo" groups=[
 "render",
 ]]
-modulate = Color( 0.207843, 0.207843, 0.207843, 1 )
+modulate = Color( 0.188235, 0.188235, 0.188235, 1 )
 position = Vector2( -2575, -2071.25 )
-scale = Vector2( 1, 1 )
 script = ExtResource( 6 )
-heights = [ 50.0, 60.0 ]
+heights = [ 50.0, 59.0 ]
 texture_path = "res://textures/solid1.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/w-monibase"]
-shape = SubResource( 39 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/w-monistand"]
+shape = SubResource( 15 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="F-monibase" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -2673, -1983 )
+script = ExtResource( 8 )
+heights = [ 50.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-monibase"]
+polygon = PoolVector2Array( 100, -30, 85, -40, 100, -45, 115, -40 )
+
+[node name="F-keyboard" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -2671, -1961 )
+script = ExtResource( 8 )
+heights = [ 50.0, 50.0, 52.0, 52.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-keyboard"]
+polygon = PoolVector2Array( 118, -28.0002, 77, -28.0002, 77, -40.0002, 118, -40.0002 )
+
+[node name="F-mouse" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -2610, -1953 )
+script = ExtResource( 8 )
+heights = [ 51.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-mouse"]
+polygon = PoolVector2Array( 82.0002, -32.0001, 76.0002, -32.0001, 79.0002, -40.0001 )
+
+[node name="F-TV" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2673, -1988 )
+script = ExtResource( 8 )
+heights = [ 150.0, 150.0, 90.0, 90.0 ]
+texture_path = "res://textures/quadrado64.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-TV"]
+polygon = PoolVector2Array( 107, -38.0002, 15, -38.0002, 15, -45.0002, 107, -45.0002 )
 
 [node name="F-shelfBB" type="StaticBody2D" parent="Node2D/cafofo" groups=[
 "render",
@@ -637,7 +879,7 @@ polygon = PoolVector2Array( 180, -50, 180, 70, 245, 70, 245, -50 )
 modulate = Color( 1, 0.211765, 0, 1 )
 position = Vector2( -2928, -2033 )
 script = ExtResource( 10 )
-heights = [ 5, 45 ]
+heights = [ 0, 45 ]
 textures = [ "", "res://textures/solid1.png", "res://textures/solid1.png", "", "", "res://textures/solid1.png" ]
 colors = [ Color( 0.545098, 0.545098, 0.545098, 1 ), Color( 0.545098, 0.545098, 0.545098, 1 ), Color( 0.545098, 0.545098, 0.545098, 1 ), Color( 0.545098, 0.545098, 0.545098, 1 ), Color( 1, 0.211765, 0, 1 ), Color( 1, 0.211765, 0, 1 ) ]
 
@@ -647,7 +889,7 @@ polygon = PoolVector2Array( 0, 500, 220, 500, 220, 170, 0, 170 )
 [node name="SPRITES" type="Node2D" parent="Node2D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/SPRITES"]
-anims/_ready = SubResource( 6 )
+anims/_ready = SubResource( 16 )
 script = ExtResource( 9 )
 
 [node name="rotation test" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
@@ -660,7 +902,7 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/rotation test"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="180" type="Node2D" parent="Node2D/SPRITES"]
 position = Vector2( -747, -909 )
@@ -675,7 +917,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/1"]
-shape = SubResource( 8 )
+shape = SubResource( 17 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -690,7 +932,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/81"]
-shape = SubResource( 9 )
+shape = SubResource( 18 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -705,7 +947,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/82"]
-shape = SubResource( 10 )
+shape = SubResource( 19 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -720,7 +962,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/83"]
-shape = SubResource( 11 )
+shape = SubResource( 20 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -735,7 +977,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/84"]
-shape = SubResource( 12 )
+shape = SubResource( 21 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -750,7 +992,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/01"]
-shape = SubResource( 13 )
+shape = SubResource( 22 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -765,7 +1007,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/02"]
-shape = SubResource( 14 )
+shape = SubResource( 23 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -780,7 +1022,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/03"]
-shape = SubResource( 15 )
+shape = SubResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -798,7 +1040,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/21"]
-shape = SubResource( 16 )
+shape = SubResource( 25 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -813,7 +1055,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/22"]
-shape = SubResource( 17 )
+shape = SubResource( 26 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -828,7 +1070,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/23"]
-shape = SubResource( 18 )
+shape = SubResource( 27 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -843,7 +1085,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/71"]
-shape = SubResource( 19 )
+shape = SubResource( 28 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -858,7 +1100,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/72"]
-shape = SubResource( 20 )
+shape = SubResource( 29 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -874,7 +1116,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/01"]
-shape = SubResource( 13 )
+shape = SubResource( 22 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -890,7 +1132,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/02"]
-shape = SubResource( 14 )
+shape = SubResource( 23 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -906,7 +1148,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/03"]
-shape = SubResource( 15 )
+shape = SubResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -925,7 +1167,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/91"]
-shape = SubResource( 21 )
+shape = SubResource( 30 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -941,7 +1183,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/92"]
-shape = SubResource( 22 )
+shape = SubResource( 31 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -957,7 +1199,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/93"]
-shape = SubResource( 23 )
+shape = SubResource( 32 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -973,7 +1215,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/01"]
-shape = SubResource( 13 )
+shape = SubResource( 22 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -989,7 +1231,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/02"]
-shape = SubResource( 14 )
+shape = SubResource( 23 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1005,7 +1247,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/03"]
-shape = SubResource( 15 )
+shape = SubResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1024,7 +1266,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/01"]
-shape = SubResource( 13 )
+shape = SubResource( 22 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1040,7 +1282,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/02"]
-shape = SubResource( 14 )
+shape = SubResource( 23 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1056,7 +1298,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/03"]
-shape = SubResource( 15 )
+shape = SubResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1072,7 +1314,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/04"]
-shape = SubResource( 13 )
+shape = SubResource( 22 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1088,7 +1330,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/05"]
-shape = SubResource( 14 )
+shape = SubResource( 23 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1104,7 +1346,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/06"]
-shape = SubResource( 15 )
+shape = SubResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1120,7 +1362,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/61"]
-shape = SubResource( 24 )
+shape = SubResource( 33 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1136,7 +1378,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/62"]
-shape = SubResource( 25 )
+shape = SubResource( 34 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1152,7 +1394,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/64"]
-shape = SubResource( 26 )
+shape = SubResource( 35 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1168,7 +1410,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/31"]
-shape = SubResource( 27 )
+shape = SubResource( 36 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1184,7 +1426,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/32"]
-shape = SubResource( 28 )
+shape = SubResource( 37 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1200,7 +1442,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/33"]
-shape = SubResource( 29 )
+shape = SubResource( 38 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1216,7 +1458,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/34"]
-shape = SubResource( 29 )
+shape = SubResource( 38 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1285,7 +1527,7 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman8"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="spriteman4" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1298,7 +1540,7 @@ texture = "res://assets/sprites 4rot.png"
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman4"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="spriteman2" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1313,7 +1555,7 @@ vframes = 2
 rotations = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman2"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="spriteman1" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1330,7 +1572,7 @@ hframes = 1
 rotations = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman1"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="coin" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1346,7 +1588,7 @@ rotations = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/coin"]
 position = Vector2( -151, -144 )
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="coin2" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1361,7 +1603,7 @@ rotations = 39
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/coin2"]
 position = Vector2( 69.0004, -145 )
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="macro twitch" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1376,7 +1618,7 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/macro twitch"]
-shape = SubResource( 30 )
+shape = SubResource( 39 )
 
 [node name="macro twitch reflex" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1391,7 +1633,7 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/macro twitch reflex"]
-shape = SubResource( 30 )
+shape = SubResource( 39 )
 
 [node name="tekrat" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1405,7 +1647,7 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/tekrat"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="et" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1419,7 +1661,7 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/et"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="doom" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1433,7 +1675,7 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/doom"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="duke" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1447,7 +1689,7 @@ vframes = 5
 rotations = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/duke"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="bin" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1461,7 +1703,7 @@ texture = "res://assets/sprites 4rot.png"
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/bin"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="callahan" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1476,7 +1718,7 @@ texture = "res://assets/sprites 4rot.png"
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/callahan"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="snake" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1491,7 +1733,7 @@ texture = "res://assets/sprites 4rot.png"
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/snake"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="billy" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1506,7 +1748,7 @@ vframes = 2
 rotations = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/billy"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="armakumi" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1522,7 +1764,7 @@ vframes = 2
 rotations = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/armakumi"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="mrK" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
 "rendersprite",
@@ -1538,14 +1780,14 @@ vframes = 2
 rotations = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/mrK"]
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="car" type="Node2D" parent="Node2D"]
 position = Vector2( 80, 7 )
 scale = Vector2( 10, 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/car"]
-anims/_ready = SubResource( 31 )
+anims/_ready = SubResource( 40 )
 script = ExtResource( 9 )
 dont = true
 
@@ -2911,7 +3153,7 @@ polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/piramide q roda"]
 playback_speed = 0.1
-anims/_ready = SubResource( 32 )
+anims/_ready = SubResource( 41 )
 script = ExtResource( 9 )
 
 [node name="piramide q foda" type="Node2D" parent="Node2D"]
@@ -3241,7 +3483,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 2.5, 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/testie dudes/map-wall (3 heights)"]
-shape = SubResource( 33 )
+shape = SubResource( 42 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -3257,7 +3499,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/testie dudes/map-wall (2 heights)"]
-shape = SubResource( 34 )
+shape = SubResource( 9 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -3273,7 +3515,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 2, 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/testie dudes/map-wall (4 heights)"]
-shape = SubResource( 35 )
+shape = SubResource( 43 )
 
 [node name="map-floor (0)" type="StaticBody2D" parent="Node2D/testie dudes" groups=[
 "render",
@@ -3311,7 +3553,7 @@ heights = [ 0.0, 0.0, 50.0 ]
 polygon = PoolVector2Array( 17, -50, 17, 50, -58, 50 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/testie dudes"]
-anims/_ready = SubResource( 36 )
+anims/_ready = SubResource( 44 )
 script = ExtResource( 9 )
 
 [node name="squares" type="Node2D" parent="Node2D"]
