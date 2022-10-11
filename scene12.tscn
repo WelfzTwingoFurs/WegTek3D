@@ -80,3 +80,14 @@ heights = [ -20.0 ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D5"]
 polygon = PoolVector2Array( 285, -225, 332, 265, -187, 313, -138, -205 )
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+position = Vector2( 270, 168 )
+script = ExtResource( 3 )
+heights = [ -80.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D7"]
+polygon = PoolVector2Array( 285, -225, 332, 265, -187, 313, -138, -205 )

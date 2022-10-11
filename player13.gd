@@ -351,7 +351,7 @@ func _physics_process(_delta):
 	if motionZ < 0:
 		move_dir.z = -1
 	elif motionZ > 0:
-		move_dir.z = -1
+		move_dir.z = 1
 	elif motionZ == 0:
 		move_dir.z = 0
 	
@@ -421,17 +421,18 @@ func collide():
 			if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
 				positionZ = col_floors[n].heights[0]# + ply_height
 				
-				if motionZ < 0:
-					motionZ = 0
-					on_floor = 1
+				on_floor = 1
+				#if motionZ < 0:
+				motionZ = 0
+					
 		
 		if move_dir.z == 1:
 			if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
-				positionZ = col_floors[n].heights[0] - ply_height -1
+				positionZ = col_floors[n].heights[0] - ply_height
 				
+				on_floor = 0
 				if motionZ > 0:
-					motionZ -= JUMP
-					on_floor = 0
+					motionZ = 0
 
 
 
