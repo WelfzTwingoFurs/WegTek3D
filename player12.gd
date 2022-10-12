@@ -355,7 +355,7 @@ func _physics_process(_delta):
 	else:
 		if !Input.is_action_pressed("bug_closeeyes"):
 			BSP()
-	
+	 
 	
 	update() #for the map
 
@@ -811,7 +811,6 @@ func BSP():
 
 export(bool) var shading = true
 export(float) var darkness = 1
-export(bool) var flip_frontback_sprites = false
 
 
 
@@ -1175,3 +1174,11 @@ func array_looping(to_check, array_size):
 
 
 
+
+
+func _on_ColArea_body_shape_entered(_body_id, _body, _body_shape, _local_shape):
+	pass # Replace with function body.
+
+
+func _on_ColArea_body_shape_exited(_body_id, _body, _body_shape, _local_shape):
+	pass # Replace with function body.

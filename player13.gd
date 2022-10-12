@@ -130,7 +130,7 @@ func _physics_process(_delta):
 	
 	
 	if Input.is_action_pressed("bug_rotatecenter"):
-		move_dir = Vector2(0,0)
+		move_dir = Vector3(0,0,0)
 		
 		#print(rotation_angle," = ", rad_deg(rotation_angle))
 		
@@ -232,7 +232,7 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 	
 	#vbob and vroll
-	#$Camera2D.position.y = abs(vbob)
+	#to_global($Camera2D.position).y = abs(vbob)
 	
 	$PolyContainer.position.y = OS.window_size.y*lookingZ + abs(vbob)
 	$PolyContainer.rotation_degrees = lerp($PolyContainer.rotation_degrees, (-input_dir.x*vroll_multi),00.1)/vroll_strafe_divi
@@ -367,6 +367,7 @@ func _physics_process(_delta):
 		positionZ += motionZ
 	
 	else:
+		motionZ = 0
 		if Input.is_action_pressed("ply_jump"):
 			positionZ += 1 * rotate_rate * Engine.time_scale
 			move_dir.z = 1
@@ -401,38 +402,137 @@ func _physics_process(_delta):
 
 ################################################################################
 var motionZ = 0
-export var GRAVITY = 1
 var positionZ = 0
 #var motionZ = 0
 #const GRAVITY = 1
-const JUMP = 10
+
 
 var on_floor = 0
 var col_floors = []
 var col_walls = []
 
-
+export(float) var GRAVITY = 1
+export(float) var JUMP = 10
 export var ply_height = 50
 
 func collide():
 	for n in col_floors.size():
 	#if col_floors != null:
-		if move_dir.z == -1:
-			if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
-				positionZ = col_floors[n].heights[0]# + ply_height
-				
-				on_floor = 1
-				#if motionZ < 0:
-				motionZ = 0
+		if col_floors[n].flag_1height:
+			if move_dir.z == -1:
+				if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
+					positionZ = col_floors[n].heights[0]# + ply_height
 					
+					on_floor = 1 
+					if motionZ < 0:
+						motionZ = 0
+						
+			
+			if move_dir.z == 1:
+				if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
+					positionZ = col_floors[n].heights[0] - ply_height
+					
+					on_floor = 0
+					if motionZ > 0:
+						motionZ = 0
 		
-		if move_dir.z == 1:
-			if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
-				positionZ = col_floors[n].heights[0] - ply_height
+		
+		
+		
+		else: #sometimes we gotta process a fuckin slope
+			for m in col_floors[n].points.size():
+				pass
+				#first we do horizontals, then verticals? Horizontals MIGHT do, who knows
+				var Plus90  = position+(Vector2(0,100).rotated(rotation_angle+PI/2))
+				var Minus90 = position+(Vector2(0,100).rotated(rotation_angle-PI/2))
 				
-				on_floor = 0
-				if motionZ > 0:
-					motionZ = 0
+				
+				var point1 = col_floors[n].points[m]
+				var point2 = col_floors[n].points[(m+1) % col_floors[n].points.size()]
+				
+				
+				#intersection between limitPlus/Minus with point1/2
+				var new_position = new_position(point1, point2, Plus90, Minus90, (point1.x - point2.x)*(Plus90.y - Minus90.y) - (point1.y - point2.y)*(Plus90.x - Minus90.x))  +  Vector2(0,1).rotated(rotation_angle)
+				
+				
+				var actives = Vector2(0,0)
+				
+				if rotation_angle > PI/2 && rotation_angle < 3*PI/2:
+					#print("RED PLUS IS BIGGEST")
+					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(rotation_angle-PI/2) or rad_overflow((point1-position).angle()-PI/2) > rad_overflow(rotation_angle+PI/2):
+						#print("!!RED ALERT!!")
+						actives.x = 1
+						
+					else:
+						actives.x = 0
+						
+					
+					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(rotation_angle-PI/2) or rad_overflow((point2-position).angle()-PI/2) > rad_overflow(rotation_angle+PI/2):
+						#print("!!RED ALERT!!")
+						actives.y = 1
+						
+					else:
+						actives.y = 0
+				
+				
+				else:
+					#print("PINK MINUS IS BIGGER")
+					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(rotation_angle-PI/2) && rad_overflow((point1-position).angle()-PI/2) > rad_overflow(rotation_angle+PI/2):
+						#print("!!PINK ALERT!!")
+						actives.x = 1
+						
+					else:
+						actives.x = 0
+					
+					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(rotation_angle-PI/2) && rad_overflow((point2-position).angle()-PI/2) > rad_overflow(rotation_angle+PI/2):
+						#print("!!PINK ALERT!!")
+						actives.y = 1
+						
+					else:
+						actives.y = 0
+				
+				if actives.x != actives.y:
+					print(m)
+					####################################
+					
+					var height1 = col_floors[n].heights[m]
+					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
+					
+					var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
+					
+					if height2 > height1: #dont know
+						new_height += height2
+					elif height2 < height1:# why, OK
+						if (new_height < height2) or (new_height > height1):
+							new_height += height2
+					
+					if move_dir != Vector3(0,0,0):
+						on_floor = 0
+					#array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
+					if (positionZ < new_height) && (positionZ+ply_height > new_height):
+						positionZ = new_height
+						
+						on_floor = 1 
+						if motionZ < 0:
+							motionZ = 0
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -447,13 +547,11 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		if col_floors.has(body):
 			col_floors.erase(body)
 
-## ### #  #  # ##  ##
-## ### #  #  # ##  ##
-#  # # #  #  # # # #
-#  # # #  #  # # # #
-#  # # #  #  # # # #
-## ### ## ## # ##  ##
-## ### ## ## # ##  ##
+######    #######    ###      ###      ###   ######      ######
+###      ###   ###   ###      ###            ###   ##    ###
+###      ###   ###   ###      ###      ###   ###   ###   #####
+###      ###   ###   ###      ###      ###   ###   ##    ###
+######    #######    ######   ######   ###   ######      ######
 
 ################################################################################
 ################################################################################
@@ -630,13 +728,13 @@ func BSP():
 		var array_shading = []
 		
 		for m in array_walls[n].points.size():
-			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
+			var rot_object   = rad_overflow((array_walls[n].points[m]-to_global($Camera2D.position)).angle()-PI/2)
 			
 			
 			#stretching fix conditions
 			if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object < rot_minus90 or rot_object > rot_plus90))   or   (rot_object < rot_minus90 && rot_object > rot_plus90):
-				var rot_object_plus  = rad_overflow((array_walls[n].points[ (m+1) % array_walls[n].points.size() ]-position).angle()-PI/2)
-				var rot_object_minus = rad_overflow((array_walls[n].points[ (m-1) % array_walls[n].points.size() ]-position).angle()-PI/2)
+				var rot_object_plus  = rad_overflow((array_walls[n].points[ (m+1) % array_walls[n].points.size() ]-to_global($Camera2D.position)).angle()-PI/2)
+				var rot_object_minus = rad_overflow((array_walls[n].points[ (m-1) % array_walls[n].points.size() ]-to_global($Camera2D.position)).angle()-PI/2)
 				var neighbours_pm = Vector2(0,0) #pm = "plus, minus"
 				
 				
@@ -652,8 +750,8 @@ func BSP():
 				
 				
 				else:
-					var limitPlus  = position+(Vector2(0,100).rotated(rotation_angle+PI/2))
-					var limitMinus = position+(Vector2(0,100).rotated(rotation_angle-PI/2))
+					var limitPlus  = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle+PI/2))
+					var limitMinus = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle-PI/2))
 					var point1 = array_walls[n].points[m]
 					var point2
 					var height1 = array_walls[n].heights[m]
@@ -672,8 +770,8 @@ func BSP():
 					
 					var new_position = new_position(point1, point2, limitPlus, limitMinus, (point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 					#func new_position(point1,point2,height1,height2,limitPlus,limitMinus,det):
-					var xkusu = (new_position-position).angle() - midscreen
-					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
+					var xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
+					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					
 					
 					
@@ -704,8 +802,8 @@ func BSP():
 						
 						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 						
-						xkusu = (new_position-position).angle() - midscreen
-						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
+						xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
+						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
 						
 						if height1 == height2:#No diagonals
@@ -729,10 +827,10 @@ func BSP():
 			
 			
 			else:#all vertices in front of camera
-				var xkusu = (array_walls[n].points[m]-position).angle() - midscreen
+				var xkusu = (array_walls[n].points[m]-to_global($Camera2D.position)).angle() - midscreen
 				#var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)) #Logic from other raycasters
 				#var lineH = (OS.window_size.y / distance)   /  cos(xkusu)
-				var lineH = (OS.window_size.y / sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)))   /  cos(xkusu)
+				var lineH = (OS.window_size.y / sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2)))   /  cos(xkusu)
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 			
@@ -743,7 +841,7 @@ func BSP():
 					outtasight +=1
 					
 			
-			var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
+			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
 			
 			if shading:
 				var C = -(distance*(float(1*darkness)/draw_distance)-1)

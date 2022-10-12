@@ -1,93 +1,479 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://player13.gd" type="Script" id=1]
 [ext_resource path="res://player12.tscn" type="PackedScene" id=2]
 [ext_resource path="res://map-floor.gd" type="Script" id=3]
+[ext_resource path="res://make_invisible.gd" type="Script" id=4]
+[ext_resource path="res://assets/skybox bubsy3D.png" type="Texture" id=5]
+[ext_resource path="res://assets/gradientverybig.png" type="Texture" id=6]
+[ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=7]
 
 [node name="scene12" type="Node2D"]
 
 [node name="player12" parent="." instance=ExtResource( 2 )]
 position = Vector2( 6, 67 )
 script = ExtResource( 1 )
+angles = 150
 draw_distance = 10000
+skycolor = Color( 0, 0.3, 0.05, 1 )
+speed = 300
+GRAVITY = 0.5
 ply_height = 45
-textures_on = true
 cull_on = false
 shading = false
+flip_frontback_sprites = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." groups=[
+[node name="Background" parent="player12" index="5"]
+visible = false
+
+[node name="Sky" parent="player12/Background" index="0"]
+modulate = Color( 1, 1, 1, 1 )
+margin_left = -719.0
+margin_top = -83.0
+margin_right = -207.0
+margin_bottom = 134.0
+texture = ExtResource( 5 )
+
+[node name="Floor" parent="player12/Background" index="1"]
+modulate = Color( 1.5, 2.51, 2.5, 1 )
+texture = ExtResource( 6 )
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Node2D" type="Node2D" parent="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/Node2D" groups=[
 "floor",
 "render",
 ]]
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -47, 33 )
 script = ExtResource( 3 )
 heights = [ -10.0 ]
+texture_path = "res://textures/solid1.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D"]
 polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="." groups=[
+[node name="StaticBody2D2" type="StaticBody2D" parent="Node2D/Node2D" groups=[
 "floor",
 "render",
 ]]
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -47, 133 )
 script = ExtResource( 3 )
 heights = [ -5.0 ]
+texture_path = "res://textures/solid1.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D2"]
 polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="." groups=[
+[node name="StaticBody2D3" type="StaticBody2D" parent="Node2D/Node2D" groups=[
 "floor",
 "render",
 ]]
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -47, 182 )
 script = ExtResource( 3 )
 heights = [ 0.0 ]
+texture_path = "res://textures/solid1.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D3"]
 polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="." groups=[
+[node name="StaticBody2D4" type="StaticBody2D" parent="Node2D/Node2D" groups=[
 "floor",
 "render",
 ]]
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -47, 182 )
 script = ExtResource( 3 )
 heights = [ 100.0 ]
+texture_path = "res://textures/solid1.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D4"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D4"]
 polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
-[node name="StaticBody2D6" type="StaticBody2D" parent="." groups=[
+[node name="StaticBody2D6" type="StaticBody2D" parent="Node2D/Node2D" groups=[
 "floor",
 "render",
 ]]
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -47, 297 )
 script = ExtResource( 3 )
 heights = [ 50.0 ]
+texture_path = "res://textures/solid1.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D6"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D6"]
 polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 
-[node name="StaticBody2D5" type="StaticBody2D" parent="." groups=[
+[node name="StaticBody2D5" type="StaticBody2D" parent="Node2D/Node2D" groups=[
 "floor",
 "render",
 ]]
 position = Vector2( -47, 182 )
 script = ExtResource( 3 )
 heights = [ -20.0 ]
+texture_path = "res://textures/solid1.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D5"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D5"]
 polygon = PoolVector2Array( 285, -225, 332, 265, -187, 313, -138, -205 )
 
-[node name="StaticBody2D7" type="StaticBody2D" parent="." groups=[
+[node name="StaticBody2D7" type="StaticBody2D" parent="Node2D/Node2D" groups=[
 "floor",
 "render",
 ]]
-position = Vector2( 270, 168 )
+modulate = Color( 0.121569, 0.117647, 0.266667, 1 )
+position = Vector2( 261, 153 )
+scale = Vector2( 2, 2 )
 script = ExtResource( 3 )
-heights = [ -80.0 ]
+heights = [ -100.0 ]
+texture_path = "res://textures/solid1.png"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D7"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D7"]
+polygon = PoolVector2Array( 379, -635.5, 438, 367, -631.5, 361.5, -636, -631 )
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="Node2D/Node2D" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.141176, 0.0470588, 0.184314, 1 )
+position = Vector2( -1741, 166 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+heights = [ 0.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D12"]
+polygon = PoolVector2Array( 379, -635.5, 438, 367, -631.5, 361.5, -636, -631 )
+
+[node name="StaticBody2D13" type="StaticBody2D" parent="Node2D/Node2D" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.176471, 0.164706, 0.203922, 1 )
+position = Vector2( -1741, 166 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+heights = [ 0.0, 0.0, -100.0, -100.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D13"]
+polygon = PoolVector2Array( 379, -635.5, 365, 366, 497.5, 352.5, 488.5, -637.5 )
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="Node2D/Node2D" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.054902, 0, 1, 1 )
+position = Vector2( 261, 155 )
+script = ExtResource( 3 )
+heights = [ 80.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D8"]
 polygon = PoolVector2Array( 285, -225, 332, 265, -187, 313, -138, -205 )
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="Node2D/Node2D" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 435, 140 )
+script = ExtResource( 3 )
+heights = [ 150.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D9"]
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="StaticBody2D10" type="StaticBody2D" parent="Node2D/Node2D" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 137, 187 )
+script = ExtResource( 3 )
+heights = [ 300.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D10"]
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="Node2D/Node2D" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 323, 197 )
+script = ExtResource( 3 )
+heights = [ 260.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D11"]
+polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
+
+[node name="stairs" type="Node2D" parent="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/stairs" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -48, -100 )
+script = ExtResource( 3 )
+heights = [ -10.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/stairs/StaticBody2D"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Node2D/stairs" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( -48, -150 )
+script = ExtResource( 3 )
+heights = [ 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/stairs/StaticBody2D2"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Node2D/stairs" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0, 1, 0, 1 )
+position = Vector2( -48, -200 )
+script = ExtResource( 3 )
+heights = [ 10.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/stairs/StaticBody2D3"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Node2D/stairs" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0, 1, 1, 1 )
+position = Vector2( -48, -250 )
+script = ExtResource( 3 )
+heights = [ 20.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/stairs/StaticBody2D4"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Node2D/stairs" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0, 0, 1, 1 )
+position = Vector2( -48, -300 )
+script = ExtResource( 3 )
+heights = [ 30.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/stairs/StaticBody2D5"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Node2D/stairs" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0, 1, 1 )
+position = Vector2( -48, -350 )
+script = ExtResource( 3 )
+heights = [ 40.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/stairs/StaticBody2D6"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0.498039, 0, 1 )
+position = Vector2( -583, 108 )
+scale = Vector2( 2, 5 )
+script = ExtResource( 3 )
+heights = [ -100.0, -100.0, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/StaticBody2D"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Node2D" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0.498039, 0, 1 )
+position = Vector2( -583, 108 )
+scale = Vector2( 2, 5 )
+script = ExtResource( 3 )
+heights = [ -100.0, -100.0, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/StaticBody2D2"]
+position = Vector2( 73.5, -61.6 )
+polygon = PoolVector2Array( 101, -23.8, -118, -24.2, -141, -84.2, 115, -77 )
+
+[node name="old clipping tests" type="Node2D" parent="Node2D"]
+position = Vector2( -3530, -1232 )
+scale = Vector2( 100, 100 )
+
+[node name="case-double1" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 4.93, 10.51 )
+scale = Vector2( 0.04, 0.02 )
+script = ExtResource( 3 )
+heights = [ 0.0, 50.0, 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/case-double1"]
+polygon = PoolVector2Array( 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double2" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 4.97, 13.9 )
+scale = Vector2( 0.04, 0.02 )
+script = ExtResource( 3 )
+heights = [ 0.0, 50.0, 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/case-double2"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double3" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 8.59, 10.52 )
+scale = Vector2( 0.04, 0.02 )
+script = ExtResource( 3 )
+heights = [ 100.0, 0.0, 50.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/case-double3"]
+polygon = PoolVector2Array( 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double4" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 8.63, 13.9 )
+scale = Vector2( 0.04, 0.02 )
+script = ExtResource( 3 )
+heights = [ 50.0, 100.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/case-double4"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope3421" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 14.57, 10.69 )
+scale = Vector2( 0.03, 0.015 )
+script = ExtResource( 3 )
+heights = [ 60.0, 100.0, 0.0, -40.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/eslope3421"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope1342" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 14.6, 14.89 )
+scale = Vector2( 0.03, 0.015 )
+script = ExtResource( 3 )
+heights = [ -40.0, 60.0, 100.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/eslope1342"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope2134" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 18.71, 10.66 )
+scale = Vector2( 0.03, 0.015 )
+script = ExtResource( 3 )
+heights = [ 0.0, -40.0, 60.0, 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/eslope2134"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope4213" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 18.68, 14.91 )
+scale = Vector2( 0.03, 0.015 )
+script = ExtResource( 3 )
+heights = [ 100.0, 0.0, -40.0, 60.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/eslope4213"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="long slopy" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+] instance=ExtResource( 7 )]
+position = Vector2( 8.16003, 8.39999 )
+rotation = 1.5708
+scale = Vector2( 0.01, -0.1 )
+script = ExtResource( 3 )
+heights = [ 250.0, 250.0, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/long slopy"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="map-floor (0)" type="StaticBody2D" parent="Node2D/old clipping tests" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 17.9, 1.24 )
+script = ExtResource( 3 )
+heights = [ 0.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/map-floor (0)"]
+polygon = PoolVector2Array( 1, 2, 2, 1, 4, 1, 5, 2, 6, 4, 5, 6, 4, 7, 2, 7, 1, 6, 0, 4 )
+
+[editable path="player12"]
