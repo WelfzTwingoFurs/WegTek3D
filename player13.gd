@@ -45,7 +45,7 @@ export var sky_stretch = Vector2(1,1)
 
 
 export var rotate_rate = 3.0
-var rotation_angle = 0
+var rotation_angle = 0.000001
 
 
 export var speed = 100
@@ -137,16 +137,16 @@ func _physics_process(_delta):
 		
 		if abs(input_dir.x) != abs(input_dir.y):
 			if input_dir.y == -1: #down
-				rotation_angle = 0
+				rotation_angle = 0 - 0.000001
 			
 			elif input_dir.y == 1: #up
-				rotation_angle = PI
+				rotation_angle = PI - 0.000001
 			
 			elif input_dir.x == 1: #left
-				rotation_angle = 0.5*PI
+				rotation_angle = 0.5*PI - 0.000001
 			
 			elif input_dir.x == -1: #right
-				rotation_angle = 1.5*PI
+				rotation_angle = 1.5*PI - 0.000001
 			
 		
 		else:
@@ -355,6 +355,13 @@ func _physics_process(_delta):
 	elif motionZ == 0:
 		move_dir.z = 0
 	
+	
+	
+	
+	if Input.is_action_pressed("ply_flycenter"):
+		motionZ = 0
+		positionZ = lerp(positionZ, 0, 0.1)
+	
 	if col_floors.size() != 0:
 		if on_floor == 1:
 			if Input.is_action_pressed("ply_jump"):
@@ -374,8 +381,6 @@ func _physics_process(_delta):
 		elif Input.is_action_pressed("ply_crouch"):
 			positionZ -= 1 * rotate_rate * Engine.time_scale
 			move_dir.z = -1
-		elif Input.is_action_pressed("ply_flycenter"):
-			positionZ = lerp(positionZ, 0, 0.1)
 		else:
 			move_dir.z = 0
 	#print(positionZ)
@@ -440,11 +445,20 @@ func collide():
 		
 		
 		else: #sometimes we gotta process a fuckin slope
+			#big_process(n, rotation_angle+PI/2, rotation_angle-PI/2)
+			#big_process(n, rad_overflow(Worldconfig.player.motion.angle()-PI/2)+PI/2, rad_overflow(Worldconfig.player.motion.angle()-PI/2)-PI/2)
+			big_process(n, Worldconfig.player.motion.angle(), rad_overflow(Worldconfig.player.motion.angle()-PI))
+			#big_process(n, motion.angle()+PI/2, motion.angle()-PI/2)
+			
+
+func big_process(n, angle1, angle2):
+			var array_ender = []
+			
 			for m in col_floors[n].points.size():
 				pass
 				#first we do horizontals, then verticals? Horizontals MIGHT do, who knows
-				var Plus90  = position+(Vector2(0,100).rotated(rotation_angle+PI/2))
-				var Minus90 = position+(Vector2(0,100).rotated(rotation_angle-PI/2))
+				var Plus90  = position+(Vector2(0,100).rotated(angle1))
+				var Minus90 = position+(Vector2(0,100).rotated(angle2))
 				
 				
 				var point1 = col_floors[n].points[m]
@@ -459,7 +473,7 @@ func collide():
 				
 				if rotation_angle > PI/2 && rotation_angle < 3*PI/2:
 					#print("RED PLUS IS BIGGEST")
-					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(rotation_angle-PI/2) or rad_overflow((point1-position).angle()-PI/2) > rad_overflow(rotation_angle+PI/2):
+					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(angle2) or rad_overflow((point1-position).angle()-PI/2) > rad_overflow(angle1):
 						#print("!!RED ALERT!!")
 						actives.x = 1
 						
@@ -467,7 +481,7 @@ func collide():
 						actives.x = 0
 						
 					
-					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(rotation_angle-PI/2) or rad_overflow((point2-position).angle()-PI/2) > rad_overflow(rotation_angle+PI/2):
+					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(angle2) or rad_overflow((point2-position).angle()-PI/2) > rad_overflow(angle1):
 						#print("!!RED ALERT!!")
 						actives.y = 1
 						
@@ -477,14 +491,14 @@ func collide():
 				
 				else:
 					#print("PINK MINUS IS BIGGER")
-					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(rotation_angle-PI/2) && rad_overflow((point1-position).angle()-PI/2) > rad_overflow(rotation_angle+PI/2):
+					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(angle2) && rad_overflow((point1-position).angle()-PI/2) > rad_overflow(angle1):
 						#print("!!PINK ALERT!!")
 						actives.x = 1
 						
 					else:
 						actives.x = 0
 					
-					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(rotation_angle-PI/2) && rad_overflow((point2-position).angle()-PI/2) > rad_overflow(rotation_angle+PI/2):
+					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(angle2) && rad_overflow((point2-position).angle()-PI/2) > rad_overflow(angle1):
 						#print("!!PINK ALERT!!")
 						actives.y = 1
 						
@@ -492,7 +506,7 @@ func collide():
 						actives.y = 0
 				
 				if actives.x != actives.y:
-					print(m)
+					
 					####################################
 					
 					var height1 = col_floors[n].heights[m]
@@ -506,23 +520,25 @@ func collide():
 						if (new_height < height2) or (new_height > height1):
 							new_height += height2
 					
-					if move_dir != Vector3(0,0,0):
+					
+					if input_dir != Vector2(0,0):
 						on_floor = 0
-					#array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
+
 					if (positionZ < new_height) && (positionZ+ply_height > new_height):
 						positionZ = new_height
-						
 						on_floor = 1 
 						if motionZ < 0:
 							motionZ = 0
-								
+					
+					print(m,"  ", new_height)
+					array_ender.append(new_height)
+					if array_ender.size() == 2:
+						break
+					
+					
 
-
-
-
-
-
-
+			#print(array_ender)
+			#return((array_ender[0] + array_ender[1])/2)
 
 
 

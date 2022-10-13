@@ -20,7 +20,6 @@ speed = 300
 GRAVITY = 0.5
 ply_height = 45
 cull_on = false
-shading = false
 flip_frontback_sprites = true
 
 [node name="Background" parent="player12" index="5"]
@@ -146,7 +145,7 @@ heights = [ 0.0 ]
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D12"]
-polygon = PoolVector2Array( 379, -635.5, 438, 367, -631.5, 361.5, -636, -631 )
+polygon = PoolVector2Array( 379, -635.5, 381, 346, -631.5, 361.5, -636, -631 )
 
 [node name="StaticBody2D13" type="StaticBody2D" parent="Node2D/Node2D" groups=[
 "floor",
@@ -208,7 +207,7 @@ polygon = PoolVector2Array( 100, 0, 100, 100, 0, 100, 0, 0 )
 modulate = Color( 1, 1, 0, 1 )
 position = Vector2( 323, 197 )
 script = ExtResource( 3 )
-heights = [ 260.0 ]
+heights = [ 220.0 ]
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D11"]
@@ -420,7 +419,7 @@ __meta__ = {
 "floor",
 "render",
 ] instance=ExtResource( 7 )]
-position = Vector2( 18.71, 10.66 )
+position = Vector2( 18.71, 14.91 )
 scale = Vector2( 0.03, 0.015 )
 script = ExtResource( 3 )
 heights = [ 0.0, -40.0, 60.0, 100.0 ]
@@ -435,7 +434,7 @@ __meta__ = {
 "floor",
 "render",
 ] instance=ExtResource( 7 )]
-position = Vector2( 18.68, 14.91 )
+position = Vector2( 18.68, 10.66 )
 scale = Vector2( 0.03, 0.015 )
 script = ExtResource( 3 )
 heights = [ 100.0, 0.0, -40.0, 60.0 ]
@@ -469,7 +468,7 @@ __meta__ = {
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 17.9, 1.24 )
 script = ExtResource( 3 )
-heights = [ 0.0 ]
+heights = [ 100.0 ]
 texture_path = "res://textures/kensilverman64.png"
 texture_repeat = Vector2( -1, -1 )
 

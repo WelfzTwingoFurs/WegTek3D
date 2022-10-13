@@ -50,7 +50,7 @@ func _process(_delta):
 			,"\n"
 			,"input_dir=",Worldconfig.player.input_dir,", move_dir=",Worldconfig.player.move_dir,", rot_plus90=",Worldconfig.player.rot_plus90,", rot_minus90=",Worldconfig.player.rot_minus90,", midscreen=",Worldconfig.player.midscreen
 			,"\n"
-			,"position=(",int((Worldconfig.player.position.x)),",",int((Worldconfig.player.position.y)),"), positionZ=",Worldconfig.player.positionZ,", motion=(",int((Worldconfig.player.motion.x)),",",int((Worldconfig.player.motion.y)),"), rotation_angle=",Worldconfig.player.rotation_angle
+			,"position=(",int((Worldconfig.player.position.x)),",",int((Worldconfig.player.position.y)),"), positionZ=",Worldconfig.player.positionZ,", motion=(",int((Worldconfig.player.motion.x)),",",int((Worldconfig.player.motion.y)),"), motion.angle()-PI/2=",rad_overflow(Worldconfig.player.motion.angle()-PI/2),", rotation_angle=",Worldconfig.player.rotation_angle
 			,"\n"
 			,"lookingZ=",Worldconfig.player.lookingZ,", posZlookZ=",Worldconfig.player.posZlookZ,", vbob=",Worldconfig.player.vbob
 			,", vroll_strafe_divi=",Worldconfig.player.vroll_strafe_divi
@@ -78,3 +78,11 @@ func _process(_delta):
 #		margin_top    = (-OS.window_size.y/2)
 #		margin_left   = (-OS.window_size.x/2)
 #		margin_right  = (OS.window_size.x/2) 
+
+func rad_overflow(N):
+	if N > PI*2:
+		N -= PI*2
+	elif N < 0:
+		N += PI*2
+	
+	return N
