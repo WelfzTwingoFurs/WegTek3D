@@ -520,33 +520,32 @@ func big_process(n, angle1, angle2):
 						if (new_height < height2) or (new_height > height1):
 							new_height += height2
 					
-					if new_height != 0:
-						if input_dir != Vector2(0,0):
+					if input_dir != Vector2(0,0):
+						on_floor = 0
+					
+					if move_dir.z == -1:
+						if (positionZ < new_height) && (positionZ+ply_height > new_height):
+							positionZ = new_height# + ply_height
+							
+							on_floor = 1 
+							if motionZ < 0:
+								motionZ = 0
+								
+					
+					elif move_dir.z == 1:
+						if (positionZ < new_height) && (positionZ+ply_height > new_height):
+							positionZ = new_height - ply_height
+							
 							on_floor = 0
-						
-						if move_dir.z == -1:
-							if (positionZ < new_height) && (positionZ+ply_height > new_height):
-								positionZ = new_height# + ply_height
-								
-								on_floor = 1 
-								if motionZ < 0:
-									motionZ = 0
-									
-						
-						elif move_dir.z == 1:
-							if (positionZ < new_height) && (positionZ+ply_height > new_height):
-								positionZ = new_height - ply_height
-								
-								on_floor = 0
-								if motionZ > 0:
-									motionZ = 0
-						
-						print(m,"  ", new_height)
-						#array_ender.append(new_height)
-						#if array_ender.size() == 2:
-						#	break
-						
-						
+							if motionZ > 0:
+								motionZ = 0
+					
+					print(m,"  ", new_height)
+					array_ender.append(new_height)
+					if array_ender.size() == 2:
+						break
+					
+					
 
 			#print(array_ender)
 			#return((array_ender[0] + array_ender[1])/2)
