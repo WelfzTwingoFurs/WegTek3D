@@ -12,6 +12,7 @@ FEATURES:
 -Polygon world with height;
 -Sprite objects;
 -Flying up & down, looking up & down;
+-Flat floor collision (slopes are wip);
 -Field of view (FOV), draw distance options;
 -Screen resizable to any size, everything is normalized;
 -Clipping (vertexes behind camera don't distort);
@@ -26,7 +27,7 @@ FEATURES:
 
 IMPERFECTIONS:
 -No sound;
--No collision;
+-No wall collision;
 -Z-sorting inaccurate with touching/nearby polygons;
 -Camera-edge culling only checks if all vertices are off-screen;
 -Heavy texture distortion up-close;
