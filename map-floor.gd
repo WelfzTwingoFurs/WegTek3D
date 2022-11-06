@@ -11,12 +11,13 @@ export(float) var texture_rotate = 0
 export var texture_offset = Vector2(0,0)
 
 var points = []
-var was_position
 var was_zoom
 export(bool) var bug_label = 0
 var labels = []
 
 var spawn_shape_position #used for transferring shape positions for a clone being spawned by sector
+
+var flag_1height = false
 
 func _ready():
 	if spawn_shape_position != null:
@@ -35,6 +36,7 @@ func _ready():
 	
 	if heights.size() != $CollisionPolygon2D.polygon.size():
 		if heights.size() == 1:
+			flag_1height = true
 			for n in $CollisionPolygon2D.polygon.size()-1:
 				heights.append(heights[0])
 		else:
@@ -58,17 +60,17 @@ func _ready():
 			add_child(new_label)
 			labels.append(new_label)
 	
-	#was_position = position
+	change_checker = [to_global(position), rotation_degrees, scale]
 
 
-
+var change_checker = []
 
 func _process(_delta):
-	if was_position != to_global(position): #Even tho meant to be static, very useful for editing in real time
+	if (change_checker[0] != to_global(position)) or (change_checker[1] != rotation_degrees) or (change_checker[2] != scale):
 		for n in points.size():
 			points[n] = (to_global($CollisionPolygon2D.polygon[n]))
 			
-		was_position = to_global(position)
+		change_checker = [to_global(position), rotation_degrees, scale]
 		
 	
 	
