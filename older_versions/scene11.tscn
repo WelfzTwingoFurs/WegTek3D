@@ -1,0 +1,3712 @@
+[gd_scene load_steps=58 format=2]
+
+[ext_resource path="res://older_versions/player12.tscn" type="PackedScene" id=1]
+[ext_resource path="res://queue_free.gd" type="Script" id=2]
+[ext_resource path="res://older_versions/plagio.png" type="Texture" id=3]
+[ext_resource path="res://assets/gradientverybig.png" type="Texture" id=4]
+[ext_resource path="res://assets/skybox bubsysnes.png" type="Texture" id=5]
+[ext_resource path="res://map-wall.gd" type="Script" id=6]
+[ext_resource path="res://make_invisible.gd" type="Script" id=7]
+[ext_resource path="res://map-floor.gd" type="Script" id=8]
+[ext_resource path="res://AnimationPlayer _ready.gd" type="Script" id=9]
+[ext_resource path="res://map-sector.gd" type="Script" id=10]
+[ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=11]
+[ext_resource path="res://sprite object.gd" type="Script" id=12]
+
+[sub_resource type="Animation" id=1]
+resource_name = "spin"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 5, 6 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "strafeL"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 2 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 4 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+
+[sub_resource type="SegmentShape2D" id=6]
+a = Vector2( -340, 195 )
+b = Vector2( -60, 195 )
+
+[sub_resource type="SegmentShape2D" id=7]
+a = Vector2( -340, 195 )
+b = Vector2( -560, 195 )
+
+[sub_resource type="SegmentShape2D" id=8]
+a = Vector2( -560, 49 )
+b = Vector2( -560, 195 )
+
+[sub_resource type="SegmentShape2D" id=9]
+a = Vector2( -60, 57 )
+b = Vector2( -60, 147 )
+
+[sub_resource type="SegmentShape2D" id=10]
+a = Vector2( 22, 67 )
+b = Vector2( 22, 251 )
+
+[sub_resource type="SegmentShape2D" id=11]
+a = Vector2( -141, 36.75 )
+b = Vector2( -112, 36.75 )
+
+[sub_resource type="SegmentShape2D" id=12]
+a = Vector2( 179, 39 )
+b = Vector2( 179, 106 )
+
+[sub_resource type="SegmentShape2D" id=13]
+a = Vector2( 179, 39 )
+b = Vector2( 179, 70 )
+
+[sub_resource type="SegmentShape2D" id=14]
+a = Vector2( -23.75, 48.7501 )
+b = Vector2( 27.5, 48.7501 )
+
+[sub_resource type="SegmentShape2D" id=15]
+a = Vector2( -9.99976, 48.7504 )
+b = Vector2( 13.7502, 48.7504 )
+
+[sub_resource type="Animation" id=16]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("rotation test:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ARROW:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 360.0 ]
+}
+
+[sub_resource type="SegmentShape2D" id=17]
+a = Vector2( -9, 74 )
+b = Vector2( -9, 64 )
+
+[sub_resource type="SegmentShape2D" id=18]
+a = Vector2( 0, 64 )
+b = Vector2( -4, 64 )
+
+[sub_resource type="SegmentShape2D" id=19]
+a = Vector2( 0, 73 )
+b = Vector2( -4, 64 )
+
+[sub_resource type="SegmentShape2D" id=20]
+a = Vector2( -4, 73 )
+b = Vector2( 0, 64 )
+
+[sub_resource type="SegmentShape2D" id=21]
+a = Vector2( -4, 73 )
+b = Vector2( 0, 73 )
+
+[sub_resource type="SegmentShape2D" id=22]
+a = Vector2( 4, 73 )
+b = Vector2( 8, 73 )
+
+[sub_resource type="SegmentShape2D" id=23]
+a = Vector2( 4, 73 )
+b = Vector2( 6, 64 )
+
+[sub_resource type="SegmentShape2D" id=24]
+a = Vector2( 8, 73 )
+b = Vector2( 6, 64 )
+
+[sub_resource type="SegmentShape2D" id=25]
+a = Vector2( -124, -46 )
+b = Vector2( -119, -46 )
+
+[sub_resource type="SegmentShape2D" id=26]
+a = Vector2( -124, -46 )
+b = Vector2( -119, -54 )
+
+[sub_resource type="SegmentShape2D" id=27]
+a = Vector2( -124, -54 )
+b = Vector2( -119, -54 )
+
+[sub_resource type="SegmentShape2D" id=28]
+a = Vector2( -111, -54 )
+b = Vector2( -116, -54 )
+
+[sub_resource type="SegmentShape2D" id=29]
+a = Vector2( -111, -54 )
+b = Vector2( -116, -45 )
+
+[sub_resource type="SegmentShape2D" id=30]
+a = Vector2( -123, -46 )
+b = Vector2( -118, -54 )
+
+[sub_resource type="SegmentShape2D" id=31]
+a = Vector2( -123, -54 )
+b = Vector2( -118, -54 )
+
+[sub_resource type="SegmentShape2D" id=32]
+a = Vector2( -123, -54 )
+b = Vector2( -120, -50 )
+
+[sub_resource type="SegmentShape2D" id=33]
+a = Vector2( -123, -45 )
+b = Vector2( -118, -54 )
+
+[sub_resource type="SegmentShape2D" id=34]
+a = Vector2( -123, -54 )
+b = Vector2( -117, -54 )
+
+[sub_resource type="SegmentShape2D" id=35]
+a = Vector2( -124, -55 )
+b = Vector2( -120, -50 )
+
+[sub_resource type="SegmentShape2D" id=36]
+a = Vector2( -124, -54 )
+b = Vector2( -120, -50 )
+
+[sub_resource type="SegmentShape2D" id=37]
+a = Vector2( -124, -54 )
+b = Vector2( -120, -58 )
+
+[sub_resource type="SegmentShape2D" id=38]
+a = Vector2( -125, -58 )
+b = Vector2( -120, -58 )
+
+[sub_resource type="CircleShape2D" id=39]
+radius = 200.0
+
+[sub_resource type="Animation" id=40]
+length = 4.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.5, 1.9, 3, 4, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 0.5, 1, 1, 0.5, 2 ),
+"update": 0,
+"values": [ Vector2( 80, 7 ), Vector2( 141.667, 7 ), Vector2( 175, 17 ), Vector2( 175, 37 ), Vector2( 125, 37 ), Vector2( 75, 7 ), Vector2( 80, 7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.7, 2.4, 3, 3.2, 3.5, 4, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 90.0, 180.0, 180.0, 203.3, 203.3, 360.0, 360.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("rearlight B:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 3, 3.2, 3.4, 3.6, 3.8 ),
+"transitions": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("headlight B:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 3, 3.2, 3.4, 3.6, 3.8 ),
+"transitions": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=41]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../piramide q foda:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 360.0, 0.0 ]
+}
+
+[sub_resource type="SegmentShape2D" id=42]
+a = Vector2( -54, -25 )
+b = Vector2( -129, -25 )
+
+[sub_resource type="SegmentShape2D" id=43]
+a = Vector2( -60, 45 )
+b = Vector2( 60, 45 )
+
+[sub_resource type="SegmentShape2D" id=44]
+a = Vector2( 65, -25 )
+b = Vector2( 182, -25 )
+
+[sub_resource type="Animation" id=45]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("map-wall (2 heights):texture_repeat")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 10, 10 ), Vector2( 1, 1 ), Vector2( 10, 10 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("map-wall (4 heights):texture_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("map-wall (3 heights):texture_rotate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 360 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("map-floor (0):modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 0, 1, 0.498039, 1 ), Color( 0, 0, 5, 1 ), Color( 1, 0, 1, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("map-floor (0-2-4-4-0):texture_path")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "res://textures/quadrado64.png", "res://textures/wireframe64.png" ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("map-floor (0-0-5):heights")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.16, 0.33, 0.5, 0.66, 0.83, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ [ 0.0, 0.0, 50.0 ], [ 0.0, 0.0, 25.0 ], [ 0.0, 0.0, 12.5 ], [ 0.0, 0.0, 0.0 ], [ 0.0, 0.0, 12.5 ], [ 0.0, 0.0, 25.0 ], [ 0.0, 0.0, 50.0 ] ]
+}
+
+[node name="scene11" type="Node2D"]
+
+[node name="player12" parent="." instance=ExtResource( 1 )]
+position = Vector2( -3026, -1472 )
+draw_distance = 10000
+skycolor = Color( 1, 1, 1, 1 )
+sky_stretch = Vector2( 1, 5 )
+rotate_rate = 4.0
+speed = 300
+vbob_max = 6.0
+vbob_speed = 0.1
+vroll_multi = -2.5
+textures_on = true
+cull_on = false
+map_draw = 1
+
+[node name="AnimationPlayer" parent="player12/View" index="0"]
+anims/spin = SubResource( 1 )
+anims/strafeL = SubResource( 2 )
+anims/strafeR = SubResource( 3 )
+anims/walk = SubResource( 4 )
+
+[node name="Background" parent="player12" index="5"]
+visible = false
+
+[node name="Sky" parent="player12/Background" index="0"]
+modulate = Color( 1, 1, 1, 1 )
+texture = ExtResource( 5 )
+
+[node name="Floor" parent="player12/Background" index="1"]
+modulate = Color( 1, 1, 1, 1 )
+texture = ExtResource( 4 )
+
+[node name="Node2D" type="Node2D" parent="."]
+z_index = 4096
+script = ExtResource( 7 )
+
+[node name="cafofo sprites" type="Node2D" parent="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="chair sprite" type="KinematicBody2D" parent="Node2D/cafofo sprites" groups=[
+"rendersprite",
+]]
+position = Vector2( -2936, -1523 )
+rotation = 3.14159
+scale = Vector2( 0.8, 0.8 )
+script = ExtResource( 12 )
+scale_extra = Vector2( 1, 1.2 )
+texture = "res://assets/sprites chair (agaures, Zdoom forums).png"
+vframes = 5
+hframes = 1
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo sprites/chair sprite"]
+shape = SubResource( 5 )
+
+[node name="chair sprite2" type="KinematicBody2D" parent="Node2D/cafofo sprites" groups=[
+"rendersprite",
+]]
+modulate = Color( 0.623529, 0.235294, 0, 1 )
+position = Vector2( -3017, -1524 )
+rotation = 3.14159
+scale = Vector2( 0.8, 0.8 )
+script = ExtResource( 12 )
+scale_extra = Vector2( 0.8, 1 )
+texture = "res://assets/sprites chair (agaures, Zdoom forums).png"
+vframes = 5
+hframes = 1
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo sprites/chair sprite2"]
+shape = SubResource( 5 )
+
+[node name="cafofo" type="Node2D" parent="Node2D"]
+position = Vector2( -359, 396 )
+
+[node name="S-room" type="StaticBody2D" parent="Node2D/cafofo"]
+position = Vector2( -2928, -2033 )
+script = ExtResource( 10 )
+heights = [ 0, 200 ]
+textures = [ "res://textures/solid1.png", "res://textures/solid1.png", "", "res://textures/solid1.png", "", "", "", "res://textures/solid1.png", "res://textures/solid1.png" ]
+colors = [ Color( 0, 0, 0, 1 ), Color( 0.0941176, 0.0745098, 0.2, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 0.952941, 0.568627, 1 ), Color( 1, 1, 1, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-room"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 500, 362.245, 500, 451.7, 500, 500, 0, 500, 0, 354.045, 0, 170 )
+
+[node name="W-roomB" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2368, -1728 )
+script = ExtResource( 6 )
+heights = [ 0.0, 200.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-roomB"]
+shape = SubResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-roomB2" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2368, -1728 )
+script = ExtResource( 6 )
+heights = [ 45.0, 200.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-roomB2"]
+shape = SubResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-roomL" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2368, -1728 )
+script = ExtResource( 6 )
+heights = [ 45.0, 200.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-roomL"]
+shape = SubResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-doortop" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2368, -1728 )
+script = ExtResource( 6 )
+heights = [ 150.0, 200.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-doortop"]
+shape = SubResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-Windowtop" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2950, -1930 )
+script = ExtResource( 6 )
+heights = [ 150.0, 200.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-Windowtop"]
+shape = SubResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-Windowbot" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2950, -1930 )
+script = ExtResource( 6 )
+heights = [ 70.0, 45.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-Windowbot"]
+shape = SubResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-Glass" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.2, 0.188235, 0.329412, 0.529412 )
+position = Vector2( -2950, -1930 )
+script = ExtResource( 6 )
+heights = [ 70.0, 150.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-Glass"]
+shape = SubResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="S-drawer" type="StaticBody2D" parent="Node2D/cafofo"]
+modulate = Color( 0.623529, 0.270588, 0.0156863, 1 )
+position = Vector2( -2928, -2033 )
+script = ExtResource( 10 )
+heights = [ 2, 190 ]
+textures = [ "", "res://textures/solid1.png", "res://textures/solid1.png", "", "", "" ]
+colors = [ Color( 0.623529, 0.270588, 0.0156863, 1 ), Color( 0.623529, 0.270588, 0.0156863, 1 ), Color( 0.623529, 0.270588, 0.0156863, 1 ), Color( 0.623529, 0.270588, 0.0156863, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-drawer"]
+polygon = PoolVector2Array( 0, 0, 155, 0, 155, 95, 0, 95 )
+
+[node name="S-tablehold" type="StaticBody2D" parent="Node2D/cafofo"]
+modulate = Color( 0.219608, 1, 0, 1 )
+position = Vector2( -2928, -2033 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "", "res://textures/solid1.png", "res://textures/solid1.png", "", "" ]
+colors = [ Color( 0.443137, 0.258824, 0.0235294, 1 ), Color( 0.443137, 0.258824, 0.0235294, 1 ), Color( 0.443137, 0.258824, 0.0235294, 1 ), Color( 0.443137, 0.258824, 0.0235294, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-tablehold"]
+polygon = PoolVector2Array( 209, 6, 159, 6, 159, 64, 209, 64 )
+
+[node name="S-gavetas" type="StaticBody2D" parent="Node2D/cafofo"]
+modulate = Color( 0.219608, 1, 0, 1 )
+position = Vector2( -2800, -2074 )
+script = ExtResource( 10 )
+heights = [ 75, 50 ]
+textures = [ "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/wireframe64.png", "res://textures/solid1.png", "res://textures/solid1.png", "" ]
+colors = [ Color( 0.313726, 1, 0, 1 ), Color( 1, 0.560784, 0, 1 ), Color( 0.266667, 1, 0, 1 ), Color( 1, 0.560784, 0, 1 ), Color( 0.0392157, 0.254902, 0.0156863, 1 ), Color( 0, 0, 0, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-gavetas"]
+polygon = PoolVector2Array( 50, 43, 29, 43, 29, 64, 50, 64 )
+
+[node name="W-callendar" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2607, -2069 )
+script = ExtResource( 6 )
+heights = [ 75.0, 115.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-callendar"]
+shape = SubResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="F-tableT" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.443137, 0.258824, 0.0235294, 1 )
+position = Vector2( -2673, -1983 )
+script = ExtResource( 8 )
+heights = [ 50.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-tableT"]
+polygon = PoolVector2Array( -100, -50, 180, -50, 180, 20, -100, 20 )
+
+[node name="F-tableR" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.443137, 0.258824, 0.0235294, 1 )
+position = Vector2( -2673, -1983 )
+script = ExtResource( 8 )
+heights = [ 50.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-tableR"]
+polygon = PoolVector2Array( 180, 300, 180, -50, 245, -50, 245, 300 )
+
+[node name="W-poster" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2608, -2069 )
+script = ExtResource( 6 )
+heights = [ 125.0, 75.0 ]
+texture_path = "res://textures/dukenukem64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-poster"]
+shape = SubResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-console" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2610, -1718 )
+script = ExtResource( 6 )
+heights = [ 160.0, 190.0 ]
+texture_path = "res://textures/gradsimple64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-console"]
+shape = SubResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-console2" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2610, -1679 )
+script = ExtResource( 6 )
+heights = [ 160.0, 190.0 ]
+texture_path = "res://textures/grad64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-console2"]
+shape = SubResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="W-console3" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2610, -1640 )
+script = ExtResource( 6 )
+heights = [ 160.0, 190.0 ]
+texture_path = "res://textures/gradsimpleII64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-console3"]
+shape = SubResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="S-PC" type="StaticBody2D" parent="Node2D/cafofo"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -2928, -2033 )
+rotation = 0.00952425
+script = ExtResource( 10 )
+heights = [ 50, 80 ]
+textures = [ "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png", "res://textures/solid1.png" ]
+colors = [ Color( 0.294118, 0.294118, 0.294118, 1 ), Color( 0.294118, 0.294118, 0.294118, 1 ), Color( 0.14902, 0.117647, 0.294118, 0.427451 ), Color( 0.294118, 0.294118, 0.294118, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-PC"]
+polygon = PoolVector2Array( 439.25, 5.49988, 496.75, 5.49988, 496.75, 25.4999, 439.25, 25.4999 )
+
+[node name="W-moniscreen" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2575, -2068.75 )
+script = ExtResource( 6 )
+heights = [ 80.0, 60.0 ]
+texture_path = "res://textures/quadrado64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/W-moniscreen"]
+shape = SubResource( 14 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="w-monistand" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.188235, 0.188235, 0.188235, 1 )
+position = Vector2( -2575, -2071.25 )
+script = ExtResource( 6 )
+heights = [ 50.0, 59.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/cafofo/w-monistand"]
+shape = SubResource( 15 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="F-monibase" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -2673, -1983 )
+script = ExtResource( 8 )
+heights = [ 50.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-monibase"]
+polygon = PoolVector2Array( 100, -30, 85, -40, 100, -45, 115, -40 )
+
+[node name="F-keyboard" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -2671, -1961 )
+script = ExtResource( 8 )
+heights = [ 50.0, 50.0, 52.0, 52.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-keyboard"]
+polygon = PoolVector2Array( 118, -28.0002, 77, -28.0002, 77, -40.0002, 118, -40.0002 )
+
+[node name="F-mouse" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -2610, -1953 )
+script = ExtResource( 8 )
+heights = [ 51.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-mouse"]
+polygon = PoolVector2Array( 82.0002, -32.0001, 76.0002, -32.0001, 79.0002, -40.0001 )
+
+[node name="F-TV" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+position = Vector2( -2673, -1988 )
+script = ExtResource( 8 )
+heights = [ 150.0, 150.0, 90.0, 90.0 ]
+texture_path = "res://textures/quadrado64.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-TV"]
+polygon = PoolVector2Array( 107, -38.0002, 15, -38.0002, 15, -45.0002, 107, -45.0002 )
+
+[node name="F-shelfBB" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.443137, 0.258824, 0.0235294, 1 )
+position = Vector2( -2673, -1983 )
+script = ExtResource( 8 )
+heights = [ 115.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-shelfBB"]
+polygon = PoolVector2Array( 180, 300, 180, 98, 245, 98, 245, 300 )
+
+[node name="F-shelfBT" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.443137, 0.258824, 0.0235294, 1 )
+position = Vector2( -2673, -1983 )
+script = ExtResource( 8 )
+heights = [ 165.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-shelfBT"]
+polygon = PoolVector2Array( 180, 300, 180, 98, 245, 98, 245, 300 )
+
+[node name="F-shelfBetween" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.443137, 0.258824, 0.0235294, 1 )
+position = Vector2( -2673, -1983 )
+script = ExtResource( 8 )
+heights = [ 115.0, 130.0, 130.0, 115.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-shelfBetween"]
+polygon = PoolVector2Array( 180, 98, 180, 70, 245, 70, 245, 98 )
+
+[node name="F-shelfT" type="StaticBody2D" parent="Node2D/cafofo" groups=[
+"render",
+]]
+modulate = Color( 0.443137, 0.258824, 0.0235294, 1 )
+position = Vector2( -2673, -1983 )
+script = ExtResource( 8 )
+heights = [ 130.0 ]
+texture_path = "res://textures/solid1.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/F-shelfT"]
+polygon = PoolVector2Array( 180, -50, 180, 70, 245, 70, 245, -50 )
+
+[node name="S-bed" type="StaticBody2D" parent="Node2D/cafofo"]
+modulate = Color( 1, 0.211765, 0, 1 )
+position = Vector2( -2928, -2033 )
+script = ExtResource( 10 )
+heights = [ 0, 45 ]
+textures = [ "", "res://textures/solid1.png", "res://textures/solid1.png", "", "", "res://textures/solid1.png" ]
+colors = [ Color( 0.545098, 0.545098, 0.545098, 1 ), Color( 0.545098, 0.545098, 0.545098, 1 ), Color( 0.545098, 0.545098, 0.545098, 1 ), Color( 0.545098, 0.545098, 0.545098, 1 ), Color( 1, 0.211765, 0, 1 ), Color( 1, 0.211765, 0, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/cafofo/S-bed"]
+polygon = PoolVector2Array( 0, 500, 220, 500, 220, 170, 0, 170 )
+
+[node name="SPRITES" type="Node2D" parent="Node2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/SPRITES"]
+anims/_ready = SubResource( 16 )
+script = ExtResource( 9 )
+
+[node name="rotation test" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( -747, -952 )
+script = ExtResource( 12 )
+positionZ = -2
+vframes = 5
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/rotation test"]
+shape = SubResource( 5 )
+
+[node name="180" type="Node2D" parent="Node2D/SPRITES"]
+position = Vector2( -747, -909 )
+
+[node name="1" type="StaticBody2D" parent="Node2D/SPRITES/180" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/1"]
+shape = SubResource( 17 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="81" type="StaticBody2D" parent="Node2D/SPRITES/180" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/81"]
+shape = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="82" type="StaticBody2D" parent="Node2D/SPRITES/180" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/82"]
+shape = SubResource( 19 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="83" type="StaticBody2D" parent="Node2D/SPRITES/180" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/83"]
+shape = SubResource( 20 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="84" type="StaticBody2D" parent="Node2D/SPRITES/180" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/84"]
+shape = SubResource( 21 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="01" type="StaticBody2D" parent="Node2D/SPRITES/180" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/01"]
+shape = SubResource( 22 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="02" type="StaticBody2D" parent="Node2D/SPRITES/180" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/02"]
+shape = SubResource( 23 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="03" type="StaticBody2D" parent="Node2D/SPRITES/180" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/180/03"]
+shape = SubResource( 24 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="270" type="Node2D" parent="Node2D/SPRITES"]
+position = Vector2( -747, -909 )
+
+[node name="21" type="StaticBody2D" parent="Node2D/SPRITES/270" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/21"]
+shape = SubResource( 25 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="22" type="StaticBody2D" parent="Node2D/SPRITES/270" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/22"]
+shape = SubResource( 26 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="23" type="StaticBody2D" parent="Node2D/SPRITES/270" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/23"]
+shape = SubResource( 27 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="71" type="StaticBody2D" parent="Node2D/SPRITES/270" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/71"]
+shape = SubResource( 28 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="72" type="StaticBody2D" parent="Node2D/SPRITES/270" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/72"]
+shape = SubResource( 29 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="01" type="StaticBody2D" parent="Node2D/SPRITES/270" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( -112, -119 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/01"]
+shape = SubResource( 22 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="02" type="StaticBody2D" parent="Node2D/SPRITES/270" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( -112, -119 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/02"]
+shape = SubResource( 23 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="03" type="StaticBody2D" parent="Node2D/SPRITES/270" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( -112, -119 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/270/03"]
+shape = SubResource( 24 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="90" type="Node2D" parent="Node2D/SPRITES"]
+position = Vector2( -747, -909 )
+
+[node name="91" type="StaticBody2D" parent="Node2D/SPRITES/90" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 227, 17 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/91"]
+shape = SubResource( 30 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="92" type="StaticBody2D" parent="Node2D/SPRITES/90" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 227, 17 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/92"]
+shape = SubResource( 31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="93" type="StaticBody2D" parent="Node2D/SPRITES/90" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 227, 17 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/93"]
+shape = SubResource( 32 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="01" type="StaticBody2D" parent="Node2D/SPRITES/90" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 108, -102 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/01"]
+shape = SubResource( 22 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="02" type="StaticBody2D" parent="Node2D/SPRITES/90" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 108, -102 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/02"]
+shape = SubResource( 23 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="03" type="StaticBody2D" parent="Node2D/SPRITES/90" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 108, -102 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/90/03"]
+shape = SubResource( 24 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="360" type="Node2D" parent="Node2D/SPRITES"]
+position = Vector2( -747, -909 )
+
+[node name="01" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 6, -221 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/01"]
+shape = SubResource( 22 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="02" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 6, -221 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/02"]
+shape = SubResource( 23 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="03" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 6, -221 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/03"]
+shape = SubResource( 24 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="04" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( -12, -221 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/04"]
+shape = SubResource( 22 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="05" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( -12, -221 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/05"]
+shape = SubResource( 23 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="06" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( -12, -221 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/06"]
+shape = SubResource( 24 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="61" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 106, -103 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/61"]
+shape = SubResource( 33 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="62" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 106, -94 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/62"]
+shape = SubResource( 34 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="64" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 109, -98 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/64"]
+shape = SubResource( 35 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="31" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 101, -98 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/31"]
+shape = SubResource( 36 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="32" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 101, -98 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/32"]
+shape = SubResource( 37 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="33" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 101, -98 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/33"]
+shape = SubResource( 38 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="34" type="StaticBody2D" parent="Node2D/SPRITES/360" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 101, -90 )
+script = ExtResource( 6 )
+heights = [ 1.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/360/34"]
+shape = SubResource( 38 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ARROW" type="StaticBody2D" parent="Node2D/SPRITES" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -747, -952 )
+rotation = 5.49779
+script = ExtResource( 8 )
+heights = [ 0.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/SPRITES/ARROW"]
+polygon = PoolVector2Array( 0, -100, 10, 10, -10, 10 )
+
+[node name="floor" type="StaticBody2D" parent="Node2D/SPRITES" groups=[
+"render",
+]]
+position = Vector2( -747, -952 )
+script = ExtResource( 8 )
+heights = [ 0.0 ]
+texture_path = "res://textures/wireframe64.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/SPRITES/floor"]
+polygon = PoolVector2Array( 0, -100, 100, 0, 0, 100, -100, 0 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Node2D/SPRITES/floor"]
+visible = false
+polygon = PoolVector2Array( 0, -100, 71, -71, 100, 0, 71, 71, 0, 100, -71, 70, -100, 0, -71, -71 )
+
+[node name="Label" type="Label" parent="Node2D/SPRITES"]
+margin_left = -873.0
+margin_top = -1067.0
+margin_right = -621.0
+margin_bottom = -832.0
+text = "                         360--0
+
+
+
+
+  
+270
+                                                         90
+
+
+
+
+
+                            180"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spriteman8" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( -990, -472 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = -2
+vframes = 5
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman8"]
+shape = SubResource( 5 )
+
+[node name="spriteman4" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( -810, -470 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 15
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman4"]
+shape = SubResource( 5 )
+
+[node name="spriteman2" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( -612, -473 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 25
+anim = 2
+texture = "res://assets/sprites 2rot.png"
+vframes = 2
+rotations = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman2"]
+shape = SubResource( 5 )
+
+[node name="spriteman1" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+modulate = Color( 100, 100, 100, 1 )
+position = Vector2( -400, -466 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 33
+scale_extra = Vector2( 0.5, 0.5 )
+texture = "res://icon.png"
+vframes = 1
+hframes = 1
+rotations = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman1"]
+shape = SubResource( 5 )
+
+[node name="coin" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( -355, -794 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 24
+texture = "res://assets/sprites coin1 (JoeyTheRabbit, TSR).png"
+vframes = 9
+hframes = 1
+rotations = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/coin"]
+position = Vector2( -151, -144 )
+shape = SubResource( 5 )
+
+[node name="coin2" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( -58, -793 )
+rotation = 3.14159
+script = ExtResource( 12 )
+texture = "res://assets/sprites coin2 (teh_supar_hackr, TSR).png"
+vframes = 20
+hframes = 1
+rotations = 39
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/coin2"]
+position = Vector2( 69.0004, -145 )
+shape = SubResource( 5 )
+
+[node name="macro twitch" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+modulate = Color( 0, 1, 0, 1 )
+position = Vector2( 487, -1092 )
+rotation = 3.14159
+script = ExtResource( 12 )
+anim = 3
+scale_extra = Vector2( 10, 10 )
+vframes = 5
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/macro twitch"]
+shape = SubResource( 39 )
+
+[node name="macro twitch reflex" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+modulate = Color( 0, 1, 0, 0.247059 )
+position = Vector2( 487, -1092 )
+rotation = 3.14159
+script = ExtResource( 12 )
+anim = 3
+scale_extra = Vector2( 10, -10 )
+vframes = 5
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/macro twitch reflex"]
+shape = SubResource( 39 )
+
+[node name="tekrat" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 40, -459 )
+rotation = 3.14159
+script = ExtResource( 12 )
+anim = 3
+scale_extra = Vector2( 0.5, 0.5 )
+vframes = 5
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/tekrat"]
+shape = SubResource( 5 )
+
+[node name="et" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 156, -462 )
+rotation = 3.14159
+script = ExtResource( 12 )
+anim = 2
+scale_extra = Vector2( 0.6, 0.6 )
+vframes = 5
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/et"]
+shape = SubResource( 5 )
+
+[node name="doom" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 280, -459 )
+rotation = 3.14159
+script = ExtResource( 12 )
+anim = 1
+scale_extra = Vector2( 1.3, 1.3 )
+vframes = 5
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/doom"]
+shape = SubResource( 5 )
+
+[node name="duke" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 420, -438 )
+rotation = 3.14159
+script = ExtResource( 12 )
+anim = 4
+scale_extra = Vector2( 0.9, 0.9 )
+vframes = 5
+rotations = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/duke"]
+shape = SubResource( 5 )
+
+[node name="bin" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 548, -444 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 17
+anim = 2
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/bin"]
+shape = SubResource( 5 )
+
+[node name="callahan" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 646, -445 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 28
+anim = 3
+scale_extra = Vector2( 1.6, 1.6 )
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/callahan"]
+shape = SubResource( 5 )
+
+[node name="snake" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 723, -443 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 42
+anim = 4
+scale_extra = Vector2( 2.5, 2.5 )
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/snake"]
+shape = SubResource( 5 )
+
+[node name="billy" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 837, -446 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 28
+scale_extra = Vector2( 1.1, 1.1 )
+texture = "res://assets/sprites 2rot.png"
+vframes = 2
+rotations = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/billy"]
+shape = SubResource( 5 )
+
+[node name="armakumi" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 898, -448 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 38
+anim = 4
+scale_extra = Vector2( 1.5, 1.5 )
+texture = "res://assets/sprites 2rot.png"
+vframes = 2
+rotations = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/armakumi"]
+shape = SubResource( 5 )
+
+[node name="mrK" type="KinematicBody2D" parent="Node2D/SPRITES" groups=[
+"rendersprite",
+]]
+position = Vector2( 974, -447 )
+rotation = 3.14159
+script = ExtResource( 12 )
+positionZ = 45
+anim = 5
+scale_extra = Vector2( 1.8, 1.8 )
+texture = "res://assets/sprites 2rot.png"
+vframes = 2
+rotations = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/mrK"]
+shape = SubResource( 5 )
+
+[node name="car" type="Node2D" parent="Node2D"]
+position = Vector2( 80, 7 )
+scale = Vector2( 10, 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/car"]
+anims/_ready = SubResource( 40 )
+script = ExtResource( 9 )
+dont = true
+
+[node name="wheel TL" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -25.5, -8 )
+script = ExtResource( 8 )
+heights = [ 20.0, 0.0, 20.0, 40.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/wheel TL"]
+position = Vector2( 8, -1 )
+polygon = PoolVector2Array( 11, 2, 9, 2, 7, 2, 9, 2 )
+
+[node name="wheel TR" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -9.5, -8 )
+script = ExtResource( 8 )
+heights = [ 20.0, 0.0, 20.0, 40.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/wheel TR"]
+position = Vector2( 8, -1 )
+polygon = PoolVector2Array( 11, 2, 9, 2, 7, 2, 9, 2 )
+
+[node name="wheel BL" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -25.5, 5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 0.0, 20.0, 40.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/wheel BL"]
+position = Vector2( 8, -1 )
+polygon = PoolVector2Array( 11, 2, 9, 2, 7, 2, 9, 2 )
+
+[node name="wheel BR" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -9.5, 5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 0.0, 20.0, 40.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/wheel BR"]
+position = Vector2( 8, -1 )
+polygon = PoolVector2Array( 11, 2, 9, 2, 7, 2, 9, 2 )
+
+[node name="between" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -12.5, -6.5 )
+script = ExtResource( 8 )
+heights = [ 50.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/between"]
+polygon = PoolVector2Array( 1, 0, 16, 0, 16, 12, 1, 12 )
+
+[node name="bottom" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.133333, 0.133333, 0.12549, 1 )
+position = Vector2( -12.5, -6.5 )
+script = ExtResource( 8 )
+heights = [ 20.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/bottom"]
+polygon = PoolVector2Array( 0, 0, 25, 0, 25, 12, 0, 12 )
+
+[node name="headlight T" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+position = Vector2( -15.5, -6.5 )
+script = ExtResource( 8 )
+heights = [ 30.0, 40.0, 40.0, 30.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/headlight T"]
+polygon = PoolVector2Array( 27.5, 1, 27, 1, 27, 3, 27.5, 3 )
+
+[node name="headlight B" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+position = Vector2( -15.5, 1.5 )
+script = ExtResource( 8 )
+heights = [ 30.0, 40.0, 40.0, 30.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/headlight B"]
+polygon = PoolVector2Array( 27.5, 1, 27, 1, 27, 3, 27.5, 3 )
+
+[node name="rearlight T" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -39, -6.5 )
+script = ExtResource( 8 )
+heights = [ 50.5, 40.0, 40.0, 50.5 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/rearlight T"]
+polygon = PoolVector2Array( 27.5, 1, 27, 1, 27, 3, 27.5, 3 )
+
+[node name="rearlight B" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -39, 1.5 )
+script = ExtResource( 8 )
+heights = [ 50.5, 40.0, 40.0, 50.5 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/rearlight B"]
+polygon = PoolVector2Array( 27.5, 1, 27, 1, 27, 3, 27.5, 3 )
+
+[node name="window TR" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0.121569, 0.407843, 0.733333 )
+position = Vector2( -14.5, -7.5 )
+script = ExtResource( 8 )
+heights = [ 50.0, 50.0, 80.0, 80.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/window TR"]
+polygon = PoolVector2Array( 9, 1, 18, 1, 15, 2, 10, 2 )
+
+[node name="window BR" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0.121569, 0.407843, 0.733333 )
+position = Vector2( -14.5, -7.5 )
+script = ExtResource( 8 )
+heights = [ 50.0, 50.0, 80.0, 80.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/window BR"]
+polygon = PoolVector2Array( 9, 13, 18, 13, 15, 12, 10, 12 )
+
+[node name="window back" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0.121569, 0.407843, 0.733333 )
+position = Vector2( -14.5, -7.5 )
+script = ExtResource( 8 )
+heights = [ 50.5, 50.5, 80.0, 80.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/window back"]
+polygon = PoolVector2Array( 3, 1, 3, 13, 5, 12, 5, 2 )
+
+[node name="window front" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0, 0.121569, 0.407843, 0.733333 )
+position = Vector2( -14.5, -7.5 )
+script = ExtResource( 8 )
+heights = [ 50.0, 50.0, 80.0, 80.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/window front"]
+polygon = PoolVector2Array( 18, 1, 18, 13, 15, 12, 15, 2 )
+
+[node name="fender TR" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -12.5, -5.5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 20.0, 40.0, 50.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/fender TR"]
+polygon = PoolVector2Array( 16, -1, 25, -1, 24, -1, 16, -1 )
+
+[node name="fender TL" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -21.5, -6.5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 20.0, 50.5, 50.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/fender TL"]
+polygon = PoolVector2Array( 16, 0, 9, 0, 10, 0, 16, 0 )
+
+[node name="door T" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -21.5, -6.5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 20.0, 50.0, 50.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/door T"]
+position = Vector2( 8, -1 )
+polygon = PoolVector2Array( 17, 1, 8, 1, 8, 1, 17, 1 )
+
+[node name="fender BR" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -12.5, 6.5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 20.0, 40.0, 50.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/fender BR"]
+polygon = PoolVector2Array( 16, -1, 25, -1, 24, -1, 16, -1 )
+
+[node name="fender BL" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -21.5, 5.5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 20.0, 50.5, 50.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/fender BL"]
+polygon = PoolVector2Array( 16, 0, 9, 0, 10, 0, 16, 0 )
+
+[node name="door B" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -21.5, 5.5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 20.0, 50.0, 50.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/door B"]
+position = Vector2( 8, -1 )
+polygon = PoolVector2Array( 17, 1, 8, 1, 8, 1, 17, 1 )
+
+[node name="hood" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -12.5, -6.5 )
+script = ExtResource( 8 )
+heights = [ 40.0, 50.0, 50.0, 40.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/hood"]
+polygon = PoolVector2Array( 24, 0, 16, 0, 16, 12, 24, 12 )
+
+[node name="front" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -15.5, -7.5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 40.0, 40.0, 20.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/front"]
+polygon = PoolVector2Array( 28, 1, 27, 1, 27, 13, 28, 13 )
+
+[node name="top" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -12.5, -6.5 )
+script = ExtResource( 8 )
+heights = [ 80.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/top"]
+polygon = PoolVector2Array( 3, 1, 13, 1, 13, 11, 3, 11 )
+
+[node name="back" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -14.5, -7.5 )
+script = ExtResource( 8 )
+heights = [ 20.0, 50.5, 50.5, 20.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/back"]
+polygon = PoolVector2Array( 2, 1, 3, 1, 3, 13, 2, 13 )
+
+[node name="window TL" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -14.5, -7.5 )
+script = ExtResource( 8 )
+heights = [ 50.0, 50.5, 80.0, 80.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/window TL"]
+polygon = PoolVector2Array( 9, 1, 3, 1, 5, 2, 10, 2 )
+
+[node name="window BL" type="StaticBody2D" parent="Node2D/car" groups=[
+"render",
+]]
+modulate = Color( 0.996078, 0.917647, 0.494118, 1 )
+position = Vector2( -14.5, -7.5 )
+script = ExtResource( 8 )
+heights = [ 50.0, 50.5, 80.0, 80.0 ]
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/car/window BL"]
+polygon = PoolVector2Array( 9, 13, 3, 13, 5, 12, 10, 12 )
+
+[node name="old clipping tests" type="Node2D" parent="Node2D"]
+position = Vector2( -4116, -941 )
+scale = Vector2( 100, 100 )
+
+[node name="case-double1" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 4.93, 10.51 )
+scale = Vector2( 0.04, 0.02 )
+script = ExtResource( 8 )
+heights = [ 0.0, 50.0, 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/case-double1"]
+polygon = PoolVector2Array( 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double2" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 4.97, 13.9 )
+scale = Vector2( 0.04, 0.02 )
+script = ExtResource( 8 )
+heights = [ 0.0, 50.0, 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/case-double2"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double3" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 8.59, 10.52 )
+scale = Vector2( 0.04, 0.02 )
+script = ExtResource( 8 )
+heights = [ 100.0, 0.0, 50.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/case-double3"]
+polygon = PoolVector2Array( 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="case-double4" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 8.63, 13.9 )
+scale = Vector2( 0.04, 0.02 )
+script = ExtResource( 8 )
+heights = [ 50.0, 100.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/case-double4"]
+polygon = PoolVector2Array( 150, 150, 100, 50, 100, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope3421" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 14.57, 10.69 )
+scale = Vector2( 0.03, 0.015 )
+script = ExtResource( 8 )
+heights = [ 60.0, 100.0, 0.0, -40.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/eslope3421"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope1342" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 14.6, 14.89 )
+scale = Vector2( 0.03, 0.015 )
+script = ExtResource( 8 )
+heights = [ -40.0, 60.0, 100.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/eslope1342"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope2134" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 18.71, 10.66 )
+scale = Vector2( 0.03, 0.015 )
+script = ExtResource( 8 )
+heights = [ 0.0, -40.0, 60.0, 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/eslope2134"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="eslope4213" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 18.68, 14.91 )
+scale = Vector2( 0.03, 0.015 )
+script = ExtResource( 8 )
+heights = [ 100.0, 0.0, -40.0, 60.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/eslope4213"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="triangle-wall" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 25.64, 9.41 )
+rotation = 1.5708
+scale = Vector2( 0.01, 0.1 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/triangle-wall"]
+polygon = PoolVector2Array( 0, 0, 0, 100, 0, 100 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="triangle-wall2" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 4.41, 9.3 )
+rotation = 1.5708
+scale = Vector2( 0.01, -0.1 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, 100.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/triangle-wall2"]
+polygon = PoolVector2Array( 0, 0, 0, 100, 0, 100 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="long slopy" parent="Node2D/old clipping tests" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 5.96, 5.53 )
+rotation = 1.5708
+scale = Vector2( 0.01, -0.1 )
+script = ExtResource( 8 )
+heights = [ 50.0, 50.0, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/long slopy"]
+polygon = PoolVector2Array( 150, 50, 100, 50, 100, 150, 150, 150 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="map-floor (0)" type="StaticBody2D" parent="Node2D/old clipping tests" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -2.3, 10.13 )
+script = ExtResource( 8 )
+heights = [ 0.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/map-floor (0)"]
+polygon = PoolVector2Array( 1, 2, 2, 1, 4, 1, 5, 2, 6, 4, 5, 6, 4, 7, 2, 7, 1, 6, 0, 4 )
+
+[node name="Doom2" type="Node2D" parent="Node2D"]
+position = Vector2( 203, -4226 )
+scale = Vector2( 3, 3 )
+script = ExtResource( 2 )
+kill = true
+
+[node name="Sprite2" type="Sprite" parent="Node2D/Doom2"]
+visible = false
+modulate = Color( 1, 1, 1, 0.164706 )
+position = Vector2( 0.5, 0 )
+z_index = 4096
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="START" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="start0 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 100 ]
+textures = [ "a", "a", "", "a", "", "a", "res://icon.png", "res://icon.png" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/start0 100"]
+polygon = PoolVector2Array( 330.5, 119, 304.5, 133, 290.5, 133, 277.5, 119, 277.5, 106, 330.5, 106 )
+
+[node name="tunnel0 50" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "a", "a", "", "a", "", "res://icon.png", "res://icon.png" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/tunnel0 50"]
+polygon = PoolVector2Array( 223.5, 159, 263.5, 159, 290.5, 133, 277.5, 119, 223.5, 119 )
+
+[node name="outside0 200" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "", "a", "", "", "b", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/outside0 200"]
+polygon = PoolVector2Array( 196.5, 133, 223.5, 159, 223.5, 119, 223.5, 92, 209.5, 92 )
+
+[node name="entry-10 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "a", "", "a", "a", "a", "a", "", "a", "a", "res://icon.png", "res://icon.png" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/entry-10 100"]
+polygon = PoolVector2Array( 236.5, 79, 263.5, 106, 277.5, 106, 330.5, 106, 344.5, 106, 371.5, 79, 357.5, 11, 317.5, 11, 290.5, 11, 250.5, 11 )
+
+[node name="pillarL-10 101" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/pillarL-10 101"]
+polygon = PoolVector2Array( 263.5, 79, 277.5, 79, 277.5, 65, 263.5, 65 )
+
+[node name="pillarL-10 102" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -330, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/pillarL-10 102"]
+polygon = PoolVector2Array( 263, 79, 277, 79, 277, 65, 263, 65 )
+
+[node name="stair-8 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -8, -10 ]
+textures = [ "a", "a", "a", "a", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair-8 100"]
+polygon = PoolVector2Array( 304.5, 79, 344.5, 11, 263.5, 11 )
+
+[node name="stair-6 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -6, -8 ]
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair-6 100"]
+polygon = PoolVector2Array( 304.5, 65, 337.5, 11, 271.5, 11 )
+
+[node name="stair-4 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -4, -6 ]
+textures = [ "a", "a", "a", "a", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair-4 100"]
+polygon = PoolVector2Array( 304.5, 52, 330.5, 11, 277.5, 11 )
+
+[node name="stair-2 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -2, -4 ]
+textures = [ "a", "a", "a", "a", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair-2 100"]
+polygon = PoolVector2Array( 304.5, 38, 324.5, 11, 283.5, 11 )
+
+[node name="stair0 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, -2 ]
+textures = [ "a", "a", "a", "a", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/stair0 100"]
+polygon = PoolVector2Array( 317.5, 11, 290.5, 11, 304.5, 25 )
+
+[node name="CORRIDORS" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="corridorL" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "a", "a", "", "a", "a" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorL"]
+polygon = PoolVector2Array( 317.5, 11, 290.5, 11, 290.5, -70, 317.5, -70, 317.5, -43 )
+
+[node name="corridorML" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "a", "", "a", "", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorML"]
+polygon = PoolVector2Array( 371.591, -70, 344.512, -70, 317.5, -70, 317.5, -43, 384.5, -43, 384.5, -70 )
+
+[node name="corridorMR" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "", "a", "", "", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorMR"]
+polygon = PoolVector2Array( 425.5, -70, 425.5, -43, 411.5, -43, 384.5, -43, 384.5, -70 )
+
+[node name="octagon" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 80 ]
+textures = [ "", "a", "a", "a", "a", "a", "a", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/octagon"]
+polygon = PoolVector2Array( 425.5, -70, 425.5, -43, 438.5, -29, 452.5, -29, 472.5, -49, 472.5, -63, 452.5, -83, 438.5, -83 )
+
+[node name="corridorR" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorR"]
+polygon = PoolVector2Array( 384.5, -43, 384.5, 92, 411.5, 79, 411.5, -43 )
+
+[node name="corridorT" type="StaticBody2D" parent="Node2D/Doom2/CORRIDORS"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 50 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/CORRIDORS/corridorT"]
+polygon = PoolVector2Array( 344.5, -100, 344.5, -70, 371.5, -70, 371.5, -100 )
+
+[node name="AREATOP" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="main" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 150 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/main"]
+polygon = PoolVector2Array( 344.5, -100, 300.5, -100, 277.5, -149, 277.5, -245, 304.5, -272, 411.5, -272, 438.5, -245, 438.5, -149, 415.5, -100, 371.5, -100 )
+
+[node name="pillarL" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 25, 100 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/pillarL"]
+polygon = PoolVector2Array( 330.5, -218, 344.5, -218, 344.5, -204, 330.5, -204 )
+
+[node name="platformLB" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -423.5, -98.5 )
+script = ExtResource( 10 )
+heights = [ 0, 25 ]
+textures = [ "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/platformLB"]
+polygon = PoolVector2Array( 330.5, -245.5, 371.5, -245.5, 371.5, -176.5, 330.5, -176.5 )
+
+[node name="platformLT" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -423.5, -98.5 )
+script = ExtResource( 10 )
+heights = [ 100, 150 ]
+textures = [ "a", "a", "a", "a", "b", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/platformLT"]
+polygon = PoolVector2Array( 330.5, -245.5, 371.5, -245.5, 371.5, -176.5, 330.5, -176.5 )
+
+[node name="pillarR" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -357, -99 )
+script = ExtResource( 10 )
+heights = [ 25, 100 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/pillarR"]
+polygon = PoolVector2Array( 330.5, -218, 344.5, -218, 344.5, -204, 330.5, -204 )
+
+[node name="platformRB" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -357, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 25 ]
+textures = [ "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/platformRB"]
+polygon = PoolVector2Array( 330.5, -245.5, 371.5, -245.5, 371.5, -176.5, 330.5, -176.5 )
+
+[node name="platformRT" type="StaticBody2D" parent="Node2D/Doom2/AREATOP"]
+position = Vector2( -357, -99 )
+script = ExtResource( 10 )
+heights = [ 100, 150 ]
+textures = [ "a", "a", "a", "a", "b", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREATOP/platformRT"]
+polygon = PoolVector2Array( 330.5, -245.5, 371.5, -245.5, 371.5, -176.5, 330.5, -176.5 )
+
+[node name="AREA2" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="main" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "", "a", "", "a", "", "a", "", "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/main"]
+polygon = PoolVector2Array( 559.5, 159, 559.5, 145.915, 559.5, 106, 559.5, 92, 533.5, 79, 519.5, 79, 411.5, 79, 384.5, 92, 356.5, 134, 356.5, 148, 375, 173.5, 552.5, 173.5 )
+
+[node name="mainBL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "", "", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/mainBL"]
+polygon = PoolVector2Array( 383.5, 186, 375, 173.5, 458.5, 173.5, 458.5, 177.875, 458.5, 186 )
+
+[node name="mainBR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "", "", "a", "", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/mainBR"]
+polygon = PoolVector2Array( 546.5, 186, 552.5, 173.5, 512.5, 173.5, 512.5, 178, 512.5, 186, 526.515, 186 )
+
+[node name="pillarmidL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -263, -31.5 )
+script = ExtResource( 10 )
+heights = [ 10, 130 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarmidL"]
+polygon = PoolVector2Array( 263.5, 79, 277.5, 79, 277.5, 65, 263.5, 65 )
+
+[node name="pillarbaseBL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -263, -31.5 )
+script = ExtResource( 10 )
+heights = [ -10, 10 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarbaseBL"]
+polygon = PoolVector2Array( 264, 85.5, 277, 85.5, 284, 78.5, 284, 65.5, 277, 58.5, 263.5, 58.5, 257, 65.5, 257, 78.5 )
+
+[node name="pillarbaseTL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -263, -31.5 )
+script = ExtResource( 10 )
+heights = [ 150, 130 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarbaseTL"]
+polygon = PoolVector2Array( 264, 85.5, 277, 85.5, 284, 78.5, 284, 65.5, 277, 58.5, 263.5, 58.5, 257, 65.5, 257, 78.5 )
+
+[node name="pillarmidR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -154.5, -45 )
+script = ExtResource( 10 )
+heights = [ 10, 150 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarmidR"]
+polygon = PoolVector2Array( 263, 79, 277, 79, 277, 65, 263, 65 )
+
+[node name="pillarbaseBR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -155, -45.5 )
+script = ExtResource( 10 )
+heights = [ -10, 10 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarbaseBR"]
+polygon = PoolVector2Array( 264, 86.5, 277, 86.5, 284, 79.5, 284, 65.5, 277, 58.5, 263.5, 58.5, 257, 65.5, 257, 79.5 )
+
+[node name="pillarbaseTR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -155, -45.5 )
+script = ExtResource( 10 )
+heights = [ 150, 130 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/pillarbaseTR"]
+polygon = PoolVector2Array( 264, 86.5, 277, 86.5, 284, 79.5, 284, 65.5, 277, 58.5, 263.5, 58.5, 257, 65.5, 257, 79.5 )
+
+[node name="elevator top" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 100, 150 ]
+textures = [ "a", "a", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/elevator top"]
+polygon = PoolVector2Array( 330.5, 148, 304.5, 148, 304.5, 134, 330.5, 134 )
+
+[node name="elevator zone" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 0, 150 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/elevator zone"]
+polygon = PoolVector2Array( 330.5, 148, 356.5, 148, 356.5, 134, 330.5, 134 )
+
+[node name="secretT" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -168.5, -141 )
+script = ExtResource( 10 )
+heights = [ -10, 20 ]
+textures = [ "a", "a", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/secretT"]
+polygon = PoolVector2Array( 330.5, 148, 357.5, 148, 357.5, 134, 330.5, 134 )
+
+[node name="secretB" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -168.5, -87 )
+script = ExtResource( 10 )
+heights = [ -10, 20 ]
+textures = [ "a", "a", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/secretB"]
+polygon = PoolVector2Array( 330.5, 147, 357.5, 147, 357.5, 134, 330.5, 134 )
+
+[node name="endB" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -168.5, -87 )
+script = ExtResource( 10 )
+heights = [ -10, 20 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/endB"]
+polygon = PoolVector2Array( 304.5, 67, 304.5, 46, 290.5, 46, 290.5, 67 )
+
+[node name="endT" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -168.5, -87 )
+script = ExtResource( 10 )
+heights = [ -10, 40 ]
+textures = [ "a", "", "a", "a", "a", "a", "a", "a", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/endT"]
+polygon = PoolVector2Array( 317.5, 40, 304.5, 46, 290.5, 46, 277.5, 40, 277.5, 26, 290.5, 13, 304.5, 13, 317.5, 26 )
+
+[node name="cocktip" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "a", "a", "a", "a", "", "a", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cocktip"]
+polygon = PoolVector2Array( 465.5, 106, 452.5, 101, 433.5, 104, 430.5, 112, 448.5, 121, 485, 134, 479.5, 119 )
+
+[node name="cockmid" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "a", "", "a", "a", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockmid"]
+polygon = PoolVector2Array( 465.5, 143, 448.5, 121, 485, 134, 506.5, 146, 508.5, 151, 480.5, 151 )
+
+[node name="cockL1" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "", "", "a", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockL1"]
+polygon = PoolVector2Array( 465.5, 143, 465.5, 151.5, 470, 156.5, 480.5, 151 )
+
+[node name="cockL2" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "a", "", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockL2"]
+polygon = PoolVector2Array( 465.5, 151.5, 460.5, 161, 465.5, 165.5, 470, 156.5 )
+
+[node name="cockR1" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "", "a", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockR1"]
+polygon = PoolVector2Array( 494.5, 151, 508.5, 151, 511.5, 161, 502, 157.5 )
+
+[node name="cockR2" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -10, -5 ]
+textures = [ "", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockR2"]
+polygon = PoolVector2Array( 511.5, 161, 506.5, 166, 502, 157.5 )
+
+[node name="cockshaft" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ -5, 0 ]
+textures = [ "", "a", "a", "a", "a", "a", "", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockshaft"]
+polygon = PoolVector2Array( 465.5, 173, 465.5, 165.5, 470, 156.5, 480.5, 151, 494.5, 151, 502, 157.5, 506.5, 166, 506.5, 173 )
+
+[node name="cockwindow" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -397.5, -99 )
+script = ExtResource( 10 )
+heights = [ 15, 100 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockwindow"]
+polygon = PoolVector2Array( 465.5, 176, 465.5, 173, 506.5, 173, 506.5, 176 )
+
+[node name="cockpillarR" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -153, -1.5 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockpillarR"]
+polygon = PoolVector2Array( 268, 80.5, 273, 80.5, 278, 75.5, 278, 68.5, 273, 63.5, 267, 63.5, 262, 68.5, 262, 75.5 )
+
+[node name="cockpillarL" type="StaticBody2D" parent="Node2D/Doom2/AREA2"]
+position = Vector2( -211, -1.5 )
+script = ExtResource( 10 )
+heights = [ -10, 150 ]
+textures = [ "a", "", "a", "a", "a", "a", "a", "a", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/AREA2/cockpillarL"]
+polygon = PoolVector2Array( 267, 80.5, 272, 80.5, 279, 75.5, 279, 68, 274, 63.5, 267, 63.5, 262, 68.5, 262, 75.5 )
+
+[node name="OUTSIDE" type="Node2D" parent="Node2D/Doom2"]
+
+[node name="door in" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -10, 20 ]
+textures = [ "a", "", "a", "", "b", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/door in"]
+polygon = PoolVector2Array( 523.5, 50.5, 523.5, 45.5, 509.5, 45.5, 508.5, 50.5 )
+
+[node name="hillbotL" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -25, -20 ]
+textures = [ "a", "", "", "", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillbotL"]
+polygon = PoolVector2Array( 503.5, 86.5, 543.5, 86.5, 493.5, 35.5, 462.5, 35.5, 462.5, 45.5 )
+
+[node name="hillbotR" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -25, -20 ]
+textures = [ "a", "", "", "", "a" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillbotR"]
+polygon = PoolVector2Array( 543.5, 86.5, 560.5, 50.5, 508, 50.5 )
+
+[node name="hillbotT" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -25, 200 ]
+textures = [ "a", "", "a", "b", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillbotT"]
+polygon = PoolVector2Array( 503.5, 35.5, 493.5, 35.5, 503.5, 46 )
+
+[node name="hillmidL" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -20, -15 ]
+textures = [ "", "a", "a", "a", "a", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillmidL"]
+polygon = PoolVector2Array( 509, 51, 503.5, 45.5, 494.5, 59.5, 503.5, 72.5, 516.5, 72.5, 520.5, 68.5 )
+
+[node name="hillmidR" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -20, -15 ]
+textures = [ "", "a", "a", "", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hillmidR"]
+polygon = PoolVector2Array( 514.5, 59.5, 523.5, 50.5, 530.5, 59.5, 520.5, 68.5 )
+
+[node name="hilltop" type="StaticBody2D" parent="Node2D/Doom2/OUTSIDE"]
+position = Vector2( -394.5, 41.5 )
+script = ExtResource( 10 )
+heights = [ -15, -10 ]
+textures = [ "a", "", "a", "", "b" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/OUTSIDE/hilltop"]
+polygon = PoolVector2Array( 514.5, 59.5, 523.5, 50.5, 508.5, 50.5 )
+
+[node name="main" type="StaticBody2D" parent="Node2D/Doom2"]
+visible = false
+position = Vector2( 588, 629 )
+script = ExtResource( 10 )
+heights = [ -25, 25 ]
+textures = [ "", "", "", "", "", "", "", "", "", "", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/main"]
+polygon = PoolVector2Array( 597.5, 113.5, 597.5, 59.5, 592.5, 50.5, 560.5, 50.5, 457.5, 50.5, 375.5, 50.5, 342, 86, 341.5, 194.5, 432.5, 209.5, 544, 195 )
+
+[node name="maintopL" type="StaticBody2D" parent="Node2D/Doom2"]
+visible = false
+position = Vector2( 588, 629 )
+script = ExtResource( 10 )
+heights = [ -25, 200 ]
+textures = [ "", "", "", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/maintopL"]
+polygon = PoolVector2Array( 467.5, 50.5, 462.5, 45.5, 457.5, 50.5 )
+
+[node name="maintopR" type="StaticBody2D" parent="Node2D/Doom2"]
+visible = false
+position = Vector2( 588, 629 )
+script = ExtResource( 10 )
+heights = [ -25, 200 ]
+textures = [ "", "", "", "", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/maintopR"]
+polygon = PoolVector2Array( 560.5, 50.5, 584, 32.5, 592.5, 50.5 )
+
+[node name="lasagna" type="Node2D" parent="Node2D"]
+
+[node name="floor0" type="StaticBody2D" parent="Node2D/lasagna" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+script = ExtResource( 8 )
+heights = [ 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/lasagna/floor0"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor3" type="StaticBody2D" parent="Node2D/lasagna" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+script = ExtResource( 8 )
+heights = [ 30.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/lasagna/floor3"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor6" type="StaticBody2D" parent="Node2D/lasagna" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+script = ExtResource( 8 )
+heights = [ 60.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/lasagna/floor6"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor9" type="StaticBody2D" parent="Node2D/lasagna" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+script = ExtResource( 8 )
+heights = [ 90.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/lasagna/floor9"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor12" type="StaticBody2D" parent="Node2D/lasagna" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+script = ExtResource( 8 )
+heights = [ 120.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/lasagna/floor12"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="floor15" type="StaticBody2D" parent="Node2D/lasagna" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+script = ExtResource( 8 )
+heights = [ 150.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/lasagna/floor15"]
+position = Vector2( -754, -76 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 150, 0, 150 )
+
+[node name="piramide q roda" type="Node2D" parent="Node2D"]
+position = Vector2( 1732, -102 )
+
+[node name="0" type="Node2D" parent="Node2D/piramide q roda"]
+modulate = Color( 1, 0, 0, 1 )
+
+[node name="top0" type="StaticBody2D" parent="Node2D/piramide q roda/0" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 0.886275 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, -250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/0/top0"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot0" type="StaticBody2D" parent="Node2D/piramide q roda/0" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 0.886275 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, -250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/0/bot0"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left0" type="StaticBody2D" parent="Node2D/piramide q roda/0" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 0.886275 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, -250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/0/left0"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right0" type="StaticBody2D" parent="Node2D/piramide q roda/0" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 0.886275 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, -250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/0/right0"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="1" type="Node2D" parent="Node2D/piramide q roda"]
+modulate = Color( 1, 1, 0, 1 )
+
+[node name="top" type="StaticBody2D" parent="Node2D/piramide q roda/1" groups=[
+"render",
+]]
+modulate = Color( 1, 1, 0, 0.835294 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, 250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/1/top"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot" type="StaticBody2D" parent="Node2D/piramide q roda/1" groups=[
+"render",
+]]
+modulate = Color( 1, 1, 0, 0.835294 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, 250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/1/bot"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left" type="StaticBody2D" parent="Node2D/piramide q roda/1" groups=[
+"render",
+]]
+modulate = Color( 1, 1, 0, 0.835294 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, 250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/1/left"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right" type="StaticBody2D" parent="Node2D/piramide q roda/1" groups=[
+"render",
+]]
+modulate = Color( 1, 1, 0, 0.835294 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, 250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/1/right"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="4" type="Node2D" parent="Node2D/piramide q roda"]
+modulate = Color( 0, 0, 1, 1 )
+
+[node name="top4" type="StaticBody2D" parent="Node2D/piramide q roda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/4/top4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot4" type="StaticBody2D" parent="Node2D/piramide q roda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/4/bot4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left4" type="StaticBody2D" parent="Node2D/piramide q roda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/4/left4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right4" type="StaticBody2D" parent="Node2D/piramide q roda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/4/right4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="5" type="Node2D" parent="Node2D/piramide q roda"]
+modulate = Color( 0.945098, 0, 1, 0 )
+
+[node name="top5" type="StaticBody2D" parent="Node2D/piramide q roda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/5/top5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot5" type="StaticBody2D" parent="Node2D/piramide q roda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/5/bot5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left5" type="StaticBody2D" parent="Node2D/piramide q roda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/5/left5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right5" type="StaticBody2D" parent="Node2D/piramide q roda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q roda/5/right5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/piramide q roda"]
+playback_speed = 0.1
+anims/_ready = SubResource( 41 )
+script = ExtResource( 9 )
+
+[node name="piramide q foda" type="Node2D" parent="Node2D"]
+position = Vector2( 1732, -102 )
+
+[node name="2" type="Node2D" parent="Node2D/piramide q foda"]
+modulate = Color( 0, 1, 0, 1 )
+
+[node name="top2" type="StaticBody2D" parent="Node2D/piramide q foda/2" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 0, 0.670588 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 500.0, 500.0, 250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/2/top2"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot2" type="StaticBody2D" parent="Node2D/piramide q foda/2" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 0, 0.670588 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 500.0, 500.0, 250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/2/bot2"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left2" type="StaticBody2D" parent="Node2D/piramide q foda/2" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 0, 0.670588 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 500.0, 500.0, 250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/2/left2"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right2" type="StaticBody2D" parent="Node2D/piramide q foda/2" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 0, 0.670588 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 500.0, 500.0, 250.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/2/right2"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="3" type="Node2D" parent="Node2D/piramide q foda"]
+modulate = Color( 0, 1, 1, 1 )
+
+[node name="top3" type="StaticBody2D" parent="Node2D/piramide q foda/3" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 1, 0.341176 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 500.0, 500.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/3/top3"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot3" type="StaticBody2D" parent="Node2D/piramide q foda/3" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 1, 0.341176 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 500.0, 500.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/3/bot3"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left3" type="StaticBody2D" parent="Node2D/piramide q foda/3" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 1, 0.341176 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 500.0, 500.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/3/left3"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right3" type="StaticBody2D" parent="Node2D/piramide q foda/3" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 1, 0.341176 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 500.0, 500.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/3/right3"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="4" type="Node2D" parent="Node2D/piramide q foda"]
+modulate = Color( 0, 0, 1, 1 )
+
+[node name="top4" type="StaticBody2D" parent="Node2D/piramide q foda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/4/top4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot4" type="StaticBody2D" parent="Node2D/piramide q foda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/4/bot4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left4" type="StaticBody2D" parent="Node2D/piramide q foda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( -2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/4/left4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right4" type="StaticBody2D" parent="Node2D/piramide q foda/4" groups=[
+"render",
+]]
+modulate = Color( 0, 0, 1, 0.341176 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 750.0 ]
+texture_path = "res://textures/dukenukem64.png"
+texture_repeat = Vector2( 2, -1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/4/right4"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="5" type="Node2D" parent="Node2D/piramide q foda"]
+modulate = Color( 0.945098, 0, 1, 0 )
+
+[node name="top5" type="StaticBody2D" parent="Node2D/piramide q foda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, -250 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/5/top5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="bot5" type="StaticBody2D" parent="Node2D/piramide q foda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, 250 )
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/5/bot5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="left5" type="StaticBody2D" parent="Node2D/piramide q foda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( -250, -250 )
+rotation = 1.5708
+scale = Vector2( 1, -1 )
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/5/left5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="right5" type="StaticBody2D" parent="Node2D/piramide q foda/5" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 1, 0.176471 )
+position = Vector2( 250, -250 )
+rotation = 1.5708
+script = ExtResource( 8 )
+heights = [ 1000.0, 1000.0, 1250.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( 2, 1.5 )
+texture_rotate = 135.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/piramide q foda/5/right5"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
+
+[node name="map-sector0" type="StaticBody2D" parent="Node2D"]
+position = Vector2( -791, 346 )
+script = ExtResource( 10 )
+heights = [ 0, 100 ]
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector0"]
+polygon = PoolVector2Array( 0, 150, 250, 0, 500, 150, 500, 350, 250, 500, 0, 350 )
+
+[node name="map-sector1" type="StaticBody2D" parent="Node2D"]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -138, 355 )
+script = ExtResource( 10 )
+heights = [ 0.0, 10.0, 20.0, 30.0, 100.0 ]
+plus1_mode = 1
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector1"]
+polygon = PoolVector2Array( 250, 0, 500, 150, 250, 500, 0, 350 )
+
+[node name="map-sector2" type="StaticBody2D" parent="Node2D"]
+modulate = Color( 0, 1, 0, 1 )
+position = Vector2( 435, 426 )
+script = ExtResource( 10 )
+heights = [ 0.0, 10.0, 20.0, 30.0, 100.0 ]
+plus1_mode = 2
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector2"]
+polygon = PoolVector2Array( 250, 0, 500, 150, 250, 500, 0, 350 )
+
+[node name="queue_free" type="Node2D" parent="Node2D"]
+position = Vector2( 435, 426 )
+script = ExtResource( 2 )
+kill = true
+
+[node name="map-sector3" type="StaticBody2D" parent="Node2D/queue_free"]
+modulate = Color( 0, 0, 1, 1 )
+position = Vector2( 590, 36 )
+script = ExtResource( 10 )
+heights = [ 0.0, 10.0, 20.0, 30.0, 10.0 ]
+plus1_mode = 3
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/queue_free/map-sector3"]
+polygon = PoolVector2Array( 250, 0, 500, 150, 250, 500, 0, 350 )
+
+[node name="map-sector4" type="StaticBody2D" parent="Node2D/queue_free"]
+modulate = Color( 0, 1, 1, 1 )
+position = Vector2( 1159, 52 )
+script = ExtResource( 10 )
+heights = [ 0.0, 100.0, 200.0, 300.0, 10.0 ]
+plus1_mode = 4
+textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/queue_free/map-sector4"]
+polygon = PoolVector2Array( 250, 0, 500, 150, 250, 500, 0, 350 )
+
+[node name="testie dudes" type="Node2D" parent="Node2D"]
+position = Vector2( -1150, 591 )
+
+[node name="map-wall (3 heights)" type="StaticBody2D" parent="Node2D/testie dudes" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 0.584314 )
+position = Vector2( -6, 113 )
+script = ExtResource( 6 )
+heights = [ 100.0, 50.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 2.5, 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/testie dudes/map-wall (3 heights)"]
+shape = SubResource( 42 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="map-wall (2 heights)" type="StaticBody2D" parent="Node2D/testie dudes" groups=[
+"render",
+]]
+modulate = Color( 0.67, 100, 0, 1 )
+position = Vector2( 0, 43 )
+script = ExtResource( 6 )
+heights = [ 100.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 10, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/testie dudes/map-wall (2 heights)"]
+shape = SubResource( 43 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="map-wall (4 heights)" type="StaticBody2D" parent="Node2D/testie dudes" groups=[
+"render",
+]]
+modulate = Color( 0, 1, 10, 1 )
+position = Vector2( -5, 113 )
+script = ExtResource( 6 )
+heights = [ 100.0, 60.0, 40.0, 0.0 ]
+texture_path = "res://textures/gato64.png"
+texture_repeat = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/testie dudes/map-wall (4 heights)"]
+shape = SubResource( 44 )
+
+[node name="map-floor (0)" type="StaticBody2D" parent="Node2D/testie dudes" groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 40, 38 )
+script = ExtResource( 8 )
+heights = [ 0.0 ]
+texture_path = "res://textures/kensilverman64.png"
+texture_repeat = Vector2( -1, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/testie dudes/map-floor (0)"]
+polygon = PoolVector2Array( -100, -50, 20, -50, 20, 50, -100, 50 )
+
+[node name="map-floor (0-2-4-4-0)" type="StaticBody2D" parent="Node2D/testie dudes" groups=[
+"render",
+]]
+position = Vector2( 160, 38 )
+script = ExtResource( 8 )
+heights = [ 0.0, 20.0, 40.0, 40.0, 0.0 ]
+texture_path = "res://textures/quadrado64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/testie dudes/map-floor (0-2-4-4-0)"]
+polygon = PoolVector2Array( -100, -50, -42, -75, 17, -50, 17, 50, -100, 50 )
+
+[node name="map-floor (0-0-5)" type="StaticBody2D" parent="Node2D/testie dudes" groups=[
+"render",
+]]
+modulate = Color( 100, 100, 0, 1 )
+position = Vector2( -77, 38 )
+script = ExtResource( 8 )
+heights = [ 0.0, 0.0, 50.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/testie dudes/map-floor (0-0-5)"]
+polygon = PoolVector2Array( 17, -50, 17, 50, -58, 50 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/testie dudes"]
+anims/_ready = SubResource( 45 )
+script = ExtResource( 9 )
+
+[node name="squares" type="Node2D" parent="Node2D"]
+
+[node name="0,001" parent="Node2D/squares" groups=[
+"render",
+] instance=ExtResource( 11 )]
+modulate = Color( 2, 2, 2, 1 )
+position = Vector2( -375, -57 )
+script = ExtResource( 8 )
+heights = [ 0.001, 0.001, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/0,001"]
+polygon = PoolVector2Array( 0, 0, 0.001, 0, 0.001, 0, 0, 0 )
+
+[node name="0,01" parent="Node2D/squares" groups=[
+"render",
+] instance=ExtResource( 11 )]
+modulate = Color( 2, 2, 2, 1 )
+position = Vector2( -374, -57 )
+script = ExtResource( 8 )
+heights = [ 0.01, 0.01, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/0,01"]
+polygon = PoolVector2Array( 0, 0, 0.01, 0, 0.01, 0, 0, 0 )
+
+[node name="0,1" parent="Node2D/squares" groups=[
+"render",
+] instance=ExtResource( 11 )]
+modulate = Color( 2, 2, 2, 1 )
+position = Vector2( -373, -57 )
+script = ExtResource( 8 )
+heights = [ 0.1, 0.1, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/0,1"]
+polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 0, 0, 0 )
+
+[node name="1" parent="Node2D/squares" groups=[
+"render",
+] instance=ExtResource( 11 )]
+modulate = Color( 2, 2, 2, 1 )
+position = Vector2( -372, -57 )
+script = ExtResource( 8 )
+heights = [ 1, 1.0, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/1"]
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
+
+[node name="10" parent="Node2D/squares" groups=[
+"render",
+] instance=ExtResource( 11 )]
+modulate = Color( 2, 2, 2, 1 )
+position = Vector2( -370, -57 )
+scale = Vector2( 10, 1 )
+script = ExtResource( 8 )
+heights = [ 10, 10.0, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/10"]
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
+
+[node name="100" parent="Node2D/squares" groups=[
+"render",
+] instance=ExtResource( 11 )]
+modulate = Color( 2, 2, 2, 1 )
+position = Vector2( -359, -57 )
+scale = Vector2( 100, 1 )
+script = ExtResource( 8 )
+heights = [ 100, 100.0, 0.0, 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/squares/100"]
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
+
+[node name="fox\'s box of sox, cox & rox" type="Node2D" parent="Node2D"]
+position = Vector2( -1015, -50 )
+scale = Vector2( 100, 100 )
+
+[node name="boxbot" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
+"render",
+] instance=ExtResource( 11 )]
+script = ExtResource( 8 )
+heights = [ 0, 0.0, 0.0, 0.0 ]
+texture_path = "res://textures/quadrado64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxbot"]
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+
+[node name="boxtop" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
+"render",
+] instance=ExtResource( 11 )]
+script = ExtResource( 8 )
+heights = [ 100, 100.0, 100.0, 100.0 ]
+texture_path = "res://textures/quadrado64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxtop"]
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+
+[node name="boxsidetop" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
+"render",
+] instance=ExtResource( 11 )]
+script = ExtResource( 8 )
+heights = [ 100, 100.0, 0.0, 0.0 ]
+texture_path = "res://textures/quadrado64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxsidetop"]
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
+
+[node name="boxsidebot" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 0, 1 )
+script = ExtResource( 8 )
+heights = [ 100, 100.0, 0.0, 0.0 ]
+texture_path = "res://textures/quadrado64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxsidebot"]
+polygon = PoolVector2Array( 0, 0, 1, 0, 1, 0, 0, 0 )
+
+[node name="boxsideleft" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 0, 1 )
+script = ExtResource( 8 )
+heights = [ 100, 100.0, 0.0, 0.0 ]
+texture_path = "res://textures/quadrado64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxsideleft"]
+polygon = PoolVector2Array( 0, -1, 0, 0, 0, 0, 0, -1 )
+
+[node name="boxsideright" parent="Node2D/fox\'s box of sox, cox & rox" groups=[
+"render",
+] instance=ExtResource( 11 )]
+position = Vector2( 1, 1 )
+script = ExtResource( 8 )
+heights = [ 100, 100.0, 0.0, 0.0 ]
+texture_path = "res://textures/quadrado64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/fox\'s box of sox, cox & rox/boxsideright"]
+polygon = PoolVector2Array( 0, -1, 0, 0, 0, 0, 0, -1 )
+
+[editable path="player12"]
