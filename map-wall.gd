@@ -11,7 +11,6 @@ export var texture_rotate = 0
 export var texture_offset = Vector2(0,0)
 
 var points
-var was_position
 var was_zoom
 export(bool) var bug_label = 0
 var labels = []
@@ -22,6 +21,8 @@ onready var Col = $CollisionShape2D
 onready var ColShape = $CollisionShape2D.shape
 onready var ColShapeA = $CollisionShape2D.shape.a
 onready var ColShapeB = $CollisionShape2D.shape.b
+
+var flag_2height = false
 
 func _ready():
 	if spawn_shape_position != null:
@@ -52,6 +53,7 @@ func _ready():
 		heights[2] = heights[1]
 		heights[3] = heights[1]
 		heights[1] = heights[0]
+		flag_2height = true
 	
 	if heights.size() == 3:
 		points = [to_global($CollisionShape2D.shape.a), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.a)]
@@ -74,18 +76,19 @@ func _ready():
 			add_child(new_label)
 			labels.append(new_label)
 	
-	#was_position = to_global(position) #Remove this line for refresh, walls actually where they are
+	change_checker = [to_global(position), rotation_degrees, scale]
 
 
+var change_checker = []
 
 func _process(_delta):
-	if was_position != to_global(position): #Even tho meant to be static, very useful for editing in real time
+	if (change_checker[0] != to_global(position)) or (change_checker[1] != rotation_degrees) or (change_checker[2] != scale):
 		if heights.size() == 3:
 			points = [to_global($CollisionShape2D.shape.a), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.a)]
 		else:
 			points = [to_global($CollisionShape2D.shape.a), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.b), to_global($CollisionShape2D.shape.a)]
 		
-		was_position = to_global(position)
+		change_checker = [to_global(position), rotation_degrees, scale]
 	
 	
 	if was_zoom != Worldconfig.zoom:

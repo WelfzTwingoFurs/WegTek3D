@@ -421,6 +421,26 @@ export(float) var JUMP = 10
 export var ply_height = 50
 
 func collide():
+	for n in col_walls.size():
+		if col_walls[n].flag_2height:
+			var heightsBT = Vector2(-1,1)
+			
+			if col_walls[n].heights[1] < col_walls[n].heights[2]:
+				heightsBT.x = col_walls[n].heights[1]
+				heightsBT.y = col_walls[n].heights[2]
+			else:
+				heightsBT.x = col_walls[n].heights[2]
+				heightsBT.y = col_walls[n].heights[1]
+			
+			#pé < baixo, cabeça > baixo
+			#pé > baixo, cabeça < topo
+			#pé < topo, cabeça > topo
+			if (positionZ <= heightsBT.x && positionZ+ply_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+ply_height <= heightsBT.y) or (positionZ <= heightsBT.y && positionZ+ply_height >= heightsBT.y): 
+				remove_collision_exception_with(col_walls[n])
+			
+			else:
+				add_collision_exception_with(col_walls[n])
+	
 	for n in col_floors.size():
 	#if col_floors != null:
 		if col_floors[n].flag_1height:
@@ -445,20 +465,19 @@ func collide():
 		
 		
 		else: #sometimes we gotta process a fuckin slope
-			#big_process(n, rotation_angle+PI/2, rotation_angle-PI/2)
-			#big_process(n, rad_overflow(Worldconfig.player.motion.angle()-PI/2)+PI/2, rad_overflow(Worldconfig.player.motion.angle()-PI/2)-PI/2)
+			##big_process(n, rotation_angle+PI/2, rotation_angle-PI/2)
+			##big_process(n, rad_overflow(Worldconfig.player.motion.angle()-PI/2)+PI/2, rad_overflow(Worldconfig.player.motion.angle()-PI/2)-PI/2)
+			##big_process(n, motion.angle()+PI/2, motion.angle()-PI/2)
 			big_process(n, Worldconfig.player.motion.angle(), rad_overflow(Worldconfig.player.motion.angle()-PI))
-			#big_process(n, motion.angle()+PI/2, motion.angle()-PI/2)
-			
 
 func big_process(n, angle1, angle2):
-			var array_ender = []
+			var _array_ender = []
 			
 			for m in col_floors[n].points.size():
 				pass
 				#first we do horizontals, then verticals? Horizontals MIGHT do, who knows
-				var Plus90  = position+(Vector2(0,100).rotated(angle1))
-				var Minus90 = position+(Vector2(0,100).rotated(angle2))
+				var Plus90  = position+(Vector2(0,99999).rotated(angle1))
+				var Minus90 = position+(Vector2(0,99999).rotated(angle2))
 				
 				
 				var point1 = col_floors[n].points[m]
@@ -520,7 +539,8 @@ func big_process(n, angle1, angle2):
 						if (new_height < height2) or (new_height > height1):
 							new_height += height2
 					
-					if input_dir != Vector2(0,0):
+					if move_dir != Vector3(0,0,0):
+					#if (input_dir != Vector2(0,0)) && (new_height < positionZ):
 						on_floor = 0
 					
 					if move_dir.z == -1:
@@ -540,10 +560,10 @@ func big_process(n, angle1, angle2):
 							if motionZ > 0:
 								motionZ = 0
 					
-					print(m,"  ", new_height)
-					array_ender.append(new_height)
-					if array_ender.size() == 2:
-						break
+					#print(m,"  ", new_height)
+					#array_ender.append(new_height)
+					#if array_ender.size() == 2:
+					#	break
 					
 					
 
@@ -566,12 +586,20 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
 		if !col_floors.has(body):
 			col_floors.push_back(body)
+			
+	elif body.is_in_group("wall"):
+		if !col_walls.has(body):
+			col_walls.push_back(body)
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
 		on_floor = 0
 		if col_floors.has(body):
 			col_floors.erase(body)
+			
+	if body.is_in_group("wall"):
+		if col_walls.has(body):
+			col_walls.erase(body)
 
 ######    #######    ###      ###      ###   ######      ######
 ###      ###   ###   ###      ###            ###   ##    ###
