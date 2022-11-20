@@ -9,7 +9,9 @@ https://github.com/WelfzTwingoFurs/godot-raycaster-like
  [created using Godot Engine v3.3.2-stable Win64, at https://www.godotengine.org/]
 
 FEATURES:
+-100% GD-Script
 -Polygon world with height;
+-Collision with flat floors and square walls;
 -Sprite objects;
 -Flying up & down, looking up & down;
 -Flat floor collision (slopes are wip);
@@ -27,7 +29,6 @@ FEATURES:
 
 IMPERFECTIONS:
 -No sound;
--No wall collision;
 -Z-sorting inaccurate with touching/nearby polygons;
 -Camera-edge culling only checks if all vertices are off-screen;
 -Heavy texture distortion up-close;
