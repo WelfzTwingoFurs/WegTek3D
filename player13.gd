@@ -341,7 +341,7 @@ func _physics_process(_delta):
 		recalculate()
 	else:
 		if !Input.is_action_pressed("bug_closeeyes"):
-			BSP()
+			render()
 	
 	
 	update() #for the map
@@ -368,10 +368,13 @@ func _physics_process(_delta):
 				motionZ += JUMP
 				on_floor = 0
 		
-		if on_floor == 0:
-			motionZ -= GRAVITY
+		if col_floors.size() != 0:
+			if on_floor == 0:
+				motionZ -= GRAVITY
 		
-		positionZ += motionZ
+			positionZ += motionZ
+		else:
+			motionZ = 0
 	
 	else:
 		motionZ = 0
@@ -416,9 +419,9 @@ var on_floor = 0
 var col_floors = []
 var col_walls = []
 
-export(float) var GRAVITY = 1
+export(float) var GRAVITY = 0.5
 export(float) var JUMP = 10
-export var ply_height = 50
+export var ply_height = 45
 
 func collide():
 	for n in col_walls.size():
@@ -435,8 +438,16 @@ func collide():
 			#pé < baixo, cabeça > baixo
 			#pé > baixo, cabeça < topo
 			#pé < topo, cabeça > topo
-			if (positionZ <= heightsBT.x && positionZ+ply_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+ply_height <= heightsBT.y) or (positionZ <= heightsBT.y && positionZ+ply_height >= heightsBT.y): 
-				remove_collision_exception_with(col_walls[n])
+			if (positionZ <= heightsBT.x && positionZ+ply_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+ply_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+ply_height >= heightsBT.y): 
+				# pé < topo, cabeça > topo, pé - topo = <ply_height
+				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+ply_height > heightsBT.y) && (positionZ - heightsBT.y < ply_height/2):
+					positionZ = heightsBT.y
+				
+				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+ply_height > heightsBT.x) && ((positionZ+ply_height) - heightsBT.x < ply_height/2):
+					positionZ = heightsBT.x - ply_height -1
+				
+				else:
+					remove_collision_exception_with(col_walls[n])
 			
 			else:
 				add_collision_exception_with(col_walls[n])
@@ -759,9 +770,10 @@ var rot_minus90
 var midscreen = 0
 
 export(bool) var textures_on = 0
+export(bool) var UV_textures = 1
 export(bool) var cull_on = 1
 
-func BSP():
+func render():
 	if (weakref(new_container).get_ref()):
 		new_container.queue_free()
 		
@@ -803,7 +815,9 @@ func BSP():
 					pass
 				
 				
+				
 				else:
+					shading = false
 					var limitPlus  = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle+PI/2))
 					var limitMinus = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle-PI/2))
 					var point1 = array_walls[n].points[m]
@@ -835,9 +849,6 @@ func BSP():
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
 					else:#Need to make diagonal clipping
-						#var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2))             #broken (0% -> valid neighbour (100%)
-						#var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #broken (05) -> it's new (X%), logic from other raycasters
-						#var new_height = (distX_2/dist1_2)*(height1-height2)
 						var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
 						
 						if height2 > height1: #dont know
@@ -864,9 +875,6 @@ func BSP():
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
 						else:#diagonal
-							#var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
-							#var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
-							#var new_height = (distX_2/dist1_2)*(height1-height2)
 							var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
 							
 							if height2 > height1: #dont know
@@ -881,16 +889,13 @@ func BSP():
 			
 			
 			else:#all vertices in front of camera
+				shading = true
 				var xkusu = (array_walls[n].points[m]-to_global($Camera2D.position)).angle() - midscreen
-				#var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)) #Logic from other raycasters
-				#var lineH = (OS.window_size.y / distance)   /  cos(xkusu)
 				var lineH = (OS.window_size.y / sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2)))   /  cos(xkusu)
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 			
-			if cull_on && array_polygon.size() > 0:# && lookingZ == 0:
-				#$Sprite.position = (array_polygon[array_polygon.size()-1])*$PolyContainer.scale+Vector2(0, OS.window_size.y*lookingZ)
-				#if (abs(array_polygon[array_polygon.size()-1].x*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y) > OS.window_size.y/2):
+			if cull_on && array_polygon.size() > 0:
 				if abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
 					outtasight +=1
 					
@@ -901,21 +906,18 @@ func BSP():
 				var C = -(distance*(float(1*darkness)/draw_distance)-1)
 				array_shading.append(Color(C,C,C))
 			
-			#if (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096)) < min_distance:
-			#	min_distance = (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
-			#min_distance.append(-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
+			
 			if -(distance*(float(8192)/draw_distance)-4096) < min_distance:
 				min_distance = -(distance*(float(8192)/draw_distance)-4096)
 			
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
 				if outtasight > array_polygon.size()-1:
-					#new_poly.visible = 0
 					new_poly.queue_free()
 					break
 					#continue
 				
 				
-				#min_distance = min_distance.min()
+				
 				if abs(min_distance) > 4096:
 					#new_poly.z_index = 4096*sign(min_distance)
 					#new_poly.visible = 0
@@ -932,41 +934,46 @@ func BSP():
 						new_poly.texture = load(array_walls[n].texture_path)
 						new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
 						#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-						var howmany = array_polygon.size() #m+1
-						
-						if  howmany == 3:
-							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-							new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
-						elif howmany == 4:
-							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-							new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
-						elif howmany == 5:
-							new_poly.texture_offset = Vector2(0,1) + array_walls[n].texture_offset
-							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/2
-							new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
-						elif howmany == 6:
-							new_poly.texture_offset = Vector2(1,2) + array_walls[n].texture_offset
-							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
-							new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
-						elif howmany == 7:
-							new_poly.texture_offset = Vector2(1,0) + array_walls[n].texture_offset
-							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
-							new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
-						elif howmany == 8:
-							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-							new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
-						elif  howmany == 9:
-							new_poly.texture_offset = Vector2(1,-2) + array_walls[n].texture_offset
-							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-							new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
-						elif howmany == 10:
-							new_poly.texture_offset = Vector2(0,-1) + array_walls[n].texture_offset
-							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-							new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
+						if UV_textures:
+							var howmany = array_polygon.size() #m+1
 							
+							
+							if  howmany == 3:
+								new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+								new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
+							elif howmany == 4:
+								new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+								new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
+							elif howmany == 5:
+								new_poly.texture_offset = Vector2(0,1) + array_walls[n].texture_offset
+								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/2
+								new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
+							elif howmany == 6:
+								new_poly.texture_offset = Vector2(1,2) + array_walls[n].texture_offset
+								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
+								new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
+							elif howmany == 7:
+								new_poly.texture_offset = Vector2(1,0) + array_walls[n].texture_offset
+								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
+								new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
+							elif howmany == 8:
+								new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+								new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
+							elif  howmany == 9:
+								new_poly.texture_offset = Vector2(1,-2) + array_walls[n].texture_offset
+								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+								new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
+							elif howmany == 10:
+								new_poly.texture_offset = Vector2(0,-1) + array_walls[n].texture_offset
+								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+								new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
+								
+						else:
+							new_poly.texture_scale = Vector2(float(1)/array_walls[n].texture_repeat.x, float(1)/array_walls[n].texture_repeat.y)
+						
 		#end of M loop, back to N
 		
 		if shading:
@@ -986,7 +993,7 @@ func BSP():
 			if new_sprite.scale.x < 0:
 				continue
 			
-			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_sprites[o].positionZ)
+			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-array_sprites[o].obj_height))
 			
 			new_sprite.texture = load(array_sprites[o].texture)
 			
@@ -1009,7 +1016,6 @@ func BSP():
 				
 			else:
 				var C =  -(xkusu*(float(1*darkness)/draw_distance)-1)
-				#new_sprite.modulate = Color8(C,C,C,255)
 				new_sprite.modulate = array_sprites[o].modulate*C
 				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
 				new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
@@ -1102,23 +1108,6 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		new_container.queue_free()
 
 
-
-#var array_objects = []
-#
-#func _on_ViewArea_body_entered(body):
-#	if body.is_in_group("object"):
-#		if !array_objects.has(body):
-#			array_objects.push_back(body)
-#			print(body)
-#
-#
-#func _on_ViewArea_body_exited(body):
-#	if body.is_in_group("object"):
-#		if !array_objects.has(body):
-#			array_objects.push_back(body)
-#			print(body)
-
-
 ########        ########            ####        ####            ####  
 ########        ########            ####        ####            ####
 ####    ####    ####    ####    ####    ####    ####    ####    ####  
@@ -1174,8 +1163,6 @@ func _draw():
 			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
 			draw_line(Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
 			
-			#draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle+PI/2), Color(1,0,0, 0.4), 1)
-			#draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(1,0,0, 0.4), 1)
 			draw_line(Vector2(0,9999).rotated(rotation_angle+PI/2), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(0.5, 0, 1), 1)
 		
 		
@@ -1209,10 +1196,6 @@ func _draw():
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								var zoomies = 1
-								#if Worldconfig.zoom > 0:
-								#	zoomies = float(1)/Worldconfig.zoom
-								#else:
-								#	zoomies = Worldconfig.Camera2D.zoom
 								
 								if m < targets_in_scene[n].points.size()-1:
 									draw_line((targets_in_scene[n].points[m]-position)*zoomies, (targets_in_scene[n].points[m+1]-position)*zoomies, orange, 1)
@@ -1311,45 +1294,6 @@ func _draw():
 
 
 
-#GRAVITY AND JUMPING FOR WHEN WE LATER NEED IT
-#	if Input.is_action_just_pressed("ply_jump"):
-#		motionZ += JUMP
-#	positionZ += motionZ
-#	if positionZ < 0:
-#		if Input.is_action_pressed("ply_jump"):
-#			motionZ += (GRAVITY-0.5)
-#		else:
-#			motionZ += GRAVITY # 1
-#	elif motionZ > 0: #If goes over, correct to 0
-#		positionZ = 0
-#		motionZ = 0
-
-
-
-#WORLD LOOKING ROUND RENDER
-#sprites[n].position.y = texture_cellsize/(-positionZ*lineH)
-
-
-#OLD VARIABLE I DON'T KNOW IF EVEN WORKED
-#			var dir = Vector2( sign(rays[n].get_collision_point().x - position.x), sign(rays[n].get_collision_point().y - position.y) )
-#			#   up = -1,-1.   left = -1, 1.   down =  1, 1.   right =  1,-1.
-#			#right     -ok
-#			#up/down   -fuzzy
-#			#left/down -flipped but not always?
-
-
-#HOW TO GET POSITION AHEAD OF RAYCAST
-#					var Numba = 0#angles/2
-#					
-#					draw_line(Vector2(0,0), rays[Numba].get_collision_point() - position, Color(1,1,0), 2)
-#					
-#					
-#					var cum = deg_rad($RayContainer.rotation_degrees + rays[Numba].rotation_degrees)
-#					
-#					draw_line(rays[Numba].get_collision_point() - position,
-#							 (rays[Numba].get_collision_point() - position) + Vector2(0,10).rotated(  cum  ),
-#					Color(1,0,0), 3)
-					# This was gonna be used for a fix_cell() idea when that was still around, worth keeping nonetheless
 
 
 func rad_deg(N):

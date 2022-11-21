@@ -1,39 +1,100 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://player13.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprite object physics.gd" type="Script" id=2]
 [ext_resource path="res://map-floor.gd" type="Script" id=3]
 [ext_resource path="res://make_invisible.gd" type="Script" id=4]
-[ext_resource path="res://assets/skybox bubsy3D.png" type="Texture" id=5]
+[ext_resource path="res://AnimationPlayer _ready.gd" type="Script" id=5]
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=7]
 [ext_resource path="res://map-wall.gd" type="Script" id=8]
 
+[sub_resource type="Animation" id=9]
+resource_name = "_ready"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("spriteman8:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -168, 426 ), Vector2( -68, 642 ), Vector2( -168, 426 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("spriteman8")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "jump"
+} ]
+}
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id=8]
+
 [sub_resource type="SegmentShape2D" id=1]
-a = Vector2( 180, 80 )
-b = Vector2( 178, -50 )
+a = Vector2( 178, 216 )
+b = Vector2( 178, -52 )
+
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( 178, 48 )
+b = Vector2( 178, -52 )
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( 78, -52 )
+b = Vector2( 178, -52 )
+
+[sub_resource type="SegmentShape2D" id=4]
+a = Vector2( 278, -52 )
+b = Vector2( 178, -52 )
+
+[sub_resource type="SegmentShape2D" id=5]
+a = Vector2( 278, -52 )
+b = Vector2( 178, -52 )
+
+[sub_resource type="SegmentShape2D" id=6]
+a = Vector2( 278, -52 )
+b = Vector2( 178, -52 )
 
 [node name="scene12" type="Node2D"]
 
 [node name="player13" parent="." instance=ExtResource( 1 )]
-angles = 150
-draw_distance = 10000
-skycolor = Color( 0, 0.301961, 0.0509804, 1 )
-speed = 300
-GRAVITY = 0.5
-ply_height = 45
-cull_on = false
-
-[node name="Background" parent="player13" index="6"]
-visible = false
-
-[node name="Sky" parent="player13/Background" index="0"]
-modulate = Color( 1, 1, 1, 1 )
-texture = ExtResource( 5 )
-
-[node name="Floor" parent="player13/Background" index="1"]
-modulate = Color( 1, 1, 1, 1 )
+UV_textures = false
 
 [node name="walls" type="Node2D" parent="."]
 script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="walls"]
+anims/_ready = SubResource( 9 )
+script = ExtResource( 5 )
+
+[node name="spriteman8" type="KinematicBody2D" parent="walls" groups=[
+"rendersprite",
+]]
+position = Vector2( -88, 598.8 )
+rotation = 3.14159
+script = ExtResource( 2 )
+positionZ = 10
+scale_extra = Vector2( 0.5, 1 )
+
+[node name="ColArea" type="Area2D" parent="walls/spriteman8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/spriteman8/ColArea"]
+shape = SubResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/spriteman8"]
+shape = SubResource( 8 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="walls" groups=[
 "render",
@@ -44,6 +105,9 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+texture_repeat = Vector2( 0.55, 1.025 )
+jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D"]
 shape = SubResource( 1 )
@@ -52,16 +116,249 @@ shape = SubResource( 1 )
 "render",
 "wall",
 ]]
+position = Vector2( 54, 144 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 80, 300 ]
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D2"]
+position = Vector2( -95, 95 )
+shape = SubResource( 2 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 154, 144 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 80, 300 ]
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D3"]
+position = Vector2( -95, 95 )
+shape = SubResource( 2 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 154, 144 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 80, 300 ]
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D4"]
+position = Vector2( -95, 95 )
+shape = SubResource( 3 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 154, 244 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 80, 300 ]
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D5"]
+position = Vector2( -95, 95 )
+shape = SubResource( 3 )
+
+[node name="step" type="Node2D" parent="walls"]
+
+[node name="wall" type="StaticBody2D" parent="walls/step" groups=[
+"render",
+"wall",
+]]
+position = Vector2( -360, -18 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ -10, 0 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/step/wall"]
+shape = SubResource( 4 )
+
+[node name="wall2" type="StaticBody2D" parent="walls/step" groups=[
+"render",
+"wall",
+]]
+position = Vector2( -360, 32 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ -10, -20 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/step/wall2"]
+shape = SubResource( 4 )
+
+[node name="low" type="StaticBody2D" parent="walls/step" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -183, -90 )
+collision_mask = 0
+script = ExtResource( 3 )
+heights = [ -10.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/step/low"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="top" type="StaticBody2D" parent="walls/step" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( -183, -140 )
+collision_mask = 0
+script = ExtResource( 3 )
+heights = [ 0.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/step/top"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="step2" type="Node2D" parent="walls"]
+position = Vector2( 0, -100 )
+
+[node name="wall" type="StaticBody2D" parent="walls/step2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( -360, -18 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 10, 20 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/step2/wall"]
+shape = SubResource( 5 )
+
+[node name="wall2" type="StaticBody2D" parent="walls/step2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( -360, 32 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 10, 0 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/step2/wall2"]
+shape = SubResource( 5 )
+
+[node name="low" type="StaticBody2D" parent="walls/step2" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -183, -90 )
+collision_mask = 0
+script = ExtResource( 3 )
+heights = [ 10.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/step2/low"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="top" type="StaticBody2D" parent="walls/step2" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( -183, -140 )
+collision_mask = 0
+script = ExtResource( 3 )
+heights = [ 20.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/step2/top"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="step3" type="Node2D" parent="walls"]
+position = Vector2( 0, -200 )
+
+[node name="wall" type="StaticBody2D" parent="walls/step3" groups=[
+"render",
+"wall",
+]]
+position = Vector2( -360, -18 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 30, 40 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/step3/wall"]
+shape = SubResource( 6 )
+
+[node name="wall2" type="StaticBody2D" parent="walls/step3" groups=[
+"render",
+"wall",
+]]
+position = Vector2( -360, 32 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 30, 20 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/step3/wall2"]
+shape = SubResource( 6 )
+
+[node name="low" type="StaticBody2D" parent="walls/step3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -183, -90 )
+collision_mask = 0
+script = ExtResource( 3 )
+heights = [ 30.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/step3/low"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="top" type="StaticBody2D" parent="walls/step3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( -183, -140 )
+collision_mask = 0
+script = ExtResource( 3 )
+heights = [ 40.0 ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/step3/top"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="lodsa walls" type="Node2D" parent="walls"]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="walls/lodsa walls" groups=[
+"render",
+"wall",
+]]
 position = Vector2( 1523, -84 )
 collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D2"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D3" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -70,11 +367,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D3"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D4" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -83,11 +381,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D4"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D5" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D5" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -96,11 +395,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D5"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D6" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D6" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -109,11 +409,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D6"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D6"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D7" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D7" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -122,11 +423,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D7"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D7"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D8" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D8" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -135,11 +437,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D8"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D8"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D9" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D9" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -148,11 +451,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D9"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D9"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D10" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D10" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -161,11 +465,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D10"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D10"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D11" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D11" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -174,11 +479,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D11"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D11"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D12" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D12" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -187,11 +493,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D12"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D12"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D13" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D13" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -200,11 +507,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D13"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D13"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D14" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D14" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -213,11 +521,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D14"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D14"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D15" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D15" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -226,11 +535,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D15"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D15"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D16" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D16" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -239,11 +549,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D16"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D16"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D17" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D17" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -252,11 +563,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D17"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D17"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D18" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D18" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -265,11 +577,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D18"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D18"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D19" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D19" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -278,11 +591,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D19"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D19"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D20" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D20" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -291,11 +605,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D20"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D20"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D21" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D21" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -304,11 +619,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D21"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D21"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D22" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D22" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -317,11 +633,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D22"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D22"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D23" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D23" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -330,11 +647,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D23"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D23"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D24" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D24" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -343,11 +661,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D24"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D24"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D25" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D25" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -356,11 +675,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D25"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D25"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D26" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D26" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -369,11 +689,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D26"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D26"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D27" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D27" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -382,11 +703,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D27"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D27"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D28" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D28" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -395,11 +717,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D28"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D28"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D29" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D29" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -408,11 +731,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D29"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D29"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D30" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D30" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -421,11 +745,12 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D30"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D30"]
 shape = SubResource( 1 )
 
-[node name="StaticBody2D31" type="StaticBody2D" parent="walls" groups=[
+[node name="StaticBody2D31" type="StaticBody2D" parent="walls/lodsa walls" groups=[
 "render",
 "wall",
 ]]
@@ -434,8 +759,9 @@ collision_layer = 5
 collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D31"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D31"]
 shape = SubResource( 1 )
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -539,6 +865,7 @@ heights = [ -100.0 ]
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D7"]
+position = Vector2( -230.5, 233 )
 polygon = PoolVector2Array( 379, -635.5, 438, 367, -631.5, 361.5, -636, -631 )
 
 [node name="StaticBody2D12" type="StaticBody2D" parent="Node2D/Node2D" groups=[
@@ -923,4 +1250,5 @@ texture_repeat = Vector2( -1, -1 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/old clipping tests/map-floor (0)"]
 polygon = PoolVector2Array( 1, 2, 2, 1, 4, 1, 5, 2, 6, 4, 5, 6, 4, 7, 2, 7, 1, 6, 0, 4 )
 
-[editable path="player13"]
+[connection signal="body_shape_entered" from="walls/spriteman8/ColArea" to="walls/spriteman8" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="walls/spriteman8/ColArea" to="walls/spriteman8" method="_on_ColArea_body_shape_exited"]
