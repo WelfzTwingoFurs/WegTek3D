@@ -9,33 +9,31 @@ https://github.com/WelfzTwingoFurs/godot-raycaster-like
  [created using Godot Engine v3.3.2-stable Win64, at https://www.godotengine.org/]
 
 FEATURES:
--100% GD-Script
+-100% GD-Script;
 -Polygon world with height;
--Collision with flat floors and square walls;
 -Sprite objects;
+-Collision with flat floors and square walls;
 -Flying up & down, looking up & down;
--Flat floor collision (slopes are wip);
 -Field of view (FOV), draw distance options;
 -Screen resizable to any size, everything is normalized;
 -Clipping (vertexes behind camera don't distort);
--Camera-edge culling option (polys outside screen won't render);
--Z_Index sorting (Polygons in front of polygons behind) in 3D;
--Basic horizon fading;
--Depth shading;
+-WIP Camera-edge culling option (polys outside screen won't render);
+-Z_Index sorting (Polygons in front of polygons behind) in 3D (whole object only);
+-Depth shading/horizon fading options;
 -Viewbobbing, viewrolling options;
 -Scrolling sky texture & stretch options, floor texture;
--All changeable textures to any size;
--Map using draw_line, 2D & 3D options.
+-All textures changeable to ones of any size;
+-Map using draw_line(), 2D & 3D options.
 
 IMPERFECTIONS:
 -No sound;
--Z-sorting inaccurate with touching/nearby polygons;
+-Z-sorting limited to entire polygon, nearby/touching/clipping objects innacurate;
 -Camera-edge culling only checks if all vertices are off-screen;
--Heavy texture distortion up-close;
+-Extreme texture distortion up-close;
 -Clipping intervenes with texturing;
--No camera-edge clipping (poly pieces outside screen still render);
--No world culling (polygons behind others still render);
--Draw distance innacurate to value, depending on Angles FOV;
+-No camera-edge clipping (polygon pieces outside screen still render);
+-No world culling (polygons fully behind others still render);
+-Draw distance innacurate to value depending on Angles FOV;
 -No in-game options (all settings in editor).
 
 
