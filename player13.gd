@@ -972,7 +972,10 @@ func render():
 								new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
 								
 						else:
-							new_poly.texture_scale = Vector2(float(1)/array_walls[n].texture_repeat.x, float(1)/array_walls[n].texture_repeat.y)
+							#new_poly.texture_scale = Vector2(float(1)/new_poly.texture.get_size().x, float(1)/new_poly.texture.get_size().y)
+							#new_poly.texture_scale = Vector2(float(1)/array_walls[n].texture_repeat.x, float(1)/array_walls[n].texture_repeat.y)
+							new_poly.texture_scale = $PolyContainer.scale * float(1)/array_walls[n].texture_repeat
+							pass
 						
 		#end of M loop, back to N
 		
