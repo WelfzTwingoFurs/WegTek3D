@@ -346,8 +346,6 @@ func _physics_process(_delta):
 	
 	update() #for the map
 	
-	collide()
-	
 	if motionZ < 0:
 		move_dir.z = -1
 	elif motionZ > 0:
@@ -358,23 +356,35 @@ func _physics_process(_delta):
 	
 	
 	
-	if Input.is_action_pressed("ply_flycenter"):
-		motionZ = 0
-		positionZ = lerp(positionZ, 0, 0.1)
+#	if Input.is_action_pressed("ply_flycenter"):
+#		motionZ = 0
+#		positionZ = lerp(positionZ, 0, 0.1)
 	
-	if col_floors.size() != 0:
+	#if col_floors.size() != 0:
+	if Input.is_action_just_pressed("ply_noclip"):
+		noclip = !noclip
+		$Col.disabled = !$Col.disabled
+	
+	if !noclip:
+		collide()
+		
 		if on_floor == 1:
 			if Input.is_action_pressed("ply_jump"):
 				motionZ += JUMP
 				on_floor = 0
 		
-		if col_floors.size() != 0:
-			if on_floor == 0:
+		else:
+			if (col_floors.size() == 0 && positionZ <= 0):
+				on_floor = 1
+				motionZ = 0
+			else:
 				motionZ -= GRAVITY
 		
-			positionZ += motionZ
-		else:
-			motionZ = 0
+		positionZ += motionZ
+	
+	#elif (col_floors.size() == 0 && positionZ <= 0):
+	#	motionZ = 0
+	#	on_floor = 1
 	
 	else:
 		motionZ = 0
@@ -422,6 +432,8 @@ var col_walls = []
 export(float) var GRAVITY = 0.5
 export(float) var JUMP = 10
 export var ply_height = 45
+
+var noclip = false
 
 func collide():
 	for n in col_walls.size():
@@ -936,7 +948,7 @@ func render():
 			
 			if array_sprites[o].rotations != 1:
 				var frame_rot = 0
-				var angletester = int(((rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180)) % 360
+				var angletester = int(((rad_deg(rotation_angle) + array_sprites[o].rotation_degrees))) % 360
 				
 				for n in array_sprites[o].rotations:
 					if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
@@ -950,7 +962,7 @@ func render():
 							break
 						
 				
-				if angletester < 180:
+				if angletester > 180:
 					new_sprite.flip_h = true
 				
 			
