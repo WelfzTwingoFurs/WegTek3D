@@ -948,7 +948,7 @@ func render():
 			
 			if array_sprites[o].rotations != 1:
 				var frame_rot = 0
-				var angletester = int(((rad_deg(rotation_angle) + array_sprites[o].rotation_degrees))) % 360
+				var angletester = int(((rad_deg(rotation_angle) + deg_overflow(array_sprites[o].rotation_degrees+180)))) % 360
 				
 				for n in array_sprites[o].rotations:
 					if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
@@ -962,7 +962,7 @@ func render():
 							break
 						
 				
-				if angletester > 180:
+				if angletester < 180:
 					new_sprite.flip_h = true
 				
 			

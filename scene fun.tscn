@@ -27,17 +27,16 @@ script = ExtResource( 4 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D"]
 position = Vector2( -30, 357 )
-rotation = 1.5708
 enabled = true
 
 [node name="spriteman8" type="KinematicBody2D" parent="Node2D" groups=[
 "rendersprite",
 ]]
 position = Vector2( -30, 357 )
-rotation = 4.71239
 script = ExtResource( 6 )
 positionZ = 100
 scale_extra = Vector2( 0.5, 1 )
+texture = "res://assets/sprites 8rot - Copia.png"
 darkness = 99.0
 dynamic_darkness = true
 
@@ -56,6 +55,7 @@ position = Vector2( 170, 257 )
 script = ExtResource( 6 )
 positionZ = 100
 scale_extra = Vector2( 0.5, 1 )
+texture = "res://assets/sprites 8rot - Copia.png"
 darkness = 99.0
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman9"]
