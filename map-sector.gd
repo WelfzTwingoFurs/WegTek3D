@@ -1,6 +1,6 @@
 extends StaticBody2D
 #Use this to make rooms. Heights double that of polygon size.
-export (Array, float) var heights = [0,0,0,10,10,10]
+export (Array, float) var heights = [0,100]
 #for 2: floor=[0], ceiling=[1]
 #for =polygon.size()*2: floor=[n], ceiling=[n*2]
 #for =polygon.size()+1:...
@@ -16,12 +16,30 @@ export (Array, Color) var colors = [Color(1,1,1,1),Color(1,1,1,1),Color(1,1,1,1)
 #"" if we don't wanna make this one!
 #for 3: floor, ceiling, all walls
 #for polygon.size()/2 + 2: floor, ceiling, wall01, wall12, wall20
+export (Array, float) var darknesses = [1]
 
+export var collide = false
+export var absolute = false
 
-var new_wall = preload("res://map-wall for sector.tscn")
-var new_floor = preload("res://map-floor for sector.tscn")
+var new_wall
+var new_floor
 
 func _ready():
+	if collide:
+		if heights.size() == 2:
+			if heights[0] > heights [1]:
+				print("Ceiling and floor are inverted, At: ",$CollisionPolygon2D.polygon)
+				queue_free()
+			else:
+				new_wall = load("res://map-wall collide for sector.tscn")
+				new_floor = load("res://map-floor collide for sector.tscn")
+		else:
+			print("Can't collide if we're doing diagonals, At: ",$CollisionPolygon2D.polygon)
+			queue_free()
+	else:
+		new_wall = load("res://map-wall for sector.tscn")
+		new_floor = load("res://map-floor for sector.tscn")
+	
 	if $CollisionPolygon2D.position != Vector2(0,0) or $CollisionPolygon2D.scale != Vector2(1,1) or $CollisionPolygon2D.rotation_degrees != 0:
 		print(">M I S T A K E: map-sector's ColPoly2D position !=(0,0), scale !=(1,1), or rotation != 0. Do these with the StaticBody instead. At: ",$CollisionPolygon2D.polygon)
 		queue_free()
@@ -133,12 +151,16 @@ func _ready():
 	if textures[textures.size()-2] != "":
 		if heights.size() == 2:
 			make_new_floor.heights   = [heights[0]]
+			if collide && absolute:
+				make_new_floor.absolute = 1
 		
 		add_child(make_new_floor)
 	
 	if textures[textures.size()-1] != "":
 		if heights.size() == 2:
 			make_new_ceiling.heights = [heights[1]]
+			if collide && absolute:
+				make_new_ceiling.absolute = -1
 		
 		add_child(make_new_ceiling)
 	

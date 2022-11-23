@@ -455,6 +455,16 @@ func collide():
 	for n in col_floors.size():
 	#if col_floors != null:
 		if col_floors[n].flag_1height:
+			if col_floors[n].absolute == -1:
+				if positionZ > col_floors[n].heights[0]-1:
+					positionZ = col_floors[n].heights[0] - ply_height
+					on_floor = 0
+			elif col_floors[n].absolute == 1:
+				if positionZ < col_floors[n].heights[0]-ply_height:
+					positionZ = col_floors[n].heights[0]
+					on_floor = 1
+			
+			
 			if move_dir.z == -1:
 				if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
 					positionZ = col_floors[n].heights[0]# + ply_height
@@ -475,112 +485,7 @@ func collide():
 		
 		
 		
-		else: #sometimes we gotta process a fuckin slope
-			##big_process(n, rotation_angle+PI/2, rotation_angle-PI/2)
-			##big_process(n, rad_overflow(Worldconfig.player.motion.angle()-PI/2)+PI/2, rad_overflow(Worldconfig.player.motion.angle()-PI/2)-PI/2)
-			##big_process(n, motion.angle()+PI/2, motion.angle()-PI/2)
-			big_process(n, Worldconfig.player.motion.angle(), rad_overflow(Worldconfig.player.motion.angle()-PI))
-
-func big_process(n, angle1, angle2):
-			var _array_ender = []
-			
-			for m in col_floors[n].points.size():
-				pass
-				#first we do horizontals, then verticals? Horizontals MIGHT do, who knows
-				var Plus90  = position+(Vector2(0,99999).rotated(angle1))
-				var Minus90 = position+(Vector2(0,99999).rotated(angle2))
-				
-				
-				var point1 = col_floors[n].points[m]
-				var point2 = col_floors[n].points[(m+1) % col_floors[n].points.size()]
-				
-				
-				#intersection between limitPlus/Minus with point1/2
-				var new_position = new_position(point1, point2, Plus90, Minus90, (point1.x - point2.x)*(Plus90.y - Minus90.y) - (point1.y - point2.y)*(Plus90.x - Minus90.x))  +  Vector2(0,1).rotated(rotation_angle)
-				
-				
-				var actives = Vector2(0,0)
-				
-				if rad_overflow(Worldconfig.player.motion.angle()-PI/2) > PI/2 && rad_overflow(Worldconfig.player.motion.angle()-PI/2) < 3*PI/2:
-					#print("RED PLUS IS BIGGEST")
-					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(angle2) or rad_overflow((point1-position).angle()-PI/2) > rad_overflow(angle1):
-						#print("!!RED ALERT!!")
-						actives.x = 1
-						
-					else:
-						actives.x = 0
-						
-					
-					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(angle2) or rad_overflow((point2-position).angle()-PI/2) > rad_overflow(angle1):
-						#print("!!RED ALERT!!")
-						actives.y = 1
-						
-					else:
-						actives.y = 0
-				
-				
-				else:
-					#print("PINK MINUS IS BIGGER")
-					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(angle2) && rad_overflow((point1-position).angle()-PI/2) > rad_overflow(angle1):
-						#print("!!PINK ALERT!!")
-						actives.x = 1
-						
-					else:
-						actives.x = 0
-					
-					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(angle2) && rad_overflow((point2-position).angle()-PI/2) > rad_overflow(angle1):
-						#print("!!PINK ALERT!!")
-						actives.y = 1
-						
-					else:
-						actives.y = 0
-				
-				if actives.x != actives.y:
-					
-					####################################
-					
-					var height1 = col_floors[n].heights[m]
-					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
-					
-					var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
-					
-					if height2 > height1: #dont know
-						new_height += height2
-					elif height2 < height1:# why, OK
-						if (new_height < height2) or (new_height > height1):
-							new_height += height2
-					
-					if move_dir != Vector3(0,0,0):
-					#if (input_dir != Vector2(0,0)) && (new_height < positionZ):
-						on_floor = 0
-					
-					if move_dir.z == -1:
-						if (positionZ < new_height) && (positionZ+ply_height > new_height):
-							positionZ = new_height# + ply_height
-							
-							on_floor = 1 
-							if motionZ < 0:
-								motionZ = 0
-								
-					
-					elif move_dir.z == 1:
-						if (positionZ < new_height) && (positionZ+ply_height > new_height):
-							positionZ = new_height - ply_height
-							
-							on_floor = 0
-							if motionZ > 0:
-								motionZ = 0
-					
-					#print(m,"  ", new_height)
-					#array_ender.append(new_height)
-					#if array_ender.size() == 2:
-					#	break
-					
-					
-
-			#print(array_ender)
-			#return((array_ender[0] + array_ender[1])/2)
-
+		#else: #sometimes we gotta process a fuckin slope
 
 
 
@@ -792,6 +697,7 @@ func render():
 		var outtasight = 0
 		var min_distance = INF
 		var array_shading = []
+		#var C = null
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-to_global($Camera2D.position)).angle()-PI/2)
@@ -818,6 +724,7 @@ func render():
 				
 				else:
 					shading = false
+					#C = -(1*(float(1*array_walls[n].darkness)/draw_distance)-1)
 					var limitPlus  = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle+PI/2))
 					var limitMinus = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle-PI/2))
 					var point1 = array_walls[n].points[m]
@@ -903,8 +810,10 @@ func render():
 			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
 			
 			if shading:
-				var C = -(distance*(float(1*darkness)/draw_distance)-1)
+				#if C == null:
+				var C = -(distance*(float(1*array_walls[n].darkness)/draw_distance)-1)
 				array_shading.append(Color(C,C,C))
+				#C = null
 			
 			
 			if -(distance*(float(8192)/draw_distance)-4096) < min_distance:
@@ -972,10 +881,9 @@ func render():
 								new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
 								
 						else:
-							#new_poly.texture_scale = Vector2(float(1)/new_poly.texture.get_size().x, float(1)/new_poly.texture.get_size().y)
-							#new_poly.texture_scale = Vector2(float(1)/array_walls[n].texture_repeat.x, float(1)/array_walls[n].texture_repeat.y)
 							new_poly.texture_scale = $PolyContainer.scale * float(1)/array_walls[n].texture_repeat
-							pass
+							#new_poly.texture_offset.y = vbob
+							
 						
 		#end of M loop, back to N
 		
@@ -1018,7 +926,7 @@ func render():
 				new_sprite.z_index = -4095
 				
 			else:
-				var C =  -(xkusu*(float(1*darkness)/draw_distance)-1)
+				var C =  -(xkusu*(float(1*array_sprites[o].darkness)/draw_distance)-1)
 				new_sprite.modulate = array_sprites[o].modulate*C
 				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
 				new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
@@ -1050,7 +958,6 @@ func render():
 			
 
 export(bool) var shading = true
-export(float) var darkness = 1
 export(bool) var flip_frontback_sprites = false
 
 

@@ -18,6 +18,8 @@ var labels = []
 var spawn_shape_position #used for transferring shape positions for a clone being spawned by sector
 
 var flag_1height = false
+export var absolute = 0#-1 for stay under, 1 for stay over
+export(float) var darkness = 1
 
 func _ready():
 	if spawn_shape_position != null:

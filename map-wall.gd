@@ -23,6 +23,8 @@ onready var ColShapeA = $CollisionShape2D.shape.a
 onready var ColShapeB = $CollisionShape2D.shape.b
 
 var flag_2height = false
+export var jumpover = true
+export(float) var darkness = 1
 
 func _ready():
 	if spawn_shape_position != null:
