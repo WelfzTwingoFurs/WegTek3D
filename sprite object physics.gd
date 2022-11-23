@@ -7,6 +7,8 @@ export var texture = "res://assets/sprites 8rot.png"
 export var vframes = 5
 export var hframes = 10
 export var rotations = 8
+export(float) var darkness = 1
+
 
 func _ready():
 	if $CollisionShape2D.position != Vector2(0,0):
