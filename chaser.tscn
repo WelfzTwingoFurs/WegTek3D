@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://chaser.gd" type="Script" id=1]
+
+[sub_resource type="Animation" id=1]
+resource_name = "walk"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:anim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 20.0
+
+[node name="chaser" type="KinematicBody2D" groups=[
+"rendersprite",
+]]
+script = ExtResource( 1 )
+anim = 4
+scale_extra = Vector2( 0.5, 1 )
+texture = "res://assets/sprites EGA jake.png"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/walk = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="ColArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
+shape = SubResource( 3 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
