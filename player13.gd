@@ -946,9 +946,26 @@ func render():
 			
 			
 			
-			if array_sprites[o].rotations != 1:
+			if array_sprites[o].rotations > 1:
 				var frame_rot = 0
-				var angletester = int(((rad_deg(rotation_angle) + deg_overflow(array_sprites[o].rotation_degrees+180)))) % 360
+				var angletester
+				
+#				if array_sprites[o].rotation_degrees < 180:
+#					angletester = int((rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180) % 360
+#					new_sprite.texture = load(array_sprites[o].texture)
+#				else:
+#					angletester = int((rad_deg(rotation_angle) + array_sprites[o].rotation_degrees)) % 360
+#					new_sprite.texture = load(array_sprites[o].texture2)
+#					new_sprite.modulate = array_sprites[o].modulate/2
+				
+				
+				angletester = int((rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180) % 360
+				if !(array_sprites[o].rotation_degrees < 180):
+				#	angletester = int((rad_deg(rotation_angle) + array_sprites[o].rotation_degrees)) % 360
+				#	new_sprite.texture = load(array_sprites[o].texture2)
+					new_sprite.modulate = array_sprites[o].modulate/2
+				
+				
 				
 				for n in array_sprites[o].rotations:
 					if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
@@ -957,20 +974,28 @@ func render():
 							frame_rot = 0
 						
 						if range(array_sprites[o].vframes*array_sprites[o].hframes).has(array_sprites[o].anim + frame_rot):
-							#new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
-							new_sprite.frame = (array_sprites[o].anim + frame_rot) #% (array_sprites[o].vframes*10)
+							new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
 							break
-						
 				
-				if angletester < 180:
+				
+				
+				if angletester > 180:
 					new_sprite.flip_h = true
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 			
 			new_container.add_child(new_sprite)
 			
 
 export(bool) var shading = true
-export(bool) var flip_frontback_sprites = false
 
 
 
