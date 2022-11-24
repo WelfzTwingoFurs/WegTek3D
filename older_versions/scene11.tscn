@@ -455,7 +455,7 @@ rotation = 3.14159
 scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 12 )
 scale_extra = Vector2( 1, 1.2 )
-texture = "res://assets/sprites chair (agaures, Zdoom forums).png"
+texture = "res://older_versions/sprites chair (agaures, Zdoom forums).png"
 vframes = 5
 hframes = 1
 rotations = 8
@@ -472,7 +472,7 @@ rotation = 3.14159
 scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 12 )
 scale_extra = Vector2( 0.8, 1 )
-texture = "res://assets/sprites chair (agaures, Zdoom forums).png"
+texture = "res://older_versions/sprites chair (agaures, Zdoom forums).png"
 vframes = 5
 hframes = 1
 rotations = 8
@@ -899,8 +899,10 @@ script = ExtResource( 9 )
 "rendersprite",
 ]]
 position = Vector2( -747, -952 )
+rotation = 6.28319
 script = ExtResource( 12 )
 positionZ = -2
+texture = "res://older_versions/sprites 8rot.png"
 vframes = 5
 rotations = 8
 
@@ -1471,7 +1473,7 @@ __meta__ = {
 ]]
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -747, -952 )
-rotation = 5.49779
+rotation = 6.28319
 script = ExtResource( 8 )
 heights = [ 0.0 ]
 texture_path = "res://textures/kensilverman64.png"
@@ -1526,6 +1528,7 @@ position = Vector2( -990, -472 )
 rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = -2
+texture = "res://older_versions/sprites 8rot.png"
 vframes = 5
 rotations = 8
 
@@ -1539,7 +1542,7 @@ position = Vector2( -810, -470 )
 rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 15
-texture = "res://assets/sprites 4rot.png"
+texture = "res://older_versions/sprites 4rot.png"
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/spriteman4"]
@@ -1553,7 +1556,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 25
 anim = 2
-texture = "res://assets/sprites 2rot.png"
+texture = "res://older_versions/sprites 2rot.png"
 vframes = 2
 rotations = 3
 
@@ -1584,7 +1587,7 @@ position = Vector2( -355, -794 )
 rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 24
-texture = "res://assets/sprites coin1 (JoeyTheRabbit, TSR).png"
+texture = "res://older_versions/sprites coin1 (JoeyTheRabbit, TSR).png"
 vframes = 9
 hframes = 1
 rotations = 16
@@ -1599,7 +1602,7 @@ shape = SubResource( 5 )
 position = Vector2( -58, -793 )
 rotation = 3.14159
 script = ExtResource( 12 )
-texture = "res://assets/sprites coin2 (teh_supar_hackr, TSR).png"
+texture = "res://older_versions/sprites coin2 (teh_supar_hackr, TSR).png"
 vframes = 20
 hframes = 1
 rotations = 39
@@ -1617,6 +1620,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 anim = 3
 scale_extra = Vector2( 10, 10 )
+texture = "res://older_versions/sprites 8rot.png"
 vframes = 5
 rotations = 8
 
@@ -1632,6 +1636,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 anim = 3
 scale_extra = Vector2( 10, -10 )
+texture = "res://older_versions/sprites 8rot.png"
 vframes = 5
 rotations = 8
 
@@ -1646,6 +1651,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 anim = 3
 scale_extra = Vector2( 0.5, 0.5 )
+texture = "res://older_versions/sprites 8rot.png"
 vframes = 5
 rotations = 8
 
@@ -1660,6 +1666,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 anim = 2
 scale_extra = Vector2( 0.6, 0.6 )
+texture = "res://older_versions/sprites 8rot.png"
 vframes = 5
 rotations = 8
 
@@ -1674,6 +1681,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 anim = 1
 scale_extra = Vector2( 1.3, 1.3 )
+texture = "res://older_versions/sprites 8rot.png"
 vframes = 5
 rotations = 8
 
@@ -1688,6 +1696,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 anim = 4
 scale_extra = Vector2( 0.9, 0.9 )
+texture = "res://older_versions/sprites 8rot.png"
 vframes = 5
 rotations = 8
 
@@ -1702,7 +1711,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 17
 anim = 2
-texture = "res://assets/sprites 4rot.png"
+texture = "res://older_versions/sprites 4rot.png"
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/bin"]
@@ -1717,7 +1726,7 @@ script = ExtResource( 12 )
 positionZ = 28
 anim = 3
 scale_extra = Vector2( 1.6, 1.6 )
-texture = "res://assets/sprites 4rot.png"
+texture = "res://older_versions/sprites 4rot.png"
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/callahan"]
@@ -1732,7 +1741,7 @@ script = ExtResource( 12 )
 positionZ = 42
 anim = 4
 scale_extra = Vector2( 2.5, 2.5 )
-texture = "res://assets/sprites 4rot.png"
+texture = "res://older_versions/sprites 4rot.png"
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SPRITES/snake"]
@@ -1746,7 +1755,7 @@ rotation = 3.14159
 script = ExtResource( 12 )
 positionZ = 28
 scale_extra = Vector2( 1.1, 1.1 )
-texture = "res://assets/sprites 2rot.png"
+texture = "res://older_versions/sprites 2rot.png"
 vframes = 2
 rotations = 3
 
@@ -1762,7 +1771,7 @@ script = ExtResource( 12 )
 positionZ = 38
 anim = 4
 scale_extra = Vector2( 1.5, 1.5 )
-texture = "res://assets/sprites 2rot.png"
+texture = "res://older_versions/sprites 2rot.png"
 vframes = 2
 rotations = 3
 
@@ -1778,7 +1787,7 @@ script = ExtResource( 12 )
 positionZ = 45
 anim = 5
 scale_extra = Vector2( 1.8, 1.8 )
-texture = "res://assets/sprites 2rot.png"
+texture = "res://older_versions/sprites 2rot.png"
 vframes = 2
 rotations = 3
 
@@ -2305,7 +2314,6 @@ __meta__ = {
 [node name="start0 100" type="StaticBody2D" parent="Node2D/Doom2/START"]
 position = Vector2( -397.5, -99 )
 script = ExtResource( 10 )
-heights = [ 0, 100 ]
 textures = [ "a", "a", "", "a", "", "a", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Doom2/START/start0 100"]
@@ -3430,7 +3438,6 @@ polygon = PoolVector2Array( 0, 0, 500, 0, 250, 250 )
 [node name="map-sector0" type="StaticBody2D" parent="Node2D"]
 position = Vector2( -791, 346 )
 script = ExtResource( 10 )
-heights = [ 0, 100 ]
 textures = [ "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png", "res://icon.png" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/map-sector0"]
