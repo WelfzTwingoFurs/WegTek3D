@@ -8,6 +8,7 @@ export var vframes = 5
 export var hframes = 10
 export var rotations = 8
 export(float) var darkness = 1
+export(bool) var dynamic_darkness = false
 
 
 func _ready():
@@ -22,15 +23,17 @@ func _ready():
 
 
 
-
-
-
+export(bool) var printthisshit = false
 
 
 
 func _physics_process(_delta):
-	if on_floor == 0:
-		motionZ -= GRAVITY
+	if on_floor != 1:
+		if (col_floors.size() == 0 && positionZ <= 0):
+			on_floor = 1
+			motionZ = 0
+		else:
+			motionZ -= GRAVITY
 	
 	positionZ += motionZ
 	
@@ -82,6 +85,8 @@ func collide():
 				add_collision_exception_with(col_walls[n])
 	
 	for n in col_floors.size():
+		if dynamic_darkness:
+			darkness = col_floors[n].darkness
 	#if col_floors != null:
 		if col_floors[n].flag_1height:
 			if move_dir.z == -1:
