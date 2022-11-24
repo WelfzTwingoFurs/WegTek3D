@@ -950,21 +950,8 @@ func render():
 				var frame_rot = 0
 				var angletester
 				
-#				if array_sprites[o].rotation_degrees < 180:
-#					angletester = int((rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180) % 360
-#					new_sprite.texture = load(array_sprites[o].texture)
-#				else:
-#					angletester = int((rad_deg(rotation_angle) + array_sprites[o].rotation_degrees)) % 360
-#					new_sprite.texture = load(array_sprites[o].texture2)
-#					new_sprite.modulate = array_sprites[o].modulate/2
 				
-				
-				angletester = int((rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180) % 360
-				if !(array_sprites[o].rotation_degrees < 180):
-				#	angletester = int((rad_deg(rotation_angle) + array_sprites[o].rotation_degrees)) % 360
-				#	new_sprite.texture = load(array_sprites[o].texture2)
-					new_sprite.modulate = array_sprites[o].modulate/2
-				
+				angletester = int(deg_overflow(rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180) % 360
 				
 				
 				for n in array_sprites[o].rotations:
@@ -976,7 +963,6 @@ func render():
 						if range(array_sprites[o].vframes*array_sprites[o].hframes).has(array_sprites[o].anim + frame_rot):
 							new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
 							break
-				
 				
 				
 				if angletester > 180:
