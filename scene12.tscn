@@ -88,6 +88,7 @@ rotation = 3.14159
 script = ExtResource( 2 )
 positionZ = 10
 scale_extra = Vector2( 0.5, 1 )
+texture = "res://assets/sprites 8rot welfz.png"
 
 [node name="ColArea" type="Area2D" parent="walls/spriteman8"]
 
