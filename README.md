@@ -11,7 +11,7 @@ https://github.com/WelfzTwingoFurs/godot-raycaster-like
 FEATURES:
 -100% GD-Script;
 -Polygon world with height;
--Sprite objects WIP;
+-Sprite objects;
 -Collision with flat floors and square walls;
 -Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
