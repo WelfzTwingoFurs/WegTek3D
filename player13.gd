@@ -364,6 +364,7 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("ply_noclip"):
 		noclip = !noclip
 		$Col.disabled = !$Col.disabled
+		on_floor = 0
 	
 	if !noclip:
 		collide()
@@ -394,6 +395,8 @@ func _physics_process(_delta):
 		elif Input.is_action_pressed("ply_crouch"):
 			positionZ -= 1 * rotate_rate * Engine.time_scale
 			move_dir.z = -1
+		elif Input.is_action_pressed("ply_flycenter"):
+			positionZ = lerp(positionZ, 0, 0.1)
 		else:
 			move_dir.z = 0
 	#print(positionZ)
@@ -513,7 +516,10 @@ func collide():
 func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
 		if !col_floors.has(body):
+			if (col_floors.size() == 0) && (body.flag_1height) && (on_floor == 1) && (body.heights[0] < positionZ): on_floor = 0
+			
 			col_floors.push_back(body)
+			
 			
 	elif body.is_in_group("wall"):
 		if !col_walls.has(body):
@@ -525,6 +531,10 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		if col_floors.has(body):
 			col_floors.erase(body)
 			
+			if (col_floors.size() == 0) && (positionZ < 0):
+				positionZ = 0
+			
+	
 	if body.is_in_group("wall"):
 		if col_walls.has(body):
 			col_walls.erase(body)
