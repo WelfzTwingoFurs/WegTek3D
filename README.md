@@ -31,6 +31,7 @@ IMPERFECTIONS:
 -Camera-edge culling only checks if all vertices are off-screen;
 -Extreme texture distortion up-close;
 -Clipping intervenes with texturing;
+-Clipping intervenes with shading;
 -No camera-edge clipping (polygon pieces outside screen still render);
 -No world culling (polygons fully behind others still render);
 -Draw distance innacurate to value depending on Angles FOV;
@@ -69,7 +70,8 @@ SPECIAL THANKS:
 -JJoeyay/Taffyko, for teaching me Godot and inspiring me to make games;
 -3DSage's 'Make Your Own Raycaster' series on YouTube;
 -Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial';
--Nic from college, for making me understand the polygon processing logic.
+-Nic from college, for making me understand the polygon processing logic;
+-Karin my friend, for giving me the spark that inspired wall collision!
 
 <3
 ```
