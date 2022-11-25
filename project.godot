@@ -25,8 +25,8 @@ Worldconfig="*res://worldconfig.gd"
 
 [display]
 
-window/size/width=120
-window/size/height=90
+window/size/width=1000
+window/size/height=500
 window/size/always_on_top=true
 window/vsync/use_vsync=false
 window/stretch/aspect="expand"
@@ -150,6 +150,7 @@ bug_speedstop={
 ply_jump={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777350,"unicode":0,"echo":false,"script":null)
  ]
 }
 ply_lookup={
@@ -229,8 +230,8 @@ bug_animationplayer_pause={
 
 [layer_names]
 
-2d_physics/layer_1="render"
-2d_physics/layer_2="player"
+2d_physics/layer_1="polygons"
+2d_physics/layer_2="sprites"
 
 [physics]
 
