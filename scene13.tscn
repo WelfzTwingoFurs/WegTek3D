@@ -308,16 +308,16 @@ b = Vector2( 178, -52 )
 [node name="Node2D" type="Node2D"]
 
 [node name="player13" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, -161 )
+position = Vector2( 25, 1233 )
 collision_mask = 0
 UV_textures = false
 shading = false
 
-[node name="Background" parent="player13" index="6"]
-visible = true
-
 [node name="Sky" parent="player13/Background" index="0"]
 texture = ExtResource( 9 )
+
+[node name="Floor" parent="player13/Background" index="1"]
+modulate = Color( 0.643137, 0.796078, 1, 1 )
 
 [node name="Node2D" type="Node2D" parent="."]
 z_index = 4096
@@ -1017,7 +1017,7 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites coin2 (teh_supar_hackr, TSR).png"
+texture = "res://assets/sprites coin.png"
 vframes = 20
 hframes = 1
 rotations = 39
