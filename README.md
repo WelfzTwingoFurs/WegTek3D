@@ -19,7 +19,7 @@ FEATURES:
 -Clipping (vertexes behind camera don't distort);
 -WIP Camera-edge culling option (polys outside screen won't render);
 -Z_Index sorting (Polygons in front of polygons behind) in 3D (whole object only);
--Depth shading/horizon fading options;
+-Shading & depth shading  options, basic horizon fading;
 -Viewbobbing, viewrolling options;
 -Scrolling sky texture & stretch options, floor texture;
 -All textures changeable to ones of any size;
@@ -31,7 +31,6 @@ IMPERFECTIONS:
 -Camera-edge culling only checks if all vertices are off-screen;
 -Extreme texture distortion up-close;
 -Clipping intervenes with texturing;
--Clipping intervenes with shading;
 -No camera-edge clipping (polygon pieces outside screen still render);
 -No world culling (polygons fully behind others still render);
 -Draw distance innacurate to value depending on Angles FOV;
