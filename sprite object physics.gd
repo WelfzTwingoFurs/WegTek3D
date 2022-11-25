@@ -23,17 +23,24 @@ func _ready():
 
 
 
-export(bool) var printthisshit = false
 
 
+var motion = Vector2()
 
 func _physics_process(_delta):
-	if on_floor != 1:
+	motion = move_and_slide(motion, Vector2(0,-1))
+	
+	#if on_floor == 1:
+	#	if Input.is_action_pressed("ply_jump"):
+	#		jump()
+	
+	if on_floor == 0:
 		if (col_floors.size() == 0 && positionZ <= 0):
 			on_floor = 1
 			motionZ = 0
 		else:
 			motionZ -= GRAVITY
+		
 	
 	positionZ += motionZ
 	
@@ -46,9 +53,9 @@ func _physics_process(_delta):
 	
 	collide()
 
-export(float) var GRAVITY = 1
+export(float) var GRAVITY = 0.5
 export(float) var JUMP = 10
-export var obj_height = 50
+export var obj_height = 45
 var col_walls = []
 var col_floors = []
 var move_dir = Vector3(0,0,0)
@@ -72,10 +79,10 @@ func collide():
 			#pé < topo, cabeça > topo
 			if (positionZ <= heightsBT.x && positionZ+obj_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+obj_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+obj_height >= heightsBT.y): 
 				# pé < topo, cabeça > topo, pé - topo = <obj_height
-				if (positionZ < heightsBT.y && positionZ+obj_height > heightsBT.y) && (positionZ - heightsBT.y < obj_height/2):
+				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+obj_height > heightsBT.y) && (positionZ - heightsBT.y < obj_height/2):
 					positionZ = heightsBT.y
 				
-				elif (positionZ < heightsBT.x && positionZ+obj_height > heightsBT.x) && ((positionZ+obj_height) - heightsBT.x < obj_height/2):
+				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+obj_height > heightsBT.x) && ((positionZ+obj_height) - heightsBT.x < obj_height/2):
 					positionZ = heightsBT.x - obj_height -1
 				
 				else:
@@ -87,8 +94,19 @@ func collide():
 	for n in col_floors.size():
 		if dynamic_darkness:
 			darkness = col_floors[n].darkness
+			
 	#if col_floors != null:
 		if col_floors[n].flag_1height:
+			if col_floors[n].absolute == -1:
+				if positionZ > col_floors[n].heights[0]-1:
+					positionZ = col_floors[n].heights[0] - obj_height
+					on_floor = 0
+			elif col_floors[n].absolute == 1:
+				if positionZ < col_floors[n].heights[0]-obj_height:
+					positionZ = col_floors[n].heights[0]
+					on_floor = 1
+			
+			
 			if move_dir.z == -1:
 				if (positionZ < col_floors[n].heights[0]) && (positionZ+obj_height > col_floors[n].heights[0]):
 					positionZ = col_floors[n].heights[0]# + obj_height
@@ -96,7 +114,7 @@ func collide():
 					on_floor = 1 
 					if motionZ < 0:
 						motionZ = 0
-						
+						positionZ = col_floors[n].heights[0]
 			
 			if move_dir.z == 1:
 				if (positionZ < col_floors[n].heights[0]) && (positionZ+obj_height > col_floors[n].heights[0]):
@@ -124,7 +142,10 @@ func jump():
 func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
 		if !col_floors.has(body):
+			if (col_floors.size() == 0) && (body.flag_1height) && (on_floor == 1) && (body.heights[0] < positionZ): on_floor = 0
+			
 			col_floors.push_back(body)
+			
 			
 	elif body.is_in_group("wall"):
 		if !col_walls.has(body):
@@ -136,6 +157,10 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		if col_floors.has(body):
 			col_floors.erase(body)
 			
+			if (col_floors.size() == 0) && (positionZ < 0):
+				positionZ = 0
+			
+	
 	if body.is_in_group("wall"):
 		if col_walls.has(body):
 			col_walls.erase(body)

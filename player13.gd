@@ -745,7 +745,7 @@ func render():
 				
 				
 				else:
-					Ctrigger = true
+					#Ctrigger = true
 					#shading = false
 					#C = -(1*(float(1*array_walls[n].darkness)/draw_distance)-1)
 					var limitPlus  = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle+PI/2))
@@ -763,7 +763,9 @@ func render():
 					else:#plus/both neighbour bad, go with minus neighbour
 						point2 = array_walls[n].points[ (m-1) % array_walls[n].points.size() ]
 						height2 = array_walls[n].heights[ (m-1) % array_walls[n].heights.size() ]
-					
+						
+						#if (neighbours_pm.x == 0) && (neighbours_pm.y == 0):
+						#	Ctrigger = true
 					
 					
 					var new_position = new_position(point1, point2, limitPlus, limitMinus, (point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
@@ -771,9 +773,11 @@ func render():
 					var xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
 					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					
-					
-					
-					
+					var C = 1
+					if !shading: C = float(1)/array_walls[n].darkness
+					else: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
+					#var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
+					#-(distance*(float(1*array_walls[n].darkness)/draw_distance)-1)
 					
 					if height1 == height2:#No diagonals, we're done
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
@@ -788,8 +792,8 @@ func render():
 								new_height += height2
 						
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
-						
 					
+					array_shading.append(Color(C,C,C))
 					
 					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
@@ -800,6 +804,7 @@ func render():
 						xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
 						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
+						if shading: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 						
 						if height1 == height2:#No diagonals
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
@@ -814,16 +819,20 @@ func render():
 									new_height += height2
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
-							
 						
+						array_shading.append(Color(C,C,C))
 			
 			
 			else:#all vertices in front of camera
-				shading = true
+				#shading = true
 				var xkusu = (array_walls[n].points[m]-to_global($Camera2D.position)).angle() - midscreen
 				var lineH = (OS.window_size.y / sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2)))   /  cos(xkusu)
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+				var C
+				if !shading: C = float(1)/array_walls[n].darkness
+				else: C = -(    sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
+				array_shading.append(Color(C,C,C))
 			
 			if cull_on && array_polygon.size() > 0:
 				if abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
@@ -832,17 +841,30 @@ func render():
 			
 			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
 			
-			if shading:
+			#if shading:
 				#if C == null:
-				var C = 1
-				if !Ctrigger:
-					C = -(distance*(float(1*array_walls[n].darkness)/draw_distance)-1)
+				#var C = float(1)/array_walls[n].darkness
+				#if !Ctrigger:
+				#	C = -(distance*(float(1*array_walls[n].darkness)/draw_distance)-1)
 				
-				elif array_shading.size() != 0:
-					var distanceC = sqrt(pow((array_walls[n].points[array_walls[n].points.size()-1].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[array_walls[n].points.size()-1].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[array_walls[n].heights.size()-1] - positionZ), 2))
-					C = -(distanceC*(float(1*array_walls[n].darkness)/draw_distance)-1)
+				#elif array_shading.size() != 0:
+				#	var distanceC = sqrt(pow((array_walls[n].points[array_walls[n].points.size()-1].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[array_walls[n].points.size()-1].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[array_walls[n].heights.size()-1] - positionZ), 2))
+				#	C = -(distanceC*(float(1*array_walls[n].darkness)/draw_distance)-1)
 				
-				array_shading.append(Color(C,C,C))
+				#else:
+				#	var distanceC = sqrt(pow((array_walls[n].position.x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].position.y - to_global($Camera2D.position).y), 2))
+				#	C = -(distanceC*(float(1*array_walls[n].darkness)/draw_distance)-1)
+				
+				#array_shading.append(Color(C,C,C))
+			
+			#else:
+			#	var C = float(1)/array_walls[n].darkness
+			#	array_shading.append(Color(C,C,C))
+			#	if Ctrigger: array_shading.append(Color(C,C,C))
+			
+			
+			
+			
 			
 			
 			if -(distance*(float(8192)/draw_distance)-4096) < min_distance:
@@ -854,14 +876,14 @@ func render():
 					break
 					#continue
 				
-				
+				#print(array_shading)
 				
 				if abs(min_distance) > 4096:
 					#new_poly.z_index = 4096*sign(min_distance)
 					#new_poly.visible = 0
 					#break #if we don't cull it gets inverted since things will stack at -4096
 					new_poly.z_index = -4095
-					new_poly.modulate = Color(0,0,0,0.5)
+					new_poly.modulate = Color(0,0,0,array_walls[n].modulate.a)
 					
 				else:
 					new_poly.z_index = min_distance
@@ -911,13 +933,18 @@ func render():
 								
 						else:
 							new_poly.texture_scale = $PolyContainer.scale * float(1)/array_walls[n].texture_repeat
-							#new_poly.texture_offset.y = vbob
+							#new_poly.texture_offset.y = -positionZ
+							#new_poly.texture_offset.x = rotation_angle
 							
 						
 		#end of M loop, back to N
 		
-		if shading:
-			new_poly.vertex_colors = array_shading
+#		if !shading:
+#			for j in array_polygon.size():
+#				var C = float(1)/array_walls[n].darkness
+#				array_shading.append(Color(C,C,C))
+		
+		new_poly.vertex_colors = array_shading
 		new_poly.polygon = array_polygon
 		new_container.add_child(new_poly) #Over!!!!
 		
@@ -951,7 +978,8 @@ func render():
 			xkusu = sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2))
 			if abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096:
 				#break
-				new_sprite.modulate = Color(0,0,0,0.5)
+				new_sprite.modulate = Color(0,0,0)
+				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
 				new_sprite.z_index = -4095
 				
 			else:
