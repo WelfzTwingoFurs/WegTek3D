@@ -71,7 +71,12 @@ b = Vector2( 178, -52 )
 [node name="scene12" type="Node2D"]
 
 [node name="player13" parent="." instance=ExtResource( 1 )]
+collision_layer = 3
+collision_mask = 0
 UV_textures = false
+
+[node name="ViewArea" parent="player13" index="3"]
+collision_mask = 3
 
 [node name="walls" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -1265,3 +1270,5 @@ polygon = PoolVector2Array( 1, 2, 2, 1, 4, 1, 5, 2, 6, 4, 5, 6, 4, 7, 2, 7, 1, 6
 
 [connection signal="body_shape_entered" from="walls/spriteman8/ColArea" to="walls/spriteman8" method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="walls/spriteman8/ColArea" to="walls/spriteman8" method="_on_ColArea_body_shape_exited"]
+
+[editable path="player13"]

@@ -76,7 +76,7 @@ tracks/0/keys = {
 
 [node name="player13" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
@@ -98,6 +98,8 @@ __meta__ = {
 
 [node name="ColArea" type="Area2D" parent="."]
 scale = Vector2( 2, 2 )
+collision_layer = 3
+collision_mask = 3
 
 [node name="Col" type="CollisionShape2D" parent="ColArea"]
 modulate = Color( 100, 100, 100, 1 )
@@ -130,6 +132,8 @@ __meta__ = {
 
 [node name="ViewArea" type="Area2D" parent="."]
 z_index = 4096
+collision_layer = 3
+collision_mask = 0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true,
