@@ -709,7 +709,7 @@ func render():
 		var outtasight = 0
 		var min_distance = INF
 		var array_shading = []
-		#var C = null
+		var Ctrigger = false
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-to_global($Camera2D.position)).angle()-PI/2)
@@ -735,7 +735,8 @@ func render():
 				
 				
 				else:
-					shading = false
+					Ctrigger = true
+					#shading = false
 					#C = -(1*(float(1*array_walls[n].darkness)/draw_distance)-1)
 					var limitPlus  = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle+PI/2))
 					var limitMinus = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle-PI/2))
@@ -823,9 +824,15 @@ func render():
 			
 			if shading:
 				#if C == null:
-				var C = -(distance*(float(1*array_walls[n].darkness)/draw_distance)-1)
+				var C = 1
+				if !Ctrigger:
+					C = -(distance*(float(1*array_walls[n].darkness)/draw_distance)-1)
+				
+				elif array_shading.size() != 0:
+					var distanceC = sqrt(pow((array_walls[n].points[array_walls[n].points.size()-1].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[array_walls[n].points.size()-1].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[array_walls[n].heights.size()-1] - positionZ), 2))
+					C = -(distanceC*(float(1*array_walls[n].darkness)/draw_distance)-1)
+				
 				array_shading.append(Color(C,C,C))
-				#C = null
 			
 			
 			if -(distance*(float(8192)/draw_distance)-4096) < min_distance:
