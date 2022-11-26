@@ -471,7 +471,7 @@ func big_process(n, angle1, angle2):
 				
 				var actives = Vector2(0,0)
 				
-				if rotation_angle > PI/2 && rotation_angle < 3*PI/2:
+				if rad_overflow(Worldconfig.player.motion.angle()-PI/2) > PI/2 && rad_overflow(Worldconfig.player.motion.angle()-PI/2) < 3*PI/2:
 					#print("RED PLUS IS BIGGEST")
 					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(angle2) or rad_overflow((point1-position).angle()-PI/2) > rad_overflow(angle1):
 						#print("!!RED ALERT!!")
@@ -520,15 +520,25 @@ func big_process(n, angle1, angle2):
 						if (new_height < height2) or (new_height > height1):
 							new_height += height2
 					
-					
 					if input_dir != Vector2(0,0):
 						on_floor = 0
-
-					if (positionZ < new_height) && (positionZ+ply_height > new_height):
-						positionZ = new_height
-						on_floor = 1 
-						if motionZ < 0:
-							motionZ = 0
+					
+					if move_dir.z == -1:
+						if (positionZ < new_height) && (positionZ+ply_height > new_height):
+							positionZ = new_height# + ply_height
+							
+							on_floor = 1 
+							if motionZ < 0:
+								motionZ = 0
+								
+					
+					elif move_dir.z == 1:
+						if (positionZ < new_height) && (positionZ+ply_height > new_height):
+							positionZ = new_height - ply_height
+							
+							on_floor = 0
+							if motionZ > 0:
+								motionZ = 0
 					
 					print(m,"  ", new_height)
 					array_ender.append(new_height)
