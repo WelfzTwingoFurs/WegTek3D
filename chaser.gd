@@ -5,7 +5,7 @@ const speed = 50
 var distanceXY = Vector2(0,0)
 
 func _physics_process(_delta):
-	motion = Vector2(speed, speed).rotated((rotation_degrees))
+	motion = lerp(motion, Vector2(speed, speed).rotated(rotation_degrees), 0.1)
 	
 	if motion != Vector2(0,0):
 		$AnimationPlayer.play("walk")
@@ -18,4 +18,4 @@ func _physics_process(_delta):
 	
 	#if on_floor == 1 or (col_floors.size() == 0 && positionZ <= 0):
 	#if Worldconfig.player.positionZ > positionZ:
-	jump()
+	#	jump()

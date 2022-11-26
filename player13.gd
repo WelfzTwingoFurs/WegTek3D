@@ -42,7 +42,7 @@ func _ready():
 
 export var skycolor = Color8(47,0,77)
 export var sky_stretch = Vector2(1,1)
-
+export var min_Z = 0
 
 export var rotate_rate = 3.0
 var rotation_angle = 0.000001
@@ -364,28 +364,31 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("ply_noclip"):
 		noclip = !noclip
 		$Col.disabled = !$Col.disabled
-		on_floor = 0
+		on_floor = false
 	
 	if !noclip:
 		collide()
 		
-		if on_floor == 1:
+		if on_floor == true:
 			if Input.is_action_pressed("ply_jump"):
 				motionZ += JUMP
-				on_floor = 0
+				on_floor = false
 		
 		else:
-			if (col_floors.size() == 0 && positionZ <= 0):
-				on_floor = 1
+			if (col_floors.size() == 0 && positionZ <= min_Z):
+				on_floor = true
 				motionZ = 0
-			else:
+			elif positionZ > min_Z:
 				motionZ -= GRAVITY
+			else:
+				on_floor = true
+				motionZ = 0
 		
 		positionZ += motionZ
 	
 	#elif (col_floors.size() == 0 && positionZ <= 0):
 	#	motionZ = 0
-	#	on_floor = 1
+	#	on_floor = true
 	
 	else:
 		motionZ = 0
@@ -428,7 +431,7 @@ var positionZ = 0
 #const GRAVITY = 1
 
 
-var on_floor = 0
+var on_floor = false
 var col_floors = []
 var col_walls = []
 
@@ -438,8 +441,12 @@ export var ply_height = 45
 
 var noclip = false
 
+var darkness = 0
+
 func collide():
 	for n in col_walls.size():
+		darkness = col_floors[n].darkness
+		
 		if col_walls[n].flag_2height:
 			var heightsBT = Vector2(-1,1)
 			
@@ -457,9 +464,11 @@ func collide():
 				# pé < topo, cabeça > topo, pé - topo = <ply_height
 				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+ply_height > heightsBT.y) && (positionZ - heightsBT.y < ply_height/2):
 					positionZ = heightsBT.y
+					on_floor = true
 				
 				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+ply_height > heightsBT.x) && ((positionZ+ply_height) - heightsBT.x < ply_height/2):
 					positionZ = heightsBT.x - ply_height -1
+					on_floor = false
 				
 				else:
 					remove_collision_exception_with(col_walls[n])
@@ -470,38 +479,86 @@ func collide():
 	for n in col_floors.size():
 	#if col_floors != null:
 		if col_floors[n].flag_1height:
-			if col_floors[n].absolute == -1:
-				if positionZ > col_floors[n].heights[0]-1:
-					positionZ = col_floors[n].heights[0] - ply_height
-					on_floor = 0
-			elif col_floors[n].absolute == 1:
-				if positionZ < col_floors[n].heights[0]-ply_height:
-					positionZ = col_floors[n].heights[0]
-					on_floor = 1
+			col_proccess(n,0)
+		
+		else: #sometimes we gotta process a fuckin slope
+			#var distances = []
+			var ID = Vector2(0,0)
+			
+			var first = INF
+			
+			for m in col_floors[n].points.size():
+				var distance =  sqrt(pow((col_floors[n].points[m].x - position.x), 2) + pow((col_floors[n].points[m].y - position.y), 2) + pow((col_floors[n].heights[m] - positionZ), 2))
+				if distance < first:
+					first = distance
+					ID.x = m
+			
+			var second = INF
+			
+			for m in col_floors[n].points.size():
+				var distance =  sqrt(pow((col_floors[n].points[m].x - position.x), 2) + pow((col_floors[n].points[m].y - position.y), 2) + pow((col_floors[n].heights[m] - positionZ), 2))
+				if distance > first && distance < second:
+					second = distance
+					ID.y = m
 			
 			
-			if move_dir.z == -1:
-				if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
-					positionZ = col_floors[n].heights[0]# + ply_height
-					
-					on_floor = 1 
-					if motionZ < 0:
-						motionZ = 0
-						
+			if on_floor == true: positionZ = col_floors[n].heights[ID.x]
+			col_proccess(n,ID.x)
+#			print(ID)
+#			#positionZ = col_floors[n].heights[ID.x]
+#			var first_second = sqrt(pow((col_floors[n].points[ID.x].x - col_floors[n].points[ID.y].x), 2) + pow((col_floors[n].points[ID.x].y - col_floors[n].points[ID.y].y), 2) + pow((col_floors[n].heights[ID.x] - col_floors[n].heights[ID.y]), 2))
+#			#var first_second = sqrt(pow((col_floors[n].heights[ID.x] - col_floors[n].heights[ID.y]), 2))
+#			#(me to closest distance) = 0%, (first to second distance)=100%, (me to second distance) = X%
+#			#heights[ID.x]=0%, heights[ID.y]=100%
+#			#positionZ = X% of heights[ID.y]-heights[ID.x]
+#			#col_proccess(n,closest)
+#			#first = sqrt(pow((positionZ - col_floors[n].heights[ID.x]), 2))
+#			#second = sqrt(pow((positionZ - col_floors[n].heights[ID.y]), 2))
+#
+#			var percent
+#			if col_floors[n].heights[ID.x] == col_floors[n].heights[ID.y]:
+#				positionZ = col_floors[n].heights[ID.x]
+#			elif col_floors[n].heights[ID.x] > col_floors[n].heights[ID.y]:
+#				percent = second/(first_second) #+ 0.5
+#				positionZ = col_floors[n].heights[ID.x]*percent
+#				print("A")
+#			else:
+#				percent = first/(first_second)# + 0.5
+#				positionZ = (col_floors[n].heights[ID.x]/percent) -col_floors[n].heights[ID.x]
+#				print("b")
 			
-			if move_dir.z == 1:
-				if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
-					positionZ = col_floors[n].heights[0] - ply_height
-					
-					on_floor = 0
-					if motionZ > 0:
-						motionZ = 0
-		
-		
-		
-		
-		#else: #sometimes we gotta process a fuckin slope
+			
+			#print(percent)
 
+
+
+func col_proccess(n,numba):
+	if col_floors[n].absolute == -1:
+		if positionZ > col_floors[n].heights[numba]-1:
+			positionZ = col_floors[n].heights[numba] - ply_height
+			on_floor = false
+	elif col_floors[n].absolute == 1:
+		if positionZ < col_floors[n].heights[numba]-ply_height:
+			positionZ = col_floors[n].heights[numba]
+			on_floor = true
+	
+	
+	if move_dir.z == -1:
+		if (positionZ < col_floors[n].heights[numba]) && (positionZ+ply_height > col_floors[n].heights[numba]):
+			positionZ = col_floors[n].heights[numba]# + ply_height
+			
+			on_floor = true 
+			if motionZ < 0:
+				motionZ = 0
+				
+	
+	if move_dir.z == 1:
+		if (positionZ < col_floors[n].heights[numba]) && (positionZ+ply_height > col_floors[n].heights[numba]):
+			positionZ = col_floors[n].heights[numba] - ply_height
+			
+			on_floor = false
+			if motionZ > 0:
+				motionZ = 0
 
 
 
@@ -516,7 +573,7 @@ func collide():
 func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
 		if !col_floors.has(body):
-			if (col_floors.size() == 0) && (body.flag_1height) && (on_floor == 1) && (body.heights[0] < positionZ): on_floor = 0
+			if (col_floors.size() == 0) && (body.flag_1height) && (on_floor == true) && (body.heights[0] < positionZ): on_floor = false
 			
 			col_floors.push_back(body)
 			
@@ -527,12 +584,12 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
-		on_floor = 0
+		on_floor = false
 		if col_floors.has(body):
 			col_floors.erase(body)
 			
-			if (col_floors.size() == 0) && (positionZ < 0):
-				positionZ = 0
+			if (col_floors.size() == 0) && (positionZ <= min_Z):
+				positionZ = min_Z
 			
 	
 	if body.is_in_group("wall"):
@@ -719,7 +776,6 @@ func render():
 		var outtasight = 0
 		var min_distance = INF
 		var array_shading = []
-		var Ctrigger = false
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-to_global($Camera2D.position)).angle()-PI/2)
@@ -788,8 +844,10 @@ func render():
 						if height2 > height1: #dont know
 							new_height += height2
 						elif height2 < height1:# why, OK
-							if (new_height < height2) or (new_height > height1):
-								new_height += height2
+							#if (new_height < height2) or (new_height > height1):
+							new_height += height2
+						
+						#print(height2,"   ",height1,"   ",new_height)
 						
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
 					
@@ -815,8 +873,8 @@ func render():
 							if height2 > height1: #dont know
 								new_height += height2
 							elif (height2 < height1) or (new_height > height1):# why, OK
-								if new_height < height2:
-									new_height += height2
+								#if new_height < height2:
+								new_height += height2
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
 						
@@ -983,7 +1041,9 @@ func render():
 				new_sprite.z_index = -4095
 				
 			else:
-				var C =  -(xkusu*(float(1*array_sprites[o].darkness)/draw_distance)-1)
+				var C
+				if shading: C =  -(xkusu*(float(1*array_sprites[o].darkness)/draw_distance)-1)
+				else: C = float(1)/array_sprites[o].darkness
 				new_sprite.modulate = array_sprites[o].modulate*C
 				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
 				new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)

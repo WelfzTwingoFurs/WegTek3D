@@ -358,7 +358,6 @@ position = Vector2( -3, 739 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 8rot welfz.png"
 hframes = 1
 
@@ -995,7 +994,6 @@ position = Vector2( -1, 378 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 2rot.png"
 vframes = 2
 hframes = 1
@@ -1015,7 +1013,6 @@ position = Vector2( -1, 497 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 4rot.png"
 vframes = 3
 hframes = 1
@@ -1035,7 +1032,6 @@ position = Vector2( 0, 586 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 39rot.png"
 vframes = 20
 hframes = 1
@@ -1055,8 +1051,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 12 )
 anim = 1
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/chaser"]
 anims/walk = SubResource( 37 )
@@ -1081,8 +1075,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 darkness = 0.0
 dynamic_darkness = true
 
@@ -1109,8 +1101,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 darkness = 0.0
 dynamic_darkness = true
 
@@ -1137,8 +1127,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 darkness = 0.0
 dynamic_darkness = true
 
@@ -1165,8 +1153,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 darkness = 0.0
 dynamic_darkness = true
 
@@ -1193,8 +1179,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 darkness = 0.0
 dynamic_darkness = true
 
@@ -1221,8 +1205,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 darkness = 0.0
 dynamic_darkness = true
 
@@ -1249,8 +1231,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 darkness = 0.0
 dynamic_darkness = true
 
@@ -1277,8 +1257,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 darkness = 0.0
 dynamic_darkness = true
 
