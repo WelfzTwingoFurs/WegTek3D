@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://player13.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprite object physics.gd" type="Script" id=2]
@@ -12,13 +12,12 @@
 [ext_resource path="res://older_versions/plagio.png" type="Texture" id=10]
 [ext_resource path="res://queue_free.gd" type="Script" id=11]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 20.0
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 
-[sub_resource type="Animation" id=1]
-resource_name = "_ready"
+[sub_resource type="Animation" id=3]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("spriteman8:position")
@@ -71,7 +70,12 @@ b = Vector2( 178, -52 )
 a = Vector2( 278, -52 )
 b = Vector2( 178, -52 )
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="CircleShape2D" id=10]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id=11]
+
+[sub_resource type="Animation" id=12]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -87,113 +91,111 @@ tracks/0/keys = {
 "values": [ 0.0, 180.0, 360.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("rotation test:rotation_degrees")
+tracks/1/path = NodePath("welfy <3:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, 180.0, 360.0 ]
+"values": [ 0.0, 360.0 ]
 }
 
-[sub_resource type="CircleShape2D" id=11]
-
-[sub_resource type="SegmentShape2D" id=12]
+[sub_resource type="SegmentShape2D" id=13]
 a = Vector2( -9, 74 )
 b = Vector2( -9, 64 )
 
-[sub_resource type="SegmentShape2D" id=13]
+[sub_resource type="SegmentShape2D" id=14]
 a = Vector2( 0, 64 )
 b = Vector2( -4, 64 )
 
-[sub_resource type="SegmentShape2D" id=14]
+[sub_resource type="SegmentShape2D" id=15]
 a = Vector2( 0, 73 )
 b = Vector2( -4, 64 )
 
-[sub_resource type="SegmentShape2D" id=15]
+[sub_resource type="SegmentShape2D" id=16]
 a = Vector2( -4, 73 )
 b = Vector2( 0, 64 )
 
-[sub_resource type="SegmentShape2D" id=16]
+[sub_resource type="SegmentShape2D" id=17]
 a = Vector2( -4, 73 )
 b = Vector2( 0, 73 )
 
-[sub_resource type="SegmentShape2D" id=17]
+[sub_resource type="SegmentShape2D" id=18]
 a = Vector2( 4, 73 )
 b = Vector2( 8, 73 )
 
-[sub_resource type="SegmentShape2D" id=18]
+[sub_resource type="SegmentShape2D" id=19]
 a = Vector2( 4, 73 )
 b = Vector2( 6, 64 )
 
-[sub_resource type="SegmentShape2D" id=19]
+[sub_resource type="SegmentShape2D" id=20]
 a = Vector2( 8, 73 )
 b = Vector2( 6, 64 )
 
-[sub_resource type="SegmentShape2D" id=20]
+[sub_resource type="SegmentShape2D" id=21]
 a = Vector2( -124, -46 )
 b = Vector2( -119, -46 )
 
-[sub_resource type="SegmentShape2D" id=21]
+[sub_resource type="SegmentShape2D" id=22]
 a = Vector2( -124, -46 )
 b = Vector2( -119, -54 )
 
-[sub_resource type="SegmentShape2D" id=22]
+[sub_resource type="SegmentShape2D" id=23]
 a = Vector2( -124, -54 )
 b = Vector2( -119, -54 )
 
-[sub_resource type="SegmentShape2D" id=23]
+[sub_resource type="SegmentShape2D" id=24]
 a = Vector2( -111, -54 )
 b = Vector2( -116, -54 )
 
-[sub_resource type="SegmentShape2D" id=24]
+[sub_resource type="SegmentShape2D" id=25]
 a = Vector2( -111, -54 )
 b = Vector2( -116, -45 )
 
-[sub_resource type="SegmentShape2D" id=25]
-a = Vector2( -123, -46 )
-b = Vector2( -118, -54 )
-
 [sub_resource type="SegmentShape2D" id=26]
-a = Vector2( -123, -54 )
+a = Vector2( -123, -46 )
 b = Vector2( -118, -54 )
 
 [sub_resource type="SegmentShape2D" id=27]
 a = Vector2( -123, -54 )
-b = Vector2( -120, -50 )
+b = Vector2( -118, -54 )
 
 [sub_resource type="SegmentShape2D" id=28]
+a = Vector2( -123, -54 )
+b = Vector2( -120, -50 )
+
+[sub_resource type="SegmentShape2D" id=29]
 a = Vector2( -123, -45 )
 b = Vector2( -118, -54 )
 
-[sub_resource type="SegmentShape2D" id=29]
+[sub_resource type="SegmentShape2D" id=30]
 a = Vector2( -123, -54 )
 b = Vector2( -117, -54 )
 
-[sub_resource type="SegmentShape2D" id=30]
-a = Vector2( -124, -55 )
-b = Vector2( -120, -50 )
-
 [sub_resource type="SegmentShape2D" id=31]
-a = Vector2( -124, -54 )
+a = Vector2( -124, -55 )
 b = Vector2( -120, -50 )
 
 [sub_resource type="SegmentShape2D" id=32]
 a = Vector2( -124, -54 )
-b = Vector2( -120, -58 )
+b = Vector2( -120, -50 )
 
 [sub_resource type="SegmentShape2D" id=33]
+a = Vector2( -124, -54 )
+b = Vector2( -120, -58 )
+
+[sub_resource type="SegmentShape2D" id=34]
 a = Vector2( -125, -58 )
 b = Vector2( -120, -58 )
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=35]
 length = 0.8
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("rotation test:rotation_degrees")
+tracks/0/path = NodePath("dd2:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -205,7 +207,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("dd:rotation_degrees")
+tracks/1/path = NodePath("bin2:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -217,7 +219,7 @@ tracks/1/keys = {
 "values": [ 0.0, 360.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("bin:rotation_degrees")
+tracks/2/path = NodePath("coin2:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -229,8 +231,7 @@ tracks/2/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[sub_resource type="Animation" id=35]
-resource_name = "walk"
+[sub_resource type="Animation" id=36]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -246,10 +247,21 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="CircleShape2D" id=36]
-radius = 20.0
-
-[sub_resource type="CircleShape2D" id=37]
+[sub_resource type="Animation" id=37]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:anim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
 
 [sub_resource type="Animation" id=38]
 length = 0.4
@@ -363,30 +375,15 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="Animation" id=45]
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:anim")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 3, 4 ]
-}
-
-[sub_resource type="SegmentShape2D" id=46]
+[sub_resource type="SegmentShape2D" id=45]
 a = Vector2( 278, -52 )
 b = Vector2( 178, -52 )
 
 [node name="scene12" type="Node2D"]
 
 [node name="player13" parent="." instance=ExtResource( 1 )]
-position = Vector2( -1037, -4116 )
+position = Vector2( 1017, -129 )
+min_Z = -1000
 UV_textures = false
 
 [node name="walls" type="Node2D" parent="."]
@@ -401,19 +398,18 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 positionZ = 10
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 8rot welfz.png"
 
 [node name="ColArea" type="Area2D" parent="walls/spriteman8"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="walls/spriteman8/ColArea"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="walls/spriteman8"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="walls"]
-anims/_ready = SubResource( 1 )
+anims/_ready = SubResource( 3 )
 script = ExtResource( 5 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="walls" groups=[
@@ -1080,6 +1076,38 @@ absolute = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/sector"]
 polygon = PoolVector2Array( 0, 0, 500, 0, 500, 500, 0, 500 )
 
+[node name="bridge" type="StaticBody2D" parent="walls" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 1528, -100 )
+scale = Vector2( 15, 5 )
+script = ExtResource( 3 )
+heights = [ -50.0 ]
+texture_path = "res://textures/grad64.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/bridge"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="bridge2" type="StaticBody2D" parent="walls" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 1528, -329 )
+scale = Vector2( 15, 5 )
+script = ExtResource( 3 )
+heights = [ -150.0 ]
+texture_path = "res://textures/grad64.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/bridge2"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
@@ -1172,6 +1200,7 @@ scale = Vector2( 2, 2 )
 script = ExtResource( 3 )
 heights = [ -100.0 ]
 texture_path = "res://textures/solid1.png"
+absolute = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D7"]
 position = Vector2( -29.5, -7.5 )
@@ -1187,6 +1216,7 @@ scale = Vector2( 2, 2 )
 script = ExtResource( 3 )
 heights = [ 0.0 ]
 texture_path = "res://textures/solid1.png"
+absolute = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/Node2D/StaticBody2D12"]
 polygon = PoolVector2Array( 379, -635.5, 381, 346, -631.5, 361.5, -636, -631 )
@@ -1537,31 +1567,110 @@ polygon = PoolVector2Array( 1, 2, 2, 1, 4, 1, 5, 2, 6, 4, 5, 6, 4, 7, 2, 7, 1, 6
 z_index = 4096
 script = ExtResource( 4 )
 
+[node name="dd" type="KinematicBody2D" parent="Node2D2" groups=[
+"rendersprite",
+]]
+position = Vector2( 0, -2537 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+texture = "res://assets/sprites 2rot.png"
+vframes = 2
+hframes = 1
+rotations = 3
+obj_height = 20
+
+[node name="ColArea" type="Area2D" parent="Node2D2/dd"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/dd/ColArea"]
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/dd"]
+shape = SubResource( 11 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Node2D2/dd"]
+
+[node name="bin" type="KinematicBody2D" parent="Node2D2" groups=[
+"rendersprite",
+]]
+position = Vector2( 0, -2457 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+texture = "res://assets/sprites 4rot.png"
+vframes = 3
+hframes = 1
+rotations = 4
+obj_height = 28
+
+[node name="ColArea" type="Area2D" parent="Node2D2/bin"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/bin/ColArea"]
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/bin"]
+shape = SubResource( 11 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Node2D2/bin"]
+
+[node name="coin" type="KinematicBody2D" parent="Node2D2" groups=[
+"rendersprite",
+]]
+position = Vector2( 0, -2623 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+texture = "res://assets/sprites 39rot.png"
+vframes = 20
+hframes = 1
+rotations = 39
+
+[node name="ColArea" type="Area2D" parent="Node2D2/coin"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/coin/ColArea"]
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/coin"]
+shape = SubResource( 11 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Node2D2/coin"]
+
 [node name="BITCH ROTATING" type="Node2D" parent="Node2D2"]
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/BITCH ROTATING"]
-anims/_ready = SubResource( 10 )
+anims/_ready = SubResource( 12 )
 script = ExtResource( 5 )
 
-[node name="rotation test" type="KinematicBody2D" parent="Node2D2/BITCH ROTATING" groups=[
+[node name="welfy <3" type="KinematicBody2D" parent="Node2D2/BITCH ROTATING" groups=[
 "rendersprite",
 ]]
 position = Vector2( -206, -2304 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 8rot welfz.png"
 hframes = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/rotation test"]
+[node name="ColArea" type="Area2D" parent="Node2D2/BITCH ROTATING/welfy <3"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/welfy <3/ColArea"]
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/welfy <3"]
 shape = SubResource( 11 )
 
-[node name="RayCast2D" type="RayCast2D" parent="Node2D2/BITCH ROTATING/rotation test"]
-enabled = true
+[node name="RayCast2D" type="RayCast2D" parent="Node2D2/BITCH ROTATING/welfy <3"]
 
 [node name="180" type="Node2D" parent="Node2D2/BITCH ROTATING"]
 position = Vector2( -206, -2482 )
@@ -1576,7 +1685,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/180/1"]
-shape = SubResource( 12 )
+shape = SubResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1591,7 +1700,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/180/81"]
-shape = SubResource( 13 )
+shape = SubResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1606,7 +1715,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/180/82"]
-shape = SubResource( 14 )
+shape = SubResource( 15 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1621,7 +1730,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/180/83"]
-shape = SubResource( 15 )
+shape = SubResource( 16 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1636,7 +1745,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/180/84"]
-shape = SubResource( 16 )
+shape = SubResource( 17 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1651,7 +1760,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/180/01"]
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1666,7 +1775,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/180/02"]
-shape = SubResource( 18 )
+shape = SubResource( 19 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1681,7 +1790,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/180/03"]
-shape = SubResource( 19 )
+shape = SubResource( 20 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1699,7 +1808,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/270/21"]
-shape = SubResource( 20 )
+shape = SubResource( 21 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1714,7 +1823,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/270/22"]
-shape = SubResource( 21 )
+shape = SubResource( 22 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1729,7 +1838,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/270/23"]
-shape = SubResource( 22 )
+shape = SubResource( 23 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1744,7 +1853,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/270/71"]
-shape = SubResource( 23 )
+shape = SubResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1759,7 +1868,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/270/72"]
-shape = SubResource( 24 )
+shape = SubResource( 25 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1775,7 +1884,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/270/01"]
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1791,7 +1900,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/270/02"]
-shape = SubResource( 18 )
+shape = SubResource( 19 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1807,7 +1916,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/270/03"]
-shape = SubResource( 19 )
+shape = SubResource( 20 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1826,7 +1935,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/90/91"]
-shape = SubResource( 25 )
+shape = SubResource( 26 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1842,7 +1951,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/90/92"]
-shape = SubResource( 26 )
+shape = SubResource( 27 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1858,7 +1967,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/90/93"]
-shape = SubResource( 27 )
+shape = SubResource( 28 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1874,7 +1983,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/90/01"]
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1890,7 +1999,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/90/02"]
-shape = SubResource( 18 )
+shape = SubResource( 19 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1906,7 +2015,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/90/03"]
-shape = SubResource( 19 )
+shape = SubResource( 20 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1925,7 +2034,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/01"]
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1941,7 +2050,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/02"]
-shape = SubResource( 18 )
+shape = SubResource( 19 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1957,7 +2066,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/03"]
-shape = SubResource( 19 )
+shape = SubResource( 20 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1973,7 +2082,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/04"]
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1989,7 +2098,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/05"]
-shape = SubResource( 18 )
+shape = SubResource( 19 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2005,7 +2114,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/06"]
-shape = SubResource( 19 )
+shape = SubResource( 20 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2021,7 +2130,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/61"]
-shape = SubResource( 28 )
+shape = SubResource( 29 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2037,7 +2146,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/62"]
-shape = SubResource( 29 )
+shape = SubResource( 30 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2053,7 +2162,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/64"]
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2069,7 +2178,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/31"]
-shape = SubResource( 31 )
+shape = SubResource( 32 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2085,7 +2194,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/32"]
-shape = SubResource( 32 )
+shape = SubResource( 33 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2101,7 +2210,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/33"]
-shape = SubResource( 33 )
+shape = SubResource( 34 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2117,7 +2226,7 @@ texture_path = "res://textures/gato64.png"
 texture_repeat = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/BITCH ROTATING/360/34"]
-shape = SubResource( 33 )
+shape = SubResource( 34 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2127,6 +2236,7 @@ __meta__ = {
 ]]
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -206, -2304 )
+rotation = 6.28319
 script = ExtResource( 3 )
 heights = [ 0.0 ]
 texture_path = "res://textures/kensilverman64.png"
@@ -2180,67 +2290,82 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/ROTATE"]
-anims/_ready = SubResource( 34 )
+anims/_ready = SubResource( 35 )
 script = ExtResource( 5 )
 
-[node name="dd" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
+[node name="dd2" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
 "rendersprite",
 ]]
-position = Vector2( -204, -2665 )
+position = Vector2( -204, -2537 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 2rot.png"
 vframes = 2
 hframes = 1
 rotations = 3
 obj_height = 20
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/dd"]
+[node name="ColArea" type="Area2D" parent="Node2D2/ROTATE/dd2"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/dd2/ColArea"]
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/dd2"]
 shape = SubResource( 11 )
 
-[node name="RayCast2D" type="RayCast2D" parent="Node2D2/ROTATE/dd"]
-enabled = true
+[node name="RayCast2D" type="RayCast2D" parent="Node2D2/ROTATE/dd2"]
 
-[node name="bin" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
+[node name="bin2" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
 "rendersprite",
 ]]
-position = Vector2( -204, -2546 )
+position = Vector2( -204, -2457 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 4rot.png"
 vframes = 3
 hframes = 1
 rotations = 4
 obj_height = 28
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/bin"]
+[node name="ColArea" type="Area2D" parent="Node2D2/ROTATE/bin2"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/bin2/ColArea"]
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/bin2"]
 shape = SubResource( 11 )
 
-[node name="RayCast2D" type="RayCast2D" parent="Node2D2/ROTATE/bin"]
-enabled = true
+[node name="RayCast2D" type="RayCast2D" parent="Node2D2/ROTATE/bin2"]
 
-[node name="rotation test" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
+[node name="coin2" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
 "rendersprite",
 ]]
-position = Vector2( -203, -2457 )
+position = Vector2( -204, -2623 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
-scale_extra = Vector2( 0.5, 1 )
 texture = "res://assets/sprites 39rot.png"
 vframes = 20
 hframes = 1
 rotations = 39
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/rotation test"]
+[node name="ColArea" type="Area2D" parent="Node2D2/ROTATE/coin2"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/coin2/ColArea"]
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/ROTATE/coin2"]
 shape = SubResource( 11 )
 
-[node name="RayCast2D" type="RayCast2D" parent="Node2D2/ROTATE/rotation test"]
-enabled = true
+[node name="RayCast2D" type="RayCast2D" parent="Node2D2/ROTATE/coin2"]
 
 [node name="chaser" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
@@ -2250,21 +2375,19 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 9 )
 anim = 1
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/chaser"]
-anims/walk = SubResource( 35 )
+anims/walk = SubResource( 36 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/chaser"]
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/chaser/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/chaser"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/chaser"]
 
@@ -2276,22 +2399,21 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
-darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/spriteman8"]
-anims/_ready = SubResource( 38 )
+anims/_ready = SubResource( 37 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/spriteman8"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman8/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman8"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/spriteman8"]
 
@@ -2304,22 +2426,22 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
-darkness = 0.0
+darkness = 99.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/spriteman10"]
-anims/_ready = SubResource( 39 )
+anims/_ready = SubResource( 38 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/spriteman10"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman10/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman10"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/spriteman10"]
 
@@ -2332,22 +2454,22 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
-darkness = 0.0
+darkness = 99.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/spriteman11"]
-anims/_ready = SubResource( 40 )
+anims/_ready = SubResource( 39 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/spriteman11"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman11/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman11"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/spriteman11"]
 
@@ -2360,22 +2482,22 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
-darkness = 0.0
+darkness = 99.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/spriteman12"]
-anims/_ready = SubResource( 41 )
+anims/_ready = SubResource( 40 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/spriteman12"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman12/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman12"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/spriteman12"]
 
@@ -2388,22 +2510,22 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
-darkness = 0.0
+darkness = 99.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/spriteman13"]
-anims/_ready = SubResource( 42 )
+anims/_ready = SubResource( 41 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/spriteman13"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman13/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman13"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/spriteman13"]
 
@@ -2416,22 +2538,22 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
-darkness = 0.0
+darkness = 99.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/spriteman14"]
-anims/_ready = SubResource( 43 )
+anims/_ready = SubResource( 42 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/spriteman14"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman14/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman14"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/spriteman14"]
 
@@ -2444,22 +2566,22 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
-darkness = 0.0
+darkness = 99.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/spriteman15"]
-anims/_ready = SubResource( 44 )
+anims/_ready = SubResource( 43 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/spriteman15"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman15/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman15"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/spriteman15"]
 
@@ -2472,22 +2594,22 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 anim = 4
-scale_extra = Vector2( 0.5, 1 )
-texture = "res://assets/sprites EGA jake.png"
-darkness = 0.0
+darkness = 99.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D2/spriteman16"]
-anims/_ready = SubResource( 45 )
+anims/_ready = SubResource( 44 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D2/spriteman16"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman16/ColArea"]
-shape = SubResource( 36 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/spriteman16"]
-shape = SubResource( 37 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D2/spriteman16"]
 
@@ -2503,7 +2625,7 @@ heights = [ 0, 100 ]
 texture_path = "res://textures/busy64.png"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/wall"]
-shape = SubResource( 46 )
+shape = SubResource( 45 )
 
 [node name="sector" type="StaticBody2D" parent="Node2D2"]
 position = Vector2( -168, -4001 )
@@ -2537,7 +2659,7 @@ script = ExtResource( 6 )
 heights = [ 0, 1000 ]
 textures = [ "", "res://textures/EGAconcrete1.png", "", "res://textures/EGAconcrete1.png", "res://assets/gradientthin.png", "" ]
 colors = [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
-darknesses = 0.5
+darknesses = 2.0
 collide = true
 absolute = true
 
@@ -3210,6 +3332,20 @@ polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
 
 [connection signal="body_shape_entered" from="walls/spriteman8/ColArea" to="walls/spriteman8" method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="walls/spriteman8/ColArea" to="walls/spriteman8" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="Node2D2/dd/ColArea" to="Node2D2/dd" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="Node2D2/dd/ColArea" to="Node2D2/dd" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="Node2D2/bin/ColArea" to="Node2D2/bin" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="Node2D2/bin/ColArea" to="Node2D2/bin" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="Node2D2/coin/ColArea" to="Node2D2/coin" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="Node2D2/coin/ColArea" to="Node2D2/coin" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="Node2D2/BITCH ROTATING/welfy <3/ColArea" to="Node2D2/BITCH ROTATING/welfy <3" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="Node2D2/BITCH ROTATING/welfy <3/ColArea" to="Node2D2/BITCH ROTATING/welfy <3" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="Node2D2/ROTATE/dd2/ColArea" to="Node2D2/ROTATE/dd2" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="Node2D2/ROTATE/dd2/ColArea" to="Node2D2/ROTATE/dd2" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="Node2D2/ROTATE/bin2/ColArea" to="Node2D2/ROTATE/bin2" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="Node2D2/ROTATE/bin2/ColArea" to="Node2D2/ROTATE/bin2" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="Node2D2/ROTATE/coin2/ColArea" to="Node2D2/ROTATE/coin2" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="Node2D2/ROTATE/coin2/ColArea" to="Node2D2/ROTATE/coin2" method="_on_ColArea_body_shape_exited"]
 [connection signal="body_shape_entered" from="Node2D2/chaser/ColArea" to="Node2D2/chaser" method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="Node2D2/chaser/ColArea" to="Node2D2/chaser" method="_on_ColArea_body_shape_exited"]
 [connection signal="body_shape_entered" from="Node2D2/spriteman8/ColArea" to="Node2D2/spriteman8" method="_on_ColArea_body_shape_entered"]
