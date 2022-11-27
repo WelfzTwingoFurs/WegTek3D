@@ -17,7 +17,7 @@ func _ready():
 	#Turn everything on
 	
 	$ViewArea/ViewCol.polygon = [Vector2(0,0),   Vector2(0,draw_distance*2).rotated(-deg_rad(angles/2)),   Vector2(0,draw_distance*2).rotated( deg_rad(angles/2))]
-	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size*0, sky_stretch]
+	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size*0, sky_stretch]
 	#Checks if things changed and updates
 	
 
@@ -278,53 +278,49 @@ func _physics_process(_delta):
 	####      ####      ##      ##  ##    ##      ##  ####  ####  ####
 	
 	
-#	if lookingZ < -280: #feet when looking down, imprecise to collision shape NEEDS WERKIN
-#		$View/Feet.scale.y = 1#-(OS.window_size.y/lookingZ)*2
-#		#$View/Feet.position.y = (OS.window_size.y/$View/Feet.texture.get_height()) + (OS.window_size.y*(lookingZ/100))
-#		$View/Feet.position.y = $PolyContainer.position.y
-#
-#
-#
-#		#lookingZ 
-#		#$View/Feet.position.y
-#		#$View/Feet.scale.y
-#
-#		#print(lookingZ,":  ",$View/Feet.position.y," ",$View/Feet.scale.y)
-#
-#
-#
-#
-#
-#
-#		$View/Feet.visible = 1
-#		$View/Feet.rotation_degrees = (-input_dir.x*vroll_strafe_divi)*$View/Feet.scale.y*2
-#		#feetY = $View/Feet.position.y
-#
-#
-#
-#		if input_dir.y != 0:
-#			$AnimationPlayer.play("walk")
-#			$AnimationPlayer.playback_speed = input_dir.y
-#
-#		elif input_dir.x != 0:
-#			if Input.is_action_pressed("ui_select"):
-#				if input_dir.x == -1:
-#					$AnimationPlayer.play("strafeR")
-#				else:
-#					$AnimationPlayer.play("strafeL")
-#
-#			else:
-#				$AnimationPlayer.play("spin")
-#				$AnimationPlayer.playback_speed = input_dir.x
-#
-#
-#		else:
-#			$View/Feet.frame = 0
-#			$AnimationPlayer.stop()
-#
-#	else:
-#		$View/Feet.visible = 0
-#		$AnimationPlayer.stop()
+	if lookingZ < 0: #feet when looking down, imprecise to collision shape NEEDS WERKIN
+		#lookingZ = 0                         == 0%
+		#lookingZ = $PolyContainer.scale.y*10 == 100%
+		var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
+		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
+		$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
+		#print(percent)
+		
+		$View/Feet.visible = 1
+		#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
+		#feetY = $View/Feet.position.y
+		
+		if on_floor == true:
+			if input_dir.y != 0:
+				$View/AnimationPlayer.play("walk")
+				$View/AnimationPlayer.play("walk")
+				$View/AnimationPlayer.playback_speed = input_dir.y
+
+			elif input_dir.x != 0:
+				if Input.is_action_pressed("ui_select"):
+					if input_dir.x == -1:
+						$View/AnimationPlayer.play("strafeR")
+					else:
+						$View/AnimationPlayer.play("strafeL")
+
+				else:
+					$View/AnimationPlayer.play("spin")
+					$View/AnimationPlayer.playback_speed = input_dir.x
+
+
+			else:
+				$View/Feet.frame = 0
+				$View/AnimationPlayer.stop()
+		else:
+			$View/AnimationPlayer.stop()
+			if move_dir.z == 1:
+				$View/Feet.frame = 6
+			else:
+				$View/Feet.frame = 1
+		
+	else:
+		$View/Feet.visible = 0
+		$View/AnimationPlayer.stop()
 	
 	### ### ### ###
 	##  ##  ##   #
@@ -337,7 +333,8 @@ func _physics_process(_delta):
 	
 	
 	
-	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size, sky_stretch]:
+	
+	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:
 		recalculate()
 	else:
 		if !Input.is_action_pressed("bug_closeeyes"):
@@ -619,22 +616,15 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 ################################################################################
 
-var feet_stretch = 1
+#var feet_stretch = 1
 
 func recalculate():
-	if change_checker[0] != $View/Feet.texture or change_checker[3] != feet_stretch or change_checker[6] != OS.window_size:
-		if feet_stretch == 1:
-			$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
-		else:
-			$View/Feet.scale.x = $View/Feet.scale.y 
+	if change_checker[0] != $View/Feet.texture or change_checker[6] != OS.window_size:
+		$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
 		
 		if change_checker[0] != $View/Feet.texture:
 			print("-      TEXTURE: Feet changed")
 			change_checker[0] = $View/Feet.texture
-			
-		elif change_checker[3] != feet_stretch:
-			print("- FEET_STRETCH: ",feet_stretch,", changed from ",change_checker[3])
-			change_checker[3] = feet_stretch
 			
 		
 	
@@ -1183,11 +1173,11 @@ func _draw():
 	
 	if Worldconfig.zoom < 1:
 		#draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
+		draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
+		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,0,0), 1)
 		
-		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,1,1), 1)
+		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
+		draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,0,0), 1)
 		
 	
 	

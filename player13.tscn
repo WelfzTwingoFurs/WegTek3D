@@ -14,7 +14,7 @@ radius = 4.0
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/path = NodePath("Feet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -30,13 +30,13 @@ tracks/0/keys = {
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/path = NodePath("Feet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.1, 0.4 ),
+"times": PoolRealArray( 0.15, 0.45 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 3, 2 ]
@@ -46,7 +46,7 @@ tracks/0/keys = {
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/path = NodePath("Feet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -62,7 +62,7 @@ tracks/0/keys = {
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("View/Feet:frame")
+tracks/0/path = NodePath("Feet:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -164,7 +164,6 @@ __meta__ = {
 hframes = 10
 
 [node name="View" type="Node2D" parent="."]
-visible = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -177,11 +176,10 @@ anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
 [node name="Feet" type="Sprite" parent="View"]
-visible = false
 z_index = 4096
 texture = ExtResource( 4 )
 hframes = 9
-frame = 6
+frame = 3
 __meta__ = {
 "_edit_lock_": true
 }
