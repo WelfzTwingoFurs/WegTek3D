@@ -284,7 +284,10 @@ func _physics_process(_delta):
 		var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
 		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
 		$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
-		#print(percent)
+		var C = float(1)
+		if darkness != 0: C /= darkness
+		$View/Feet.modulate = Color(C,C,C)
+		#print($View/Feet.modulate)
 		
 		$View/Feet.visible = 1
 		#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
@@ -438,7 +441,7 @@ export var ply_height = 45
 
 var noclip = false
 
-var darkness = 0
+var darkness = 1
 
 func collide():
 	for n in col_walls.size():
@@ -1004,9 +1007,9 @@ func render():
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
 			var lineH = (OS.window_size.y /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) 
 			
-			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.3) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
-			if new_sprite.scale.x < 0:
-				continue
+			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.15) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			#if new_sprite.scale.x < 0:
+			#	continue
 			
 			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-array_sprites[o].obj_height))
 			
