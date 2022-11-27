@@ -18,8 +18,10 @@ FEATURES:
 -Screen resizable to any size, everything is normalized;
 -Clipping (vertexes behind camera don't distort);
 -WIP Camera-edge culling option (polys outside screen won't render);
--Z_Index sorting (Polygons in front of polygons behind) in 3D (whole object only);
--Shading & depth shading  options, basic horizon fading;
+-Z_Index sorting (Polygons in front of polygons behind) in 3D;
+-Sector darkness & depth shading options, basic horizon fading;
+-'Unmoving Plaid' polygon texturing option;
+-Feet when you look down;
 -Viewbobbing, viewrolling options;
 -Scrolling sky texture & stretch options, floor texture;
 -All textures changeable to ones of any size;
@@ -29,8 +31,8 @@ IMPERFECTIONS:
 -No sound;
 -Z-sorting limited to entire polygon, nearby/touching/clipping objects innacurate;
 -Camera-edge culling only checks if all vertices are off-screen;
--Extreme texture distortion up-close;
--Clipping intervenes with texturing;
+-Extreme texture distortion up-close when UV-mapped;
+-Clipping intervenes with UV-mapped texturing;
 -No camera-edge clipping (polygon pieces outside screen still render);
 -No world culling (polygons fully behind others still render);
 -Draw distance innacurate to value depending on Angles FOV;
@@ -43,14 +45,15 @@ CONTROL KEYS:
 -WASD / Arrows:   Move, rotate;
 - Shift (hold):         Strafe;
 -PGup & PGdown: Look up & down;
+-         Home:    Look center;
 - Space & Ctrl:  Fly up & down;
 - Enter (hold):       View map;
 -    Quote ('): Console toggle.
 
 DEBUG KEYS:
+-    F:                 Noclip;
+- End:              Fly center;
 - Scroll-lock (+Move):   Angle;
-- Home:            Look center;
--  End:             Fly center;
 -   F1:         /2 screen-size;
 -   F2:         *2 screen-size;
 -   F3:      Reset/Fill screen;
