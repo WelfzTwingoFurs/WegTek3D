@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://player-console2.gd" type="Script" id=1]
 [ext_resource path="res://make_invisible.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/feet2.png" type="Texture" id=4]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
 [ext_resource path="res://assets/skybox bubsy3D.png" type="Texture" id=6]
+[ext_resource path="res://assets/weapon flamethrower.png" type="Texture" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -72,6 +73,87 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "flame-end"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 6, 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "flame-fire"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 4 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "flame-no"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "flame-start"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "hand-fire"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
 }
 
 [node name="player13" type="KinematicBody2D"]
@@ -169,20 +251,34 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="View"]
+[node name="AniPlayFeet" type="AnimationPlayer" parent="View"]
 anims/spin = SubResource( 2 )
 anims/strafeL = SubResource( 3 )
 anims/strafeR = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
 [node name="Feet" type="Sprite" parent="View"]
+visible = false
 z_index = 4096
 texture = ExtResource( 4 )
 hframes = 9
-frame = 3
+frame = 6
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="AniPlayHand" type="AnimationPlayer" parent="View"]
+anims/flame-end = SubResource( 7 )
+anims/flame-fire = SubResource( 6 )
+anims/flame-no = SubResource( 10 )
+anims/flame-start = SubResource( 8 )
+anims/hand-fire = SubResource( 9 )
+
+[node name="Hand" type="Sprite" parent="View"]
+visible = false
+z_index = 4096
+texture = ExtResource( 7 )
+hframes = 7
 
 [node name="Background" type="Node2D" parent="."]
 visible = false

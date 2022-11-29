@@ -278,15 +278,16 @@ func _physics_process(_delta):
 	####      ####      ##      ##  ##    ##      ##  ####  ####  ####
 	
 	
+	var C = float(1)
+	if darkness != 0: C /= darkness
+	$View.modulate = Color(C,C,C)
+	
 	if lookingZ < 0: #feet when looking down, imprecise to collision shape NEEDS WERKIN
 		#lookingZ = 0                         == 0%
 		#lookingZ = $PolyContainer.scale.y*10 == 100%
 		var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
 		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
 		$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
-		var C = float(1)
-		if darkness != 0: C /= darkness
-		$View/Feet.modulate = Color(C,C,C)
 		#print($View/Feet.modulate)
 		
 		$View/Feet.visible = 1
@@ -295,27 +296,27 @@ func _physics_process(_delta):
 		
 		if on_floor == true:
 			if input_dir.y != 0:
-				$View/AnimationPlayer.play("walk")
-				$View/AnimationPlayer.play("walk")
-				$View/AnimationPlayer.playback_speed = input_dir.y
+				$View/AniPlayFeet.play("walk")
+				$View/AniPlayFeet.play("walk")
+				$View/AniPlayFeet.playback_speed = input_dir.y
 
 			elif input_dir.x != 0:
 				if Input.is_action_pressed("ui_select"):
 					if input_dir.x == -1:
-						$View/AnimationPlayer.play("strafeR")
+						$View/AniPlayFeet.play("strafeR")
 					else:
-						$View/AnimationPlayer.play("strafeL")
+						$View/AniPlayFeet.play("strafeL")
 
 				else:
-					$View/AnimationPlayer.play("spin")
-					$View/AnimationPlayer.playback_speed = input_dir.x
+					$View/AniPlayFeet.play("spin")
+					$View/AniPlayFeet.playback_speed = input_dir.x
 
 
 			else:
 				$View/Feet.frame = 0
-				$View/AnimationPlayer.stop()
+				$View/AniPlayFeet.stop()
 		else:
-			$View/AnimationPlayer.stop()
+			$View/AniPlayFeet.stop()
 			if move_dir.z == 1:
 				$View/Feet.frame = 6
 			else:
@@ -323,10 +324,12 @@ func _physics_process(_delta):
 		
 	else:
 		$View/Feet.visible = 0
-		$View/AnimationPlayer.stop()
+		$View/AniPlayFeet.stop()
 	
 	### ### ### ###
+	#   #   #    #
 	##  ##  ##   #
+	#   #   #    #
 	#   ### ###  #
 	
 	########################################################################################################################################################
@@ -405,6 +408,37 @@ func _physics_process(_delta):
 	#print(positionZ)
 	#print(lookingZ)
 	
+	############################################################################
+	
+	if Input.is_action_just_pressed("ply_wpn_next"):
+		guninv += 1
+		if guninv > 2: guninv = 0
+		gunswitch()
+	elif Input.is_action_just_pressed("ply_wpn_previous"):
+		guninv -= 1
+		if guninv < 0: guninv = 2
+		gunswitch()
+	
+	if Input.is_action_pressed("ply_wpn_fire1"):
+		gunfire(false)
+	elif Input.is_action_pressed("ply_wpn_fire2"):
+		gunfire(true)
+	
+	if Input.is_action_just_released("ply_wpn_fire1"):
+		gunstop(false)
+	if Input.is_action_just_released("ply_wpn_fire2"):
+		gunstop(true)
+	
+	if Worldconfig.zoom < 2:
+		$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2
+		$View/Hand.position.x = (get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
+		$View/Hand.scale = Vector2(gunscale,gunscale)
+	
+	# #  #  ##  ##
+	# # # # # # # #
+	### ### # # # #
+	# # # # # # # #
+	# # # # # # ##
 
 #####    #####      #####      #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ##  ##       ##           ###         ###
@@ -418,6 +452,54 @@ func _physics_process(_delta):
 ################################################################################
 ################################################################################
 ################################################################################
+
+var guninv = 0
+export var gunscale = 3
+
+func gunswitch():
+	print(guninv)
+	if guninv == 0:
+		$View/Hand.visible = 0
+	else:
+		$View/Hand.visible = 1
+	
+	if guninv == 1:
+		$View/Hand.texture = load("res://assets/weapon handgun.png")
+		$View/Hand.hframes = 2
+		$View/Hand.vframes = 1
+	elif guninv == 2:
+		$View/Hand.texture = load("res://assets/weapon flamethrower.png")
+		$View/Hand.hframes = 1
+		$View/Hand.vframes = 7
+	
+
+func gunfire(alt):
+	if guninv == 1:
+		$View/AniPlayHand.play("hand-fire")
+	
+	elif guninv == 2:
+		if !alt && Input.is_action_just_pressed("ply_wpn_fire1"):
+			if $View/AniPlayHand.current_animation == "flame-no":
+				$View/AniPlayHand.play("flame-fire")
+			else:
+				$View/AniPlayHand.play("flame-start")
+		elif alt:
+			if $View/AniPlayHand.current_animation == "flame-start" or $View/AniPlayHand.current_animation == "flame-fire":
+				$View/AniPlayHand.play("flame-fire")
+			else:
+				$View/AniPlayHand.play("flame-no")
+				
+			
+
+func gunstop(alt):
+	if guninv == 2:
+		if alt && $View/AniPlayHand.current_animation == "flame-fire":
+			$View/AniPlayHand.play("flame-end")
+		elif $View/AniPlayHand.current_animation == "flame-no":
+			$View/Hand.frame = 0
+
+
+
 
 
 
@@ -445,7 +527,7 @@ var darkness = 1
 
 func collide():
 	for n in col_walls.size():
-		darkness = col_floors[n].darkness
+		#darkness = col_floors[n].darkness
 		
 		if col_walls[n].flag_2height:
 			var heightsBT = Vector2(-1,1)
@@ -477,7 +559,8 @@ func collide():
 				add_collision_exception_with(col_walls[n])
 	
 	for n in col_floors.size():
-	#if col_floors != null:
+		darkness = col_floors[n].darkness
+		
 		if col_floors[n].flag_1height:
 			col_proccess(n,0)
 		
@@ -1008,8 +1091,8 @@ func render():
 			var lineH = (OS.window_size.y /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) 
 			
 			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.15) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
-			#if new_sprite.scale.x < 0:
-			#	continue
+			if sign(array_sprites[o].scale_extra.x) != sign(new_sprite.scale.x):# < 0 :
+				continue
 			
 			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-array_sprites[o].obj_height))
 			

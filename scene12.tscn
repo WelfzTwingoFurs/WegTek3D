@@ -370,6 +370,7 @@ min_Z = -1000
 UV_textures = false
 
 [node name="walls" type="Node2D" parent="."]
+z_index = 4095
 script = ExtResource( 4 )
 
 [node name="chaser" type="KinematicBody2D" parent="walls" groups=[
@@ -639,979 +640,8 @@ absolute = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/sector"]
 polygon = PoolVector2Array( 0, 0, 500, 0, 500, 500, 0, 500 )
 
-[node name="lodsa walls" type="Node2D" parent="walls"]
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1523, -84 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D2"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1553, -67 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D3"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1590, -97 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D4"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D5" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1620, -80 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D5"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1684, -87 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D6"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D7" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1714, -70 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D7"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D8" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1782, -87 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D8"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D9" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1812, -70 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D9"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D10" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1849, -100 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D10"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D11" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1879, -83 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D11"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D12" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1943, -90 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D12"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D13" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1973, -73 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D13"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D14" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2011, -90 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D14"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D15" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2041, -73 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D15"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D16" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2078, -103 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D16"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D17" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2108, -86 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D17"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D18" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2172, -93 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D18"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D19" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2202, -76 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D19"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D20" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2240, -77 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D20"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D21" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2270, -60 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D21"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D22" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2307, -90 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D22"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D23" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2337, -73 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D23"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D24" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2401, -80 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D24"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D25" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2431, -63 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D25"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D26" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2468, -84 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D26"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D27" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2498, -67 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D27"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D28" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2535, -97 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D28"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D29" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2565, -80 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D29"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D30" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2629, -87 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D30"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D31" type="StaticBody2D" parent="walls/lodsa walls" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2659, -70 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls/StaticBody2D31"]
-shape = SubResource( 5 )
-
-[node name="bridge" type="StaticBody2D" parent="walls" groups=[
-"floor",
-"render",
-]]
-modulate = Color( 1, 1, 0, 1 )
-position = Vector2( 1528, -100 )
-scale = Vector2( 15, 5 )
-script = ExtResource( 3 )
-heights = [ -50.0 ]
-texture_path = "res://textures/grad64.png"
-absolute = 1
-darkness = 0.1
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/bridge"]
-position = Vector2( 1, 20 )
-polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
-
-[node name="bridge2" type="StaticBody2D" parent="walls" groups=[
-"floor",
-"render",
-]]
-modulate = Color( 1, 1, 0, 1 )
-position = Vector2( 1528, -329 )
-scale = Vector2( 15, 5 )
-script = ExtResource( 3 )
-heights = [ -150.0 ]
-texture_path = "res://textures/grad64.png"
-absolute = 1
-darkness = 0.1
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/bridge2"]
-position = Vector2( 1, 20 )
-polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
-
-[node name="lodsa walls2" type="Node2D" parent="walls"]
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1631, -848 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D2"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1661, -831 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D3"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1698, -861 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D4"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D5" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1728, -844 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D5"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1792, -851 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D6"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D7" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1822, -834 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D7"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D8" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1890, -851 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D8"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D9" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1920, -834 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D9"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D10" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1957, -864 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D10"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D11" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 1987, -847 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D11"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D12" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2051, -854 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D12"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D13" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2081, -837 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D13"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D14" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2119, -854 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D14"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D15" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2149, -837 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D15"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D16" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2186, -867 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D16"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D17" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2216, -850 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D17"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D18" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2280, -857 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D18"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D19" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2310, -840 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D19"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D20" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2348, -841 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D20"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D21" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2378, -824 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D21"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D22" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2415, -854 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D22"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D23" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2445, -837 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D23"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D24" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2509, -844 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D24"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D25" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2539, -827 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D25"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D26" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2576, -848 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D26"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D27" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2606, -831 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D27"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D28" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2643, -861 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D28"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D29" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2673, -844 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D29"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D30" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2737, -851 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D30"]
-shape = SubResource( 5 )
-
-[node name="StaticBody2D31" type="StaticBody2D" parent="walls/lodsa walls2" groups=[
-"render",
-"wall",
-]]
-position = Vector2( 2767, -834 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 50, -100 ]
-texture_path = "res://textures/stretchtest.png"
-jumpover = false
-darkness = 99.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/lodsa walls2/StaticBody2D31"]
-shape = SubResource( 5 )
-
-[node name="bridge3" type="StaticBody2D" parent="walls" groups=[
-"floor",
-"render",
-]]
-modulate = Color( 1, 1, 0, 1 )
-position = Vector2( 1744, -836 )
-scale = Vector2( 15, 5 )
-script = ExtResource( 3 )
-heights = [ -50.0 ]
-texture_path = "res://textures/grad64.png"
-absolute = 1
-darkness = -1.0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/bridge3"]
-position = Vector2( 1, 20 )
-polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
-
-[node name="bridge4" type="StaticBody2D" parent="walls" groups=[
-"floor",
-"render",
-]]
-modulate = Color( 1, 1, 0, 1 )
-position = Vector2( 1744, -1065 )
-scale = Vector2( 15, 5 )
-script = ExtResource( 3 )
-heights = [ -150.0 ]
-texture_path = "res://textures/grad64.png"
-absolute = 1
-darkness = -1.0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls/bridge4"]
-position = Vector2( 1, 20 )
-polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
-
 [node name="Node2D" type="Node2D" parent="."]
+z_index = 4095
 script = ExtResource( 4 )
 
 [node name="Node2D" type="Node2D" parent="Node2D"]
@@ -2068,7 +1098,7 @@ texture_path = "res://textures/kensilverman64.png"
 polygon = PoolVector2Array( 1, 2, 2, 1, 4, 1, 5, 2, 6, 4, 5, 6, 4, 7, 2, 7, 1, 6, 0, 4 )
 
 [node name="Node2D2" type="Node2D" parent="."]
-z_index = 4096
+z_index = 4095
 script = ExtResource( 4 )
 
 [node name="dd" type="KinematicBody2D" parent="Node2D2" groups=[
@@ -3167,6 +2197,997 @@ scale = Vector2( 3, 3 )
 script = ExtResource( 11 )
 kill = true
 
+[node name="lodsa walls" type="Node2D" parent="Node2D2/Doom2 deoptmized"]
+position = Vector2( -62.6667, -781 )
+scale = Vector2( 0.333333, 0.333333 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1523, -84 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D2"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1553, -67 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D3"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1590, -97 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D4"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1620, -80 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D5"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1684, -87 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D6"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1714, -70 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D7"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1782, -87 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D8"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1812, -70 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D9"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D10" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1849, -100 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D10"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1879, -83 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D11"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1943, -90 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D12"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D13" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1973, -73 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D13"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D14" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2011, -90 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D14"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D15" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2041, -73 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D15"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D16" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2078, -103 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D16"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D17" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2108, -86 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D17"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D18" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2172, -93 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D18"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D19" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2202, -76 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D19"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D20" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2240, -77 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D20"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D21" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2270, -60 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D21"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D22" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2307, -90 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D22"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D23" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2337, -73 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D23"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D24" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2401, -80 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D24"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D25" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2431, -63 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D25"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D26" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2468, -84 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D26"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D27" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2498, -67 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D27"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D28" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2535, -97 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D28"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D29" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2565, -80 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D29"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D30" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2629, -87 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D30"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D31" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2659, -70 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls/StaticBody2D31"]
+shape = SubResource( 5 )
+
+[node name="bridge" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 446.667, -814.333 )
+scale = Vector2( 5, 1.66667 )
+script = ExtResource( 3 )
+heights = [ -50.0 ]
+texture_path = "res://textures/grad64.png"
+absolute = 1
+darkness = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/Doom2 deoptmized/bridge"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="bridge2" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 446.667, -890.667 )
+scale = Vector2( 5, 1.66667 )
+script = ExtResource( 3 )
+heights = [ -150.0 ]
+texture_path = "res://textures/grad64.png"
+absolute = 1
+darkness = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/Doom2 deoptmized/bridge2"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="lodsa walls2" type="Node2D" parent="Node2D2/Doom2 deoptmized"]
+position = Vector2( -62.6667, -781 )
+scale = Vector2( 0.333333, 0.333333 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1631, -848 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D2"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1661, -831 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D3"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1698, -861 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D4"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1728, -844 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D5"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1792, -851 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D6"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1822, -834 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D7"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1890, -851 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D8"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1920, -834 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D9"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D10" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1957, -864 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D10"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 1987, -847 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D11"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2051, -854 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D12"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D13" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2081, -837 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D13"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D14" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2119, -854 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D14"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D15" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2149, -837 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D15"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D16" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2186, -867 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D16"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D17" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2216, -850 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D17"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D18" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2280, -857 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D18"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D19" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2310, -840 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D19"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D20" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2348, -841 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D20"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D21" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2378, -824 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D21"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D22" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2415, -854 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D22"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D23" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2445, -837 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D23"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D24" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2509, -844 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D24"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D25" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2539, -827 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D25"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D26" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2576, -848 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D26"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D27" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2606, -831 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D27"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D28" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2643, -861 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D28"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D29" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2673, -844 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D29"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D30" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2737, -851 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D30"]
+shape = SubResource( 5 )
+
+[node name="StaticBody2D31" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2" groups=[
+"render",
+"wall",
+]]
+position = Vector2( 2767, -834 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 50, -100 ]
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+darkness = 99.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Doom2 deoptmized/lodsa walls2/StaticBody2D31"]
+shape = SubResource( 5 )
+
+[node name="bridge3" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 518.667, -1059.67 )
+scale = Vector2( 5, 1.66667 )
+script = ExtResource( 3 )
+heights = [ -50.0 ]
+texture_path = "res://textures/grad64.png"
+absolute = 1
+darkness = -1.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/Doom2 deoptmized/bridge3"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="bridge4" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 518.667, -1136 )
+scale = Vector2( 5, 1.66667 )
+script = ExtResource( 3 )
+heights = [ -150.0 ]
+texture_path = "res://textures/grad64.png"
+absolute = 1
+darkness = -1.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/Doom2 deoptmized/bridge4"]
+position = Vector2( 1, 20 )
+polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
+
+[node name="egg montain2" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized"]
+position = Vector2( 25.9999, -1641.33 )
+scale = Vector2( 0.265496, 0.250947 )
+script = ExtResource( 6 )
+heights = [ 0, 50 ]
+textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "", "res://assets/skybox bubsy3D.png" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+absolute = true
+jumpover = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/Doom2 deoptmized/egg montain2"]
+polygon = PoolVector2Array( 0, 740, 29, 651, 74, 571, 133, 520, 198, 487, 284, 454, 366, 425, 460, 393, 562.47, 366.611, 645.334, 371.924, 736.987, 397.162, 854, 469, 954, 535, 981, 590, 990, 673, 983, 740, 946, 809, 894, 893, 840, 947, 756, 1026, 674, 1103, 627, 1138, 557, 1174, 451, 1202, 354, 1221, 260, 1227, 166, 1213, 95, 1166, 46, 1109, 17, 1062, 0, 1000, -19, 924, -21, 844 )
+
 [node name="Sprite2" type="Sprite" parent="Node2D2/Doom2 deoptmized"]
 modulate = Color( 1, 1, 1, 0.164706 )
 position = Vector2( 0.5, 0 )
@@ -3793,21 +3814,6 @@ textures = [ "a", "", "a", "a", "a", "a", "a", "a", "", "" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/Doom2 deoptmized/AREA2/cockpillarL"]
 polygon = PoolVector2Array( 267, 80.5, 272, 80.5, 279, 75.5, 279, 68, 274, 63.5, 267, 63.5, 262, 68.5, 262, 75.5 )
-
-[node name="egg montain2" type="StaticBody2D" parent="Node2D2/Doom2 deoptmized"]
-position = Vector2( 25.9999, -1641.33 )
-scale = Vector2( 0.265496, 0.250947 )
-script = ExtResource( 6 )
-heights = [ 0, 50 ]
-textures = [ "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "", "res://assets/skybox bubsy3D.png" ]
-colors = [  ]
-darknesses = 0.5
-collide = true
-absolute = true
-jumpover = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/Doom2 deoptmized/egg montain2"]
-polygon = PoolVector2Array( 0, 740, 29, 651, 74, 571, 133, 520, 198, 487, 284, 454, 366, 425, 460, 393, 562.47, 366.611, 645.334, 371.924, 736.987, 397.162, 854, 469, 954, 535, 981, 590, 990, 673, 983, 740, 946, 809, 894, 893, 840, 947, 756, 1026, 674, 1103, 627, 1138, 557, 1174, 451, 1202, 354, 1221, 260, 1227, 166, 1213, 95, 1166, 46, 1109, 17, 1062, 0, 1000, -19, 924, -21, 844 )
 
 [node name="top" type="StaticBody2D" parent="Node2D2" groups=[
 "floor",
