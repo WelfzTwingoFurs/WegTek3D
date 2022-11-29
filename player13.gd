@@ -373,6 +373,7 @@ func _physics_process(_delta):
 		collide()
 		
 		if on_floor == true:
+			motionZ = 0
 			if Input.is_action_pressed("ply_jump"):
 				motionZ += JUMP
 				on_floor = false
@@ -465,8 +466,8 @@ func gunswitch():
 	
 	if guninv == 1:
 		$View/Hand.texture = load("res://assets/weapon handgun.png")
-		$View/Hand.hframes = 2
-		$View/Hand.vframes = 1
+		$View/Hand.hframes = 1
+		$View/Hand.vframes = 2
 	elif guninv == 2:
 		$View/Hand.texture = load("res://assets/weapon flamethrower.png")
 		$View/Hand.hframes = 1
