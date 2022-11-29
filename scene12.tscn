@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://player13.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprite object physics.gd" type="Script" id=2]
@@ -8,47 +8,9 @@
 [ext_resource path="res://map-sector.gd" type="Script" id=6]
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=7]
 [ext_resource path="res://map-wall.gd" type="Script" id=8]
-[ext_resource path="res://chaser.gd" type="Script" id=9]
+[ext_resource path="res://chaser.tscn" type="PackedScene" id=9]
 [ext_resource path="res://older_versions/plagio.png" type="Texture" id=10]
 [ext_resource path="res://queue_free.gd" type="Script" id=11]
-
-[sub_resource type="Animation" id=1]
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:anim")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 3, 4 ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "walk"
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:anim")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 3, 4 ]
-}
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 20.0
-
-[sub_resource type="CircleShape2D" id=4]
 
 [sub_resource type="SegmentShape2D" id=5]
 a = Vector2( 178, 216 )
@@ -73,6 +35,11 @@ b = Vector2( 178, -52 )
 [sub_resource type="SegmentShape2D" id=10]
 a = Vector2( 278, -52 )
 b = Vector2( 178, -52 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id=4]
 
 [sub_resource type="Animation" id=11]
 length = 0.8
@@ -374,30 +341,7 @@ UV_textures = false
 z_index = 4095
 script = ExtResource( 4 )
 
-[node name="chaser" type="KinematicBody2D" parent="walls" groups=[
-"rendersprite",
-]]
-position = Vector2( 905, -68 )
-collision_layer = 2
-collision_mask = 2
-script = ExtResource( 9 )
-scale_extra = Vector2( 1, 1 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="walls/chaser"]
-anims/_ready = SubResource( 1 )
-anims/walk = SubResource( 2 )
-
-[node name="ColArea" type="Area2D" parent="walls/chaser"]
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/chaser/ColArea"]
-shape = SubResource( 3 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/chaser"]
-shape = SubResource( 4 )
-
-[node name="RayCast2D" type="RayCast2D" parent="walls/chaser"]
+[node name="chaser" parent="walls" instance=ExtResource( 9 )]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="walls" groups=[
 "render",
@@ -3832,8 +3776,6 @@ darkness = 99.0
 position = Vector2( 1, 20 )
 polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
 
-[connection signal="body_shape_entered" from="walls/chaser/ColArea" to="walls/chaser" method="_on_ColArea_body_shape_entered"]
-[connection signal="body_shape_exited" from="walls/chaser/ColArea" to="walls/chaser" method="_on_ColArea_body_shape_exited"]
 [connection signal="body_shape_entered" from="Node2D2/dd/ColArea" to="Node2D2/dd" method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="Node2D2/dd/ColArea" to="Node2D2/dd" method="_on_ColArea_body_shape_exited"]
 [connection signal="body_shape_entered" from="Node2D2/bin/ColArea" to="Node2D2/bin" method="_on_ColArea_body_shape_entered"]
