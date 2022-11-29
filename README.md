@@ -12,6 +12,7 @@ FEATURES:
 -100% GD-Script;
 -Polygon world with Z-height;
 -Sprite objects with customizeable amount of rotation frames;
+-Sprite shadows;
 -Collision with flat floors and square walls;
 -Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
