@@ -403,7 +403,7 @@ func _physics_process(_delta):
 			positionZ -= 1 * rotate_rate * Engine.time_scale
 			move_dir.z = -1
 		elif Input.is_action_pressed("ply_flycenter"):
-			positionZ = lerp(positionZ, 0, 0.1)
+			positionZ = lerp(positionZ, 0-ply_height, 0.1)
 		else:
 			move_dir.z = 0
 	#print(positionZ)
@@ -1162,9 +1162,22 @@ func render():
 			
 			new_container.add_child(new_sprite)
 			
+			if sprite_shadows:
+				if new_sprite.position.y - new_sprite.offset.y > 0:
+					var shadow = new_sprite.duplicate()
+					shadow.scale.y *= -0.125
+					#shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-array_sprites[o].obj_height)
+					shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-array_sprites[o].shadow_height)
+					shadow.modulate = Color(0,0,0)
+					shadow.modulate.a8 = new_sprite.modulate.a8/2
+					
+					
+					new_container.add_child(shadow)
+				
+			
 
 export(bool) var shading = true
-
+export(bool) var sprite_shadows = true
 
 
 func new_position(point1,point2,limitPlus,limitMinus,det):
