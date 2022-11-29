@@ -367,6 +367,7 @@ b = Vector2( 178, -52 )
 [node name="player13" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1017, -129 )
 min_Z = -1000
+gunscale = 2
 UV_textures = false
 
 [node name="walls" type="Node2D" parent="."]
