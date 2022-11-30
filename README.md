@@ -12,7 +12,6 @@ FEATURES:
 -100% GD-Script;
 -Polygon world with Z-height;
 -Sprite objects with customizeable amount of rotation frames;
--Sprite shadows;
 -Collision with flat floors and square walls;
 -Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
@@ -22,6 +21,7 @@ FEATURES:
 -Z_Index sorting (Polygons in front of polygons behind) in 3D;
 -Sector darkness & depth shading options, basic horizon fading;
 -'Unmoving Plaid' polygon texturing option;
+-Basic sprite shadow & reflection effects;
 -Feet when you look down;
 -Viewbobbing, viewrolling options;
 -Scrolling sky texture & stretch options, floor texture;
