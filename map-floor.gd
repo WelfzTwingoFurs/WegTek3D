@@ -21,6 +21,8 @@ var flag_1height = false
 export var absolute = 0#-1 for stay under, 1 for stay over
 export(float) var darkness = 1
 
+export var reflect = false
+
 func _ready():
 	if spawn_shape_position != null:
 		$CollisionPolygon2D.polygon = spawn_shape_position

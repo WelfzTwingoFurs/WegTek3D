@@ -16,15 +16,24 @@ export (Array, Color) var colors = [Color(1,1,1,1),Color(1,1,1,1),Color(1,1,1,1)
 #"" if we don't wanna make this one!
 #for 3: floor, ceiling, all walls
 #for polygon.size()/2 + 2: floor, ceiling, wall01, wall12, wall20
-export (Array, float) var darknesses = [1]
+export(float) var darknesses = 1
 
 export var collide = false
 export var absolute = false
+export var jumpover = false
+export var reflect = false
 
 var new_wall
 var new_floor
 
 func _ready():
+	for n in textures.size():
+		if !ResourceLoader.exists(textures[n]) && textures[n] != "":
+			if n > $CollisionPolygon2D.polygon.size()-1:
+				textures[n] = "res://assets/gradientthin.png"
+			else:
+				textures[n] = "res://assets/gradientthin.png"
+	
 	if collide:
 		if heights.size() == 2:
 			if heights[0] > heights [1]:
@@ -108,7 +117,8 @@ func _ready():
 				queue_free()
 				
 			
-			
+			make_new_wall.darkness = darknesses
+			make_new_wall.jumpover = jumpover
 			add_child(make_new_wall)
 			
 		
@@ -154,6 +164,8 @@ func _ready():
 			if collide && absolute:
 				make_new_floor.absolute = 1
 		
+		make_new_floor.darkness = darknesses
+		make_new_floor.reflect = reflect
 		add_child(make_new_floor)
 	
 	if textures[textures.size()-1] != "":
@@ -161,7 +173,10 @@ func _ready():
 			make_new_ceiling.heights = [heights[1]]
 			if collide && absolute:
 				make_new_ceiling.absolute = -1
+				if textures[textures.size()-2] == "":
+					make_new_ceiling.absolute = 1
 		
+		make_new_ceiling.darkness = darknesses
 		add_child(make_new_ceiling)
 	
 	$CollisionPolygon2D.queue_free()

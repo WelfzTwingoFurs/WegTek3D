@@ -57,7 +57,8 @@ func _physics_process(_delta):
 
 export(float) var GRAVITY = 0.5
 export(float) var JUMP = 10
-export var obj_height = 45
+export var spr_height = 45
+export var head_height = 65
 var col_walls = []
 var col_floors = []
 var move_dir = Vector3(0,0,0)
@@ -65,7 +66,10 @@ var on_floor = false
 var motionZ = 0
 export(bool) var shadow = true
 var shadowZ = INF
+var reflect = false
 export var shadow_height = 0
+export var reflect_height = 0
+var compareZ = INF
 
 func collide():
 	for n in col_walls.size():
@@ -82,13 +86,13 @@ func collide():
 			#pé < baixo, cabeça > baixo
 			#pé > baixo, cabeça < topo
 			#pé < topo, cabeça > topo
-			if (positionZ <= heightsBT.x && positionZ+obj_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+obj_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+obj_height >= heightsBT.y): 
-				# pé < topo, cabeça > topo, pé - topo = <obj_height
-				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+obj_height > heightsBT.y) && (positionZ - heightsBT.y < obj_height/2):
+			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
+				# pé < topo, cabeça > topo, pé - topo = <head_height
+				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
 					positionZ = heightsBT.y
 				
-				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+obj_height > heightsBT.x) && ((positionZ+obj_height) - heightsBT.x < obj_height/2):
-					positionZ = heightsBT.x - obj_height -1
+				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+					positionZ = heightsBT.x - head_height -1
 				
 				else:
 					remove_collision_exception_with(col_walls[n])
@@ -98,7 +102,7 @@ func collide():
 	
 	
 	
-	var compareZ = INF
+	
 	
 	if col_floors.size() == 0:
 		shadowZ = Worldconfig.player.min_Z
@@ -114,22 +118,23 @@ func collide():
 			if col_floors[n].heights[0] - positionZ < compareZ:
 				compareZ = col_floors[n].heights[0] - positionZ
 				shadowZ = col_floors[n].heights[0]
+				reflect = col_floors[n].reflect
 			
 			
 			
 			if col_floors[n].absolute == -1:
 				if positionZ > col_floors[n].heights[0]-1:
-					positionZ = col_floors[n].heights[0] - obj_height
+					positionZ = col_floors[n].heights[0] - head_height
 					on_floor = false
 			elif col_floors[n].absolute == 1:
-				if positionZ < col_floors[n].heights[0]-obj_height:
+				if positionZ < col_floors[n].heights[0]-head_height:
 					positionZ = col_floors[n].heights[0]
 					on_floor = true
 			
 			
 			if move_dir.z == -1:
-				if (positionZ < col_floors[n].heights[0]) && (positionZ+obj_height > col_floors[n].heights[0]):
-					positionZ = col_floors[n].heights[0]# + obj_height
+				if (positionZ < col_floors[n].heights[0]) && (positionZ+head_height > col_floors[n].heights[0]):
+					positionZ = col_floors[n].heights[0]# + head_height
 					
 					on_floor = true 
 					if motionZ < 0:
@@ -137,8 +142,8 @@ func collide():
 						positionZ = col_floors[n].heights[0]
 			
 			if move_dir.z == 1:
-				if (positionZ < col_floors[n].heights[0]) && (positionZ+obj_height > col_floors[n].heights[0]):
-					positionZ = col_floors[n].heights[0] - obj_height
+				if (positionZ < col_floors[n].heights[0]) && (positionZ+head_height > col_floors[n].heights[0]):
+					positionZ = col_floors[n].heights[0] - head_height
 					
 					on_floor = false
 					if motionZ > 0:
@@ -165,7 +170,7 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 			if (col_floors.size() == 0) && (body.flag_1height) && (on_floor == true) && (body.heights[0] < positionZ): on_floor = false
 			
 			col_floors.push_back(body)
-			
+			compareZ = INF
 			
 	elif body.is_in_group("wall"):
 		if !col_walls.has(body):
@@ -176,9 +181,11 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		on_floor = false
 		if col_floors.has(body):
 			col_floors.erase(body)
+			compareZ = INF
 			
-			if (col_floors.size() == 0) && (positionZ <= Worldconfig.player.min_Z):
-				positionZ = Worldconfig.player.min_Z
+			if (col_floors.size() == 0):
+				if (positionZ <= Worldconfig.player.min_Z): positionZ = Worldconfig.player.min_Z
+				shadowZ = Worldconfig.player.min_Z
 			
 	
 	if body.is_in_group("wall"):
