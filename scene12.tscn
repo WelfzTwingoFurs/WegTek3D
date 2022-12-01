@@ -1054,28 +1054,29 @@ script = ExtResource( 4 )
 "sprite",
 ] instance=ExtResource( 12 )]
 position = Vector2( 577, -2402 )
+scale_extra = Vector2( 0.5, 0.5 )
+texture = "res://assets/sprites chaser jake.png"
 head_height = 60
 shadow_height = 45
 reflect_height = 45
+turn = 0.01
 
 [node name="chasedd" parent="Node2D2/head tests" groups=[
 "sprite",
 ] instance=ExtResource( 12 )]
 position = Vector2( 422, -2401 )
 anim = 1
-texture = "res://assets/sprites 2rot.png"
+texture = "res://assets/sprites chaser dd.png"
 vframes = 2
-hframes = 1
 rotations = 3
 dynamic_darkness = true
+GRAVITY = 1.0
 JUMP = 20.0
 spr_height = 20
 head_height = 58
 shadow_height = 42
 reflect_height = 51
-
-[node name="AnimationPlayer" parent="Node2D2/head tests/chasedd" index="0"]
-playback_speed = 0.0
+turn = 0.01
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="Node2D2/head tests" groups=[
 "render",
@@ -1122,8 +1123,65 @@ reflect = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/head tests/coob"]
 polygon = PoolVector2Array( 74, 571, 885.981, 517.856, 885.981, 1164.68, 95, 1166 )
 
+[node name="pillar" type="StaticBody2D" parent="Node2D2/head tests"]
+position = Vector2( 204, -3168 )
+scale = Vector2( 10, 10 )
+script = ExtResource( 6 )
+heights = [ 0, 1000 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+reflect = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/head tests/pillar"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="pillar4" type="StaticBody2D" parent="Node2D2/head tests"]
+position = Vector2( -1041, -3168 )
+scale = Vector2( 10, 10 )
+script = ExtResource( 6 )
+heights = [ 0, 1000 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+reflect = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/head tests/pillar4"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="pillar2" type="StaticBody2D" parent="Node2D2/head tests"]
+position = Vector2( 211, -1399 )
+scale = Vector2( 10, 10 )
+script = ExtResource( 6 )
+heights = [ 0, 1000 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+reflect = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/head tests/pillar2"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="pillar3" type="StaticBody2D" parent="Node2D2/head tests"]
+position = Vector2( -1040, -1399 )
+scale = Vector2( 10, 10 )
+script = ExtResource( 6 )
+heights = [ 0, 1000 ]
+textures = [ "a", "a", "a", "a", "", "" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+reflect = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D2/head tests/pillar3"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
 [node name="dd" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( 0, -2537 )
 collision_layer = 2
@@ -1152,6 +1210,7 @@ shape = SubResource( 9 )
 
 [node name="bin" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( 0, -2457 )
 collision_layer = 2
@@ -1180,6 +1239,7 @@ shape = SubResource( 9 )
 
 [node name="coin" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( 0, -2623 )
 collision_layer = 2
@@ -1217,6 +1277,7 @@ script = ExtResource( 5 )
 
 [node name="welfy <3" type="KinematicBody2D" parent="Node2D2/BITCH ROTATING" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -206, -2304 )
 rotation = 3.97196
@@ -1864,6 +1925,7 @@ script = ExtResource( 5 )
 
 [node name="dd2" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -204, -2537 )
 collision_layer = 2
@@ -1892,6 +1954,7 @@ shape = SubResource( 9 )
 
 [node name="bin2" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -204, -2457 )
 collision_layer = 2
@@ -1920,6 +1983,7 @@ shape = SubResource( 9 )
 
 [node name="coin2" type="KinematicBody2D" parent="Node2D2/ROTATE" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -204, -2623 )
 collision_layer = 2
@@ -2236,8 +2300,8 @@ polygon = PoolVector2Array( 0, 0, 500, 0, 500, 500, 0, 500 )
 position = Vector2( -1158, -3507 )
 script = ExtResource( 6 )
 heights = [ 0, 1000 ]
-textures = [ "", "", "", "res://textures/EGAconcrete1.png", "res://assets/skybox radground.png", "" ]
-colors = [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+textures = [ "", "", "", "", "res://textures/solid1.png", "res://textures/solid1.png" ]
+colors = [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.207843, 0, 0.266667, 1 ), Color( 0.0235294, 0.352941, 0.67451, 0.572549 ) ]
 darknesses = 2.0
 collide = true
 absolute = true
@@ -3914,5 +3978,3 @@ polygon = PoolVector2Array( 100, 0, 100, 50, 0, 50, 0, 0 )
 [connection signal="body_shape_exited" from="Node2D2/spriteman15/ColArea" to="Node2D2/spriteman15" method="_on_ColArea_body_shape_exited"]
 [connection signal="body_shape_entered" from="Node2D2/spriteman16/ColArea" to="Node2D2/spriteman16" method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="Node2D2/spriteman16/ColArea" to="Node2D2/spriteman16" method="_on_ColArea_body_shape_exited"]
-
-[editable path="Node2D2/head tests/chasedd"]
