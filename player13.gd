@@ -45,7 +45,7 @@ export var sky_stretch = Vector2(1,1)
 export var min_Z = 0
 
 export var rotate_rate = 3.0
-var rotation_angle = 0.000001
+var rotation_angle = 0
 
 
 export var speed = 100
@@ -517,6 +517,7 @@ var positionZ = 0
 var on_floor = false
 var col_floors = []
 var col_walls = []
+var col_sprites = []
 
 export(float) var GRAVITY = 0.5
 export(float) var JUMP = 10
@@ -527,6 +528,37 @@ var noclip = false
 var darkness = 1
 
 func collide():
+	for n in col_sprites.size():
+		#darkness = col_floors[n].darkness
+		
+		#if col_walls[n].flag_2height:
+		var heightsBT = Vector2(-1,1)
+		
+		heightsBT.x = col_sprites[n].positionZ
+		heightsBT.y = col_sprites[n].positionZ+col_sprites[n].head_height
+		
+		
+		#pé < baixo, cabeça > baixo
+		#pé > baixo, cabeça < topo
+		#pé < topo, cabeça > topo
+		if (positionZ <= heightsBT.x && positionZ+ply_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+ply_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+ply_height >= heightsBT.y): 
+			# pé < topo, cabeça > topo, pé - topo = <ply_height
+			if (positionZ < heightsBT.y && positionZ+ply_height > heightsBT.y) && (positionZ - heightsBT.y < ply_height/2):
+				positionZ = heightsBT.y
+				on_floor = true
+			
+			elif (positionZ < heightsBT.x && positionZ+ply_height > heightsBT.x) && ((positionZ+ply_height) - heightsBT.x < ply_height/2):
+				positionZ = heightsBT.x - ply_height -1
+				on_floor = false
+			
+			else:
+				remove_collision_exception_with(col_sprites[n])
+		
+		else:
+			add_collision_exception_with(col_sprites[n])
+	
+	
+	
 	for n in col_walls.size():
 		#darkness = col_floors[n].darkness
 		
@@ -665,6 +697,10 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	elif body.is_in_group("wall"):
 		if !col_walls.has(body):
 			col_walls.push_back(body)
+	
+	elif body.is_in_group("sprite"):
+		if !col_sprites.has(body):
+			col_sprites.push_back(body)
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
@@ -679,6 +715,10 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("wall"):
 		if col_walls.has(body):
 			col_walls.erase(body)
+	
+	if body.is_in_group("sprite"):
+		if col_sprites.has(body):
+			col_sprites.erase(body)
 
 ######    #######    ###      ###      ###   ######      ######
 ###      ###   ###   ###      ###            ###   ##    ###
@@ -1025,6 +1065,7 @@ func render():
 					
 					new_poly.modulate = array_walls[n].modulate
 					
+					
 					if textures_on: #Texture mapping
 						new_poly.texture = load(array_walls[n].texture_path)
 						new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
@@ -1095,7 +1136,8 @@ func render():
 			if sign(array_sprites[o].scale_extra.x) != sign(new_sprite.scale.x):# < 0 :
 				continue
 			
-			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-array_sprites[o].obj_height))
+			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-array_sprites[o].spr_height))
+			
 			
 			new_sprite.texture = load(array_sprites[o].texture)
 			
@@ -1162,14 +1204,23 @@ func render():
 			
 			new_container.add_child(new_sprite)
 			
-			if sprite_shadows:
-				if new_sprite.position.y - new_sprite.offset.y > 0:
+			if sprite_shadows:## && (array_sprites[o].positionZ > positionZ-ply_height):# && (new_sprite.position.y+(new_sprite.texture.get_size().y*new_sprite.scale.y)/2 > 0):
+				#if new_sprite.position.y - (new_sprite.offset.y*new_sprite.scale.y) > 0:
+				#if ((new_sprite.position.y - new_sprite.offset.y)*new_sprite.scale.y)*new_container.scale.y > 0:
 					var shadow = new_sprite.duplicate()
-					shadow.scale.y *= -0.125
-					#shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-array_sprites[o].obj_height)
-					shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-array_sprites[o].shadow_height)
-					shadow.modulate = Color(0,0,0)
-					shadow.modulate.a8 = new_sprite.modulate.a8/2
+					
+					shadow.z_index = new_sprite.z_index-1
+					if !array_sprites[o].reflect:
+						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-array_sprites[o].shadow_height)# - array_sprites[o].positionZ-array_sprites[o].shadow_height
+						shadow.modulate = Color(0,0,0)
+						shadow.modulate.a8 = new_sprite.modulate.a8/2 - abs(array_sprites[o].positionZ-array_sprites[o].shadowZ)/10
+						shadow.scale.y *= 0.125
+						#shadow.scale.x *= sin(rotation_angle)
+						#shadow.rotation_degrees = sin(rotation_angle)
+					else:
+						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-array_sprites[o].reflect_height)# + array_sprites[o].positionZ-array_sprites[o].shadow
+						shadow.modulate.a8 = new_sprite.modulate.a8/1.5 - array_sprites[o].positionZ-array_sprites[o].shadowZ
+						shadow.scale.y *= -0.25
 					
 					
 					new_container.add_child(shadow)

@@ -1050,13 +1050,17 @@ script = ExtResource( 4 )
 
 [node name="head tests" type="Node2D" parent="Node2D2"]
 
-[node name="chasetek" parent="Node2D2/head tests" instance=ExtResource( 12 )]
+[node name="chasetek" parent="Node2D2/head tests" groups=[
+"sprite",
+] instance=ExtResource( 12 )]
 position = Vector2( 577, -2402 )
 head_height = 60
 shadow_height = 45
 reflect_height = 45
 
-[node name="chasedd" parent="Node2D2/head tests" instance=ExtResource( 12 )]
+[node name="chasedd" parent="Node2D2/head tests" groups=[
+"sprite",
+] instance=ExtResource( 12 )]
 position = Vector2( 422, -2401 )
 anim = 1
 texture = "res://assets/sprites 2rot.png"
@@ -1067,7 +1071,7 @@ dynamic_darkness = true
 JUMP = 20.0
 spr_height = 20
 head_height = 58
-shadow_height = 38
+shadow_height = 42
 reflect_height = 51
 
 [node name="AnimationPlayer" parent="Node2D2/head tests/chasedd" index="0"]
@@ -1944,6 +1948,7 @@ shape = SubResource( 9 )
 
 [node name="spriteman8" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -623, -2724 )
 collision_layer = 2
@@ -1972,6 +1977,7 @@ shape = SubResource( 9 )
 
 [node name="spriteman10" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -521, -2722 )
 rotation = 0.785398
@@ -2002,6 +2008,7 @@ shape = SubResource( 9 )
 
 [node name="spriteman11" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -408, -2721 )
 rotation = 1.5708
@@ -2032,6 +2039,7 @@ shape = SubResource( 9 )
 
 [node name="spriteman12" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -307, -2719 )
 rotation = 2.35619
@@ -2062,6 +2070,7 @@ shape = SubResource( 9 )
 
 [node name="spriteman13" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -202, -2724 )
 rotation = 3.14159
@@ -2092,6 +2101,7 @@ shape = SubResource( 9 )
 
 [node name="spriteman14" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( -71, -2721 )
 rotation = 3.92699
@@ -2122,6 +2132,7 @@ shape = SubResource( 9 )
 
 [node name="spriteman15" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( 43, -2723 )
 rotation = 4.71239
@@ -2152,6 +2163,7 @@ shape = SubResource( 9 )
 
 [node name="spriteman16" type="KinematicBody2D" parent="Node2D2" groups=[
 "rendersprite",
+"sprite",
 ]]
 position = Vector2( 167, -2724 )
 rotation = 5.49779
