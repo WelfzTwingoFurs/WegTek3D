@@ -372,6 +372,15 @@ func _physics_process(_delta):
 	if !noclip:
 		collide()
 		
+		if on_body == true:
+			motionZ = 0
+			positionZ = body_on.positionZ + body_on.head_height
+			if Input.is_action_pressed("ply_jump"):
+				motionZ += JUMP
+				on_body = false
+			if col_sprites.size() == 0:
+				on_body = false
+		
 		if on_floor == true:
 			motionZ = 0
 			if Input.is_action_pressed("ply_jump"):
@@ -403,7 +412,7 @@ func _physics_process(_delta):
 			positionZ -= 1 * rotate_rate * Engine.time_scale
 			move_dir.z = -1
 		elif Input.is_action_pressed("ply_flycenter"):
-			positionZ = lerp(positionZ, 0-ply_height, 0.1)
+			positionZ = lerp(positionZ, 0-head_height, 0.1)
 		else:
 			move_dir.z = 0
 	#print(positionZ)
@@ -521,11 +530,14 @@ var col_sprites = []
 
 export(float) var GRAVITY = 0.5
 export(float) var JUMP = 10
-export var ply_height = 45
+export var head_height = 45
 
 var noclip = false
 
 var darkness = 1
+
+var on_body = false
+var body_on = null
 
 func collide():
 	for n in col_sprites.size():
@@ -541,15 +553,16 @@ func collide():
 		#pé < baixo, cabeça > baixo
 		#pé > baixo, cabeça < topo
 		#pé < topo, cabeça > topo
-		if (positionZ <= heightsBT.x && positionZ+ply_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+ply_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+ply_height >= heightsBT.y): 
-			# pé < topo, cabeça > topo, pé - topo = <ply_height
-			if (positionZ < heightsBT.y && positionZ+ply_height > heightsBT.y) && (positionZ - heightsBT.y < ply_height/2):
+		if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
+			# pé < topo, cabeça > topo, pé - topo = <head_height
+			if (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
 				positionZ = heightsBT.y
-				on_floor = true
+				on_body = true
+				body_on = col_sprites[n]
 			
-			elif (positionZ < heightsBT.x && positionZ+ply_height > heightsBT.x) && ((positionZ+ply_height) - heightsBT.x < ply_height/2):
-				positionZ = heightsBT.x - ply_height -1
-				on_floor = false
+			elif (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+				positionZ = heightsBT.x - head_height -1
+				on_body = false
 			
 			else:
 				remove_collision_exception_with(col_sprites[n])
@@ -575,14 +588,14 @@ func collide():
 			#pé < baixo, cabeça > baixo
 			#pé > baixo, cabeça < topo
 			#pé < topo, cabeça > topo
-			if (positionZ <= heightsBT.x && positionZ+ply_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+ply_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+ply_height >= heightsBT.y): 
-				# pé < topo, cabeça > topo, pé - topo = <ply_height
-				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+ply_height > heightsBT.y) && (positionZ - heightsBT.y < ply_height/2):
+			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
+				# pé < topo, cabeça > topo, pé - topo = <head_height
+				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
 					positionZ = heightsBT.y
 					on_floor = true
 				
-				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+ply_height > heightsBT.x) && ((positionZ+ply_height) - heightsBT.x < ply_height/2):
-					positionZ = heightsBT.x - ply_height -1
+				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+					positionZ = heightsBT.x - head_height -1
 					on_floor = false
 				
 				else:
@@ -651,17 +664,17 @@ func collide():
 func col_proccess(n,numba):
 	if col_floors[n].absolute == -1:
 		if positionZ > col_floors[n].heights[numba]-1:
-			positionZ = col_floors[n].heights[numba] - ply_height
+			positionZ = col_floors[n].heights[numba] - head_height
 			on_floor = false
 	elif col_floors[n].absolute == 1:
-		if positionZ < col_floors[n].heights[numba]-ply_height:
+		if positionZ < col_floors[n].heights[numba]-head_height:
 			positionZ = col_floors[n].heights[numba]
 			on_floor = true
 	
 	
 	if move_dir.z == -1:
-		if (positionZ < col_floors[n].heights[numba]) && (positionZ+ply_height > col_floors[n].heights[numba]):
-			positionZ = col_floors[n].heights[numba]# + ply_height
+		if (positionZ < col_floors[n].heights[numba]) && (positionZ+head_height > col_floors[n].heights[numba]):
+			positionZ = col_floors[n].heights[numba]# + head_height
 			
 			on_floor = true 
 			if motionZ < 0:
@@ -669,8 +682,8 @@ func col_proccess(n,numba):
 				
 	
 	if move_dir.z == 1:
-		if (positionZ < col_floors[n].heights[numba]) && (positionZ+ply_height > col_floors[n].heights[numba]):
-			positionZ = col_floors[n].heights[numba] - ply_height
+		if (positionZ < col_floors[n].heights[numba]) && (positionZ+head_height > col_floors[n].heights[numba]):
+			positionZ = col_floors[n].heights[numba] - head_height
 			
 			on_floor = false
 			if motionZ > 0:
@@ -719,6 +732,8 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("sprite"):
 		if col_sprites.has(body):
 			col_sprites.erase(body)
+			on_body = false
+			on_floor = false
 
 ######    #######    ###      ###      ###   ######      ######
 ###      ###   ###   ###      ###            ###   ##    ###
@@ -953,7 +968,7 @@ func render():
 					#-(distance*(float(1*array_walls[n].darkness)/draw_distance)-1)
 					
 					if height1 == height2:#No diagonals, we're done
-						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
 					else:#Need to make diagonal clipping
 						var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
@@ -966,7 +981,7 @@ func render():
 						
 						#print(height2,"   ",height1,"   ",new_height)
 						
-						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
+						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*new_height)) #OVER
 					
 					array_shading.append(Color(C,C,C))
 					
@@ -982,7 +997,7 @@ func render():
 						if shading: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 						
 						if height1 == height2:#No diagonals
-							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 						
 						else:#diagonal
 							var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
@@ -993,7 +1008,7 @@ func render():
 								#if new_height < height2:
 								new_height += height2
 							
-							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
+							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*new_height)) #OVER
 						
 						array_shading.append(Color(C,C,C))
 			
@@ -1003,7 +1018,7 @@ func render():
 				var xkusu = (array_walls[n].points[m]-to_global($Camera2D.position)).angle() - midscreen
 				var lineH = (OS.window_size.y / sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2)))   /  cos(xkusu)
 				
-				array_polygon.append(Vector2(tan(xkusu),((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 				var C
 				if !shading: C = float(1)/array_walls[n].darkness
 				else: C = -(    sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
@@ -1204,7 +1219,7 @@ func render():
 			
 			new_container.add_child(new_sprite)
 			
-			if sprite_shadows:## && (array_sprites[o].positionZ > positionZ-ply_height):# && (new_sprite.position.y+(new_sprite.texture.get_size().y*new_sprite.scale.y)/2 > 0):
+			if sprite_shadows:## && (array_sprites[o].positionZ > positionZ-head_height):# && (new_sprite.position.y+(new_sprite.texture.get_size().y*new_sprite.scale.y)/2 > 0):
 				#if new_sprite.position.y - (new_sprite.offset.y*new_sprite.scale.y) > 0:
 				#if ((new_sprite.position.y - new_sprite.offset.y)*new_sprite.scale.y)*new_container.scale.y > 0:
 					var shadow = new_sprite.duplicate()

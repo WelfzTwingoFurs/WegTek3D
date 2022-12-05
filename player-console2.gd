@@ -44,14 +44,14 @@ func _process(_delta):
 			,"[Worldconfig.player]"#,", change_checker=",Worldconfig.player.change_checker,"\n"
 			," angles=",Worldconfig.player.angles,", draw_distance=",Worldconfig.player.draw_distance,", sky_stretch=",Worldconfig.player.sky_stretch,", skycolor=(",Worldconfig.player.skycolor,")"
 			,", \n"
-			," textures_on=",Worldconfig.player.textures_on,", _UV_textures=",Worldconfig.player.UV_textures,", shading=",Worldconfig.player.shading,", cull_on=",Worldconfig.player.cull_on,", ply_height=",Worldconfig.player.ply_height,", jump=",Worldconfig.player.JUMP,", gravity=",Worldconfig.player.GRAVITY
+			," textures_on=",Worldconfig.player.textures_on,", _UV_textures=",Worldconfig.player.UV_textures,", shading=",Worldconfig.player.shading,", cull_on=",Worldconfig.player.cull_on,", head_height=",Worldconfig.player.head_height,", jump=",Worldconfig.player.JUMP,", gravity=",Worldconfig.player.GRAVITY
 			,", \n"
 			,"vbob_max=",Worldconfig.player.vbob_max,", vbob_speed=",Worldconfig.player.vbob_speed,", vroll_multi=",Worldconfig.player.vroll_multi
 			#,",\n"
 			,", speed=",Worldconfig.player.speed,", rotate_rate=",Worldconfig.player.rotate_rate,", map_draw=",Worldconfig.player.map_draw
 			#,", sky_stretch=",Worldconfig.player.sky_stretch,", skycolor=(",Worldconfig.player.skycolor,")"
 			,";; \n"
-			,"input_dir=",Worldconfig.player.input_dir,", move_dir=",Worldconfig.player.move_dir,", rot_plus90=",Worldconfig.player.rot_plus90,", rot_minus90=",Worldconfig.player.rot_minus90,", midscreen=",Worldconfig.player.midscreen
+			,"input_dir=",Worldconfig.player.input_dir,", move_dir=",Worldconfig.player.move_dir,", on_floor=",Worldconfig.player.on_floor,", rot_plus90=",Worldconfig.player.rot_plus90,", rot_minus90=",Worldconfig.player.rot_minus90,", midscreen=",Worldconfig.player.midscreen
 			,"\n"
 			,"position=(",int((Worldconfig.player.position.x)),",",int((Worldconfig.player.position.y)),"), positionZ=",Worldconfig.player.positionZ,", rotation_angle=",Worldconfig.player.rotation_angle,", motion=(",int((Worldconfig.player.motion.x)),",",int((Worldconfig.player.motion.y)),"), motion.angle()-PI/2=",rad_overflow(Worldconfig.player.motion.angle()-PI/2)
 			,"\n"
