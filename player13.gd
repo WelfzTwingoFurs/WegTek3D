@@ -282,13 +282,15 @@ func _physics_process(_delta):
 	if darkness != 0: C /= darkness
 	$View.modulate = Color(C,C,C)
 	
-	if lookingZ < 0: #feet when looking down, imprecise to collision shape NEEDS WERKIN
-		#lookingZ = 0                         == 0%
-		#lookingZ = $PolyContainer.scale.y*10 == 100%
-		var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
-		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
-		$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
-		#print($View/Feet.modulate)
+	if lookingZ < 0:
+		#var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
+		#$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
+		#$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
+		
+		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height()
+		$View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*10) - $PolyContainer.position.y)
+		
+		
 		
 		$View/Feet.visible = 1
 		#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
@@ -296,7 +298,6 @@ func _physics_process(_delta):
 		
 		if on_floor == true:
 			if input_dir.y != 0:
-				$View/AniPlayFeet.play("walk")
 				$View/AniPlayFeet.play("walk")
 				$View/AniPlayFeet.playback_speed = input_dir.y
 
