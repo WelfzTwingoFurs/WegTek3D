@@ -611,53 +611,68 @@ func collide():
 			col_proccess(n,0)
 		
 		else: #sometimes we gotta process a fuckin slope
-			#var distances = []
-			var ID = Vector2(0,0)
-			
-			var first = INF
-			
-			for m in col_floors[n].points.size():
-				var distance =  sqrt(pow((col_floors[n].points[m].x - position.x), 2) + pow((col_floors[n].points[m].y - position.y), 2) + pow((col_floors[n].heights[m] - positionZ), 2))
-				if distance < first:
-					first = distance
-					ID.x = m
-			
-			var second = INF
+			#position
+			var p1 = position
+			#position ahead (motion.angle)
+			var p2 = position + Vector2(0,99999).rotated(rad_overflow(motion.angle()-PI/2))
+			var new_position
+			var new_height
+			var M
 			
 			for m in col_floors[n].points.size():
-				var distance =  sqrt(pow((col_floors[n].points[m].x - position.x), 2) + pow((col_floors[n].points[m].y - position.y), 2) + pow((col_floors[n].heights[m] - positionZ), 2))
-				if distance > first && distance < second:
-					second = distance
-					ID.y = m
+				var p3 = col_floors[n].points[m]
+				var p4 = col_floors[n].points[(m+1) % col_floors[n].points.size()]
+				
+				#if Input.is_action_just_pressed("bug_console"):
+				if intersect(p1,p2,p3,p4):
+					new_position = new_position(p1,p2,p3,p4,(p1.x - p2.x)*(p3.y - p4.y) - (p1.y - p2.y)*(p3.x - p4.x))
+					
+					var height1 = col_floors[n].heights[m]
+					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
+					
+					new_height = (sqrt(pow((p4.x - new_position.x), 2) + pow((p4.y - new_position.y), 2))/sqrt(pow((p4.x - p3.x), 2) + pow((p4.y - p3.y), 2)))*(height1-height2) + height2
+					
+					positionZ = new_height
+					continue
+					
+			
+			p2 = position + Vector2(0,99999).rotated(rad_overflow(motion.angle()+PI/2))
+			var new_position2
+			var new_height2
+			
+			for m in col_floors[n].points.size():
+				var p3 = col_floors[n].points[m]
+				var p4 = col_floors[n].points[(m+1) % col_floors[n].points.size()]
+				
+				#if Input.is_action_just_pressed("bug_console"):
+				if intersect(p1,p2,p3,p4):
+					new_position2 = new_position(p1,p2,p3,p4,(p1.x - p2.x)*(p3.y - p4.y) - (p1.y - p2.y)*(p3.x - p4.x))
+					
+					var height1 = col_floors[n].heights[m]
+					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
+					
+					new_height2 = (sqrt(pow((p4.x - new_position2.x), 2) + pow((p4.y - new_position2.y), 2))/sqrt(pow((p4.x - p3.x), 2) + pow((p4.y - p3.y), 2)))*(height1-height2) + height2
+					
+					#positionZ = new_height2
+					continue
 			
 			
-			if on_floor == true: positionZ = col_floors[n].heights[ID.x]
-			col_proccess(n,ID.x)
-#			print(ID)
-#			#positionZ = col_floors[n].heights[ID.x]
-#			var first_second = sqrt(pow((col_floors[n].points[ID.x].x - col_floors[n].points[ID.y].x), 2) + pow((col_floors[n].points[ID.x].y - col_floors[n].points[ID.y].y), 2) + pow((col_floors[n].heights[ID.x] - col_floors[n].heights[ID.y]), 2))
-#			#var first_second = sqrt(pow((col_floors[n].heights[ID.x] - col_floors[n].heights[ID.y]), 2))
-#			#(me to closest distance) = 0%, (first to second distance)=100%, (me to second distance) = X%
-#			#heights[ID.x]=0%, heights[ID.y]=100%
-#			#positionZ = X% of heights[ID.y]-heights[ID.x]
-#			#col_proccess(n,closest)
-#			#first = sqrt(pow((positionZ - col_floors[n].heights[ID.x]), 2))
-#			#second = sqrt(pow((positionZ - col_floors[n].heights[ID.y]), 2))
-#
-#			var percent
-#			if col_floors[n].heights[ID.x] == col_floors[n].heights[ID.y]:
-#				positionZ = col_floors[n].heights[ID.x]
-#			elif col_floors[n].heights[ID.x] > col_floors[n].heights[ID.y]:
-#				percent = second/(first_second) #+ 0.5
-#				positionZ = col_floors[n].heights[ID.x]*percent
-#				print("A")
-#			else:
-#				percent = first/(first_second)# + 0.5
-#				positionZ = (col_floors[n].heights[ID.x]/percent) -col_floors[n].heights[ID.x]
-#				print("b")
+			#if new_height2 != null:
+			#	if new_height > new_height2:
+			#		positionZ = (new_height-new_height2) / new_height2
+				
 			
 			
-			#print(percent)
+
+func ccw(A,B,C):
+	return (C.y-A.y) * (B.x-A.x) > (B.y-A.y) * (C.x-A.x)
+
+func intersect(A,B,C,D):
+	return ccw(A,C,D) != ccw(B,C,D) and ccw(A,B,C) != ccw(A,B,D)
+
+
+
+
 
 
 
@@ -721,13 +736,15 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		if col_floors.has(body):
 			col_floors.erase(body)
 			
-			if (col_floors.size() == 0) && (positionZ <= min_Z):
-				positionZ = min_Z
+			if (col_floors.size() == 0):
+				if (positionZ <= min_Z): positionZ = min_Z
+				darkness = 1
 			
 	
 	if body.is_in_group("wall"):
 		if col_walls.has(body):
 			col_walls.erase(body)
+			
 	
 	if body.is_in_group("sprite"):
 		if col_sprites.has(body):
@@ -888,6 +905,7 @@ var midscreen = 0
 export(bool) var textures_on = 0
 export(bool) var UV_textures = 1
 export(bool) var cull_on = 1
+export(bool) var fade = 0
 
 func render():
 	if (weakref(new_container).get_ref()):
@@ -973,10 +991,7 @@ func render():
 					else:#Need to make diagonal clipping
 						var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
 						
-						if height2 > height1: #dont know
-							new_height += height2
-						elif height2 < height1:# why, OK
-							#if (new_height < height2) or (new_height > height1):
+						if (height2 > height1)  or  (height2 < height1): #dont know
 							new_height += height2
 						
 						#print(height2,"   ",height1,"   ",new_height)
@@ -1031,26 +1046,6 @@ func render():
 			
 			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
 			
-			#if shading:
-				#if C == null:
-				#var C = float(1)/array_walls[n].darkness
-				#if !Ctrigger:
-				#	C = -(distance*(float(1*array_walls[n].darkness)/draw_distance)-1)
-				
-				#elif array_shading.size() != 0:
-				#	var distanceC = sqrt(pow((array_walls[n].points[array_walls[n].points.size()-1].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[array_walls[n].points.size()-1].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[array_walls[n].heights.size()-1] - positionZ), 2))
-				#	C = -(distanceC*(float(1*array_walls[n].darkness)/draw_distance)-1)
-				
-				#else:
-				#	var distanceC = sqrt(pow((array_walls[n].position.x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].position.y - to_global($Camera2D.position).y), 2))
-				#	C = -(distanceC*(float(1*array_walls[n].darkness)/draw_distance)-1)
-				
-				#array_shading.append(Color(C,C,C))
-			
-			#else:
-			#	var C = float(1)/array_walls[n].darkness
-			#	array_shading.append(Color(C,C,C))
-			#	if Ctrigger: array_shading.append(Color(C,C,C))
 			
 			
 			
@@ -1073,60 +1068,61 @@ func render():
 					#new_poly.visible = 0
 					#break #if we don't cull it gets inverted since things will stack at -4096
 					new_poly.z_index = -4095
-					new_poly.modulate = Color(0,0,0,array_walls[n].modulate.a)
+					if fade: new_poly.modulate = Color(0,0,0,array_walls[n].modulate.a)
+					
 					
 				else:
 					new_poly.z_index = min_distance
 					
-					new_poly.modulate = array_walls[n].modulate
-					
-					
-					if textures_on: #Texture mapping
-						new_poly.texture = load(array_walls[n].texture_path)
-						new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
-						#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-						if UV_textures:
-							var howmany = array_polygon.size() #m+1
+				new_poly.modulate = array_walls[n].modulate
+				
+				
+				if textures_on && (array_walls[n].texture_path != "res://textures/solid1.png"): #Texture mapping
+					new_poly.texture = load(array_walls[n].texture_path)
+					new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
+					#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+					if UV_textures:
+						var howmany = array_polygon.size() #m+1
+						
+						
+						if  howmany == 3:
+							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+							new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
+						elif howmany == 4:
+							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+							new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
+						elif howmany == 5:
+							new_poly.texture_offset = Vector2(0,1) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/2
+							new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
+						elif howmany == 6:
+							new_poly.texture_offset = Vector2(1,2) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
+							new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
+						elif howmany == 7:
+							new_poly.texture_offset = Vector2(1,0) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
+							new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
+						elif howmany == 8:
+							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+							new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
+						elif  howmany == 9:
+							new_poly.texture_offset = Vector2(1,-2) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+							new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
+						elif howmany == 10:
+							new_poly.texture_offset = Vector2(0,-1) + array_walls[n].texture_offset
+							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
+							new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
 							
-							
-							if  howmany == 3:
-								new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-								new_poly.uv = [Vector2(0,0), Vector2(1,1), Vector2(0,1)]
-							elif howmany == 4:
-								new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-								new_poly.uv = [Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(0,1)]
-							elif howmany == 5:
-								new_poly.texture_offset = Vector2(0,1) + array_walls[n].texture_offset
-								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/2
-								new_poly.uv = [Vector2(2,4), Vector2(3,3), Vector2(4,4), Vector2(4,5), Vector2(2,5)]
-							elif howmany == 6:
-								new_poly.texture_offset = Vector2(1,2) + array_walls[n].texture_offset
-								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
-								new_poly.uv = [Vector2(-1,3), Vector2(1,2), Vector2(3,3), Vector2(3,5), Vector2(1,6), Vector2(-1,5)]
-							elif howmany == 7:
-								new_poly.texture_offset = Vector2(1,0) + array_walls[n].texture_offset
-								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/4
-								new_poly.uv = [Vector2(4,1), Vector2(5,0), Vector2(6,1), Vector2(7,3), Vector2(6,4), Vector2(4,4), Vector2(3,3)]
-							elif howmany == 8:
-								new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
-								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-								new_poly.uv = [Vector2(1,1), Vector2(3,0), Vector2(5,1), Vector2(6,3), Vector2(5,5), Vector2(3,6), Vector2(1,5), Vector2(0,3)]
-							elif  howmany == 9:
-								new_poly.texture_offset = Vector2(1,-2) + array_walls[n].texture_offset
-								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-								new_poly.uv = [Vector2(0,3), Vector2(2,2), Vector2(4,3), Vector2(5,5), Vector2(4,7), Vector2(3,8), Vector2(1,8), Vector2(0,7), Vector2(-1,5)]
-							elif howmany == 10:
-								new_poly.texture_offset = Vector2(0,-1) + array_walls[n].texture_offset
-								new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
-								new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
-								
-						else:
-							new_poly.texture_scale = $PolyContainer.scale * float(1)/array_walls[n].texture_repeat
-							#new_poly.texture_offset.y = -positionZ
-							#new_poly.texture_offset.x = rotation_angle
-							
+					else:
+						new_poly.texture_scale = $PolyContainer.scale * float(1)/array_walls[n].texture_repeat
+						#new_poly.texture_offset.y = -positionZ
+						#new_poly.texture_offset.x = rotation_angle
+						
 						
 		#end of M loop, back to N
 		
@@ -1349,7 +1345,6 @@ func _draw():
 	
 	if Input.is_action_pressed("ui_accept"): #Must always update otherwise it doesn't dissapear
 		var shine1 = Color((randi() % 2),(randi() % 2),(randi() % 2))
-		var orange = Color(1, 0.5, 0)
 		
 		draw_line(Vector2(0,0), Vector2(0,draw_distance).rotated(rotation_angle), Color(1,1,1), 1)
 		if sign(map_draw) == 1:
@@ -1373,9 +1368,9 @@ func _draw():
 					#	zoomies = Worldconfig.Camera2D.zoom
 					
 					if m < array_walls[n].points.size()-1:
-						draw_line((array_walls[n].points[m]-position)*zoomies, (array_walls[n].points[m+1]-position)*zoomies, orange, 1)
+						draw_line((array_walls[n].points[m]-position)*zoomies, (array_walls[n].points[m+1]-position)*zoomies, array_walls[n].modulate, 1)
 					else:
-						draw_line((array_walls[n].points[array_walls[n].points.size()-1]-position)*zoomies, (array_walls[n].points[0]-position)*zoomies, orange, 1)
+						draw_line((array_walls[n].points[array_walls[n].points.size()-1]-position)*zoomies, (array_walls[n].points[0]-position)*zoomies, array_walls[n].modulate, 1)
 		
 		
 		
@@ -1392,9 +1387,9 @@ func _draw():
 								var zoomies = 1
 								
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line((targets_in_scene[n].points[m]-position)*zoomies, (targets_in_scene[n].points[m+1]-position)*zoomies, orange, 1)
+									draw_line((targets_in_scene[n].points[m]-position)*zoomies, (targets_in_scene[n].points[m+1]-position)*zoomies, targets_in_scene[n].modulate, 1)
 								else:
-									draw_line((targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position)*zoomies, (targets_in_scene[n].points[0]-position)*zoomies, orange, 1)
+									draw_line((targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position)*zoomies, (targets_in_scene[n].points[0]-position)*zoomies, targets_in_scene[n].modulate, 1)
 						targets_in_scene = []
 		
 		
@@ -1409,9 +1404,9 @@ func _draw():
 				for m in array_walls[n].points.size():
 					
 					if m < array_walls[n].points.size()-1:
-						draw_line(((array_walls[n].heights[m]+1) / lookingZ/1000)*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / lookingZ/1000)*(array_walls[n].points[m+1]-position), orange, 1)
+						draw_line(((array_walls[n].heights[m]+1) / lookingZ/1000)*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / lookingZ/1000)*(array_walls[n].points[m+1]-position), array_walls[n].modulate, 1)
 					else:
-						draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / lookingZ/1000)*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / lookingZ/1000)*(array_walls[n].points[0]-position), orange, 1)
+						draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / lookingZ/1000)*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / lookingZ/1000)*(array_walls[n].points[0]-position), array_walls[n].modulate, 1)
 			
 		
 		elif abs(map_draw) == 4: #all 3D walls
@@ -1425,10 +1420,10 @@ func _draw():
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  ((targets_in_scene[n].heights[m+1]+1) / lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  ((targets_in_scene[n].heights[m+1]+1) / lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), targets_in_scene[n].modulate, 1)
 									
 								else:
-									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), targets_in_scene[n].modulate, 1)
 									
 						
 						targets_in_scene = []
@@ -1442,10 +1437,10 @@ func _draw():
 					
 					
 					if m < array_walls[n].points.size()-1:
-						draw_line((1+array_walls[n].heights[ m                            ] * lookingZ/1000) * (array_walls[n].points[ m                            ]-position),  (1+array_walls[n].heights[m+1] * lookingZ/1000)*(array_walls[n].points[m+1]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[ m                            ] * lookingZ/1000) * (array_walls[n].points[ m                            ]-position),  (1+array_walls[n].heights[m+1] * lookingZ/1000)*(array_walls[n].points[m+1]-position), array_walls[n].modulate, 1)
 						
 					else:
-						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * lookingZ/1000) * (array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * lookingZ/1000)*(array_walls[n].points[ 0 ]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * lookingZ/1000) * (array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * lookingZ/1000)*(array_walls[n].points[ 0 ]-position), array_walls[n].modulate, 1)
 						
 		
 		elif abs(map_draw) == 6: #all 3D walls 2
@@ -1461,11 +1456,11 @@ func _draw():
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line((1+targets_in_scene[n].heights[ m                                 ] * lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  (1+targets_in_scene[n].heights[m+1] * lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									draw_line((1+targets_in_scene[n].heights[ m                                 ] * lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  (1+targets_in_scene[n].heights[m+1] * lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), targets_in_scene[n].modulate, 1)
 									
 								
 								else:
-									draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), targets_in_scene[n].modulate, 1)
 									
 						targets_in_scene = []
 		
