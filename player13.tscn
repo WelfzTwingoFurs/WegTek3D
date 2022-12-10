@@ -75,7 +75,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 resource_name = "flame-end"
 length = 0.2
 tracks/0/type = "value"
@@ -91,8 +91,7 @@ tracks/0/keys = {
 "values": [ 5, 6, 0 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "flame-fire"
+[sub_resource type="Animation" id=7]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -108,7 +107,7 @@ tracks/0/keys = {
 "values": [ 3, 4 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 resource_name = "flame-no"
 length = 0.1
 tracks/0/type = "value"
@@ -124,8 +123,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "flame-start"
+[sub_resource type="Animation" id=9]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -140,8 +138,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 0 ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "hand-fire"
+[sub_resource type="Animation" id=10]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -268,11 +265,11 @@ __meta__ = {
 }
 
 [node name="AniPlayHand" type="AnimationPlayer" parent="View"]
-anims/flame-end = SubResource( 7 )
-anims/flame-fire = SubResource( 6 )
-anims/flame-no = SubResource( 10 )
-anims/flame-start = SubResource( 8 )
-anims/hand-fire = SubResource( 9 )
+anims/flame-end = SubResource( 6 )
+anims/flame-fire = SubResource( 7 )
+anims/flame-no = SubResource( 8 )
+anims/flame-start = SubResource( 9 )
+anims/hand-fire = SubResource( 10 )
 
 [node name="Hand" type="Sprite" parent="View"]
 visible = false
