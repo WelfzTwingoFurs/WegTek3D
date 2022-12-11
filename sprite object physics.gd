@@ -173,7 +173,7 @@ func collide():
 					positionZ = col_floors[n].heights[0]
 					on_floor = true
 			
-			
+			#if on_floor == false:
 			if move_dir.z == -1:
 				if (positionZ < col_floors[n].heights[0]) && (positionZ+head_height > col_floors[n].heights[0]):
 					positionZ = col_floors[n].heights[0]# + head_height

@@ -279,8 +279,11 @@ func _physics_process(_delta):
 	
 	
 	var C = float(1)
-	if darkness != 0: C /= darkness
+	if darkness < 0: C *= -darkness
+	elif darkness > 0: C /= darkness
 	$View.modulate = Color(C,C,C)
+	
+	
 	
 	if lookingZ < 0:
 		#var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
@@ -423,11 +426,11 @@ func _physics_process(_delta):
 	
 	if Input.is_action_just_pressed("ply_wpn_next"):
 		guninv += 1
-		if guninv > 2: guninv = 0
+		if guninv > 3: guninv = 0
 		gunswitch()
 	elif Input.is_action_just_pressed("ply_wpn_previous"):
 		guninv -= 1
-		if guninv < 0: guninv = 2
+		if guninv < 0: guninv = 3
 		gunswitch()
 	
 	if Input.is_action_pressed("ply_wpn_fire1"):
@@ -441,9 +444,15 @@ func _physics_process(_delta):
 		gunstop(true)
 	
 	if Worldconfig.zoom < 2:
-		$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2
-		$View/Hand.position.x = (get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
-		$View/Hand.scale = Vector2(gunscale,gunscale)
+		$View/Hand.position.x = 0#(get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
+		
+		if !gunstretch:
+			$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2
+			$View/Hand.scale = Vector2(gunscale,gunscale)
+		else:
+			$View/Hand.scale.x = OS.window_size.x/$View/Hand.texture.get_width()
+			$View/Hand.scale.y = gunscale
+			$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2
 	
 	# #  #  ##  ##
 	# # # # # # # #
@@ -466,6 +475,7 @@ func _physics_process(_delta):
 
 var guninv = 0
 export var gunscale = 3
+export(bool) var gunstretch = true
 
 func gunswitch():
 	print(guninv)
@@ -482,14 +492,20 @@ func gunswitch():
 		$View/Hand.texture = load("res://assets/weapon flamethrower.png")
 		$View/Hand.hframes = 1
 		$View/Hand.vframes = 7
-	
+	elif guninv == 3:
+		$View/Hand.texture = load("res://assets/weapon doomarms.png")
+		$View/Hand.hframes = 1
+		$View/Hand.vframes = 1
 
 func gunfire(alt):
 	if guninv == 1:
 		$View/AniPlayHand.play("hand-fire")
+		if Input.is_action_just_pressed("ply_wpn_fire1"): shoot()
 	
 	elif guninv == 2:
-		if !alt && Input.is_action_just_pressed("ply_wpn_fire1"):
+		if $View/Hand.frame == 5 or $View/Hand.frame == 4 or $View/Hand.frame == 3 or $View/Hand.frame == 2: darkness = 1
+		
+		if !alt && Input.is_action_just_pressed("ply_wpn_fire1") && ($View/Hand.frame != 4 or $View/Hand.frame != 3):
 			if $View/AniPlayHand.current_animation == "flame-no":
 				$View/AniPlayHand.play("flame-fire")
 			else:
@@ -500,7 +516,8 @@ func gunfire(alt):
 			else:
 				$View/AniPlayHand.play("flame-no")
 				
-			
+	elif guninv == 3:
+		pass
 
 func gunstop(alt):
 	if guninv == 2:
@@ -510,6 +527,15 @@ func gunstop(alt):
 			$View/Hand.frame = 0
 
 
+const shot = preload("res://projectile.tscn")
+func shoot():
+	var shoot_instance = shot.instance()
+	shoot_instance.rotation_degrees = rotation_angle + PI/2
+	shoot_instance.positionZ = positionZ + head_height/2
+	shoot_instance.motionZ = $PolyContainer.scale.y*lookingZ
+	
+	shoot_instance.position = position + Vector2(20,0).rotated(rotation_angle + PI/2)
+	get_parent().add_child(shoot_instance)
 
 
 
@@ -618,7 +644,6 @@ func collide():
 			var p2 = position + Vector2(0,99999).rotated(rad_overflow(motion.angle()-PI/2))
 			var new_position
 			var new_height
-			var M
 			
 			for m in col_floors[n].points.size():
 				var p3 = col_floors[n].points[m]
@@ -632,8 +657,6 @@ func collide():
 					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
 					
 					new_height = (sqrt(pow((p4.x - new_position.x), 2) + pow((p4.y - new_position.y), 2))/sqrt(pow((p4.x - p3.x), 2) + pow((p4.y - p3.y), 2)))*(height1-height2) + height2
-					
-					positionZ = new_height
 					continue
 					
 			
@@ -653,17 +676,55 @@ func collide():
 					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
 					
 					new_height2 = (sqrt(pow((p4.x - new_position2.x), 2) + pow((p4.y - new_position2.y), 2))/sqrt(pow((p4.x - p3.x), 2) + pow((p4.y - p3.y), 2)))*(height1-height2) + height2
-					
-					#positionZ = new_height2
 					continue
 			
+#			if (new_height != null) && (new_height2 != null):
+#				var distanceN1N2 = pow(sqrt(pow(new_position2.x-new_position.x,2) +pow(new_position2.y-new_position.y,2)),2)
+#				var distanceN1P  = pow(sqrt(pow(new_position.x-position.x,2) +pow(new_position.y-position.y,2)),2)
+#
+#				if new_height > new_height2: positionZ = (distanceN1P / distanceN1N2) * new_height2
+#				else: positionZ = (distanceN1P / distanceN1N2) * new_height
 			
-			#if new_height2 != null:
-			#	if new_height > new_height2:
-			#		positionZ = (new_height-new_height2) / new_height2
+			
+			if (new_height2 != null) && (new_height != null) && (new_position.x - new_position2.x != 0):
+				on_floor = true
 				
-			
-			
+				if new_height < new_height2:
+					#(A.x - B.x) / (B.x - C.x) = (A.y - B.y) / (B.y - C.y) = (A.z - B.z) / (B.z - C.z)
+					#(new_position2.x - position.x) / (position.x - new_position.x) = (new_position2.y - position.y) / (position.y - new_position.y) = (new_height2 - positionZ) / (positionZ - new_height)
+					
+					var A = Vector3(new_position2.x, new_position2.y, new_height2)
+					var B = Vector3(position.x, position.y, positionZ)
+					var C = Vector3(new_position.x, new_position.y, new_height)
+					
+					B.z = (A.x*C.z + B.x*A.z - B.x*C.z - C.z*A.z) / (A.x - C.x)
+					
+					if B.z > new_height2:
+						print("1 < 2. Z > 2 limão")
+					elif B.z < new_height:
+						print("1 < 2. Z < 1 laranja")
+					else:
+						print("1 < 2 maça")
+						positionZ = B.z
+						
+				
+				else:#if new_height > new_height2:
+					var A = Vector3(new_position.x, new_position.y, new_height)
+					var B = Vector3(position.x, position.y, positionZ)
+					var C = Vector3(new_position2.x, new_position2.y, new_height2)
+					
+					B.z = (A.x*C.z + B.x*A.z - B.x*C.z - C.z*A.z) / (A.x - C.x)
+					
+					if B.z > new_height:
+						print("2 < 1. Z > 1 abacate")
+					elif B.z < new_height2:
+						print("2 < 1. Z < 2 uva")
+					else:
+						print("2 < 1 banana")
+						positionZ = B.z
+				
+				
+				
 
 func ccw(A,B,C):
 	return (C.y-A.y) * (B.x-A.x) > (B.y-A.y) * (C.x-A.x)
@@ -1174,7 +1235,8 @@ func render():
 			else:
 				var C
 				if shading: C =  -(xkusu*(float(1*array_sprites[o].darkness)/draw_distance)-1)
-				else: C = float(1)/array_sprites[o].darkness
+				elif array_sprites[o].darkness > 0: C = float(1)/array_sprites[o].darkness
+				else: C = float(1)*-array_sprites[o].darkness
 				new_sprite.modulate = array_sprites[o].modulate*C
 				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
 				new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
@@ -1206,13 +1268,12 @@ func render():
 				
 				
 				
-				
-				
-				
-				
-				
-				
-				
+			else:
+				new_sprite.frame = array_sprites[o].anim
+			
+			
+			
+			
 			
 			new_container.add_child(new_sprite)
 			
