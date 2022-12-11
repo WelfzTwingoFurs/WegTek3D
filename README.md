@@ -30,6 +30,7 @@ FEATURES:
 
 IMPERFECTIONS:
 -No sound;
+-No mouse controls;
 -Z-sorting limited to entire polygon, nearby/touching/clipping objects innacurate;
 -Camera-edge culling only checks if all vertices are off-screen;
 -Extreme texture distortion up-close when UV-mapped;
