@@ -10,7 +10,7 @@
 [ext_resource path="res://map-wall.gd" type="Script" id=8]
 [ext_resource path="res://3Dcar.tscn" type="PackedScene" id=9]
 [ext_resource path="res://older_versions/plagio.png" type="Texture" id=10]
-[ext_resource path="res://queue_free.gd" type="Script" id=11]
+[ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=11]
 [ext_resource path="res://chaser.tscn" type="PackedScene" id=12]
 
 [sub_resource type="SegmentShape2D" id=1]
@@ -339,8 +339,8 @@ b = Vector2( 178, -52 )
 [node name="player13" parent="." groups=[
 "sprites",
 ] instance=ExtResource( 1 )]
-position = Vector2( 275, -1448 )
-draw_distance = 8192
+position = Vector2( -1017, -1484 )
+sky_stretch = Vector2( 1, 2 )
 min_Z = -1000
 gunstretch = false
 head_height = 40
@@ -348,8 +348,101 @@ UV_textures = false
 fade = true
 map_draw = 6
 
+[node name="kill3" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="base" type="StaticBody2D" parent="kill3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.262745, 0.117647, 0.266667, 1 )
+position = Vector2( -2138, -2230 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+heights = [ -100.0 ]
+texture_path = "res://textures/solid1.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/base"]
+polygon = PoolVector2Array( 500, -500, 500, 500, -500, 500, -500, -500 )
+
+[node name="0 -100" type="StaticBody2D" parent="kill3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.780392, 1, 0, 1 )
+position = Vector2( -4565, -60 )
+scale = Vector2( 5, 5 )
+script = ExtResource( 3 )
+heights = [ 0.0, 0.0, -100.0, -100.0 ]
+texture_path = "res://textures/stretchtest.png"
+bug_label = true
+darkness = -2.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/0 -100"]
+polygon = PoolVector2Array( 300, -600, 300, -500, 400, -500, 400, -600 )
+
+[node name="0 -100 scaled" type="StaticBody2D" parent="kill3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.780392, 1, 0, 1 )
+position = Vector2( -1041, -4971 )
+scale = Vector2( -5, -5 )
+script = ExtResource( 3 )
+heights = [ 0.0, 0.0, -100.0, -100.0 ]
+texture_path = "res://textures/stretchtest.png"
+bug_label = true
+darkness = -2.0
+
+[node name="Label" type="Label" parent="kill3/0 -100 scaled"]
+margin_left = 328.5
+margin_top = -557.5
+margin_right = 368.5
+margin_bottom = -543.5
+text = "SCALED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/0 -100 scaled"]
+polygon = PoolVector2Array( 300, -600, 300, -500, 400, -500, 400, -600 )
+
+[node name="sideways" type="StaticBody2D" parent="kill3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.780392, 1, 0, 1 )
+position = Vector2( -195, -60 )
+scale = Vector2( -5, 5 )
+script = ExtResource( 3 )
+heights = [ 0.0, 0.0, -100.0, -100.0 ]
+texture_path = "res://textures/stretchtest.png"
+bug_label = true
+darkness = -2.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/sideways"]
+polygon = PoolVector2Array( 400, -600, 300, -600, 300, -500, 400, -500 )
+
+[node name="-100 500" type="StaticBody2D" parent="kill3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.780392, 1, 0, 1 )
+position = Vector2( -3083, -301 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+heights = [ 200.0, 200.0, -100.0, -100.0 ]
+texture_path = "res://textures/stretchtest.png"
+bug_label = true
+darkness = -2.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/-100 500"]
+polygon = PoolVector2Array( 0, -600, 0, -500, 500, -500, 500, -600 )
+
 [node name="kill" type="Node2D" parent="."]
 script = ExtResource( 11 )
+kill = true
 
 [node name="walls" type="Node2D" parent="kill"]
 z_index = 4095
@@ -365,6 +458,10 @@ head_height = 60
 shadow_height = 45
 reflect_height = 45
 turn = 0.01
+
+[node name="3Dcar" parent="kill/walls/chasetek" instance=ExtResource( 9 )]
+position = Vector2( 0, 0 )
+script = ExtResource( 11 )
 
 [node name="chasedd" parent="kill/walls" groups=[
 "sprite",
@@ -387,7 +484,7 @@ turn = 0.01
 "render",
 ]]
 modulate = Color( 1, 1, 0, 1 )
-position = Vector2( -2117, -1912 )
+position = Vector2( -824, -4039 )
 scale = Vector2( 10, 10 )
 script = ExtResource( 3 )
 heights = [ 40.0 ]
@@ -736,7 +833,7 @@ texture_path = "res://textures/solid1.png"
 absolute = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill/Node2D/Node2D/StaticBody2D7"]
-position = Vector2( -29.5, -7.5 )
+position = Vector2( -29.5, -13 )
 polygon = PoolVector2Array( 379, -635.5, 438, 367, -631.5, 361.5, -636, -631 )
 
 [node name="StaticBody2D12" type="StaticBody2D" parent="kill/Node2D/Node2D" groups=[
@@ -752,6 +849,7 @@ texture_path = "res://textures/solid1.png"
 absolute = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill/Node2D/Node2D/StaticBody2D12"]
+position = Vector2( 0, -2 )
 polygon = PoolVector2Array( 379, -635.5, 381, 346, -631.5, 361.5, -636, -631 )
 
 [node name="StaticBody2D13" type="StaticBody2D" parent="kill/Node2D/Node2D" groups=[
@@ -764,8 +862,10 @@ scale = Vector2( 2, 2 )
 script = ExtResource( 3 )
 heights = [ 0.0, 0.0, -100.0, -100.0 ]
 texture_path = "res://textures/solid1.png"
+bug_label = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill/Node2D/Node2D/StaticBody2D13"]
+position = Vector2( -4, 0 )
 polygon = PoolVector2Array( 380, -630, 380, 360, 500, 360, 500, -630 )
 
 [node name="StaticBody2D8" type="StaticBody2D" parent="kill/Node2D/Node2D" groups=[
@@ -2380,11 +2480,6 @@ textures = [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill2/toparea/egg montain2"]
 polygon = PoolVector2Array( 0, 740, 29, 651, 74, 571, 133, 520, 198, 487, 284, 454, 366, 425, 460, 393, 562.47, 366.611, 645.334, 371.924, 736.987, 397.162, 854, 469, 954, 535, 981, 590, 990, 673, 983, 740, 946, 809, 894, 893, 840, 947, 756, 1026, 674, 1103, 627, 1138, 557, 1174, 451, 1202, 354, 1221, 260, 1227, 166, 1213, 95, 1166, 46, 1109, 17, 1062, 0, 1000, -19, 924, -21, 844 )
-
-[node name="3Dcar" parent="." instance=ExtResource( 9 )]
-position = Vector2( -688, -1724 )
-script = ExtResource( 11 )
-kill = true
 
 [node name="Doom2 deoptmized" type="Node2D" parent="."]
 position = Vector2( 188, 2343 )

@@ -68,15 +68,19 @@ var posZlookZ = 0
 var lookingZ = 0
 #View pans up and down
 
+var mouselock = false
+var mousedir = Vector2(0,0)
 
-
-
+func _input(event):
+	if event is InputEventMouseMotion:
+		mousedir = event.relative
+	else: mousedir = Vector2(0,0)
 
 func _physics_process(_delta):
 	motion = move_and_slide(motion, Vector2(0,-1))
 	motion = Vector2(speed*move_dir.x, speed*move_dir.y).rotated(rotation_angle)
 	$ViewArea/ViewCol.rotation_degrees = rad_deg(rotation_angle) #radian to degrees
-	
+	 
 	if Input.is_action_pressed("ui_up"):
 		input_dir.y = 1
 		move_dir.y = 1
@@ -90,11 +94,10 @@ func _physics_process(_delta):
 		move_dir.y = 0
 	
 	
-	
 	if Input.is_action_pressed("ui_left"):
 		input_dir.x = 1
 		
-		if Input.is_action_pressed("ui_select"): #strafe
+		if Input.is_action_pressed("ui_select") or mouselock: #strafe
 			move_dir.x = 1
 			vroll_strafe_divi = 1
 			
@@ -110,7 +113,7 @@ func _physics_process(_delta):
 	elif Input.is_action_pressed("ui_right"):
 		input_dir.x = -1
 		
-		if Input.is_action_pressed("ui_select"): #strafe
+		if Input.is_action_pressed("ui_select") or mouselock: #strafe
 			move_dir.x = -1
 			vroll_strafe_divi = 1
 			
@@ -171,14 +174,33 @@ func _physics_process(_delta):
 	############################################################################
 	############################################################################
 	#Z inputs & math
+	if !mouselock:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
+			if lookingZ < $PolyContainer.scale.y*10:
+				lookingZ += rotate_rate*0.01 #* Engine.time_scale
+		elif Input.is_action_pressed("ply_lookdown"):
+			if lookingZ > -$PolyContainer.scale.y*10:
+				lookingZ -= rotate_rate*0.01 #* Engine.time_scale
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		if mousedir.y != 0:
+			if (lookingZ < $PolyContainer.scale.y*10) or (lookingZ > -$PolyContainer.scale.y*10):
+				lookingZ -= ($PolyContainer.scale.y/25)*mousedir.y
+			
+		if mousedir.x != 0:
+			rotation_angle += 0.0174533 * mousedir.x
+			
+			rotation_angle = rad_overflow(rotation_angle)
+			
+		
 	
-	if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
-		if lookingZ < $PolyContainer.scale.y*10:
-			lookingZ += rotate_rate*0.01 #* Engine.time_scale
-	elif Input.is_action_pressed("ply_lookdown"):
-		if lookingZ > -$PolyContainer.scale.y*10:
-			lookingZ -= rotate_rate*0.01 #* Engine.time_scale
-	elif Input.is_action_pressed("ply_lookcenter"):
+	mousedir = lerp(mousedir, Vector2(0,0), 1)
+	
+	if Input.is_action_just_pressed("bug_lockmouse"):
+		mouselock = !mouselock
+	
+	if Input.is_action_pressed("ply_lookcenter"):
 		lookingZ = lerp(lookingZ, 0, 0.1)
 	
 	if abs(lookingZ) > $PolyContainer.scale.y*10:# don't overflow
@@ -435,17 +457,18 @@ func _physics_process(_delta):
 	
 	if Input.is_action_pressed("ply_wpn_fire1"):
 		gunfire(false)
-	elif Input.is_action_pressed("ply_wpn_fire2"):
-		gunfire(true)
-	
 	if Input.is_action_just_released("ply_wpn_fire1"):
 		gunstop(false)
+	
+	if Input.is_action_pressed("ply_wpn_fire2"):
+		gunfire(true)
 	if Input.is_action_just_released("ply_wpn_fire2"):
 		gunstop(true)
 	
 	if Worldconfig.zoom < 2:
-		$View/Hand.position.x = 0#(get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
+		#$View/Hand.position.x = 0#(get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
 		#$View/Hand.position.x = get_viewport().get_mouse_position().x - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*$View/Hand.scale.x)
+		$View/Hand.position.x = lerp($View/Hand.position.x, abs(vbob*10)*-input_dir.x, 0.01)
 		
 		$View/Hand.position.y = lerp($View/Hand.position.y, (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30, 0.5)
 		$View/Hand.rotation_degrees = lerp($View/Hand.rotation_degrees, -input_dir.x*(vroll_strafe_divi)*-vroll_multi, 0.5)
@@ -533,11 +556,11 @@ const shot = preload("res://projectile.tscn")
 func shoot():
 	var shoot_instance = shot.instance()
 	shoot_instance.rotation_degrees = rotation_angle + PI/2
-	shoot_instance.positionZ = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*230)
+	shoot_instance.positionZ = positionZ + head_height# +((lookingZ/($PolyContainer.scale.y*10))*230)
 	#	if lookingZ > -$PolyContainer.scale.y*10:
 	#		OS.window_size.y*lookingZ
-	shoot_instance.speed = 250
-	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*41
+	shoot_instance.speed = 350
+	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*59
 	#print(lookingZ/($PolyContainer.scale.y*10))
 	
 	shoot_instance.position = position + Vector2(20,0).rotated(rotation_angle + PI/2)
