@@ -31,6 +31,7 @@ FEATURES:
 IMPERFECTIONS:
 -No sound;
 -No mouse controls;
+-No slope or diagonal collision (WIP)
 -Z-sorting limited to entire polygon, nearby/touching/clipping objects innacurate;
 -Camera-edge culling only checks if all vertices are off-screen;
 -Extreme texture distortion up-close when UV-mapped;
@@ -50,7 +51,9 @@ CONTROL KEYS:
 -         Home:    Look center;
 - Space & Ctrl:  Fly up & down;
 - Enter (hold):       View map;
+-[, ], s-wheel:      Inventory;
 -    Quote ('): Console toggle.
+
 
 DEBUG KEYS:
 -    F:                 Noclip;
@@ -66,7 +69,42 @@ DEBUG KEYS:
 -   F9 (hold):    Time-scale -;
 -  F10 (hold):    Time-scale +;
 -  F11:          Time-scale =1;
--  F12:          Time-scale =0.
+-  F12:          Time-scale =0;
+-    P: Pauses some animations.
+
+###################################################################################
+SETTINGS
+
+--PLAYER
+VARIABLES:
+-       Angles: How wide your view is;
+-Draw distance: How far you see;
+-     Skycolor: Color of the sky;
+-   Skystretch: How many times sky fits in screen (0 = texture size);
+-        Min Z: How low things can fall if not inside a col-floor;
+-  Rotate rate: Turn speed;
+-        Speed: Move speed;
+-     Vbob Max: Viewbob intensity;
+-   Vbob Speed: Viewbob speed;
+-  Vroll Multi: (positive or negative) Viewroll intensity;
+-     Gunscale: Weapon sprite size;
+-   Gunstretch: (toggle) Weapon sprite stretch fits screen horizontally;
+-      Gravity: Gravity intensity;
+         -Jump: Jump intensity:
+-  Head Height: How tall player is;
+-     Textures: (toggle) Use textures;
+-  Uv Textures: (toggle) UV-map textures (causes distortion);
+-      Cull On: (toggle) Don't render if all object-vertices are off-screen (imperfect);
+-         Fade: (toggle) If objects are further than max-distance, paint them black;
+-      Shading: (toggle) Do vertex shading;
+-Sprite Shadow: (toggle) Use sprite-shadow effect;
+-     Map Draw: (positive or negative) Map drawing modes.
+NODES:
+-$PolyContainer: View modulate;
+-$View/Feet: Feet texture & modulate;
+-$View/Hand: Hand modulate;
+-$Background/Sky: Sky texture & modulate;
+-$Background/Floor: Floor texture & modulate.
 
 ###################################################################################
 
