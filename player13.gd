@@ -445,16 +445,16 @@ func _physics_process(_delta):
 	
 	if Worldconfig.zoom < 2:
 		$View/Hand.position.x = 0#(get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
+		#$View/Hand.position.x = get_viewport().get_mouse_position().x - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*$View/Hand.scale.x)
+		
+		$View/Hand.position.y = lerp($View/Hand.position.y, (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30, 0.5)
+		$View/Hand.rotation_degrees = lerp($View/Hand.rotation_degrees, -input_dir.x*(vroll_strafe_divi)*-vroll_multi, 0.5)
 		
 		if !gunstretch:
-			$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30#vroll_strafe_divi/vroll_multi
 			$View/Hand.scale = Vector2(gunscale,gunscale)
-			$View/Hand.rotation_degrees = -input_dir.x*vroll_strafe_divi*-vroll_multi
 		else:
 			$View/Hand.scale.x = OS.window_size.x/$View/Hand.texture.get_width()
 			$View/Hand.scale.y = gunscale
-			$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30#vroll_strafe_divi/vroll_multi
-			$View/Hand.rotation_degrees = -input_dir.x*vroll_strafe_divi*-vroll_multi
 	
 	# #  #  ##  ##
 	# # # # # # # #
@@ -533,8 +533,12 @@ const shot = preload("res://projectile.tscn")
 func shoot():
 	var shoot_instance = shot.instance()
 	shoot_instance.rotation_degrees = rotation_angle + PI/2
-	shoot_instance.positionZ = positionZ + head_height/2
-	shoot_instance.motionZ = $PolyContainer.scale.y*lookingZ
+	shoot_instance.positionZ = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*230)
+	#	if lookingZ > -$PolyContainer.scale.y*10:
+	#		OS.window_size.y*lookingZ
+	shoot_instance.speed = 250
+	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*41
+	#print(lookingZ/($PolyContainer.scale.y*10))
 	
 	shoot_instance.position = position + Vector2(20,0).rotated(rotation_angle + PI/2)
 	get_parent().add_child(shoot_instance)
