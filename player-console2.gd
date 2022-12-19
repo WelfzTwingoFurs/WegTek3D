@@ -1,7 +1,7 @@
 extends Label
 
 var change_checker = []
-var on = false
+var on = 0
 
 func _ready():
 	change_checker = [OS.window_size*0, Worldconfig.zoom]
@@ -9,7 +9,9 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("bug_console"):
-		on = !on
+		on += 1
+		if on > 2:
+			on = 0
 		margin_bottom = 9999999
 		margin_right = 9999999
 	
@@ -35,8 +37,28 @@ func _process(_delta):
 	
 	
 	
+	if on == 0:
+		rect_scale /= 1.5
+		if Engine.time_scale > 0.9:
+			#text = str(Engine.get_frames_per_second())
+			text = str(
+				"render: p[",Worldconfig.player.array_walls.size(),
+				"], s[",Worldconfig.player.array_sprites.size(),"].\n",
+				"col: f[",Worldconfig.player.col_floors.size(),
+				"], w[",Worldconfig.player.col_walls.size(),
+				"], s[",Worldconfig.player.col_sprites.size(),"]...\n"
+				,int(Engine.time_scale)," * ",Engine.get_frames_per_second())
+		else:
+			text = str(
+				"render: p[",Worldconfig.player.array_walls.size(),
+				"], s[",Worldconfig.player.array_sprites.size(),"].\n",
+				"col: f[",Worldconfig.player.col_floors.size(),
+				"], w[",Worldconfig.player.col_walls.size(),
+				"], s[",Worldconfig.player.col_sprites.size(),"]...\n"
+				,Engine.time_scale," * ",Engine.get_frames_per_second())
 	
-	if on:
+	
+	elif on == 1:
 		text = str(
 			"[Worldconfig] config=",Worldconfig.config,", zoom=",Worldconfig.zoom,", Camera2D.zoom=",Worldconfig.Camera2D.zoom#,", step=",Worldconfig.step
 			,";;  [Engine] time_scale=",Engine.time_scale,", FPS:",Engine.get_frames_per_second()#,";;  [OS] window_size=",OS.window_size
@@ -44,7 +66,7 @@ func _process(_delta):
 			,"[Worldconfig.player]"#,", change_checker=",Worldconfig.player.change_checker,"\n"
 			," angles=",Worldconfig.player.angles,", draw_distance=",Worldconfig.player.draw_distance,", sky_stretch=",Worldconfig.player.sky_stretch,", skycolor=(",Worldconfig.player.skycolor,")"
 			,", \n"
-			," textures_on=",Worldconfig.player.textures_on,", _UV_textures=",Worldconfig.player.UV_textures,", shading=",Worldconfig.player.shading,", cull_on=",Worldconfig.player.cull_on,", head_height=",Worldconfig.player.head_height,", jump=",Worldconfig.player.JUMP,", gravity=",Worldconfig.player.GRAVITY
+			," textures_on=",Worldconfig.player.textures_on,", UV_textures=",Worldconfig.player.UV_textures,", shading=",Worldconfig.player.shading,", cull_on=",Worldconfig.player.cull_on,", head_height=",Worldconfig.player.head_height,", jump=",Worldconfig.player.JUMP,", gravity=",Worldconfig.player.GRAVITY
 			,", \n"
 			,"vbob_max=",Worldconfig.player.vbob_max,", vbob_speed=",Worldconfig.player.vbob_speed,", vroll_multi=",Worldconfig.player.vroll_multi
 			#,",\n"
@@ -53,7 +75,7 @@ func _process(_delta):
 			,";; \n"
 			,"input_dir=",Worldconfig.player.input_dir,", move_dir=",Worldconfig.player.move_dir,", on_floor=",Worldconfig.player.on_floor,", rot_plus90=",Worldconfig.player.rot_plus90,", rot_minus90=",Worldconfig.player.rot_minus90,", midscreen=",Worldconfig.player.midscreen
 			,"\n"
-			,"position=(",int((Worldconfig.player.position.x)),",",int((Worldconfig.player.position.y)),"), positionZ=",Worldconfig.player.positionZ,", rotation_angle=",Worldconfig.player.rotation_angle,", motion=(",int((Worldconfig.player.motion.x)),",",int((Worldconfig.player.motion.y)),"), motion.angle()-PI/2=",rad_overflow(Worldconfig.player.motion.angle()-PI/2)
+			,"position=(",int((Worldconfig.player.position.x)),",",int((Worldconfig.player.position.y)),"), positionZ=",Worldconfig.player.positionZ,", rotation_angle=",Worldconfig.player.rotation_angle,", motion=(",int((Worldconfig.player.motion.x)),",",int(Worldconfig.player.motion.y),"), motionZ=",int((Worldconfig.player.motionZ)),", motion.angle()-PI/2=",rad_overflow(Worldconfig.player.motion.angle()-PI/2)
 			,"\n"
 			,"lookingZ=",Worldconfig.player.lookingZ,", posZlookZ=",Worldconfig.player.posZlookZ,", vbob=",Worldconfig.player.vbob
 			,", vroll_strafe_divi=",Worldconfig.player.vroll_strafe_divi," ,noclip=",Worldconfig.player.noclip
@@ -61,17 +83,18 @@ func _process(_delta):
 			,"array_walls(",Worldconfig.player.array_walls.size(),") =",Worldconfig.player.array_walls
 			,"\n"
 			,"array_sprites(",Worldconfig.player.array_sprites.size(),") =",Worldconfig.player.array_sprites
+			,"\n"
+			,"col_floors(",Worldconfig.player.col_floors.size(),")=",Worldconfig.player.col_floors
+			,"\n"
+			,"col_walls(",Worldconfig.player.col_walls.size(),")=",Worldconfig.player.col_walls
+			,"\n"
+			,"col_sprites(",Worldconfig.player.col_sprites.size(),")=",Worldconfig.player.col_sprites
 			)
 	
-	else:
-		rect_scale /= 1.5
-		if Engine.time_scale > 0.9:
-			#text = str(Engine.get_frames_per_second())
-			text = str("[",Worldconfig.player.array_walls.size(),"]+[",Worldconfig.player.array_sprites.size(),"]. ",int(Engine.time_scale)," * ",Engine.get_frames_per_second())
-		else:
-			text = str("[",Worldconfig.player.array_walls.size(),"]+[",Worldconfig.player.array_sprites.size(),"]. ",Engine.time_scale," * ",Engine.get_frames_per_second())
-
-
+	elif on == 2:
+		text = str("")
+	
+	
 
 
 

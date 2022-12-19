@@ -447,12 +447,14 @@ func _physics_process(_delta):
 		$View/Hand.position.x = 0#(get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
 		
 		if !gunstretch:
-			$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2
+			$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30#vroll_strafe_divi/vroll_multi
 			$View/Hand.scale = Vector2(gunscale,gunscale)
+			$View/Hand.rotation_degrees = -input_dir.x*vroll_strafe_divi*-vroll_multi
 		else:
 			$View/Hand.scale.x = OS.window_size.x/$View/Hand.texture.get_width()
 			$View/Hand.scale.y = gunscale
-			$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2
+			$View/Hand.position.y = (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30#vroll_strafe_divi/vroll_multi
+			$View/Hand.rotation_degrees = -input_dir.x*vroll_strafe_divi*-vroll_multi
 	
 	# #  #  ##  ##
 	# # # # # # # #
@@ -689,39 +691,30 @@ func collide():
 			if (new_height2 != null) && (new_height != null) && (new_position.x - new_position2.x != 0):
 				on_floor = true
 				
-				if new_height < new_height2:
-					#(A.x - B.x) / (B.x - C.x) = (A.y - B.y) / (B.y - C.y) = (A.z - B.z) / (B.z - C.z)
-					#(new_position2.x - position.x) / (position.x - new_position.x) = (new_position2.y - position.y) / (position.y - new_position.y) = (new_height2 - positionZ) / (positionZ - new_height)
-					
-					var A = Vector3(new_position2.x, new_position2.y, new_height2)
-					var B = Vector3(position.x, position.y, positionZ)
-					var C = Vector3(new_position.x, new_position.y, new_height)
-					
-					B.z = (A.x*C.z + B.x*A.z - B.x*C.z - C.z*A.z) / (A.x - C.x)
-					
-					if B.z > new_height2:
-						print("1 < 2. Z > 2 limão")
-					elif B.z < new_height:
-						print("1 < 2. Z < 1 laranja")
-					else:
-						print("1 < 2 maça")
-						positionZ = B.z
-						
+				#(A.x - B.x) / (B.x - C.x) = (A.y - B.y) / (B.y - C.y) = (A.z - B.z) / (B.z - C.z)
+				#(new_position2.x - position.x) / (position.x - new_position.x) = (new_position2.y - position.y) / (position.y - new_position.y) = (new_height2 - positionZ) / (positionZ - new_height)
 				
-				else:#if new_height > new_height2:
-					var A = Vector3(new_position.x, new_position.y, new_height)
-					var B = Vector3(position.x, position.y, positionZ)
-					var C = Vector3(new_position2.x, new_position2.y, new_height2)
-					
+				var A = Vector3(new_position2.x, new_position2.y, new_height2)
+				var B = Vector3(position.x, position.y, 0)
+				var C = Vector3(new_position.x, new_position.y, new_height)
+				
+				if new_height < new_height2:
 					B.z = (A.x*C.z + B.x*A.z - B.x*C.z - C.z*A.z) / (A.x - C.x)
-					
-					if B.z > new_height:
-						print("2 < 1. Z > 1 abacate")
-					elif B.z < new_height2:
-						print("2 < 1. Z < 2 uva")
-					else:
-						print("2 < 1 banana")
-						positionZ = B.z
+					print(OS.get_system_time_msecs(),": .",new_height," < ..",new_height2)
+					if (B.z > new_height2) or (B.z < new_height):
+						print("          NOT:     =",B.z)
+						positionZ = randi() % 10
+						continue
+				else:
+					B.z = (C.x*A.z + B.x*C.z - B.x*A.z - A.z*C.z) / (C.x - A.x)
+					print(OS.get_system_time_msecs(),": .",new_height," > ..",new_height2)
+					if (B.z > new_height) or (B.z < new_height2):
+						print("          NOT:     =",B.z)
+						positionZ = randi() % 10
+						continue
+				
+				print("          ok?:     =",B.z)
+				positionZ = B.z
 				
 				
 				
