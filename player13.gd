@@ -72,9 +72,17 @@ var mouselock = false
 var mousedir = Vector2(0,0)
 
 func _input(event):
-	if event is InputEventMouseMotion:
-		mousedir = event.relative
-	else: mousedir = Vector2(0,0)
+	if mouselock:
+		if event is InputEventMouseMotion:
+			mousedir = event.relative
+			
+			if (lookingZ < $PolyContainer.scale.y*10) or (lookingZ > -$PolyContainer.scale.y*10):
+				lookingZ -= ($PolyContainer.scale.y/50)*mousedir.y
+			rotation_angle += 0.0174533 * mousedir.x
+			rotation_angle = rad_overflow(rotation_angle)
+			
+		else:
+			mousedir = Vector2(0,0)
 
 func _physics_process(_delta):
 	motion = move_and_slide(motion, Vector2(0,-1))
@@ -184,18 +192,9 @@ func _physics_process(_delta):
 				lookingZ -= rotate_rate*0.01 #* Engine.time_scale
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		if mousedir.y != 0:
-			if (lookingZ < $PolyContainer.scale.y*10) or (lookingZ > -$PolyContainer.scale.y*10):
-				lookingZ -= ($PolyContainer.scale.y/25)*mousedir.y
-			
-		if mousedir.x != 0:
-			rotation_angle += 0.0174533 * mousedir.x
-			
-			rotation_angle = rad_overflow(rotation_angle)
-			
 		
 	
-	mousedir = lerp(mousedir, Vector2(0,0), 1)
+	#mousedir = lerp(mousedir, Vector2(0,0), 1)
 	
 	if Input.is_action_just_pressed("bug_lockmouse"):
 		mouselock = !mouselock
@@ -321,7 +320,7 @@ func _physics_process(_delta):
 		#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
 		#feetY = $View/Feet.position.y
 		
-		if on_floor == true:
+		if on_floor or on_body:
 			if input_dir.y != 0:
 				$View/AniPlayFeet.play("walk")
 				$View/AniPlayFeet.playback_speed = input_dir.y
@@ -344,46 +343,24 @@ func _physics_process(_delta):
 		else:
 			$View/AniPlayFeet.stop()
 			if move_dir.z == 1:
-				$View/Feet.frame = 6
-			else:
-				$View/Feet.frame = 1
+				$View/Feet.frame = 7
+			else:# move_dir.z == -1:
+				$View/Feet.frame = 8
 		
 	else:
 		$View/Feet.visible = 0
 		$View/AniPlayFeet.stop()
 	
-	### ### ### ###
-	#   #   #    #
-	##  ##  ##   #
-	#   #   #    #
-	#   ### ###  #
+	#### #### #### ####
+	##   ##   ##    ##
+	###  #### ###   ##
+	##   ##   ##    ##
+	##   #### ####  ##
 	
 	########################################################################################################################################################
 	########################################################################################################################################################
 	########################################################################################################################################################
 	########################################################################################################################################################
-	
-	
-	
-	
-	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:
-		recalculate()
-	else:
-		if !Input.is_action_pressed("bug_closeeyes"):
-			render()
-	
-	
-	update() #for the map
-	
-	if motionZ < 0:
-		move_dir.z = -1
-	elif motionZ > 0:
-		move_dir.z = 1
-	elif motionZ == 0:
-		move_dir.z = 0
-	
-	
-	
 	
 #	if Input.is_action_pressed("ply_flycenter"):
 #		motionZ = 0
@@ -484,6 +461,23 @@ func _physics_process(_delta):
 	### ### # # # #
 	# # # # # # # #
 	# # # # # # ##
+	
+	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:
+		recalculate()
+	else:
+		if !Input.is_action_pressed("bug_closeeyes"):
+			render()
+	
+	
+	update() #for the map
+	
+	if motionZ < 0:
+		move_dir.z = -1
+	elif motionZ > 0:
+		move_dir.z = 1
+	elif motionZ == 0:
+		move_dir.z = 0
+
 
 #####    #####      #####      #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ##  ##       ##           ###         ###
@@ -501,13 +495,18 @@ func _physics_process(_delta):
 var guninv = 0
 export var gunscale = 3
 export(bool) var gunstretch = true
+export var feet1 = preload("res://assets/feet1.png")
+export var feet2 = preload("res://assets/feet2.png")
+
 
 func gunswitch():
 	print(guninv)
 	if guninv == 0:
 		$View/Hand.visible = 0
+		$View/Feet.texture = feet1
 	else:
 		$View/Hand.visible = 1
+		$View/Feet.texture = feet2
 	
 	if guninv == 1:
 		$View/Hand.texture = load("res://assets/weapon handgun.png")
@@ -730,21 +729,44 @@ func collide():
 					print(OS.get_system_time_msecs(),": .",new_height," < ..",new_height2)
 					if (B.z > new_height2) or (B.z < new_height):
 						print("          NOT:     =",B.z)
-						positionZ = randi() % 10
+					#	positionZ = randi() % 10
+						positionZ = between(B.z,new_height,new_height2)
 						continue
-				else:
+				elif new_height > new_height2:
 					B.z = (C.x*A.z + B.x*C.z - B.x*A.z - A.z*C.z) / (C.x - A.x)
 					print(OS.get_system_time_msecs(),": .",new_height," > ..",new_height2)
 					if (B.z > new_height) or (B.z < new_height2):
 						print("          NOT:     =",B.z)
-						positionZ = randi() % 10
+					#	positionZ = randi() % 10
+						positionZ = between(B.z,new_height,new_height2)
 						continue
+				else:
+					B.z = new_height
 				
 				print("          ok?:     =",B.z)
 				positionZ = B.z
 				
 				
 				
+
+func between(x,y,z):
+	#while x > max(y,z):
+		#x -= max(y,z)
+		#x -= range(y,z).size()
+	#	x = min(y,z) + (x-range(y,z).size())
+#
+	#while x < min(y,z):
+		#x += min(y,z)
+		#x += range(y,z).size()
+	#	x = max(y,z) #- (x-range(y,z).size())
+	
+	if x > max(y,z):
+		x = max(y,z)
+	
+	if x < min(y,z):
+		x = min(y,z)
+	
+	return x
 
 func ccw(A,B,C):
 	return (C.y-A.y) * (B.x-A.x) > (B.y-A.y) * (C.x-A.x)

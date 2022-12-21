@@ -339,7 +339,7 @@ b = Vector2( 178, -52 )
 [node name="player13" parent="." groups=[
 "sprites",
 ] instance=ExtResource( 1 )]
-position = Vector2( -1017, -1484 )
+position = Vector2( -2268, -2649 )
 sky_stretch = Vector2( 1, 2 )
 min_Z = -1000
 gunstretch = false
@@ -438,7 +438,7 @@ bug_label = true
 darkness = -2.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/-100 500"]
-polygon = PoolVector2Array( 0, -600, 0, -500, 500, -500, 500, -600 )
+polygon = PoolVector2Array( 0, -808.5, 0, -500, 500, -500, 500, -810.5 )
 
 [node name="kill" type="Node2D" parent="."]
 script = ExtResource( 11 )

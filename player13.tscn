@@ -3,7 +3,7 @@
 [ext_resource path="res://player-console2.gd" type="Script" id=1]
 [ext_resource path="res://make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://player13.gd" type="Script" id=3]
-[ext_resource path="res://assets/feet2.png" type="Texture" id=4]
+[ext_resource path="res://assets/feet1.png" type="Texture" id=4]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
 [ext_resource path="res://assets/skybox bubsy3D.png" type="Texture" id=6]
 [ext_resource path="res://assets/weapon handgun.png" type="Texture" id=7]
@@ -12,7 +12,7 @@
 radius = 4.0
 
 [sub_resource type="Animation" id=2]
-length = 0.6
+length = 0.55
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Feet:frame")
@@ -258,7 +258,7 @@ anims/walk = SubResource( 5 )
 visible = false
 z_index = 4096
 texture = ExtResource( 4 )
-hframes = 9
+hframes = 10
 frame = 6
 __meta__ = {
 "_edit_lock_": true
