@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://player13.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprite object physics.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://older_versions/plagio.png" type="Texture" id=10]
 [ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=11]
 [ext_resource path="res://chaser.tscn" type="PackedScene" id=12]
+[ext_resource path="res://projectile.tscn" type="PackedScene" id=13]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( 178, 216 )
@@ -336,12 +337,11 @@ b = Vector2( 178, -52 )
 
 [node name="scene12" type="Node2D"]
 
-[node name="player13" parent="." groups=[
-"sprites",
-] instance=ExtResource( 1 )]
-position = Vector2( -2268, -2649 )
+[node name="player13" parent="." instance=ExtResource( 1 )]
+position = Vector2( -1240, -3188 )
 sky_stretch = Vector2( 1, 2 )
 min_Z = -1000
+gunscale = 4
 gunstretch = false
 head_height = 40
 UV_textures = false
@@ -350,6 +350,43 @@ map_draw = 6
 
 [node name="kill3" type="Node2D" parent="."]
 script = ExtResource( 11 )
+
+[node name="projectile" parent="kill3" instance=ExtResource( 13 )]
+position = Vector2( -836, -2715 )
+positionZ = -50
+speed = 0
+
+[node name="3Dcar" parent="kill3" instance=ExtResource( 9 )]
+position = Vector2( -678, -1704 )
+script = ExtResource( 11 )
+kill = true
+
+[node name="chasedd" parent="kill3/3Dcar" groups=[
+"sprite",
+] instance=ExtResource( 12 )]
+position = Vector2( 1100, -697 )
+texture = "res://assets/sprites chaser dd.png"
+vframes = 2
+rotations = 3
+dynamic_darkness = true
+GRAVITY = 1.0
+JUMP = 20.0
+spr_height = 20
+head_height = 58
+shadow_height = 42
+reflect_height = 51
+turn = 0.01
+
+[node name="chasetek" parent="kill3" groups=[
+"sprite",
+] instance=ExtResource( 12 )]
+position = Vector2( 577, -2402 )
+scale_extra = Vector2( 0.5, 0.5 )
+texture = "res://assets/sprites chaser jake.png"
+head_height = 60
+shadow_height = 45
+reflect_height = 45
+turn = 0.01
 
 [node name="base" type="StaticBody2D" parent="kill3" groups=[
 "floor",
@@ -447,37 +484,6 @@ kill = true
 [node name="walls" type="Node2D" parent="kill"]
 z_index = 4095
 script = ExtResource( 4 )
-
-[node name="chasetek" parent="kill/walls" groups=[
-"sprite",
-] instance=ExtResource( 12 )]
-position = Vector2( 577, -2402 )
-scale_extra = Vector2( 0.5, 0.5 )
-texture = "res://assets/sprites chaser jake.png"
-head_height = 60
-shadow_height = 45
-reflect_height = 45
-turn = 0.01
-
-[node name="3Dcar" parent="kill/walls/chasetek" instance=ExtResource( 9 )]
-position = Vector2( 0, 0 )
-script = ExtResource( 11 )
-
-[node name="chasedd" parent="kill/walls" groups=[
-"sprite",
-] instance=ExtResource( 12 )]
-position = Vector2( 422, -2401 )
-texture = "res://assets/sprites chaser dd.png"
-vframes = 2
-rotations = 3
-dynamic_darkness = true
-GRAVITY = 1.0
-JUMP = 20.0
-spr_height = 20
-head_height = 58
-shadow_height = 42
-reflect_height = 51
-turn = 0.01
 
 [node name="top" type="StaticBody2D" parent="kill/walls" groups=[
 "floor",
@@ -1217,6 +1223,7 @@ collision_mask = 2
 script = ExtResource( 8 )
 heights = [ 60, 1000 ]
 texture_path = "res://textures/stretchtest.png"
+texture_repeat = Vector2( -1, 1 )
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kill2/toparea/head tests/StaticBody2D3"]

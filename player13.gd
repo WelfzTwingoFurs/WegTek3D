@@ -351,11 +351,11 @@ func _physics_process(_delta):
 		$View/Feet.visible = 0
 		$View/AniPlayFeet.stop()
 	
-	#### #### #### ####
-	##   ##   ##    ##
-	###  #### ###   ##
-	##   ##   ##    ##
-	##   #### ####  ##
+	########  ########  ########  ########
+	####      ####      ####        ####
+	######    ########  ######      ####
+	####      ####      ####        ####
+	####      ########  ########    ####
 	
 	########################################################################################################################################################
 	########################################################################################################################################################
@@ -456,11 +456,11 @@ func _physics_process(_delta):
 			$View/Hand.scale.x = OS.window_size.x/$View/Hand.texture.get_width()
 			$View/Hand.scale.y = gunscale
 	
-	# #  #  ##  ##
-	# # # # # # # #
-	### ### # # # #
-	# # # # # # # #
-	# # # # # # ##
+	##  ##    ##    ####    ####
+	##  ##  ##  ##  ##  ##  ##  ##
+	######  ######  ##  ##  ##  ##
+	##  ##  ##  ##  ##  ##  ##  ##
+	##  ##  ##  ##  ##  ##  ####
 	
 	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:
 		recalculate()
@@ -552,17 +552,18 @@ func gunstop(alt):
 
 
 const shot = preload("res://projectile.tscn")
+#const shot = preload("res://chaser.tscn")
 func shoot():
 	var shoot_instance = shot.instance()
 	shoot_instance.rotation_degrees = rotation_angle + PI/2
 	shoot_instance.positionZ = positionZ + head_height# +((lookingZ/($PolyContainer.scale.y*10))*230)
 	#	if lookingZ > -$PolyContainer.scale.y*10:
 	#		OS.window_size.y*lookingZ
-	shoot_instance.speed = 350
 	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*59
+	shoot_instance.speed = 350# -shoot_instance.motionZ
 	#print(lookingZ/($PolyContainer.scale.y*10))
 	
-	shoot_instance.position = position + Vector2(20,0).rotated(rotation_angle + PI/2)
+	shoot_instance.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
 	get_parent().add_child(shoot_instance)
 
 
@@ -1319,7 +1320,7 @@ func render():
 			
 			new_container.add_child(new_sprite)
 			
-			if sprite_shadows:## && (array_sprites[o].positionZ > positionZ-head_height):# && (new_sprite.position.y+(new_sprite.texture.get_size().y*new_sprite.scale.y)/2 > 0):
+			if sprite_shadows && array_sprites[o].shadow:## && (array_sprites[o].positionZ > positionZ-head_height):# && (new_sprite.position.y+(new_sprite.texture.get_size().y*new_sprite.scale.y)/2 > 0):
 				#if new_sprite.position.y - (new_sprite.offset.y*new_sprite.scale.y) > 0:
 				#if ((new_sprite.position.y - new_sprite.offset.y)*new_sprite.scale.y)*new_container.scale.y > 0:
 					var shadow = new_sprite.duplicate()
