@@ -14,6 +14,7 @@ FEATURES:
 -Sprite objects with customizeable amount of rotation frames;
 -Collision with flat floors and square walls;
 -Flying up & down, looking up & down;
+-Mouse controls;
 -Field of view (FOV), draw distance options;
 -Screen resizable to any size, everything is normalized;
 -Clipping (vertexes behind camera don't distort);
@@ -30,7 +31,6 @@ FEATURES:
 
 IMPERFECTIONS:
 -No sound;
--No mouse controls;
 -No slope or diagonal collision (WIP)
 -Z-sorting limited to entire polygon, nearby/touching/clipping objects innacurate;
 -Camera-edge culling only checks if all vertices are off-screen;
