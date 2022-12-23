@@ -14,7 +14,7 @@ FEATURES:
 -Sprite objects with customizeable amount of rotation frames;
 -Collision with flat floors and square walls;
 -Flying up & down, looking up & down;
--Mouse controls;
+-WIP mouse controls;
 -Field of view (FOV), draw distance options;
 -Screen resizable to any size, everything is normalized;
 -Clipping (vertexes behind camera don't distort);
@@ -31,11 +31,12 @@ FEATURES:
 
 IMPERFECTIONS:
 -No sound;
--No slope or diagonal collision (WIP)
+-No slope or diagonal collision (WIP);
 -Z-sorting limited to entire polygon, nearby/touching/clipping objects innacurate;
 -Camera-edge culling only checks if all vertices are off-screen;
 -Extreme texture distortion up-close when UV-mapped;
 -Clipping intervenes with UV-mapped texturing;
+-Sprite X scaling innacurate to Angles FOV;
 -No camera-edge clipping (polygon pieces outside screen still render);
 -No world culling (polygons fully behind others still render);
 -Draw distance innacurate to value depending on Angles FOV;
