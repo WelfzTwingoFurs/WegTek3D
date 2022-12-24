@@ -39,7 +39,7 @@ IMPERFECTIONS:
 -No camera-edge clipping (polygon pieces outside screen still render);
 -No world culling (polygons fully behind others still render);
 -Draw distance innacurate to value depending on Angles FOV;
--Sprite X scaling innacurate to dynamic Angles FOV changes;
+-Sprite X scaling innacurate Angles FOV;
 -No in-game options (all settings in editor).
 
 
