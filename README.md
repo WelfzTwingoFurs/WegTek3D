@@ -40,6 +40,7 @@ IMPERFECTIONS:
 -No world culling (polygons fully behind others still render);
 -Draw distance innacurate to value depending on Angles FOV;
 -Sprite X scaling innacurate Angles FOV;
+-Sprite Y position innacurate to head_height;
 -No in-game options (all settings in editor).
 
 
