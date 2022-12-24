@@ -59,7 +59,7 @@ func _physics_process(_delta):
 
 export(float) var GRAVITY = 0.5
 export(float) var JUMP = 10
-export var spr_height = 45
+export var spr_height = 0
 export var head_height = 65
 var col_walls = []
 var col_floors = []

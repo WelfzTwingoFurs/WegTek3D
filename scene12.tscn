@@ -338,7 +338,8 @@ b = Vector2( 178, -52 )
 [node name="scene12" type="Node2D"]
 
 [node name="player13" parent="." instance=ExtResource( 1 )]
-position = Vector2( -1240, -3188 )
+position = Vector2( 356, -2398 )
+angles = 145
 sky_stretch = Vector2( 1, 2 )
 min_Z = -1000
 gunscale = 4
@@ -354,6 +355,8 @@ script = ExtResource( 11 )
 [node name="projectile" parent="kill3" instance=ExtResource( 13 )]
 position = Vector2( -836, -2715 )
 positionZ = -50
+shadow_height = 0
+reflect_height = 0
 speed = 0
 
 [node name="3Dcar" parent="kill3" instance=ExtResource( 9 )]
@@ -371,21 +374,16 @@ rotations = 3
 dynamic_darkness = true
 GRAVITY = 1.0
 JUMP = 20.0
-spr_height = 20
 head_height = 58
-shadow_height = 42
-reflect_height = 51
 turn = 0.01
 
 [node name="chasetek" parent="kill3" groups=[
 "sprite",
 ] instance=ExtResource( 12 )]
-position = Vector2( 577, -2402 )
+position = Vector2( 376, -2309 )
 scale_extra = Vector2( 0.5, 0.5 )
 texture = "res://assets/sprites chaser jake.png"
 head_height = 60
-shadow_height = 45
-reflect_height = 45
 turn = 0.01
 
 [node name="base" type="StaticBody2D" parent="kill3" groups=[
@@ -1328,9 +1326,9 @@ texture = "res://assets/sprites 2rot.png"
 vframes = 2
 hframes = 1
 rotations = 3
-spr_height = 20
+spr_height = 25
 head_height = 58
-shadow_height = 38
+shadow_height = 3
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/dd"]
 collision_layer = 3
@@ -1358,9 +1356,9 @@ texture = "res://assets/sprites 2rot.png"
 vframes = 2
 hframes = 1
 rotations = 3
-spr_height = 20
+spr_height = 25
 head_height = 58
-shadow_height = 38
+shadow_height = 3
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/dd2"]
 collision_layer = 3
@@ -1388,9 +1386,9 @@ texture = "res://assets/sprites 2rot.png"
 vframes = 2
 hframes = 1
 rotations = 3
-spr_height = 20
+spr_height = 25
 head_height = 58
-shadow_height = 38
+shadow_height = 3
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/dd3"]
 collision_layer = 3
@@ -1417,9 +1415,9 @@ texture = "res://assets/sprites 4rot.png"
 vframes = 3
 hframes = 1
 rotations = 4
-spr_height = 28
+spr_height = 17
 head_height = 0
-shadow_height = 43
+shadow_height = 2
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/bin"]
 collision_layer = 3
@@ -1446,9 +1444,9 @@ texture = "res://assets/sprites 39rot.png"
 vframes = 20
 hframes = 1
 rotations = 39
-spr_height = 75
+spr_height = -31
 head_height = 0
-shadow_height = 49
+shadow_height = -4
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/coin"]
 collision_layer = 3
@@ -1483,8 +1481,7 @@ script = ExtResource( 2 )
 scale_extra = Vector2( 1, 1 )
 texture = "res://assets/sprites 8rot welfz.png"
 hframes = 1
-spr_height = 46
-shadow_height = 45
+spr_height = -1
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/BITCH ROTATING/welfy <3"]
 collision_layer = 3
@@ -2132,9 +2129,9 @@ texture = "res://assets/sprites 2rot.png"
 vframes = 2
 hframes = 1
 rotations = 3
-spr_height = 20
+spr_height = 25
 head_height = 58
-shadow_height = 42
+shadow_height = 3
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/ROTATE/dd2"]
 collision_layer = 3
@@ -2161,9 +2158,9 @@ texture = "res://assets/sprites 4rot.png"
 vframes = 3
 hframes = 1
 rotations = 4
-spr_height = 28
+spr_height = 17
 head_height = 0
-shadow_height = 43
+shadow_height = 2
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/ROTATE/bin2"]
 collision_layer = 3
@@ -2190,9 +2187,9 @@ texture = "res://assets/sprites 39rot.png"
 vframes = 20
 hframes = 1
 rotations = 39
-spr_height = 75
+spr_height = -31
 head_height = 0
-shadow_height = 49
+shadow_height = -4
 
 [node name="ColArea" type="Area2D" parent="kill2/toparea/ROTATE/coin2"]
 collision_layer = 3
@@ -2217,7 +2214,6 @@ script = ExtResource( 2 )
 anim = 4
 scale_extra = Vector2( 1, 1 )
 dynamic_darkness = true
-shadow_height = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="kill2/toparea/spriteman8"]
 anims/_ready = SubResource( 34 )
@@ -2248,7 +2244,6 @@ anim = 4
 scale_extra = Vector2( 1, 1 )
 darkness = 99.0
 dynamic_darkness = true
-shadow_height = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="kill2/toparea/spriteman10"]
 anims/_ready = SubResource( 35 )
@@ -2279,7 +2274,6 @@ anim = 4
 scale_extra = Vector2( 1, 1 )
 darkness = 99.0
 dynamic_darkness = true
-shadow_height = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="kill2/toparea/spriteman11"]
 anims/_ready = SubResource( 36 )
@@ -2310,7 +2304,6 @@ anim = 4
 scale_extra = Vector2( 1, 1 )
 darkness = 99.0
 dynamic_darkness = true
-shadow_height = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="kill2/toparea/spriteman12"]
 anims/_ready = SubResource( 37 )
@@ -2341,7 +2334,6 @@ anim = 4
 scale_extra = Vector2( 1, 1 )
 darkness = 99.0
 dynamic_darkness = true
-shadow_height = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="kill2/toparea/spriteman13"]
 anims/_ready = SubResource( 38 )
@@ -2372,7 +2364,6 @@ anim = 4
 scale_extra = Vector2( 1, 1 )
 darkness = 99.0
 dynamic_darkness = true
-shadow_height = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="kill2/toparea/spriteman14"]
 anims/_ready = SubResource( 39 )
@@ -2403,7 +2394,6 @@ anim = 4
 scale_extra = Vector2( 1, 1 )
 darkness = 99.0
 dynamic_darkness = true
-shadow_height = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="kill2/toparea/spriteman15"]
 anims/_ready = SubResource( 40 )
@@ -2434,7 +2424,6 @@ anim = 4
 scale_extra = Vector2( 1, 1 )
 darkness = 99.0
 dynamic_darkness = true
-shadow_height = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="kill2/toparea/spriteman16"]
 anims/_ready = SubResource( 41 )

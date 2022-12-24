@@ -1248,11 +1248,16 @@ func render():
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
 			var lineH = (OS.window_size.y /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) 
 			
-			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.15) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			#new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.15) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * (float(angles)/1000)) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			
+			#new_sprite.scale = Vector2(
+			#	(((((OS.window_size.x/angles) /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) *angles/10) * array_sprites[o].scale_extra.x ,
+			#	lineH * array_sprites[o].scale_extra.y )
 			if sign(array_sprites[o].scale_extra.x) != sign(new_sprite.scale.x):# < 0 :
 				continue
 			
-			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-array_sprites[o].spr_height))
+			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-head_height+array_sprites[o].spr_height) )
 			
 			
 			new_sprite.texture = load(array_sprites[o].texture)
@@ -1327,14 +1332,14 @@ func render():
 					
 					shadow.z_index = new_sprite.z_index-1
 					if !array_sprites[o].reflect:
-						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-array_sprites[o].shadow_height)# - array_sprites[o].positionZ-array_sprites[o].shadow_height
+						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].shadow_height )# - array_sprites[o].positionZ-array_sprites[o].shadow_height
 						shadow.modulate = Color(0,0,0)
 						shadow.modulate.a8 = new_sprite.modulate.a8/2 - abs(array_sprites[o].positionZ-array_sprites[o].shadowZ)/10
 						shadow.scale.y *= 0.125
 						#shadow.scale.x *= sin(rotation_angle)
 						#shadow.rotation_degrees = sin(rotation_angle)
 					else:
-						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-array_sprites[o].reflect_height)# + array_sprites[o].positionZ-array_sprites[o].shadow
+						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].reflect_height)# + array_sprites[o].positionZ-array_sprites[o].shadow
 						shadow.modulate.a8 = new_sprite.modulate.a8/1.5 - array_sprites[o].positionZ-array_sprites[o].shadowZ
 						shadow.scale.y *= -0.25
 					
