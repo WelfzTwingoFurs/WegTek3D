@@ -447,7 +447,7 @@ func _physics_process(_delta):
 		#$View/Hand.position.x = get_viewport().get_mouse_position().x - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*$View/Hand.scale.x)
 		$View/Hand.position.x = lerp($View/Hand.position.x, abs(vbob*10)*-input_dir.x, 0.01)
 		
-		$View/Hand.position.y = lerp($View/Hand.position.y, (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30, 0.5)
+		$View/Hand.position.y = lerp($View/Hand.position.y, (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30 +lookingZ*5 +($PolyContainer.scale.y*50), 0.5) 
 		$View/Hand.rotation_degrees = lerp($View/Hand.rotation_degrees, -input_dir.x*(vroll_strafe_divi)*-vroll_multi, 0.5)
 		
 		if !gunstretch:
@@ -455,6 +455,8 @@ func _physics_process(_delta):
 		else:
 			$View/Hand.scale.x = OS.window_size.x/$View/Hand.texture.get_width()
 			$View/Hand.scale.y = gunscale
+	
+	Worldconfig.playeraim = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*450)
 	
 	##  ##    ##    ####    ####
 	##  ##  ##  ##  ##  ##  ##  ##
@@ -547,6 +549,7 @@ func gunstop(alt):
 	if guninv == 2:
 		if alt && $View/AniPlayHand.current_animation == "flame-fire":
 			$View/AniPlayHand.play("flame-end")
+			$View/AniPlayHand.play("flame-end")
 		elif $View/AniPlayHand.current_animation == "flame-no":
 			$View/Hand.frame = 0
 
@@ -556,12 +559,18 @@ const shot = preload("res://projectile.tscn")
 func shoot():
 	var shoot_instance = shot.instance()
 	shoot_instance.rotation_degrees = rotation_angle + PI/2
-	shoot_instance.positionZ = positionZ + head_height# +((lookingZ/($PolyContainer.scale.y*10))*230)
+	#shoot_instance.positionZ = positionZ + head_height# +((lookingZ/($PolyContainer.scale.y*10))*230)
+	shoot_instance.positionZ = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*450)
 	#	if lookingZ > -$PolyContainer.scale.y*10:
 	#		OS.window_size.y*lookingZ
-	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*59
-	shoot_instance.speed = 350# -shoot_instance.motionZ
+	#shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*2
+	#shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))/350
+	#shoot_instance.speed = 350# -shoot_instance.motionZ
+	#shoot_instance.speed = 350 -shoot_instance.motionZ
+	#shoot_instance.speed = -(lookingZ/($PolyContainer.scale.y*10))*2
 	#print(lookingZ/($PolyContainer.scale.y*10))
+	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*118#*59
+	shoot_instance.speed = 700#350# -shoot_instance.motionZ
 	
 	shoot_instance.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
 	get_parent().add_child(shoot_instance)
@@ -1249,7 +1258,11 @@ func render():
 			var lineH = (OS.window_size.y /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) 
 			
 			#new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.15) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
-			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * (float(angles)/1000)) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			if !array_sprites[o].dontscale:
+				new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			else:
+				new_sprite.scale = array_sprites[o].scale_extra/$PolyContainer.scale
+			#new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * (float(angles)/1000)) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
 			
 			#new_sprite.scale = Vector2(
 			#	(((((OS.window_size.x/angles) /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) *angles/10) * array_sprites[o].scale_extra.x ,
@@ -1273,23 +1286,25 @@ func render():
 			
 			#lets re-use it
 			#xkusu = -(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2)) *(float(8192)/draw_distance)-4096)
-			xkusu = sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2))
-			if abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096:
-				#break
-				new_sprite.modulate = Color(0,0,0)
-				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
-				new_sprite.z_index = -4095
-				
+			if !array_sprites[o].dontZ:
+				xkusu = sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2))
+				if abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096:
+					#break
+					new_sprite.modulate = Color(0,0,0)
+					new_sprite.modulate.a8 = array_sprites[o].modulate.a8
+					new_sprite.z_index = -4095
+					
+				else:
+					var C
+					if shading: C =  -(xkusu*(float(1*array_sprites[o].darkness)/draw_distance)-1)
+					elif array_sprites[o].darkness > 0: C = float(1)/array_sprites[o].darkness
+					else: C = float(1)*-array_sprites[o].darkness
+					new_sprite.modulate = array_sprites[o].modulate*C
+					new_sprite.modulate.a8 = array_sprites[o].modulate.a8
+					new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
+					
 			else:
-				var C
-				if shading: C =  -(xkusu*(float(1*array_sprites[o].darkness)/draw_distance)-1)
-				elif array_sprites[o].darkness > 0: C = float(1)/array_sprites[o].darkness
-				else: C = float(1)*-array_sprites[o].darkness
-				new_sprite.modulate = array_sprites[o].modulate*C
-				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
-				new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
-				
-			
+				new_sprite.z_index = 4096
 			
 			
 			if array_sprites[o].rotations > 1:

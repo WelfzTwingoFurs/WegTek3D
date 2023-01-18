@@ -2441,6 +2441,30 @@ shape = SubResource( 9 )
 
 [node name="RayCast2D" type="RayCast2D" parent="kill2/toparea/spriteman16"]
 
+[node name="dontdo" type="KinematicBody2D" parent="kill2/toparea" groups=[
+"rendersprite",
+]]
+position = Vector2( -361, -3132 )
+rotation = 5.49779
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+scale_extra = Vector2( 1, 1 )
+texture = "res://assets/playeraim.png"
+vframes = 1
+hframes = 1
+rotations = 1
+darkness = 0.0
+dontscale = true
+dontZ = true
+GRAVITY = 0.0
+JUMP = 0.0
+head_height = 0
+shadow = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kill2/toparea/dontdo"]
+shape = SubResource( 9 )
+
 [node name="wall" type="StaticBody2D" parent="kill2/toparea" groups=[
 "render",
 "wall",

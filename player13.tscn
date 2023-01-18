@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://player-console2.gd" type="Script" id=1]
 [ext_resource path="res://make_invisible.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
 [ext_resource path="res://assets/skybox bubsy3D.png" type="Texture" id=6]
 [ext_resource path="res://assets/weapon handgun.png" type="Texture" id=7]
+[ext_resource path="res://playeraim.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -167,6 +168,8 @@ speed = 300
 textures_on = true
 cull_on = false
 
+[node name="playeraim2" parent="." instance=ExtResource( 8 )]
+
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
 z_index = 4096
@@ -256,7 +259,7 @@ anims/walk = SubResource( 5 )
 
 [node name="Feet" type="Sprite" parent="View"]
 visible = false
-z_index = 4096
+z_index = 4095
 texture = ExtResource( 4 )
 hframes = 10
 frame = 6
@@ -273,7 +276,7 @@ anims/hand-fire = SubResource( 10 )
 
 [node name="Hand" type="Sprite" parent="View"]
 visible = false
-z_index = 4096
+z_index = 4095
 texture = ExtResource( 7 )
 vframes = 2
 
