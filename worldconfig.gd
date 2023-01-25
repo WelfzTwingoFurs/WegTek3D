@@ -18,6 +18,7 @@ var Camera2D
 ##################################
 
 var player
+var playeraim
 
 func _process(_delta):
 	### STOCK zoom configuration ###
@@ -53,8 +54,9 @@ func _process(_delta):
 	
 	elif config == 1:
 		if step == 0:
-			OS.window_size = OS.get_screen_size()
-			OS.center_window() 
+			#OS.window_size = OS.get_screen_size()
+			#OS.center_window() 
+			OS.set_window_maximized(true)
 			
 			step = 1
 		
@@ -72,10 +74,12 @@ func _process(_delta):
 	if step == -1:
 		if Input.is_action_just_pressed("bug_resdivide"): # F1 - Half the zoom screen
 			OS.window_size /= 2
+			OS.set_window_maximized(false)
 			step = 1
 		
 		if Input.is_action_just_pressed("bug_resmultiply"): # F2 - Double the zoom screen
 			OS.window_size *= 2
+			OS.set_window_maximized(false)
 			step = 1
 		
 		if Input.is_action_just_pressed("bug_fillscreen"): # F3 - reset/fill screen (not fullscreen)

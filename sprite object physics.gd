@@ -9,7 +9,8 @@ export var hframes = 10
 export var rotations = 8
 export(float) var darkness = 1
 export(bool) var dynamic_darkness = false
-
+export(bool) var dontscale = false
+export(bool) var dontZ = false
 
 func _ready():
 	if $CollisionShape2D.position != Vector2(0,0):

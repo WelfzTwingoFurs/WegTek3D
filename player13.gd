@@ -1016,8 +1016,8 @@ var rot_minus90
 
 var midscreen = 0
 
-export(bool) var textures_on = 0
-export(bool) var UV_textures = 1
+#export(bool) var textures_on = 0
+#export(bool) var UV_textures = 1
 export(bool) var cull_on = 1
 export(bool) var fade = 0
 
@@ -1040,6 +1040,7 @@ func render():
 		var outtasight = 0
 		var min_distance = INF
 		var array_shading = []
+		var exwy
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-to_global($Camera2D.position)).angle()-PI/2)
@@ -1158,12 +1159,47 @@ func render():
 					outtasight +=1
 					
 			
+			
+			
+			
+			
+			
+			
+			
+			if array_walls[n].onesided != 0:
+				if abs(array_walls[n].onesided) == 1:
+					if (m == 0) && (array_polygon.size() > 0):
+						exwy = array_polygon[array_polygon.size()-1].x
+					if (m == 1) && (exwy != null):
+						if array_walls[n].onesided == 1:
+							if exwy < array_polygon[array_polygon.size()-1].x:
+								new_poly.queue_free()
+								break
+						else:
+							if exwy > array_polygon[array_polygon.size()-1].x:
+								new_poly.queue_free()
+								break
+				
+#				else:
+#					if (m == 0) && (array_polygon.size() > 0):
+#						exwy = array_polygon[array_polygon.size()-1].y
+#					if (m == 1) && (exwy != null):
+#						if array_walls[n].onesided == 2:
+#							if exwy < array_polygon[array_polygon.size()-1].y:
+#								new_poly.queue_free()
+#								break
+#						else:
+#							if exwy > array_polygon[array_polygon.size()-1].y:
+#								new_poly.queue_free()
+#								break
+			
+			
+			
+			
+			
+			
+			
 			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
-			
-			
-			
-			
-			
 			
 			
 			if -(distance*(float(8192)/draw_distance)-4096) < min_distance:
@@ -1191,11 +1227,11 @@ func render():
 				new_poly.modulate = array_walls[n].modulate
 				
 				
-				if textures_on && (array_walls[n].texture_path != "res://textures/solid1.png"): #Texture mapping
+				if array_walls[n].textures_on && (array_walls[n].texture_path != "res://textures/solid1.png"): #Texture mapping
 					new_poly.texture = load(array_walls[n].texture_path)
 					new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
 					#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
-					if UV_textures:
+					if array_walls[n].UV_textures:
 						var howmany = array_polygon.size() #m+1
 						
 						

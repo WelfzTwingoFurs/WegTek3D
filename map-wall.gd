@@ -5,6 +5,9 @@ export (Array, float) var heights = [1,0]
 #for 3: A-top .... B .... A-down               (triangle)
 #for 4: A-top .. B-top .. B-bottom .. A-bottom   (square)
 
+export var onesided = 0
+export(bool) var textures_on = false
+export(bool) var UV_textures = false
 export(String) var texture_path = "res://textures/wireframe64.png"
 export var texture_repeat = Vector2(1,1) #Be sure to set texture_repeat at Import!
 export var texture_rotate = 0

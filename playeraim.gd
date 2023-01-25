@@ -9,7 +9,7 @@ func _process(_delta):
 	#positionZ = lerp(positionZ, Worldconfig.playeraim, 1)
 	#position = lerp(position, Worldconfig.player.position + Vector2(0,Worldconfig.player.draw_distance*0.0045).rotated(Worldconfig.player.rotation_angle), 1)
 	
-	positionZ = counter*Worldconfig.playeraim
+	positionZ = counter*Worldconfig.playeraim/4
 	
 	
 	if loop:
@@ -20,4 +20,5 @@ func _process(_delta):
 		position = Worldconfig.player.position + Vector2(0,counter*Worldconfig.player.draw_distance*0.05).rotated(Worldconfig.player.rotation_angle)
 	
 	else:
-		position = Worldconfig.player.position + Vector2(0,Worldconfig.player.draw_distance*0.0045).rotated(Worldconfig.player.rotation_angle)
+		position = Worldconfig.player.position + Vector2(0,Worldconfig.player.draw_distance*0.0045).rotated(Worldconfig.player.rotation_angle)/4
+		#position = Vector2(0,Worldconfig.player.draw_distance*0.0045).rotated(Worldconfig.player.rotation_angle)

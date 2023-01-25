@@ -47,6 +47,7 @@ position = Vector2( 905, -68 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
+anim = 2
 scale_extra = Vector2( 1, 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

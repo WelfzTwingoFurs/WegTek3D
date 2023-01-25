@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://map-floor-animated.gd" type="Script" id=1]
+[ext_resource path="res://player13.tscn" type="PackedScene" id=2]
+[ext_resource path="res://3Dcar Uno.tscn" type="PackedScene" id=3]
+[ext_resource path="res://3Dcar Uno lod.tscn" type="PackedScene" id=4]
+[ext_resource path="res://3Dhuman.tscn" type="PackedScene" id=5]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="player13" parent="." instance=ExtResource( 2 )]
+position = Vector2( -81, -15 )
+angles = 145
+sky_stretch = Vector2( 1, 2 )
+min_Z = -1000
+gunscale = 4
+gunstretch = false
+head_height = 40
+fade = true
+map_draw = 6
+
+[node name="3Dcar Uno" parent="." instance=ExtResource( 3 )]
+
+[node name="3Dcar Uno lod" parent="." instance=ExtResource( 4 )]
+position = Vector2( 153, 1 )
+
+[node name="3Dhuman" parent="." instance=ExtResource( 5 )]
+position = Vector2( -31, 205 )
+
+[node name="base" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.262745, 0.117647, 0.266667, 1 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 1 )
+heights = [ 0.0 ]
+texture_path = "res://textures/solid1.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="base"]
+polygon = PoolVector2Array( 500, -500, 500, 500, -500, 500, -500, -500 )

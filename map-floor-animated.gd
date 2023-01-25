@@ -78,12 +78,9 @@ func _ready():
 var change_checker = []
 
 func _process(_delta):
-	if (change_checker[0] != to_global(position)) or (change_checker[1] != rotation_degrees) or (change_checker[2] != scale):
-		for n in points.size():
-			points[n] = (to_global($CollisionPolygon2D.polygon[n]))
-			
-		change_checker = [to_global(position), rotation_degrees, scale]
-		
+	for n in points.size():
+		points[n] = (to_global($CollisionPolygon2D.polygon[n]))
+	#points = (to_global($CollisionPolygon2D.polygon))
 	
 	
 	if was_zoom != Worldconfig.zoom:

@@ -11,6 +11,9 @@ export var plus1_mode = 0
 # 3, bot*extra
 # 4, bot/extra
 
+export var onesided = 0
+export var textures_on = true
+export var UV_textures = false
 export (Array, String) var textures = ["res://icon.png","res://icon.png","res://icon.png"]
 export (Array, Color) var colors = [Color(1,1,1,1),Color(1,1,1,1),Color(1,1,1,1)]
 #"" if we don't wanna make this one!
@@ -117,8 +120,11 @@ func _ready():
 				queue_free()
 				
 			
+			make_new_wall.textures_on = textures_on
+			make_new_wall.UV_textures = UV_textures
 			make_new_wall.darkness = darknesses
 			make_new_wall.jumpover = jumpover
+			make_new_wall.onesided = onesided
 			add_child(make_new_wall)
 			
 		
@@ -166,6 +172,7 @@ func _ready():
 		
 		make_new_floor.darkness = darknesses
 		make_new_floor.reflect = reflect
+		make_new_floor.onesided = -onesided
 		add_child(make_new_floor)
 	
 	if textures[textures.size()-1] != "":
@@ -177,6 +184,8 @@ func _ready():
 					make_new_ceiling.absolute = 1
 		
 		make_new_ceiling.darkness = darknesses
+		make_new_ceiling.reflect = reflect
+		make_new_ceiling.onesided = onesided
 		add_child(make_new_ceiling)
 	
 	$CollisionPolygon2D.queue_free()
