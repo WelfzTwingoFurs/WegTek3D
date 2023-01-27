@@ -19,9 +19,10 @@ FEATURES:
 -Clipping (vertexes behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
 -One-sided polygons;
+-Whole-polygon culling;
 -Screen resizable to any size;
 -Viewbobbing, viewrolling options;
--Scrolling sky texture & stretch options, floor texture;
+-Scrolling sky sprite & stretch options, floor sprite;
 -Animated weapon & feet sprites;
 -All changeable textures to any size;
 -Map using draw_line, 2D & 3D options.
@@ -34,9 +35,9 @@ IMPERFECTIONS:
 -Heavy texture distortion up-close;
 -Non-square polygons don't texture properly (& intervenes with clipping);
 -No camera-edge clipping (polys outside screen still render);
--No culling (polygons behind others still render);
+-No screen-culling or clipping (polygons behind others still render entirely);
 -Draw distance innacurate to value (depending on Angles FOV);
--Floor texture position slightly innacurate to aspect ratio;
+-Floor sprite position slightly innacurate to aspect ratio;
 -No in-game options (all settings in editor).
 
 
