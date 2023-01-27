@@ -164,7 +164,6 @@ angles = 150
 draw_distance = 10000
 skycolor = Color( 0, 0.301961, 0.0509804, 1 )
 speed = 300
-textures_on = true
 cull_on = false
 
 [node name="Col" type="CollisionShape2D" parent="."]

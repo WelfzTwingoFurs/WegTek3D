@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://map-floor-animated.gd" type="Script" id=1]
 [ext_resource path="res://player13.tscn" type="PackedScene" id=2]
 [ext_resource path="res://3Dcar Uno.tscn" type="PackedScene" id=3]
 [ext_resource path="res://3Dcar Uno lod.tscn" type="PackedScene" id=4]
 [ext_resource path="res://3Dhuman.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Shack1.tscn" type="PackedScene" id=6]
 
 [node name="Node2D" type="Node2D"]
 
@@ -26,6 +27,9 @@ position = Vector2( 153, 1 )
 
 [node name="3Dhuman" parent="." instance=ExtResource( 5 )]
 position = Vector2( -31, 205 )
+
+[node name="Shack1" parent="." instance=ExtResource( 6 )]
+position = Vector2( -613, -215 )
 
 [node name="base" type="StaticBody2D" parent="." groups=[
 "floor",

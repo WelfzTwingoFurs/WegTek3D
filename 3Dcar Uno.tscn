@@ -11,6 +11,7 @@ modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 10.0 ]
+textures_on = false
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="base"]
@@ -23,6 +24,8 @@ modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 28.0 ]
+onesided = 1
+textures_on = false
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="inside"]
@@ -35,6 +38,7 @@ modulate = Color( 0.658824, 0.329412, 0, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 45.0 ]
+textures_on = false
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="top"]
@@ -47,6 +51,8 @@ modulate = Color( 0.658824, 0.329412, 0, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 24.0, 28.0, 28.0, 24.0 ]
+onesided = -1
+textures_on = false
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hood"]
@@ -63,6 +69,7 @@ position = Vector2( -7, -102 )
 scale = Vector2( 4, 2 )
 script = ExtResource( 1 )
 heights = [ 20.5, 24.0, 24.0, 20.5 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -78,6 +85,7 @@ position = Vector2( -7, -101.5 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 20.5, 20.5, 17.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -93,6 +101,7 @@ position = Vector2( 0, -119 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 17.0, 10.0, 10.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -106,6 +115,7 @@ modulate = Color( 0.658824, 0.329412, 0, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 10.0, 10.0, 24.0, 28.0, 28.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/solid1.png"
 
@@ -120,6 +130,7 @@ position = Vector2( -1, 0 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 28.0, 28.0, 45.0, 45.0 ]
+onesided = -1
 texture_path = "res://textures/stretchtest.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/windows"]
@@ -132,6 +143,7 @@ position = Vector2( -39, -60 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 0.0, 20.0, 20.0, 0.0 ]
+onesided = 1
 UV_textures = true
 texture_path = "res://textures/wheelEGA64.png"
 
@@ -145,6 +157,7 @@ position = Vector2( -39, 29 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 0.0, 20.0, 20.0, 0.0 ]
+onesided = 1
 UV_textures = true
 texture_path = "res://textures/wheelEGA64.png"
 
@@ -158,6 +171,7 @@ modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 17.0, 10.0, 10.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -171,6 +185,7 @@ position = Vector2( -7, 0 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 24.0, 17.0, 17.0, 24.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -185,6 +200,7 @@ position = Vector2( -7, 0 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 24.0, 17.0, 17.0, 24.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -203,6 +219,7 @@ position = Vector2( -7, -102 )
 scale = Vector2( 4, 2 )
 script = ExtResource( 1 )
 heights = [ 20.5, 24.0, 24.0, 20.5 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -218,6 +235,7 @@ position = Vector2( -7, -101.5 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 20.5, 20.5, 17.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -233,6 +251,7 @@ position = Vector2( 0, -119 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 17.0, 10.0, 10.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -246,6 +265,7 @@ modulate = Color( 0.658824, 0.329412, 0, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 10.0, 10.0, 24.0, 28.0, 28.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/solid1.png"
 
@@ -260,6 +280,7 @@ position = Vector2( -1, 0 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 28.0, 28.0, 45.0, 45.0 ]
+onesided = 1
 texture_path = "res://textures/stretchtest.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/windows"]
@@ -272,6 +293,7 @@ position = Vector2( -39, -60 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 0.0, 20.0, 20.0, 0.0 ]
+onesided = -1
 UV_textures = true
 texture_path = "res://textures/wheelEGA64.png"
 
@@ -285,6 +307,7 @@ position = Vector2( -39, 29 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 0.0, 20.0, 20.0, 0.0 ]
+onesided = -1
 UV_textures = true
 texture_path = "res://textures/wheelEGA64.png"
 
@@ -298,6 +321,7 @@ modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 17.0, 10.0, 10.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -311,6 +335,7 @@ position = Vector2( -7, 0 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 24.0, 17.0, 17.0, 24.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -325,6 +350,7 @@ position = Vector2( -7, 0 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 24.0, 17.0, 17.0, 24.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -342,6 +368,7 @@ position = Vector2( -39, -60 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 28.0, 28.0, 17.0, 17.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -356,6 +383,7 @@ position = Vector2( -39, -60 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 17.0, 10.0, 10.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -370,6 +398,7 @@ position = Vector2( -39, -60 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 28.0, 28.0, 45.0, 45.0 ]
+onesided = -1
 texture_path = "res://textures/stretchtest.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontback/windowT"]
@@ -383,6 +412,7 @@ position = Vector2( -39, -60 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 28.0, 28.0, 45.0, 45.0 ]
+onesided = 1
 texture_path = "res://textures/stretchtest.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontback/windowB"]
@@ -396,6 +426,7 @@ position = Vector2( 7, 0 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 24.0, 17.0, 17.0, 24.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/solid1.png"
 
@@ -410,6 +441,7 @@ position = Vector2( -39, 73 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 17.0, 10.0, 10.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -424,6 +456,7 @@ position = Vector2( -39, 73 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 16.0, 16.0, 11.0, 11.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 
@@ -439,6 +472,7 @@ position = Vector2( 32, -102 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 17.0, 21.0, 21.0, 17.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/wheel16.png"
 

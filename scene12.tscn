@@ -16,6 +16,10 @@
 [ext_resource path="res://3Dcar Uno.tscn" type="PackedScene" id=14]
 [ext_resource path="res://3Dhuman.tscn" type="PackedScene" id=15]
 
+[sub_resource type="SegmentShape2D" id=42]
+a = Vector2( 278, -52 )
+b = Vector2( 178, -52 )
+
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( 178, 216 )
 b = Vector2( 178, -52 )
@@ -333,10 +337,6 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="SegmentShape2D" id=42]
-a = Vector2( 278, -52 )
-b = Vector2( 178, -52 )
-
 [node name="scene12" type="Node2D"]
 
 [node name="player13" parent="." instance=ExtResource( 1 )]
@@ -353,6 +353,83 @@ map_draw = 6
 [node name="kill3" type="Node2D" parent="."]
 script = ExtResource( 11 )
 
+[node name="pillar" type="StaticBody2D" parent="kill3"]
+position = Vector2( 204, -3168 )
+scale = Vector2( 10, 10 )
+script = ExtResource( 6 )
+heights = [ 0, 1000 ]
+onesided = -1
+textures = [ "a", "a", "a", "a", "", "" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+reflect = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/pillar"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="pillar4" type="StaticBody2D" parent="kill3"]
+position = Vector2( -1041, -3168 )
+scale = Vector2( 10, 10 )
+script = ExtResource( 6 )
+heights = [ 0, 1000 ]
+onesided = -1
+textures = [ "a", "a", "a", "a", "", "" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+reflect = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/pillar4"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="pillar2" type="StaticBody2D" parent="kill3"]
+position = Vector2( 211, -1399 )
+scale = Vector2( 10, 10 )
+script = ExtResource( 6 )
+heights = [ 0, 1000 ]
+onesided = -1
+textures = [ "a", "a", "a", "a", "", "" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+reflect = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/pillar2"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="pillar3" type="StaticBody2D" parent="kill3"]
+position = Vector2( -1040, -1399 )
+scale = Vector2( 10, 10 )
+script = ExtResource( 6 )
+heights = [ 0, 1000 ]
+onesided = -1
+textures = [ "a", "a", "a", "a", "", "" ]
+colors = [  ]
+darknesses = 0.5
+collide = true
+reflect = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/pillar3"]
+polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
+
+[node name="wall" type="StaticBody2D" parent="kill3" groups=[
+"render",
+"wall",
+]]
+position = Vector2( -604, -3152 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 8 )
+heights = [ 0, 100 ]
+onesided = -1
+textures_on = true
+UV_textures = true
+texture_path = "res://textures/busy64.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kill3/wall"]
+shape = SubResource( 42 )
+
 [node name="sector" type="StaticBody2D" parent="kill3"]
 position = Vector2( 566, -1940 )
 script = ExtResource( 6 )
@@ -367,6 +444,9 @@ polygon = PoolVector2Array( 0, 0, 500, 0, 500, 500, 0, 500 )
 
 [node name="Uno" parent="kill3" instance=ExtResource( 14 )]
 position = Vector2( -610, -1746 )
+
+[node name="3Dhuman" parent="kill3" instance=ExtResource( 15 )]
+position = Vector2( -542, -1734 )
 
 [node name="projectile" parent="kill3" instance=ExtResource( 13 )]
 position = Vector2( -836, -2715 )
@@ -490,9 +570,6 @@ darkness = -2.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/-100 500"]
 polygon = PoolVector2Array( 0, -808.5, 0, -500, 500, -500, 500, -810.5 )
-
-[node name="3Dhuman" parent="kill3" instance=ExtResource( 15 )]
-position = Vector2( -542, -1734 )
 
 [node name="kill" type="Node2D" parent="."]
 script = ExtResource( 11 )
@@ -1265,66 +1342,6 @@ reflect = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill2/toparea/head tests/coob"]
 polygon = PoolVector2Array( 74, 571, 885.981, 517.856, 885.981, 1164.68, 95, 1166 )
-
-[node name="pillar" type="StaticBody2D" parent="kill2/toparea/head tests"]
-position = Vector2( 204, -3168 )
-scale = Vector2( 10, 10 )
-script = ExtResource( 6 )
-heights = [ 0, 1000 ]
-onesided = 1
-textures = [ "a", "a", "a", "a", "", "" ]
-colors = [  ]
-darknesses = 0.5
-collide = true
-reflect = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill2/toparea/head tests/pillar"]
-polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
-
-[node name="pillar4" type="StaticBody2D" parent="kill2/toparea/head tests"]
-position = Vector2( -1041, -3168 )
-scale = Vector2( 10, 10 )
-script = ExtResource( 6 )
-heights = [ 0, 1000 ]
-onesided = 1
-textures = [ "a", "a", "a", "a", "", "" ]
-colors = [  ]
-darknesses = 0.5
-collide = true
-reflect = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill2/toparea/head tests/pillar4"]
-polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
-
-[node name="pillar2" type="StaticBody2D" parent="kill2/toparea/head tests"]
-position = Vector2( 211, -1399 )
-scale = Vector2( 10, 10 )
-script = ExtResource( 6 )
-heights = [ 0, 1000 ]
-onesided = 1
-textures = [ "a", "a", "a", "a", "", "" ]
-colors = [  ]
-darknesses = 0.5
-collide = true
-reflect = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill2/toparea/head tests/pillar2"]
-polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
-
-[node name="pillar3" type="StaticBody2D" parent="kill2/toparea/head tests"]
-position = Vector2( -1040, -1399 )
-scale = Vector2( 10, 10 )
-script = ExtResource( 6 )
-heights = [ 0, 1000 ]
-onesided = 1
-textures = [ "a", "a", "a", "a", "", "" ]
-colors = [  ]
-darknesses = 0.5
-collide = true
-reflect = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill2/toparea/head tests/pillar3"]
-polygon = PoolVector2Array( 0, 0, 10, 0, 10, 10, 0, 10 )
 
 [node name="dd" type="KinematicBody2D" parent="kill2/toparea" groups=[
 "rendersprite",
@@ -2478,23 +2495,6 @@ shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kill2/toparea/dontdo"]
 shape = SubResource( 9 )
-
-[node name="wall" type="StaticBody2D" parent="kill2/toparea" groups=[
-"render",
-"wall",
-]]
-position = Vector2( -604, -3152 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 8 )
-heights = [ 0, 100 ]
-onesided = -1
-textures_on = true
-UV_textures = true
-texture_path = "res://textures/busy64.png"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="kill2/toparea/wall"]
-shape = SubResource( 42 )
 
 [node name="sectorbig" type="StaticBody2D" parent="kill2/toparea"]
 position = Vector2( -1162, -3486 )

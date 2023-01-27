@@ -1040,7 +1040,7 @@ func render():
 		var outtasight = 0
 		var min_distance = INF
 		var array_shading = []
-		var exwy
+		var exwy = 0
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-to_global($Camera2D.position)).angle()-PI/2)
@@ -1156,7 +1156,7 @@ func render():
 			
 			if cull_on && array_polygon.size() > 0:
 				if abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
-					outtasight +=1
+					outtasight += 1*sign(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ))
 					
 			
 			
@@ -1164,23 +1164,21 @@ func render():
 			
 			
 			
-			
-			
-			if array_walls[n].onesided != 0:
-				if abs(array_walls[n].onesided) == 1:
-					if (m == 0) && (array_polygon.size() > 0):
-						exwy = array_polygon[array_polygon.size()-1].x
-					if (m == 1) && (exwy != null):
-						if array_walls[n].onesided == 1:
-							if exwy < array_polygon[array_polygon.size()-1].x:
-								new_poly.queue_free()
-								break
-						else:
-							if exwy > array_polygon[array_polygon.size()-1].x:
-								new_poly.queue_free()
-								break
-				
-#				else:
+#			if array_walls[n].onesided != 0:
+#				if abs(array_walls[n].onesided) == 1:
+#					if (m == 0) && (array_polygon.size() > 0):
+#						exwy = array_polygon[array_polygon.size()-1].x
+#					if (m == 1) && (exwy != null):
+#						if array_walls[n].onesided == 1:
+#							if exwy < array_polygon[array_polygon.size()-1].x:
+#								new_poly.queue_free()
+#								break
+#						elif array_walls[n].onesided == -1:
+#							if exwy > array_polygon[array_polygon.size()-1].x:
+#								new_poly.queue_free()
+#								break
+#
+#				elif abs(array_walls[n].onesided) == 2:
 #					if (m == 0) && (array_polygon.size() > 0):
 #						exwy = array_polygon[array_polygon.size()-1].y
 #					if (m == 1) && (exwy != null):
@@ -1188,7 +1186,7 @@ func render():
 #							if exwy < array_polygon[array_polygon.size()-1].y:
 #								new_poly.queue_free()
 #								break
-#						else:
+#						elif array_walls[n].onesided == -2:
 #							if exwy > array_polygon[array_polygon.size()-1].y:
 #								new_poly.queue_free()
 #								break
@@ -1206,7 +1204,22 @@ func render():
 				min_distance = -(distance*(float(8192)/draw_distance)-4096)
 			
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
-				if outtasight > array_polygon.size()-1:
+				if array_walls[n].onesided != 0:
+					#print(Geometry.is_polygon_clockwise(array_polygon))
+					if sign(array_walls[n].onesided) == 1:
+						if Geometry.is_polygon_clockwise(array_polygon):
+							new_poly.queue_free()
+							break
+					elif sign(array_walls[n].onesided) == -1:
+						if !Geometry.is_polygon_clockwise(array_polygon):
+							new_poly.queue_free()
+							break
+				
+				
+				
+				
+				
+				if abs(outtasight) > array_polygon.size()-1:
 					new_poly.queue_free()
 					break
 					#continue

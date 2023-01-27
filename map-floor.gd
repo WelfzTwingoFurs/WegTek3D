@@ -26,7 +26,7 @@ export(float) var darkness = 1
 export var reflect = false
 
 func _ready():
-	onesided *= 2
+	#onesided *= 2
 	
 	if !(weakref($CollisionPolygon2D).get_ref()):
 		print(">M I S T A K E: map-floor's StaticBody missing a ColPoly2D. At: ",position)

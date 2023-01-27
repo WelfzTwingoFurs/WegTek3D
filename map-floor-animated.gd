@@ -5,6 +5,7 @@ export (Array, float) var heights = []
 #for heights.size(): points = heights
 
 export var onesided = 0
+export(float) var scaleZ = 1
 export(bool) var textures_on = true
 export(bool) var UV_textures = false
 export(String) var texture_path = "res://textures/gradsimple64.png"
@@ -26,7 +27,7 @@ export(float) var darkness = 1
 export var reflect = false
 
 func _ready():
-	onesided *= 2
+	#onesided *= 2
 	
 	if !(weakref($CollisionPolygon2D).get_ref()):
 		print(">M I S T A K E: map-floor's StaticBody missing a ColPoly2D. At: ",position)
