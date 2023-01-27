@@ -18,9 +18,11 @@ FEATURES:
 -Field of view (FOV), draw distance options;
 -Clipping (vertexes behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
+-One-sided polygons;
 -Screen resizable to any size;
 -Viewbobbing, viewrolling options;
 -Scrolling sky texture & stretch options, floor texture;
+-Animated weapon & feet sprites;
 -All changeable textures to any size;
 -Map using draw_line, 2D & 3D options.
 
@@ -35,8 +37,6 @@ IMPERFECTIONS:
 -No culling (polygons behind others still render);
 -Draw distance innacurate to value (depending on Angles FOV);
 -Floor texture position slightly innacurate to aspect ratio;
--Feet when you look down, draw distance fading,
-depth-shading options, have been deactivated;
 -No in-game options (all settings in editor).
 
 
