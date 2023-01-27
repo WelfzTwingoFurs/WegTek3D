@@ -166,6 +166,7 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 9.0, 25.0, 20.0, 8.0 ]
+onesided = 1
 textures_on = false
 texture_path = "res://textures/solid1.png"
 
@@ -303,7 +304,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 25.0, 24.0, 20.0, 21.0 ]
-onesided = -1
 textures_on = false
 texture_path = "res://textures/solid1.png"
 
@@ -372,6 +372,7 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 9.0, 25.0, 20.0, 8.0 ]
+onesided = -1
 textures_on = false
 texture_path = "res://textures/solid1.png"
 
@@ -508,7 +509,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 25.0, 24.0, 20.0, 21.0 ]
-onesided = 1
 textures_on = false
 texture_path = "res://textures/solid1.png"
 

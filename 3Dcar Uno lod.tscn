@@ -25,12 +25,11 @@ modulate = Color( 0.658824, 0.329412, 0, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 26.0 ]
-onesided = -1
 textures_on = false
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hood"]
-polygon = PoolVector2Array( 7.75, 15.25, 7.75, 7.75, -7.75, 7.75, -7.75, 15.25 )
+polygon = PoolVector2Array( 7.75, 15.25, 7.25, -17.25, -7.25, -17.25, -7.75, 15.25 )
 
 [node name="base" type="StaticBody2D" parent="." groups=[
 "render",
