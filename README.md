@@ -49,7 +49,9 @@ CONTROL KEYS:
 -PGup & PGdown: Look up & down;
 - Space & Ctrl:  Fly up & down;
 - Enter (hold):       View map;
--    Quote ('): Console toggle.
+-    Quote ('): Console toggle;
+-            L:     Mouse-lock;
+-        [ & ]:  Weapon select.
 
 DEBUG KEYS:
 - Scroll-lock (+Move):   Angle;
