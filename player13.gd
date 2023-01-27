@@ -1019,7 +1019,7 @@ var midscreen = 0
 #export(bool) var textures_on = 0
 #export(bool) var UV_textures = 1
 export(bool) var cull_on = 1
-export(bool) var fade = 0
+#export(bool) var fade = 0
 
 func render():
 	if (weakref(new_container).get_ref()):
@@ -1156,7 +1156,7 @@ func render():
 			
 			if cull_on && array_polygon.size() > 0:
 				if abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
-					outtasight += 1*sign(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ))
+					outtasight += sign(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ))
 					
 			
 			
@@ -1231,7 +1231,7 @@ func render():
 					#new_poly.visible = 0
 					#break #if we don't cull it gets inverted since things will stack at -4096
 					new_poly.z_index = -4095
-					if fade: new_poly.modulate = Color(0,0,0,array_walls[n].modulate.a)
+					#if fade: new_poly.modulate = Color(0,0,0,array_walls[n].modulate.a)
 					
 					
 				else:
