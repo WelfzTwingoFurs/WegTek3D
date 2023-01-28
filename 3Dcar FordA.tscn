@@ -359,11 +359,11 @@ polygon = PoolVector2Array( -14, -4.5, -13.75, -7, -12, -7, -11.75, -4.5 )
 [node name="headlight" type="StaticBody2D" parent="left" groups=[
 "render",
 ]]
-modulate = Color( 1, 1, 0, 1 )
+modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 position = Vector2( 22, 55 )
 scale = Vector2( 4, 1 )
 script = ExtResource( 1 )
-heights = [ 30.0, 25.0, 20.0, 25.0 ]
+heights = [ 29.0, 25.0, 21.0, 25.0 ]
 textures_on = false
 texture_path = "res://textures/stretchtest.png"
 
@@ -624,11 +624,11 @@ polygon = PoolVector2Array( -14, -4.5, -13.75, -7, -12, -7, -11.75, -4.5 )
 [node name="headlight" type="StaticBody2D" parent="right" groups=[
 "render",
 ]]
-modulate = Color( 1, 1, 0, 1 )
+modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 position = Vector2( 22, 55 )
 scale = Vector2( 4, 1 )
 script = ExtResource( 1 )
-heights = [ 30.0, 25.0, 20.0, 25.0 ]
+heights = [ 29.0, 25.0, 21.0, 25.0 ]
 textures_on = false
 texture_path = "res://textures/stretchtest.png"
 
@@ -682,11 +682,11 @@ polygon = PoolVector2Array( -16.25, -3.5, -16, -3.25, -2.75, -3.25, -2.5, -3.5 )
 [node name="rearlight" type="StaticBody2D" parent="frontback" groups=[
 "render",
 ]]
-modulate = Color( 1, 0, 0, 1 )
+modulate = Color( 0.988235, 0.329412, 0.329412, 1 )
 position = Vector2( 26, -66 )
 scale = Vector2( 4, -1 )
 script = ExtResource( 1 )
-heights = [ 30.0, 25.0, 20.0, 25.0 ]
+heights = [ 29.0, 25.0, 21.0, 25.0 ]
 onesided = 1
 textures_on = false
 texture_path = "res://textures/stretchtest.png"
