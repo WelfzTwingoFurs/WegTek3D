@@ -42,7 +42,7 @@ func _ready():
 		$CollisionPolygon2D.position = Vector2(0,0)
 		scale *= $CollisionPolygon2D.scale
 		$CollisionPolygon2D.scale = Vector2(1,1)
-		rotation_degrees = $CollisionPolygon2D.rotation_degrees
+		#rotation_degrees = $CollisionPolygon2D.rotation_degrees
 		$CollisionPolygon2D.rotation_degrees = 0
 		
 	

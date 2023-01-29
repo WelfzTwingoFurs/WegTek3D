@@ -16,6 +16,10 @@ func _ready():
 	if $CollisionShape2D.position != Vector2(0,0):
 		position = to_global($CollisionShape2D.position)
 		$CollisionShape2D.position = Vector2(0,0)
+		
+	
+	if !is_in_group("sprite"):
+		add_collision_exception_with(Worldconfig.player)
 
 
 

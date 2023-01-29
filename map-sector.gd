@@ -170,9 +170,11 @@ func _ready():
 			if collide && absolute:
 				make_new_floor.absolute = 1
 		
+		make_new_floor.textures_on = textures_on
+		make_new_floor.UV_textures = UV_textures
 		make_new_floor.darkness = darknesses
 		make_new_floor.reflect = reflect
-		make_new_floor.onesided = -onesided
+		#make_new_floor.onesided = -onesided
 		add_child(make_new_floor)
 	
 	if textures[textures.size()-1] != "":
@@ -183,9 +185,11 @@ func _ready():
 				if textures[textures.size()-2] == "":
 					make_new_ceiling.absolute = 1
 		
+		make_new_ceiling.textures_on = textures_on
+		make_new_ceiling.UV_textures = UV_textures
 		make_new_ceiling.darkness = darknesses
 		make_new_ceiling.reflect = reflect
-		make_new_ceiling.onesided = onesided
+		#make_new_ceiling.onesided = onesided
 		add_child(make_new_ceiling)
 	
 	$CollisionPolygon2D.queue_free()

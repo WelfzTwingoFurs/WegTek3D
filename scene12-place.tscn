@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/skybox google.png" type="Texture" id=1]
 [ext_resource path="res://player13.tscn" type="PackedScene" id=2]
@@ -12,14 +12,21 @@
 [ext_resource path="res://map-sector.gd" type="Script" id=10]
 [ext_resource path="res://3Dcar FordA.tscn" type="PackedScene" id=11]
 [ext_resource path="res://3Dcar Kombi.tscn" type="PackedScene" id=12]
+[ext_resource path="res://sprite object physics.gd" type="Script" id=13]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 5.0
 
 [node name="Node2D" type="Node2D"]
 
 [node name="player13" parent="." instance=ExtResource( 2 )]
 position = Vector2( -81, -15 )
 draw_distance = 2000
-skycolor = Color( 0.596078, 0.596078, 0.596078, 1 )
-sky_stretch = Vector2( 1, 2 )
+skycolor = Color( 1, 0.533333, 0.12549, 1 )
 gunscale = 4
 gunstretch = false
 head_height = 40
@@ -27,18 +34,142 @@ cull_on = true
 map_draw = 6
 
 [node name="Sky" parent="player13/Background" index="0"]
+modulate = Color( 0.266667, 0.196078, 0.333333, 1 )
 texture = ExtResource( 1 )
 
 [node name="Floor" parent="player13/Background" index="1"]
-modulate = Color( 0.545098, 0.666667, 1, 1 )
+modulate = Color( 0.133333, 0.176471, 0.411765, 1 )
 
 [node name="car2" type="Node2D" parent="."]
 script = ExtResource( 7 )
 
-[node name="3Dcar Uno" parent="car2" instance=ExtResource( 3 )]
+[node name="UNO" type="Node2D" parent="car2"]
+
+[node name="h1" type="KinematicBody2D" parent="car2/UNO" groups=[
+"rendersprite",
+]]
+position = Vector2( -25, -1032 )
+rotation = -0.785395
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 13 )
+positionZ = 16
+scale_extra = Vector2( 1, 1 )
+texture = "res://assets/lensflare.png"
+vframes = 1
+hframes = 1
+rotations = 1
+darkness = 0.0
+GRAVITY = 0.0
+JUMP = 0.0
+head_height = 1
+shadow = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="car2/UNO/h1"]
+shape = SubResource( 1 )
+
+[node name="h2" type="KinematicBody2D" parent="car2/UNO" groups=[
+"rendersprite",
+]]
+position = Vector2( 25, -1032 )
+rotation = -0.785395
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 13 )
+positionZ = 16
+scale_extra = Vector2( 1, 1 )
+texture = "res://assets/lensflare.png"
+vframes = 1
+hframes = 1
+rotations = 1
+darkness = 0.0
+GRAVITY = 0.0
+JUMP = 0.0
+head_height = 1
+shadow = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="car2/UNO/h2"]
+shape = SubResource( 1 )
+
+[node name="r1" type="KinematicBody2D" parent="car2/UNO" groups=[
+"rendersprite",
+]]
+modulate = Color( 1, 0, 0, 0.427451 )
+position = Vector2( -25, -1165 )
+rotation = -0.785395
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 13 )
+positionZ = 16
+scale_extra = Vector2( 1, 1 )
+texture = "res://assets/lensflare.png"
+vframes = 1
+hframes = 1
+rotations = 1
+darkness = 0.0
+GRAVITY = 0.0
+JUMP = 0.0
+head_height = 1
+shadow = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="car2/UNO/r1"]
+shape = SubResource( 1 )
+
+[node name="r2" type="KinematicBody2D" parent="car2/UNO" groups=[
+"rendersprite",
+]]
+modulate = Color( 1, 0, 0, 0.427451 )
+position = Vector2( 25, -1165 )
+rotation = -0.785395
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 13 )
+positionZ = 16
+scale_extra = Vector2( 1, 1 )
+texture = "res://assets/lensflare.png"
+vframes = 1
+hframes = 1
+rotations = 1
+darkness = 0.0
+GRAVITY = 0.0
+JUMP = 0.0
+head_height = 1
+shadow = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="car2/UNO/r2"]
+shape = SubResource( 1 )
+
+[node name="driver" type="KinematicBody2D" parent="car2/UNO" groups=[
+"rendersprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( 17, -1094 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 13 )
+positionZ = 26
+scale_extra = Vector2( 0.5, 0.5 )
+texture = "res://assets/driver.png"
+hframes = 1
+GRAVITY = 0.0
+JUMP = 0.0
+head_height = 1
+shadow = false
+
+[node name="ColArea" type="Area2D" parent="car2/UNO/driver"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="car2/UNO/driver/ColArea"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="car2/UNO/driver"]
+shape = SubResource( 3 )
+
+[node name="3Dcar Uno" parent="car2/UNO" instance=ExtResource( 3 )]
 position = Vector2( 0, -1093 )
 
-[node name="Label" type="Label" parent="car2/3Dcar Uno"]
+[node name="Label" type="Label" parent="car2/UNO/3Dcar Uno"]
 margin_left = -23.0
 margin_top = -90.0
 margin_right = 26.0
@@ -48,7 +179,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="car2/3Dcar Uno"]
+[node name="Label2" type="Label" parent="car2/UNO/3Dcar Uno"]
 margin_left = 34.0
 margin_top = -34.0
 margin_right = 83.0
@@ -60,7 +191,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label3" type="Label" parent="car2/3Dcar Uno"]
+[node name="Label3" type="Label" parent="car2/UNO/3Dcar Uno"]
 margin_left = -17.0
 margin_top = -15.0
 margin_right = 32.0
@@ -70,12 +201,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RayCast2D" type="RayCast2D" parent="car2/3Dcar Uno"]
+[node name="RayCast2D" type="RayCast2D" parent="car2/UNO/3Dcar Uno"]
 position = Vector2( 32, -71 )
 scale = Vector2( 1, 3.6 )
 cast_to = Vector2( 0, 36 )
 
-[node name="RayCast2D2" type="RayCast2D" parent="car2/3Dcar Uno"]
+[node name="RayCast2D2" type="RayCast2D" parent="car2/UNO/3Dcar Uno"]
 position = Vector2( 32, -71 )
 scale = Vector2( 4.2, 1 )
 cast_to = Vector2( -15, 0 )
@@ -263,7 +394,6 @@ position = Vector2( 202, -1093 )
 
 [node name="Node" type="Node2D" parent="."]
 script = ExtResource( 7 )
-kill = true
 
 [node name="sector" type="StaticBody2D" parent="Node"]
 position = Vector2( -82, 20 )
@@ -282,5 +412,8 @@ position = Vector2( -200, 72 )
 
 [node name="Shack1" parent="Node" instance=ExtResource( 6 )]
 position = Vector2( -613, -215 )
+
+[connection signal="body_shape_entered" from="car2/UNO/driver/ColArea" to="car2/UNO/driver" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="car2/UNO/driver/ColArea" to="car2/UNO/driver" method="_on_ColArea_body_shape_exited"]
 
 [editable path="player13"]
