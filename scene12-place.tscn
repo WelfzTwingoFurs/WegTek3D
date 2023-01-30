@@ -31,7 +31,6 @@ radius = 1.0
 position = Vector2( -17, -1326 )
 skycolor = Color( 1, 0.533333, 0.12549, 1 )
 gunscale = 4
-gunstretch = false
 head_height = 40
 cull_on = true
 shading = false
@@ -313,6 +312,7 @@ shape = SubResource( 3 )
 [node name="3Dcar Testarossa" parent="hi" instance=ExtResource( 9 )]
 position = Vector2( 0, -726 )
 script = ExtResource( 14 )
+kill = true
 
 [node name="Node2D" type="Node2D" parent="hi/3Dcar Testarossa"]
 scale = Vector2( 1, 0.278 )
@@ -362,6 +362,7 @@ cast_to = Vector2( -18, 0 )
 [node name="3Dcar FordA" parent="hi" instance=ExtResource( 11 )]
 position = Vector2( 0, -348 )
 script = ExtResource( 14 )
+kill = true
 
 [node name="Label4" type="Label" parent="hi/3Dcar FordA"]
 margin_left = -23.0
@@ -417,6 +418,7 @@ cast_to = Vector2( -17, 0 )
 
 [node name="3Dcar Kombi" parent="hi" instance=ExtResource( 12 )]
 script = ExtResource( 14 )
+kill = true
 
 [node name="Label7" type="Label" parent="hi/3Dcar Kombi"]
 margin_left = -23.0
@@ -496,6 +498,7 @@ position = Vector2( 202, -1093 )
 
 [node name="xtra" type="Node2D" parent="."]
 script = ExtResource( 7 )
+kill = true
 
 [node name="sector" type="StaticBody2D" parent="xtra"]
 position = Vector2( -82, 20 )

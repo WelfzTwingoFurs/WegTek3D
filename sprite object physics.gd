@@ -9,9 +9,11 @@ export var hframes = 10
 export var rotations = 8
 export(float) var darkness = 1
 export(bool) var dynamic_darkness = false
-export(bool) var dontscale = false
+export(bool) var dontScale = false
 export(bool) var dontZ = false
 export(bool) var dontMove = false
+export(bool) var dontCollideSprite = false
+export(bool) var dontCollideWall = false
 
 func _ready():
 	if $CollisionShape2D.position != Vector2(0,0):
@@ -87,36 +89,36 @@ var compareZ = INF
 
 func collide():
 	for n in col_sprites.size():
-		#darkness = col_floors[n].darkness
-		
-		#if col_walls[n].flag_2height:
-		var heightsBT = Vector2(-1,1)
-		
-		heightsBT.x = col_sprites[n].positionZ
-		heightsBT.y = col_sprites[n].positionZ+col_sprites[n].head_height
-		
-		
-		
-		#pé < baixo, cabeça > baixo
-		#pé > baixo, cabeça < topo
-		#pé < topo, cabeça > topo
-		if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
-			# pé < topo, cabeça > topo, pé - topo = <head_height
-			if (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
-				positionZ = heightsBT.y
-				#on_floor = true
-				on_body = true
-				body_on = col_sprites[n]
+		if (dontCollideSprite) or (col_sprites[n].dontCollideSprite):
+			add_collision_exception_with(col_sprites[n])
+		else:
+			var heightsBT = Vector2(-1,1)
 			
-			elif (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
-				positionZ = heightsBT.x - head_height -1
-				on_body = false
+			heightsBT.x = col_sprites[n].positionZ
+			heightsBT.y = col_sprites[n].positionZ+col_sprites[n].head_height
+			
+			
+			
+			#pé < baixo, cabeça > baixo
+			#pé > baixo, cabeça < topo
+			#pé < topo, cabeça > topo
+			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
+				# pé < topo, cabeça > topo, pé - topo = <head_height
+				if (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
+					positionZ = heightsBT.y
+					#on_floor = true
+					on_body = true
+					body_on = col_sprites[n]
+				
+				elif (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+					positionZ = heightsBT.x - head_height -1
+					on_body = false
+				
+				else:
+					remove_collision_exception_with(col_sprites[n])
 			
 			else:
-				remove_collision_exception_with(col_sprites[n])
-		
-		else:
-			add_collision_exception_with(col_sprites[n])
+				add_collision_exception_with(col_sprites[n])
 	
 	
 	
@@ -124,6 +126,10 @@ func collide():
 	
 	
 	for n in col_walls.size():
+		if dontCollideWall:
+			add_collision_exception_with(col_walls[n])
+			break
+		
 		if col_walls[n].flag_2height:
 			var heightsBT = Vector2(-1,1)
 			
