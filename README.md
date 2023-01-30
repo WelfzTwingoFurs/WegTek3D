@@ -16,7 +16,7 @@ FEATURES:
 -Polygon world with height;
 -Moving up & down, looking up & down;
 -Field of view (FOV), draw distance options;
--Clipping (vertexes behind camera don't distort);
+-Clipping (vertices behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
 -One-sided polygon option;
 -Whole-polygon culling (if entirely outside screen, don't render);
@@ -32,6 +32,7 @@ FEATURES:
 -Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
+-No shared vertices;
 -Heavy texture distortion up-close;
 -Non-square polygons don't UV-texture properly if clipping;
 -No camera-edge clipping (polys pieces outside screen still render);
