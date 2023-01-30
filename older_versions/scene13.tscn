@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/skybox google.png" type="Texture" id=9]
 [ext_resource path="res://older_versions/plagio.png" type="Texture" id=10]
 [ext_resource path="res://older_versions/queue_free.gd" type="Script" id=11]
-[ext_resource path="res://chaser.gd" type="Script" id=12]
+[ext_resource path="res://objects/chaser.gd" type="Script" id=12]
 
 [sub_resource type="Animation" id=1]
 length = 0.8
@@ -170,7 +170,7 @@ tracks/2/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[sub_resource type="Animation" id=37]
+[sub_resource type="Animation" id=26]
 resource_name = "walk"
 length = 0.4
 loop = true
@@ -191,22 +191,6 @@ tracks/0/keys = {
 radius = 20.0
 
 [sub_resource type="CircleShape2D" id=28]
-
-[sub_resource type="Animation" id=26]
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:anim")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 3, 4 ]
-}
 
 [sub_resource type="Animation" id=29]
 length = 0.4
@@ -320,7 +304,23 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="SegmentShape2D" id=36]
+[sub_resource type="Animation" id=36]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:anim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="SegmentShape2D" id=37]
 a = Vector2( 278, -52 )
 b = Vector2( 178, -52 )
 
@@ -329,7 +329,6 @@ b = Vector2( 178, -52 )
 [node name="player13" parent="." instance=ExtResource( 1 )]
 position = Vector2( 260, -799 )
 collision_mask = 0
-UV_textures = false
 shading = false
 
 [node name="Sky" parent="player13/Background" index="0"]
@@ -358,7 +357,6 @@ position = Vector2( -3, 739 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
-texture = "res://assets/sprites 8rot welfz.png"
 hframes = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BITCH ROTATING/rotation test"]
@@ -994,11 +992,9 @@ position = Vector2( -1, 378 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
-texture = "res://assets/sprites 2rot.png"
 vframes = 2
 hframes = 1
 rotations = 3
-obj_height = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/ROTATE/dd"]
 shape = SubResource( 2 )
@@ -1013,11 +1009,9 @@ position = Vector2( -1, 497 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
-texture = "res://assets/sprites 4rot.png"
 vframes = 3
 hframes = 1
 rotations = 4
-obj_height = 28
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/ROTATE/bin"]
 shape = SubResource( 2 )
@@ -1032,7 +1026,6 @@ position = Vector2( 0, 586 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
-texture = "res://assets/sprites 39rot.png"
 vframes = 20
 hframes = 1
 rotations = 39
@@ -1053,7 +1046,7 @@ script = ExtResource( 12 )
 anim = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/chaser"]
-anims/walk = SubResource( 37 )
+anims/walk = SubResource( 26 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/chaser"]
 collision_layer = 3
@@ -1079,7 +1072,7 @@ darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/spriteman8"]
-anims/_ready = SubResource( 26 )
+anims/_ready = SubResource( 29 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman8"]
@@ -1105,7 +1098,7 @@ darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/spriteman10"]
-anims/_ready = SubResource( 29 )
+anims/_ready = SubResource( 30 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman10"]
@@ -1131,7 +1124,7 @@ darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/spriteman11"]
-anims/_ready = SubResource( 30 )
+anims/_ready = SubResource( 31 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman11"]
@@ -1157,7 +1150,7 @@ darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/spriteman12"]
-anims/_ready = SubResource( 31 )
+anims/_ready = SubResource( 32 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman12"]
@@ -1183,7 +1176,7 @@ darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/spriteman13"]
-anims/_ready = SubResource( 32 )
+anims/_ready = SubResource( 33 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman13"]
@@ -1209,7 +1202,7 @@ darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/spriteman14"]
-anims/_ready = SubResource( 33 )
+anims/_ready = SubResource( 34 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman14"]
@@ -1235,7 +1228,7 @@ darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/spriteman15"]
-anims/_ready = SubResource( 34 )
+anims/_ready = SubResource( 35 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman15"]
@@ -1261,7 +1254,7 @@ darkness = 0.0
 dynamic_darkness = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/spriteman16"]
-anims/_ready = SubResource( 35 )
+anims/_ready = SubResource( 36 )
 script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="Node2D/spriteman16"]
@@ -1286,7 +1279,7 @@ heights = [ 0, 100 ]
 texture_path = "res://textures/busy64.png"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/wall"]
-shape = SubResource( 36 )
+shape = SubResource( 37 )
 
 [node name="sector" type="StaticBody2D" parent="Node2D"]
 position = Vector2( 35, -958 )
