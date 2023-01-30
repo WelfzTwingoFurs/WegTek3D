@@ -4,7 +4,7 @@
 [ext_resource path="res://map-wall.gd" type="Script" id=3]
 [ext_resource path="res://map-floor.gd" type="Script" id=4]
 [ext_resource path="res://AnimationPlayer _ready.gd" type="Script" id=5]
-[ext_resource path="res://make_invisible.gd" type="Script" id=6]
+[ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=6]
 [ext_resource path="res://sprite object physics.gd" type="Script" id=7]
 [ext_resource path="res://map-sector.gd" type="Script" id=8]
 [ext_resource path="res://assets/skybox google.png" type="Texture" id=9]

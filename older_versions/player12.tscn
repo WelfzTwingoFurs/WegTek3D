@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://older_versions/player12.gd" type="Script" id=1]
 [ext_resource path="res://assets/feet2.png" type="Texture" id=2]
 [ext_resource path="res://assets/gradientthin.png" type="Texture" id=5]
 [ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=6]
-[ext_resource path="res://make_invisible.gd" type="Script" id=7]
-[ext_resource path="res://player-console.gd" type="Script" id=8]
+[ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 1.0
@@ -97,20 +96,6 @@ z_index = 4096
 current = true
 __meta__ = {
 "_edit_lock_": true
-}
-
-[node name="Console" type="Label" parent="Camera2D"]
-visible = false
-margin_right = 4096.0
-margin_bottom = 4096.0
-custom_colors/font_color_shadow = Color( 0, 0, 1, 0.498039 )
-custom_constants/line_spacing = 0
-autowrap = true
-clip_text = true
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
 }
 
 [node name="ViewArea" type="Area2D" parent="."]

@@ -4,7 +4,7 @@
 [ext_resource path="res://older_versions/Tile10-Texture.png" type="Texture" id=2]
 [ext_resource path="res://older_versions/Tile10-Col 2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://older_versions/textures150.png" type="Texture" id=4]
-[ext_resource path="res://make_invisible.gd" type="Script" id=5]
+[ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=5]
 [ext_resource path="res://assets/skybox fade.png" type="Texture" id=6]
 [ext_resource path="res://older_versions/Tile10-Texture.tscn" type="PackedScene" id=9]
 
