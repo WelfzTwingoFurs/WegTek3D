@@ -2,27 +2,27 @@
 
 [ext_resource path="res://assets/skybox google.png" type="Texture" id=1]
 [ext_resource path="res://player13.tscn" type="PackedScene" id=2]
-[ext_resource path="res://3Dcar Uno.tscn" type="PackedScene" id=3]
-[ext_resource path="res://3Dcar Uno lod.tscn" type="PackedScene" id=4]
-[ext_resource path="res://3Dhuman.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Shack1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/car Uno.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/car Uno lod.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/char human.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/build Shack1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=7]
-[ext_resource path="res://3Dcar Testarossa2 lod.tscn" type="PackedScene" id=8]
-[ext_resource path="res://3Dcar Testarossa2.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/car Testarossa lod.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/car Testarossa.tscn" type="PackedScene" id=9]
 [ext_resource path="res://map-sector.gd" type="Script" id=10]
-[ext_resource path="res://3Dcar FordA.tscn" type="PackedScene" id=11]
-[ext_resource path="res://3Dcar Kombi.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/car FordA.tscn" type="PackedScene" id=11]
+[ext_resource path="res://objects/car Kombi.tscn" type="PackedScene" id=12]
 [ext_resource path="res://sprite object physics.gd" type="Script" id=13]
 [ext_resource path="res://queue_free.gd" type="Script" id=14]
 [ext_resource path="res://assets/lensflare.png" type="Texture" id=15]
 [ext_resource path="res://assets/driver.png" type="Texture" id=16]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 radius = 5.0
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=3]
 radius = 1.0
 
 [node name="Node2D" type="Node2D"]
@@ -117,10 +117,10 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/driver/ColArea"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/driver"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="hL1" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
@@ -142,7 +142,7 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hL1"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="hL2" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
@@ -165,7 +165,7 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hL2"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="hR1" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
@@ -187,7 +187,7 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hR1"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="hR2" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
@@ -210,7 +210,7 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hR2"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="rL" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
@@ -234,7 +234,7 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/rL"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="rL2" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
@@ -259,7 +259,7 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/rL2"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="rR" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
@@ -283,7 +283,7 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/rR"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="rR2" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
@@ -308,7 +308,7 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/rR2"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="3Dcar Testarossa" parent="hi" instance=ExtResource( 9 )]
 position = Vector2( 0, -726 )
