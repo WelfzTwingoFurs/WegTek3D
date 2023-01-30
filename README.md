@@ -32,7 +32,7 @@ FEATURES:
 -Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
--No slope/diagonal floors/walls collission;
+-No slope/diagonal floors/walls collision;
 -No shared vertices;
 -Heavy texture distortion up-close;
 -Non-square polygons don't UV-texture properly if clipping;
@@ -41,6 +41,7 @@ IMPERFECTIONS:
 -Draw distance innacurate to value depending on Angles FOV;
 -Floor sprite position slightly innacurate to aspect ratio;
 -Sprite X scaling innacurate to FOV;
+-Mouselook innacurate to FOV;
 -No in-game options (all settings in editor).
 
 
