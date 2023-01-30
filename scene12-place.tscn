@@ -13,7 +13,7 @@
 [ext_resource path="res://objects/car FordA.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/car Kombi.tscn" type="PackedScene" id=12]
 [ext_resource path="res://sprite object physics.gd" type="Script" id=13]
-[ext_resource path="res://queue_free.gd" type="Script" id=14]
+[ext_resource path="res://older_versions/queue_free.gd" type="Script" id=14]
 [ext_resource path="res://assets/lensflare.png" type="Texture" id=15]
 [ext_resource path="res://assets/driver.png" type="Texture" id=16]
 
