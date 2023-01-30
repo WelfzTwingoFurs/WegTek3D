@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://player-console2.gd" type="Script" id=1]
-[ext_resource path="res://make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://player13.gd" type="Script" id=3]
 [ext_resource path="res://assets/feet1.png" type="Texture" id=4]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
@@ -160,11 +159,6 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
-angles = 150
-draw_distance = 10000
-skycolor = Color( 0, 0.301961, 0.0509804, 1 )
-speed = 300
-cull_on = false
 
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
@@ -212,7 +206,6 @@ __meta__ = {
 z_index = 4096
 collision_layer = 3
 collision_mask = 0
-script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true

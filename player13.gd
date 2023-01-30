@@ -3,8 +3,8 @@ extends KinematicBody2D
 
 var motion = Vector2()
 
-export var angles = 120
-export var draw_distance = 1000
+export var angles = 150
+export var draw_distance = 10000
 
 onready var change_checker = []
 
@@ -48,7 +48,7 @@ export var rotate_rate = 3.0
 var rotation_angle = 0
 
 
-export var speed = 100
+export var speed = 300
 var input_dir = Vector2(0,0)
 var move_dir = Vector3(0,0,0)
 
@@ -496,7 +496,7 @@ func _physics_process(_delta):
 
 var guninv = 0
 export var gunscale = 3
-export(bool) var gunstretch = true
+export(bool) var gunstretch = false
 export var feet1 = preload("res://assets/feet1.png")
 export var feet2 = preload("res://assets/feet2.png")
 
@@ -554,7 +554,7 @@ func gunstop(alt):
 			$View/Hand.frame = 0
 
 
-const shot = preload("res://projectile.tscn")
+const shot = preload("res://objects/projectile.tscn")
 #const shot = preload("res://chaser.tscn")
 func shoot():
 	var shoot_instance = shot.instance()
