@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var positionZ = 0
 export var anim = 0
 export var scale_extra = Vector2(float(0.5),float(1))
-export var texture = "res://assets/sprites EGA jake.png"
+export(Texture) var texture = preload("res://assets/sprites EGA jake.png")
 export var vframes = 5
 export var hframes = 10
 export var rotations = 8
@@ -11,6 +11,7 @@ export(float) var darkness = 1
 export(bool) var dynamic_darkness = false
 export(bool) var dontscale = false
 export(bool) var dontZ = false
+export(bool) var dontMove = false
 
 func _ready():
 	if $CollisionShape2D.position != Vector2(0,0):
@@ -33,7 +34,10 @@ func _ready():
 var motion = Vector2()
 
 func _physics_process(_delta):
-	motion = move_and_slide(motion, Vector2(0,-1))
+	if dontMove:
+		motion = Vector2(0,0)
+	else:
+		motion = move_and_slide(motion, Vector2(0,-1))
 	
 	if on_body == true:
 		motionZ = 0

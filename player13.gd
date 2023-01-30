@@ -1040,7 +1040,6 @@ func render():
 		var outtasight = 0
 		var min_distance = INF
 		var array_shading = []
-		var exwy = 0
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-to_global($Camera2D.position)).angle()-PI/2)
@@ -1320,9 +1319,10 @@ func render():
 				continue
 			
 			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-head_height+array_sprites[o].spr_height) )
+			if array_sprites[o].dontscale:
+				new_sprite.position.y += array_sprites[o].positionZ
 			
-			
-			new_sprite.texture = load(array_sprites[o].texture)
+			new_sprite.texture = array_sprites[o].texture
 			
 			if cull_on && (abs(new_sprite.position.y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2):
 				continue
