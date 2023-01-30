@@ -32,6 +32,7 @@ FEATURES:
 -Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
+-No slope/diagonal floors/walls collission;
 -No shared vertices;
 -Heavy texture distortion up-close;
 -Non-square polygons don't UV-texture properly if clipping;
