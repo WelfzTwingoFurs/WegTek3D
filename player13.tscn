@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://player-console2.gd" type="Script" id=1]
+[ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://player13.gd" type="Script" id=3]
 [ext_resource path="res://assets/feet1.png" type="Texture" id=4]
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=5]
@@ -206,6 +207,7 @@ __meta__ = {
 z_index = 4096
 collision_layer = 3
 collision_mask = 0
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
