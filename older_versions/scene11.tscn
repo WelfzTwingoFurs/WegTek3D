@@ -11,7 +11,7 @@
 [ext_resource path="res://AnimationPlayer _ready.gd" type="Script" id=9]
 [ext_resource path="res://map-sector.gd" type="Script" id=10]
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=11]
-[ext_resource path="res://sprite object.gd" type="Script" id=12]
+[ext_resource path="res://older_versions/sprite object.gd" type="Script" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "spin"
@@ -2300,7 +2300,6 @@ script = ExtResource( 2 )
 kill = true
 
 [node name="Sprite2" type="Sprite" parent="Node2D/Doom2"]
-visible = false
 modulate = Color( 1, 1, 1, 0.164706 )
 position = Vector2( 0.5, 0 )
 z_index = 4096
