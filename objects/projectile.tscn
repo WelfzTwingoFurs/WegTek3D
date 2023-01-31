@@ -1,22 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://objects/projectile.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites skullcube.png" type="Texture" id=2]
 
-[sub_resource type="GDScript" id=4]
-script/source = "extends \"res://sprite object physics.gd\"
-
-export var speed = 350
-export var turn = 0.1
-
-var distanceXY = Vector2(0,0)
-
-func _ready():
-	$AnimationPlayer.play(\"_ready\")
-	motion = Vector2(speed, 0).rotated(rotation_degrees)
-"
-
 [sub_resource type="Animation" id=1]
-resource_name = "_ready"
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -32,10 +19,11 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 20.0
-
 [sub_resource type="CircleShape2D" id=3]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 1.0
 
 [node name="projectile" type="KinematicBody2D" groups=[
 "rendersprite",
@@ -43,21 +31,19 @@ radius = 20.0
 ]]
 collision_layer = 2
 collision_mask = 2
-script = SubResource( 4 )
+script = ExtResource( 1 )
 scale_extra = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 1
 rotations = 1
-darkness = -10.0
+dontCollideSprite = true
+dontCollideWall = true
 GRAVITY = 0.0
 JUMP = 0.0
-head_height = 30
+spr_height = 1
+head_height = 32
 shadow = false
-shadow_height = 57
-reflect_height = 57
-speed = 250
-turn = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/_ready = SubResource( 1 )
@@ -67,10 +53,10 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]
