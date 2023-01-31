@@ -91,6 +91,8 @@ func collide():
 	for n in col_sprites.size():
 		if (dontCollideSprite) or (col_sprites[n].dontCollideSprite):
 			add_collision_exception_with(col_sprites[n])
+			
+		
 		else:
 			var heightsBT = Vector2(-1,1)
 			
@@ -128,34 +130,35 @@ func collide():
 	for n in col_walls.size():
 		if dontCollideWall:
 			add_collision_exception_with(col_walls[n])
-			break
+			
 		
-		if col_walls[n].flag_2height:
-			var heightsBT = Vector2(-1,1)
-			
-			if col_walls[n].heights[1] < col_walls[n].heights[2]:
-				heightsBT.x = col_walls[n].heights[1]
-				heightsBT.y = col_walls[n].heights[2]
-			else:
-				heightsBT.x = col_walls[n].heights[2]
-				heightsBT.y = col_walls[n].heights[1]
-			
-			#pé < baixo, cabeça > baixo
-			#pé > baixo, cabeça < topo
-			#pé < topo, cabeça > topo
-			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
-				# pé < topo, cabeça > topo, pé - topo = <head_height
-				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
-					positionZ = heightsBT.y
+		else:
+			if col_walls[n].flag_2height:
+				var heightsBT = Vector2(-1,1)
 				
-				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
-					positionZ = heightsBT.x - head_height -1
+				if col_walls[n].heights[1] < col_walls[n].heights[2]:
+					heightsBT.x = col_walls[n].heights[1]
+					heightsBT.y = col_walls[n].heights[2]
+				else:
+					heightsBT.x = col_walls[n].heights[2]
+					heightsBT.y = col_walls[n].heights[1]
+				
+				#pé < baixo, cabeça > baixo
+				#pé > baixo, cabeça < topo
+				#pé < topo, cabeça > topo
+				if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
+					# pé < topo, cabeça > topo, pé - topo = <head_height
+					if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
+						positionZ = heightsBT.y
+					
+					elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+						positionZ = heightsBT.x - head_height -1
+					
+					else:
+						remove_collision_exception_with(col_walls[n])
 				
 				else:
-					remove_collision_exception_with(col_walls[n])
-			
-			else:
-				add_collision_exception_with(col_walls[n])
+					add_collision_exception_with(col_walls[n])
 	
 	
 	
@@ -167,44 +170,48 @@ func collide():
 	for n in col_floors.size():
 		if dynamic_darkness:
 			darkness = col_floors[n].darkness
-			
-	#if col_floors != null:
-		if col_floors[n].flag_1height:
-			
-			#if col_floors[n].heights[0] < positionZ: #shadow position#
-			if col_floors[n].heights[0] - positionZ < compareZ:
-				compareZ = col_floors[n].heights[0] - positionZ
-				shadowZ = col_floors[n].heights[0]
-				reflect = col_floors[n].reflect
-			
-			
-			
-			if col_floors[n].absolute == -1:
-				if positionZ > col_floors[n].heights[0]-1:
-					positionZ = col_floors[n].heights[0] - head_height
-					on_floor = false
-			elif col_floors[n].absolute == 1:
-				if positionZ < col_floors[n].heights[0]-head_height:
-					positionZ = col_floors[n].heights[0]
-					on_floor = true
-			
-			#if on_floor == false:
-			if move_dir.z == -1:
-				if (positionZ < col_floors[n].heights[0]) && (positionZ+head_height > col_floors[n].heights[0]):
-					positionZ = col_floors[n].heights[0]# + head_height
-					
-					on_floor = true 
-					if motionZ < 0:
-						motionZ = 0
+		
+		if dontCollideWall:
+			add_collision_exception_with(col_floors[n])
+		
+		else:
+		#if col_floors != null:
+			if col_floors[n].flag_1height:
+				
+				#if col_floors[n].heights[0] < positionZ: #shadow position#
+				if col_floors[n].heights[0] - positionZ < compareZ:
+					compareZ = col_floors[n].heights[0] - positionZ
+					shadowZ = col_floors[n].heights[0]
+					reflect = col_floors[n].reflect
+				
+				
+				
+				if col_floors[n].absolute == -1:
+					if positionZ > col_floors[n].heights[0]-1:
+						positionZ = col_floors[n].heights[0] - head_height
+						on_floor = false
+				elif col_floors[n].absolute == 1:
+					if positionZ < col_floors[n].heights[0]-head_height:
 						positionZ = col_floors[n].heights[0]
-			
-			if move_dir.z == 1:
-				if (positionZ < col_floors[n].heights[0]) && (positionZ+head_height > col_floors[n].heights[0]):
-					positionZ = col_floors[n].heights[0] - head_height
-					
-					on_floor = false
-					if motionZ > 0:
-						motionZ = 0
+						on_floor = true
+				
+				#if on_floor == false:
+				if move_dir.z == -1:
+					if (positionZ < col_floors[n].heights[0]) && (positionZ+head_height > col_floors[n].heights[0]):
+						positionZ = col_floors[n].heights[0]# + head_height
+						
+						on_floor = true 
+						if motionZ < 0:
+							motionZ = 0
+							positionZ = col_floors[n].heights[0]
+				
+				if move_dir.z == 1:
+					if (positionZ < col_floors[n].heights[0]) && (positionZ+head_height > col_floors[n].heights[0]):
+						positionZ = col_floors[n].heights[0] - head_height
+						
+						on_floor = false
+						if motionZ > 0:
+							motionZ = 0
 		
 
 
