@@ -35,7 +35,7 @@ IMPERFECTIONS:
 -No slope/diagonal floors/walls collision;
 -No shared vertices;
 -Heavy texture distortion up-close;
--Non-square polygons don't UV-texture properly if clipping;
+-Clipping intervenes with UV-texturing;
 -No camera-edge clipping (polys pieces outside screen still render);
 -No screen clipping (polygons pieces behind others still render);
 -Draw distance innacurate to value depending on Angles FOV;
