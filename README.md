@@ -41,7 +41,7 @@ IMPERFECTIONS:
 -Draw distance innacurate to value depending on Angles FOV;
 -Floor sprite position slightly innacurate to aspect ratio;
 -Sprite X scaling innacurate to FOV;
--Mouselook innacurate to FOV;
+-Mouselook entirely innacurate;
 -No in-game options (all settings in editor).
 
 
