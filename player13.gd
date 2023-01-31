@@ -569,7 +569,7 @@ func shoot():
 	#shoot_instance.speed = 350 -shoot_instance.motionZ
 	#shoot_instance.speed = -(lookingZ/($PolyContainer.scale.y*10))*2
 	#print(lookingZ/($PolyContainer.scale.y*10))
-	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*118#*59
+	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*117#*59
 	shoot_instance.speed = 700#350# -shoot_instance.motionZ
 	
 	shoot_instance.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
@@ -676,113 +676,7 @@ func collide():
 			col_proccess(n,0)
 		
 		else: #sometimes we gotta process a fuckin slope
-			#position
-			var p1 = position
-			#position ahead (motion.angle)
-			var p2 = position + Vector2(0,99999).rotated(rad_overflow(motion.angle()-PI/2))
-			var new_position
-			var new_height
-			
-			for m in col_floors[n].points.size():
-				var p3 = col_floors[n].points[m]
-				var p4 = col_floors[n].points[(m+1) % col_floors[n].points.size()]
-				
-				#if Input.is_action_just_pressed("bug_console"):
-				if intersect(p1,p2,p3,p4):
-					new_position = new_position(p1,p2,p3,p4,(p1.x - p2.x)*(p3.y - p4.y) - (p1.y - p2.y)*(p3.x - p4.x))
-					
-					var height1 = col_floors[n].heights[m]
-					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
-					
-					new_height = (sqrt(pow((p4.x - new_position.x), 2) + pow((p4.y - new_position.y), 2))/sqrt(pow((p4.x - p3.x), 2) + pow((p4.y - p3.y), 2)))*(height1-height2) + height2
-					continue
-					
-			
-			p2 = position + Vector2(0,99999).rotated(rad_overflow(motion.angle()+PI/2))
-			var new_position2
-			var new_height2
-			
-			for m in col_floors[n].points.size():
-				var p3 = col_floors[n].points[m]
-				var p4 = col_floors[n].points[(m+1) % col_floors[n].points.size()]
-				
-				#if Input.is_action_just_pressed("bug_console"):
-				if intersect(p1,p2,p3,p4):
-					new_position2 = new_position(p1,p2,p3,p4,(p1.x - p2.x)*(p3.y - p4.y) - (p1.y - p2.y)*(p3.x - p4.x))
-					
-					var height1 = col_floors[n].heights[m]
-					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
-					
-					new_height2 = (sqrt(pow((p4.x - new_position2.x), 2) + pow((p4.y - new_position2.y), 2))/sqrt(pow((p4.x - p3.x), 2) + pow((p4.y - p3.y), 2)))*(height1-height2) + height2
-					continue
-			
-#			if (new_height != null) && (new_height2 != null):
-#				var distanceN1N2 = pow(sqrt(pow(new_position2.x-new_position.x,2) +pow(new_position2.y-new_position.y,2)),2)
-#				var distanceN1P  = pow(sqrt(pow(new_position.x-position.x,2) +pow(new_position.y-position.y,2)),2)
-#
-#				if new_height > new_height2: positionZ = (distanceN1P / distanceN1N2) * new_height2
-#				else: positionZ = (distanceN1P / distanceN1N2) * new_height
-			
-			
-			if (new_height2 != null) && (new_height != null) && (new_position.x - new_position2.x != 0):
-				on_floor = true
-				
-				#(A.x - B.x) / (B.x - C.x) = (A.y - B.y) / (B.y - C.y) = (A.z - B.z) / (B.z - C.z)
-				#(new_position2.x - position.x) / (position.x - new_position.x) = (new_position2.y - position.y) / (position.y - new_position.y) = (new_height2 - positionZ) / (positionZ - new_height)
-				
-				var A = Vector3(new_position2.x, new_position2.y, new_height2)
-				var B = Vector3(position.x, position.y, 0)
-				var C = Vector3(new_position.x, new_position.y, new_height)
-				
-				if new_height < new_height2:
-					B.z = (A.x*C.z + B.x*A.z - B.x*C.z - C.z*A.z) / (A.x - C.x)
-					print(OS.get_system_time_msecs(),": .",new_height," < ..",new_height2)
-					if (B.z > new_height2) or (B.z < new_height):
-						print("          NOT:     =",B.z)
-					#	positionZ = randi() % 10
-						positionZ = between(B.z,new_height,new_height2)
-						continue
-				elif new_height > new_height2:
-					B.z = (C.x*A.z + B.x*C.z - B.x*A.z - A.z*C.z) / (C.x - A.x)
-					print(OS.get_system_time_msecs(),": .",new_height," > ..",new_height2)
-					if (B.z > new_height) or (B.z < new_height2):
-						print("          NOT:     =",B.z)
-					#	positionZ = randi() % 10
-						positionZ = between(B.z,new_height,new_height2)
-						continue
-				else:
-					B.z = new_height
-				
-				print("          ok?:     =",B.z)
-				positionZ = B.z
-				
-				
-				
-
-func between(x,y,z):
-	#while x > max(y,z):
-		#x -= max(y,z)
-		#x -= range(y,z).size()
-	#	x = min(y,z) + (x-range(y,z).size())
-#
-	#while x < min(y,z):
-		#x += min(y,z)
-		#x += range(y,z).size()
-	#	x = max(y,z) #- (x-range(y,z).size())
-	
-	if x > max(y,z):
-		x = max(y,z)
-	
-	if x < min(y,z):
-		x = min(y,z)
-	
-	return x
-
-func ccw(A,B,C):
-	return (C.y-A.y) * (B.x-A.x) > (B.y-A.y) * (C.x-A.x)
-
-func intersect(A,B,C,D):
-	return ccw(A,C,D) != ccw(B,C,D) and ccw(A,B,C) != ccw(A,B,D)
+			pass
 
 
 
@@ -1218,7 +1112,7 @@ func render():
 				
 				
 				
-				if abs(outtasight) > array_polygon.size()-1:
+				if cull_on && (abs(outtasight) > array_polygon.size()-1):
 					new_poly.queue_free()
 					break
 					#continue
