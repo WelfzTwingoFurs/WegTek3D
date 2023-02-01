@@ -33,7 +33,6 @@ skycolor = Color( 1, 0.533333, 0.12549, 1 )
 gunscale = 4
 head_height = 40
 cull_on = true
-shading = false
 map_draw = 6
 
 [node name="Sky" parent="player13/Background" index="0"]
@@ -121,94 +120,52 @@ shape = SubResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/driver"]
 shape = SubResource( 2 )
 
-[node name="hL1" type="KinematicBody2D" parent="hi/UNO" groups=[
-"rendersprite",
-]]
-position = Vector2( -198, -1050 )
-collision_layer = 2
-collision_mask = 2
-script = ExtResource( 13 )
-positionZ = 11
-scale_extra = Vector2( 1, 1 )
-texture = ExtResource( 15 )
-vframes = 2
-hframes = 1
-rotations = 3
-dontMove = true
-GRAVITY = 0.0
-JUMP = 0.0
-head_height = 1
-shadow = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hL1"]
-shape = SubResource( 3 )
-
-[node name="hL2" type="KinematicBody2D" parent="hi/UNO" groups=[
+[node name="hL" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
 ]]
 position = Vector2( -25, -1032 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 13 )
-positionZ = 17
-scale_extra = Vector2( 1, 1 )
-texture = ExtResource( 15 )
-vframes = 2
-hframes = 1
-rotations = 3
-dontscale = true
-dontMove = true
-GRAVITY = 0.0
-JUMP = 0.0
-head_height = 1
-shadow = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hL2"]
-shape = SubResource( 3 )
-
-[node name="hR1" type="KinematicBody2D" parent="hi/UNO" groups=[
-"rendersprite",
-]]
-position = Vector2( -148, -1050 )
-collision_layer = 2
-collision_mask = 2
-script = ExtResource( 13 )
 positionZ = 11
 scale_extra = Vector2( 1, 1 )
 texture = ExtResource( 15 )
-vframes = 2
+vframes = 3
 hframes = 1
-rotations = 3
+rotations = 4
+darkness = -10.0
 dontMove = true
 GRAVITY = 0.0
 JUMP = 0.0
+spr_height = 9
 head_height = 1
 shadow = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hR1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hL"]
 shape = SubResource( 3 )
 
-[node name="hR2" type="KinematicBody2D" parent="hi/UNO" groups=[
+[node name="hR" type="KinematicBody2D" parent="hi/UNO" groups=[
 "rendersprite",
 ]]
 position = Vector2( 25, -1032 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 13 )
-positionZ = 17
+positionZ = 11
 scale_extra = Vector2( 1, 1 )
 texture = ExtResource( 15 )
-vframes = 2
+vframes = 3
 hframes = 1
-rotations = 3
-dontscale = true
+rotations = 4
+darkness = -10.0
 dontMove = true
 GRAVITY = 0.0
 JUMP = 0.0
+spr_height = 9
 head_height = 1
 shadow = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hR2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/hR"]
 shape = SubResource( 3 )
 
 [node name="rL" type="KinematicBody2D" parent="hi/UNO" groups=[
@@ -220,12 +177,12 @@ rotation = 3.14159
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 13 )
-positionZ = 11
+positionZ = 20
 scale_extra = Vector2( 1, 1 )
 texture = ExtResource( 15 )
-vframes = 2
+vframes = 3
 hframes = 1
-rotations = 3
+rotations = 4
 dontMove = true
 GRAVITY = 0.0
 JUMP = 0.0
@@ -233,31 +190,6 @@ head_height = 1
 shadow = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/rL"]
-shape = SubResource( 3 )
-
-[node name="rL2" type="KinematicBody2D" parent="hi/UNO" groups=[
-"rendersprite",
-]]
-modulate = Color( 1, 0, 0, 0.427451 )
-position = Vector2( -25, -1165 )
-rotation = 3.14159
-collision_layer = 2
-collision_mask = 2
-script = ExtResource( 13 )
-positionZ = 11
-scale_extra = Vector2( 1, 1 )
-texture = ExtResource( 15 )
-vframes = 2
-hframes = 1
-rotations = 3
-dontscale = true
-dontMove = true
-GRAVITY = 0.0
-JUMP = 0.0
-head_height = 1
-shadow = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/rL2"]
 shape = SubResource( 3 )
 
 [node name="rR" type="KinematicBody2D" parent="hi/UNO" groups=[
@@ -269,12 +201,12 @@ rotation = 3.14159
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 13 )
-positionZ = 11
+positionZ = 20
 scale_extra = Vector2( 1, 1 )
 texture = ExtResource( 15 )
-vframes = 2
+vframes = 3
 hframes = 1
-rotations = 3
+rotations = 4
 dontMove = true
 GRAVITY = 0.0
 JUMP = 0.0
@@ -284,35 +216,9 @@ shadow = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/rR"]
 shape = SubResource( 3 )
 
-[node name="rR2" type="KinematicBody2D" parent="hi/UNO" groups=[
-"rendersprite",
-]]
-modulate = Color( 1, 0, 0, 0.427451 )
-position = Vector2( 25, -1165 )
-rotation = 3.14159
-collision_layer = 2
-collision_mask = 2
-script = ExtResource( 13 )
-positionZ = 11
-scale_extra = Vector2( 1, 1 )
-texture = ExtResource( 15 )
-vframes = 2
-hframes = 1
-rotations = 3
-dontscale = true
-dontMove = true
-GRAVITY = 0.0
-JUMP = 0.0
-head_height = 1
-shadow = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hi/UNO/rR2"]
-shape = SubResource( 3 )
-
 [node name="3Dcar Testarossa" parent="hi" instance=ExtResource( 9 )]
 position = Vector2( 0, -726 )
 script = ExtResource( 14 )
-kill = true
 
 [node name="Node2D" type="Node2D" parent="hi/3Dcar Testarossa"]
 scale = Vector2( 1, 0.278 )
@@ -362,7 +268,6 @@ cast_to = Vector2( -18, 0 )
 [node name="3Dcar FordA" parent="hi" instance=ExtResource( 11 )]
 position = Vector2( 0, -348 )
 script = ExtResource( 14 )
-kill = true
 
 [node name="Label4" type="Label" parent="hi/3Dcar FordA"]
 margin_left = -23.0
@@ -418,7 +323,6 @@ cast_to = Vector2( -17, 0 )
 
 [node name="3Dcar Kombi" parent="hi" instance=ExtResource( 12 )]
 script = ExtResource( 14 )
-kill = true
 
 [node name="Label7" type="Label" parent="hi/3Dcar Kombi"]
 margin_left = -23.0
@@ -474,7 +378,6 @@ cast_to = Vector2( -17, 0 )
 
 [node name="lo" type="Node2D" parent="."]
 script = ExtResource( 7 )
-kill = true
 
 [node name="3Dcar Testarossa lod" parent="lo" instance=ExtResource( 8 )]
 position = Vector2( 202, -726 )
@@ -498,7 +401,6 @@ position = Vector2( 202, -1093 )
 
 [node name="xtra" type="Node2D" parent="."]
 script = ExtResource( 7 )
-kill = true
 
 [node name="sector" type="StaticBody2D" parent="xtra"]
 position = Vector2( -82, 20 )
