@@ -9,7 +9,7 @@ export var hframes = 10
 export var rotations = 8
 export(float) var darkness = 1
 export(bool) var dynamic_darkness = false
-export(bool) var dontScale = false
+export var dontScale = 0
 export(bool) var dontZ = false
 export(bool) var dontMove = false
 export(bool) var dontCollideSprite = false
@@ -41,21 +41,23 @@ func _physics_process(_delta):
 	else:
 		motion = move_and_slide(motion, Vector2(0,-1))
 	
-	if on_body == true:
-		motionZ = 0
-		positionZ = body_on.positionZ + body_on.head_height
-		if col_sprites.size() == 0:
-			on_body = false
-	
-	if on_floor == false:
-		if (col_floors.size() == 0 && positionZ <= Worldconfig.player.min_Z):
-			on_floor = true
+	if !dontCollideSprite:
+		if on_body == true:
 			motionZ = 0
+			positionZ = body_on.positionZ + body_on.head_height
+			if col_sprites.size() == 0:
+				on_body = false
+	
+	if !dontCollideWall:
+		if on_floor == false:
+			if (col_floors.size() == 0 && positionZ <= Worldconfig.player.min_Z):
+				on_floor = true
+				motionZ = 0
+			else:
+				motionZ -= GRAVITY
+			
 		else:
-			motionZ -= GRAVITY
-		
-	else:
-		motionZ = 0
+			motionZ = 0
 	
 	positionZ += motionZ
 	
@@ -255,7 +257,7 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 			col_floors.erase(body)
 			compareZ = INF
 			
-			if (col_floors.size() == 0):
+			if (col_floors.size() == 0) && (!dontCollideWall):
 				if (positionZ <= Worldconfig.player.min_Z): positionZ = Worldconfig.player.min_Z
 				shadowZ = Worldconfig.player.min_Z
 			
