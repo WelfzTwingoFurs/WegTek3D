@@ -677,18 +677,18 @@ func collide():
 				Vector3(position.x,position.y,0), 
 				Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
 				Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
-				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2]),n)
+				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2]))
 
 
 
-func slope(v0,v1,v2,v3,n):
+func slope(v0,v1,v2,v3):
 	var normal = (v2 - v1).cross(v3 - v1).normalized()
 	var dir = Vector3(0.0, 0.0, 1.0)
-	var r = v0 + dir * ((v1.project(normal).length()) - v0.dot(normal)) / dir.dot(normal)
+	var r = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
 	
-	#positionZ = r.z
-	positionZ = slope_overflow(r.z, col_floors[n].heights.min(), col_floors[n].heights.max())
+	positionZ = r.z
 	on_floor = true
+
 
 func slope_overflow(N, minn, maxx):
 	while N > maxx:

@@ -358,13 +358,13 @@ map_draw = 6
 [node name="kill3" type="Node2D" parent="."]
 script = ExtResource( 11 )
 
-[node name="Node2D" type="Node2D" parent="kill3"]
+[node name="tri trys" type="Node2D" parent="kill3"]
 
-[node name="triangle1-0-0" type="StaticBody2D" parent="kill3/Node2D" groups=[
+[node name="triangle1-0-0" type="StaticBody2D" parent="kill3/tri trys" groups=[
 "floor",
 "render",
 ]]
-modulate = Color( 0, 0.976471, 1, 1 )
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -2212, -3226 )
 scale = Vector2( 5, 5 )
 script = ExtResource( 3 )
@@ -376,10 +376,10 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D/triangle1-0-0"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys/triangle1-0-0"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle0-1-0" type="StaticBody2D" parent="kill3/Node2D" groups=[
+[node name="triangle0-1-0" type="StaticBody2D" parent="kill3/tri trys" groups=[
 "floor",
 "render",
 ]]
@@ -395,10 +395,10 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D/triangle0-1-0"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys/triangle0-1-0"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle0-0-1" type="StaticBody2D" parent="kill3/Node2D" groups=[
+[node name="triangle0-0-1" type="StaticBody2D" parent="kill3/tri trys" groups=[
 "floor",
 "render",
 ]]
@@ -414,17 +414,17 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D/triangle0-0-1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys/triangle0-0-1"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="Node2D2" type="Node2D" parent="kill3"]
+[node name="tri trys2" type="Node2D" parent="kill3"]
 position = Vector2( -309, 7 )
 
-[node name="triangle2-1-0" type="StaticBody2D" parent="kill3/Node2D2" groups=[
+[node name="triangle2-1-0" type="StaticBody2D" parent="kill3/tri trys2" groups=[
 "floor",
 "render",
 ]]
-modulate = Color( 0, 1, 0.807843, 1 )
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -3098, -3273 )
 scale = Vector2( 5, 5 )
 script = ExtResource( 3 )
@@ -436,15 +436,15 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D2/triangle2-1-0"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys2/triangle2-1-0"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle0-2-1" type="StaticBody2D" parent="kill3/Node2D2" groups=[
+[node name="triangle0-2-1" type="StaticBody2D" parent="kill3/tri trys2" groups=[
 "floor",
 "render",
 ]]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( -3084, -2623 )
+modulate = Color( 0, 1, 1, 1 )
+position = Vector2( -3078, -2623 )
 scale = Vector2( 5, 5 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -455,14 +455,14 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D2/triangle0-2-1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys2/triangle0-2-1"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle1-0-2" type="StaticBody2D" parent="kill3/Node2D2" groups=[
+[node name="triangle1-0-2" type="StaticBody2D" parent="kill3/tri trys2" groups=[
 "floor",
 "render",
 ]]
-modulate = Color( 0, 1, 0.807843, 1 )
+modulate = Color( 0.498039, 0, 0, 1 )
 position = Vector2( -3033, -1978 )
 scale = Vector2( 5, 5 )
 script = ExtResource( 3 )
@@ -474,13 +474,13 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D2/triangle1-0-2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys2/triangle1-0-2"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="Node2D3" type="Node2D" parent="kill3"]
+[node name="tri trys3" type="Node2D" parent="kill3"]
 position = Vector2( -1527, -44 )
 
-[node name="triangle2-1-0" type="StaticBody2D" parent="kill3/Node2D3" groups=[
+[node name="triangle2-1-0" type="StaticBody2D" parent="kill3/tri trys3" groups=[
 "floor",
 "render",
 ]]
@@ -496,14 +496,14 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D3/triangle2-1-0"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys3/triangle2-1-0"]
 polygon = PoolVector2Array( 100, 100, 0, 100, 0, 0 )
 
-[node name="triangle0-2-1" type="StaticBody2D" parent="kill3/Node2D3" groups=[
+[node name="triangle0-2-1" type="StaticBody2D" parent="kill3/tri trys3" groups=[
 "floor",
 "render",
 ]]
-modulate = Color( 1, 0, 0, 1 )
+modulate = Color( 0, 1, 0.807843, 1 )
 position = Vector2( -3084, -2623 )
 scale = Vector2( 5, 5 )
 script = ExtResource( 3 )
@@ -515,14 +515,14 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D3/triangle0-2-1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys3/triangle0-2-1"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle1-0-2" type="StaticBody2D" parent="kill3/Node2D3" groups=[
+[node name="triangle1-0-2" type="StaticBody2D" parent="kill3/tri trys3" groups=[
 "floor",
 "render",
 ]]
-modulate = Color( 100, 100, 100, 1 )
+modulate = Color( 0, 1, 1, 1 )
 position = Vector2( -3033, -1978 )
 scale = Vector2( 5, 5 )
 script = ExtResource( 3 )
@@ -534,7 +534,7 @@ texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D3/triangle1-0-2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/tri trys3/triangle1-0-2"]
 polygon = PoolVector2Array( 0, 100, 0, 0, 100, 100 )
 
 [node name="dontdo0" type="KinematicBody2D" parent="kill3" groups=[
@@ -790,7 +790,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="base2" type="StaticBody2D" parent="kill3" groups=[
+[node name="Node2D" type="Node2D" parent="kill3"]
+position = Vector2( 2070, 58 )
+script = ExtResource( 11 )
+kill = true
+
+[node name="base2" type="StaticBody2D" parent="kill3/Node2D" groups=[
 "floor",
 "render",
 ]]
@@ -803,10 +808,10 @@ texture_path = "res://textures/solid1.png"
 absolute = 1
 darkness = 4.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/base2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D/base2"]
 polygon = PoolVector2Array( 506, -1593, 508, -524, -538, -551, -541, -1571.5 )
 
-[node name="0 -100" type="StaticBody2D" parent="kill3" groups=[
+[node name="0 -100" type="StaticBody2D" parent="kill3/Node2D" groups=[
 "floor",
 "render",
 ]]
@@ -819,23 +824,24 @@ texture_path = "res://textures/stretchtest.png"
 bug_label = true
 darkness = -2.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/0 -100"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D/0 -100"]
 polygon = PoolVector2Array( 300, -600, 300, -500, 400, -500, 400, -600 )
 
-[node name="0 -100 scaled" type="StaticBody2D" parent="kill3" groups=[
+[node name="0 -100 scaled" type="StaticBody2D" parent="kill3/Node2D" groups=[
 "floor",
 "render",
 ]]
 modulate = Color( 0.780392, 1, 0, 1 )
 position = Vector2( -977, -7107 )
-scale = Vector2( -5, -5 )
+rotation = 3.14159
+scale = Vector2( 5, 5 )
 script = ExtResource( 3 )
 heights = [ 0.0, 0.0, -100.0, -100.0 ]
 texture_path = "res://textures/stretchtest.png"
 bug_label = true
 darkness = -2.0
 
-[node name="Label" type="Label" parent="kill3/0 -100 scaled"]
+[node name="Label" type="Label" parent="kill3/Node2D/0 -100 scaled"]
 margin_left = 328.5
 margin_top = -557.5
 margin_right = 368.5
@@ -845,26 +851,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/0 -100 scaled"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D/0 -100 scaled"]
 polygon = PoolVector2Array( 300, -600, 300, -500, 400, -500, 400, -600 )
 
-[node name="sideways" type="StaticBody2D" parent="kill3" groups=[
+[node name="sideways" type="StaticBody2D" parent="kill3/Node2D" groups=[
 "floor",
 "render",
 ]]
 modulate = Color( 0.780392, 1, 0, 1 )
 position = Vector2( -131, -2196 )
-scale = Vector2( -5, 5 )
+rotation = 3.14159
+scale = Vector2( 5, -5 )
 script = ExtResource( 3 )
 heights = [ 0.0, 0.0, -100.0, -100.0 ]
 texture_path = "res://textures/stretchtest.png"
 bug_label = true
 darkness = -2.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/sideways"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D/sideways"]
 polygon = PoolVector2Array( 400, -600, 300, -600, 300, -500, 400, -500 )
 
-[node name="-100 500" type="StaticBody2D" parent="kill3" groups=[
+[node name="-100 500" type="StaticBody2D" parent="kill3/Node2D" groups=[
 "floor",
 "render",
 ]]
@@ -877,7 +884,7 @@ texture_path = "res://textures/stretchtest.png"
 bug_label = true
 darkness = -2.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/-100 500"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/Node2D/-100 500"]
 polygon = PoolVector2Array( 0, -808.5, 0, -500, 500, -500, 500, -810.5 )
 
 [node name="projectile" parent="kill3" instance=ExtResource( 13 )]
