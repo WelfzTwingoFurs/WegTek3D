@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://map-floor-animated.gd" type="Script" id=1]
+[ext_resource path="res://objects/wheels.gd" type="Script" id=2]
+[ext_resource path="res://objects/Dynamic test.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[node name="Dynamic test" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="base" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 10.0, 10.0, 10.0, 10.0 ]
+textures_on = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="base"]
+polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
+
+[node name="base2" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 30.0, 30.0, 30.0 ]
+textures_on = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="base2"]
+polygon = PoolVector2Array( 10, 0, 0, 10, -10, 0 )
+
+[node name="wheelTL" type="KinematicBody2D" parent="." groups=[
+"rendersprite",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( -40, -40 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+dontMove = true
+dontCollideSprite = true
+head_height = 20
+
+[node name="ColArea" type="Area2D" parent="wheelTL"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheelTL/ColArea"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheelTL"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
+[node name="wheelTR" type="KinematicBody2D" parent="." groups=[
+"rendersprite",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( 40, -40 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+dontMove = true
+dontCollideSprite = true
+head_height = 20
+
+[node name="ColArea" type="Area2D" parent="wheelTR"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheelTR/ColArea"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheelTR"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
+[node name="wheelBL" type="KinematicBody2D" parent="." groups=[
+"rendersprite",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( -40, 40 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+dontMove = true
+dontCollideSprite = true
+head_height = 20
+
+[node name="ColArea" type="Area2D" parent="wheelBL"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheelBL/ColArea"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheelBL"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
+[node name="wheelBR" type="KinematicBody2D" parent="." groups=[
+"rendersprite",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( 40, 40 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+dontMove = true
+dontCollideSprite = true
+head_height = 20
+
+[node name="ColArea" type="Area2D" parent="wheelBR"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheelBR/ColArea"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheelBR"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
+[connection signal="body_shape_entered" from="wheelTL/ColArea" to="wheelTL" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="wheelTL/ColArea" to="wheelTL" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="wheelTR/ColArea" to="wheelTR" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="wheelTR/ColArea" to="wheelTR" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="wheelBL/ColArea" to="wheelBL" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="wheelBL/ColArea" to="wheelBL" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="wheelBR/ColArea" to="wheelBR" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="wheelBR/ColArea" to="wheelBR" method="_on_ColArea_body_shape_exited"]
