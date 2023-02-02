@@ -68,6 +68,9 @@ func _physics_process(_delta):
 	elif motionZ == 0:
 		move_dir.z = 0
 	
+	move_dir.x = sign(motion.x)
+	move_dir.y = sign(motion.y)
+	
 	collide()
 
 export(float) var GRAVITY = 0.5
@@ -214,7 +217,56 @@ func collide():
 						on_floor = false
 						if motionZ > 0:
 							motionZ = 0
-		
+			
+			
+			
+			
+			
+			else:
+				var new_height = slope(
+					Vector3(position.x,position.y,0), 
+					Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
+					Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
+					Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])) #+ margin
+				
+				shadowZ = new_height
+				
+				if (col_floors[n].absolute == 1) && (positionZ < new_height):
+					positionZ = new_height
+					on_floor = true
+				elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height):
+					positionZ = new_height - head_height
+					on_floor = false
+					continue
+				
+				
+				if move_dir:
+					if new_height > positionZ + head_height:
+						if new_height < positionZ + head_height + motionZ:
+							motionZ = -motionZ
+					
+					elif new_height > positionZ:
+						positionZ = new_height
+						on_floor = true
+					else:
+						if on_floor:
+							positionZ = new_height
+						else:
+							on_floor = false
+
+
+
+
+func slope(v0,v1,v2,v3):
+	var normal = (v2 - v1).cross(v3 - v1).normalized()
+	var dir = Vector3(0.0, 0.0, 1.0)
+	var r = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
+	
+	return r.z
+	
+
+
+
 
 
 func jump():

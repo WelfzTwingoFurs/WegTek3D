@@ -699,24 +699,26 @@ func collide():
 				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])) #+ margin
 			
 			
-			#if (col_floors[n].absolute == 1) && (positionZ < new_height):
-			#	positionZ = new_height
-			#	on_floor = true
+			if (col_floors[n].absolute == 1) && (positionZ < new_height):
+				positionZ = new_height
+				on_floor = true
+			elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height):
+				positionZ = new_height - head_height
+				on_floor = false
+				continue
 			
 			
 			if move_dir:
 				if new_height > positionZ + head_height:
-					pass
+					if new_height < positionZ + head_height + motionZ:
+						motionZ = -motionZ
 				
 				elif new_height > positionZ:
 					positionZ = new_height
 					on_floor = true
 				else:
-					on_floor = false
-			
-			#if move_dir.z == 1:
-			#	if (new_height < positionZ + head_height) && (new_height > positionZ):
-			#		motionZ = -motionZ
+					if on_floor:
+						positionZ = new_height
 
 
 
