@@ -11,6 +11,7 @@ export(String) var texture_path = "res://textures/gradsimple64.png"
 export var texture_repeat = Vector2(1,1) #Be sure to set texture_repeat at Import!
 export(float) var texture_rotate = 0
 export var texture_offset = Vector2(0,0)
+var extraZ = []
 
 var points = []
 var was_zoom
@@ -60,6 +61,7 @@ func _ready():
 	
 	for n in $CollisionPolygon2D.polygon.size():
 		points.append(to_global($CollisionPolygon2D.polygon[n]))
+		extraZ.append(0)
 		
 		if bug_label:
 			var new_label = Label.new()

@@ -525,8 +525,10 @@ func gunswitch():
 
 func gunfire(alt):
 	if guninv == 1:
-		$View/AniPlayHand.play("hand-fire")
-		if Input.is_action_just_pressed("ply_wpn_fire1"): shoot()
+		
+		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"):
+			shoot()
+			$View/AniPlayHand.play("hand-fire")
 	
 	elif guninv == 2:
 		if $View/Hand.frame == 5 or $View/Hand.frame == 4 or $View/Hand.frame == 3 or $View/Hand.frame == 2: darkness = 1
@@ -543,7 +545,7 @@ func gunfire(alt):
 				$View/AniPlayHand.play("flame-no")
 				
 	elif guninv == 3:
-		if Input.is_action_just_pressed("ply_wpn_fire1"): shoot()
+		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"): shoot()
 
 func gunstop(alt):
 	if guninv == 2:
@@ -565,6 +567,10 @@ func shoot():
 		shoot_instance.speed = 700#350
 		
 		shoot_instance.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
+		if Input.is_action_just_pressed("ply_wpn_fire2"):
+			shoot_instance.dontCollideWall = false
+			#shoot_instance.dontCollideSprite = false
+		
 		get_parent().add_child(shoot_instance)
 	
 	elif guninv == 3:
@@ -1016,17 +1022,17 @@ func render():
 					var limitMinus = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle-PI/2))
 					var point1 = array_walls[n].points[m]
 					var point2
-					var height1 = array_walls[n].heights[m]
+					var height1 = array_walls[n].heights[m] + array_walls[n].extraZ[m]
 					var height2
 					
 					
 					if (neighbours_pm.x == 0) && (neighbours_pm.y == 1):#minus neighbour bad, go with plus neighbour
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ]
+						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].extraZ.size() ]
 					
 					else:#plus/both neighbour bad, go with minus neighbour
 						point2 = array_walls[n].points[ (m-1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m-1) % array_walls[n].heights.size() ]
+						height2 = array_walls[n].heights[ (m-1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].extraZ.size() ]
 						
 					
 					
@@ -1041,11 +1047,11 @@ func render():
 							C = float(1)/array_walls[n].darkness
 						else:
 							C = 1
-					else: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
+					else: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 					
 					
 					if height1 == height2:#No diagonals, we're done
-						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 						
 					else:#Need to make diagonal clipping
 						var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
@@ -1060,17 +1066,17 @@ func render():
 					
 					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ]
+						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].extraZ.size() ]
 						
 						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 						
 						xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
 						lineH = (OS.window_size.y / not_zero(sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
-						if shading: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
+						if shading: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 						
 						if height1 == height2:#No diagonals
-							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 						
 						else:#diagonal
 							var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
@@ -1091,14 +1097,14 @@ func render():
 				var xkusu = (array_walls[n].points[m]-to_global($Camera2D.position)).angle() - midscreen
 				var lineH = (OS.window_size.y / not_zero(sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu)
 				
-				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 				var C
 				if !shading:
 					if array_walls[n].darkness != 0:
 						C = float(1)/array_walls[n].darkness
 					else:
 						C = 1
-				else: C = -(    sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
+				else: C = -(    sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 				array_shading.append(Color(C,C,C))
 			
 			if cull_on && array_polygon.size() > 0:
@@ -1118,7 +1124,7 @@ func render():
 			
 			
 			
-			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
+			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))
 			
 			
 			if -(distance*(float(8192)/draw_distance)-4096) < min_distance:
@@ -1150,7 +1156,6 @@ func render():
 					new_poly.modulate = Color(0,0,0)
 					new_poly.modulate.a8 = array_walls[n].modulate.a8/2
 					new_poly.z_index = -4095
-					
 				else:
 					new_poly.z_index = min_distance
 					
@@ -1217,7 +1222,7 @@ func render():
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
 			var lineH = (OS.window_size.y /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) 
 			
-			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
 			
 			if sign(array_sprites[o].scale_extra.x) != sign(new_sprite.scale.x):
 				continue
