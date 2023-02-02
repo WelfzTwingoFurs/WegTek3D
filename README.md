@@ -80,7 +80,8 @@ SPECIAL THANKS:
 -3DSage's 'Make Your Own Raycaster' series on YouTube;
 -Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial';
 -javidx9's 'Code-It-Yourself! 3D Graphics Engine' series on YouTube;
--Nic from college, for helping understand the polygon processing logic.
+-Nic from college, for helping understand the polygon processing logic;
+-Theraot from Stackoverflow, for making the slope collision for me.
 
 8)
 ```
