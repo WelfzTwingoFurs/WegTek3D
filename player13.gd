@@ -543,7 +543,7 @@ func gunfire(alt):
 				$View/AniPlayHand.play("flame-no")
 				
 	elif guninv == 3:
-		pass
+		if Input.is_action_just_pressed("ply_wpn_fire1"): shoot()
 
 func gunstop(alt):
 	if guninv == 2:
@@ -557,23 +557,20 @@ func gunstop(alt):
 const shot = preload("res://objects/projectile.tscn")
 #const shot = preload("res://chaser.tscn")
 func shoot():
-	var shoot_instance = shot.instance()
-	shoot_instance.rotation_degrees = rotation_angle + PI/2
-	#shoot_instance.positionZ = positionZ + head_height# +((lookingZ/($PolyContainer.scale.y*10))*230)
-	shoot_instance.positionZ = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*450)
-	#	if lookingZ > -$PolyContainer.scale.y*10:
-	#		OS.window_size.y*lookingZ
-	#shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*2
-	#shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))/350
-	#shoot_instance.speed = 350# -shoot_instance.motionZ
-	#shoot_instance.speed = 350 -shoot_instance.motionZ
-	#shoot_instance.speed = -(lookingZ/($PolyContainer.scale.y*10))*2
-	#print(lookingZ/($PolyContainer.scale.y*10))
-	shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*117#*59
-	shoot_instance.speed = 700#350# -shoot_instance.motionZ
+	if guninv == 1:
+		var shoot_instance = shot.instance()
+		shoot_instance.rotation_degrees = rotation_angle + PI/2
+		shoot_instance.positionZ = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*450)
+		shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*117#*59
+		shoot_instance.speed = 700#350
+		
+		shoot_instance.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
+		get_parent().add_child(shoot_instance)
 	
-	shoot_instance.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
-	get_parent().add_child(shoot_instance)
+	elif guninv == 3:
+		var uno = load("res://objects/car Uno.tscn").instance()
+		uno.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
+		get_parent().add_child(uno)
 
 
 
@@ -1003,7 +1000,11 @@ func render():
 					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					
 					var C = 1
-					if !shading: C = float(1)/array_walls[n].darkness
+					if !shading:
+						if array_walls[n].darkness != 0:
+							C = float(1)/array_walls[n].darkness
+						else:
+							C = 1
 					else: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 					
 					
@@ -1056,7 +1057,11 @@ func render():
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 				var C
-				if !shading: C = float(1)/array_walls[n].darkness
+				if !shading:
+					if array_walls[n].darkness != 0:
+						C = float(1)/array_walls[n].darkness
+					else:
+						C = 1
 				else: C = -(    sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 				array_shading.append(Color(C,C,C))
 			
@@ -1194,7 +1199,8 @@ func render():
 			
 			new_sprite.vframes = array_sprites[o].vframes
 			new_sprite.hframes = array_sprites[o].hframes
-			new_sprite.offset.y = -new_sprite.texture.get_height()/10
+			if !array_sprites[o].dontScale:
+				new_sprite.offset.y = -new_sprite.texture.get_height()/10
 			
 			
 			
