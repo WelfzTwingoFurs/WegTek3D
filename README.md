@@ -22,7 +22,7 @@ FEATURES:
 -Whole-polygon culling (if entirely outside screen, don't render);
 -Sprite objects with any amount of rotation frames;
 -Sprite ground-shadows;
--Flat floor & wall collision;
+-Floor & flat wall collision;
 -Mouse & keyboard control;
 -Screen resizable to any size without stretching;
 -Viewbobbing, viewrolling options;
@@ -32,7 +32,7 @@ FEATURES:
 -Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
--No slope/diagonal floors/walls collision;
+-No diagonal wall collision;
 -No shared vertices;
 -Heavy texture distortion up-close;
 -Clipping intervenes with UV-texturing;
