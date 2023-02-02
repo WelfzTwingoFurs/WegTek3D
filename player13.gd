@@ -692,11 +692,31 @@ func collide():
 #
 #			print(margin)
 			
-			positionZ = slope(
+			var new_height = slope(
 				Vector3(position.x,position.y,0), 
 				Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
 				Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
 				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])) #+ margin
+			
+			
+			#if (col_floors[n].absolute == 1) && (positionZ < new_height):
+			#	positionZ = new_height
+			#	on_floor = true
+			
+			
+			if move_dir:
+				if new_height > positionZ + head_height:
+					pass
+				
+				elif new_height > positionZ:
+					positionZ = new_height
+					on_floor = true
+				else:
+					on_floor = false
+			
+			#if move_dir.z == 1:
+			#	if (new_height < positionZ + head_height) && (new_height > positionZ):
+			#		motionZ = -motionZ
 
 
 
@@ -1011,7 +1031,7 @@ func render():
 					var new_position = new_position(point1, point2, limitPlus, limitMinus, (point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 					#func new_position(point1,point2,height1,height2,limitPlus,limitMinus,det):
 					var xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
-					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
+					var lineH = (OS.window_size.y / not_zero(sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					
 					var C = 1
 					if !shading:
@@ -1043,7 +1063,7 @@ func render():
 						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 						
 						xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
-						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
+						lineH = (OS.window_size.y / not_zero(sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
 						if shading: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 						
@@ -1193,7 +1213,7 @@ func render():
 			var new_sprite = $PolyContainer/Sprite0.duplicate()
 			
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
-			var lineH = (OS.window_size.y /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) 
+			var lineH = (OS.window_size.y /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) 
 			
 			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
 			
