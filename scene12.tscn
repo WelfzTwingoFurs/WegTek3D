@@ -344,10 +344,9 @@ tracks/0/keys = {
 }
 
 [node name="scene12" type="Node2D"]
-position = Vector2( -121, 96 )
 
 [node name="player13" parent="." instance=ExtResource( 1 )]
-position = Vector2( -2522, -2572 )
+position = Vector2( 293, -35 )
 draw_distance = 5000
 sky_stretch = Vector2( 1, 2 )
 min_Z = -150
@@ -355,10 +354,76 @@ gunscale = 4
 head_height = 40
 map_draw = 6
 
+[node name="fuck" type="StaticBody2D" parent="." groups=[
+"floor",
+"render",
+]]
+modulate = Color( 1, 0, 0, 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 1000.0, 0.0, 0.0 ]
+texture_path = "res://textures/EGA/0-8.png"
+bug_label = true
+darkness = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="fuck"]
+polygon = PoolVector2Array( 0, 0, 1000, 1000, 1000, 0 )
+
 [node name="kill3" type="Node2D" parent="."]
 script = ExtResource( 11 )
 
+[node name="base" type="StaticBody2D" parent="kill3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.427451, 0.0941176, 0.439216, 1 )
+position = Vector2( -2311, -2283 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 0.0 ]
+onesided = 1
+texture_path = "res://textures/solid1.png"
+absolute = 1
+darkness = 2.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/base"]
+polygon = PoolVector2Array( 503.5, -533, 506, 479.5, -1239.5, 484, -1239.5, -535 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="base2" type="StaticBody2D" parent="kill3" groups=[
+"floor",
+"render",
+]]
+modulate = Color( 0.427451, 0.0941176, 0.439216, 1 )
+position = Vector2( 2169, 549 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 0.0 ]
+onesided = 1
+texture_path = "res://textures/solid1.png"
+absolute = 1
+darkness = 2.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/base2"]
+polygon = PoolVector2Array( -259, -525, -283, 451, -1315, 515, -1235, -581 )
+__meta__ = {
+"_edit_group_": true
+}
+
 [node name="tri trys" type="Node2D" parent="kill3"]
+
+[node name="Position2D" type="Position2D" parent="kill3/tri trys"]
+position = Vector2( -1712, -2726 )
 
 [node name="triangle1-0-0" type="StaticBody2D" parent="kill3/tri trys" groups=[
 "floor",
@@ -462,7 +527,7 @@ polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 "floor",
 "render",
 ]]
-modulate = Color( 0.498039, 0, 0, 1 )
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -3033, -1978 )
 scale = Vector2( 5, 5 )
 script = ExtResource( 3 )
@@ -552,6 +617,7 @@ vframes = 1
 hframes = 1
 rotations = 1
 darkness = 0.0
+dontScale = 3
 dontMove = true
 dontCollideSprite = true
 dontCollideWall = true
@@ -767,29 +833,6 @@ texture = ExtResource( 17 )
 head_height = 60
 turn = 0.01
 
-[node name="base" type="StaticBody2D" parent="kill3" groups=[
-"floor",
-"render",
-]]
-modulate = Color( 0.262745, 0.117647, 0.266667, 1 )
-position = Vector2( -2311, -2283 )
-scale = Vector2( 2, 2 )
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
-heights = [ 0.0 ]
-texture_path = "res://textures/solid1.png"
-absolute = 1
-darkness = 4.0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="kill3/base"]
-polygon = PoolVector2Array( 503.5, -533, 506, 479.5, -1239.5, 484, -1239.5, -535 )
-__meta__ = {
-"_edit_group_": true
-}
-
 [node name="Node2D" type="Node2D" parent="kill3"]
 position = Vector2( 2070, 58 )
 script = ExtResource( 11 )
@@ -892,6 +935,7 @@ position = Vector2( -2832, -2738 )
 speed = 0
 
 [node name="kill" type="Node2D" parent="."]
+position = Vector2( -3868, 166 )
 script = ExtResource( 11 )
 kill = true
 
@@ -2793,7 +2837,7 @@ polygon = PoolVector2Array( 80, 300, 1500, 300, 1500, 2200, 80, 2200 )
 [node name="egg montain2" parent="kill2/toparea" instance=ExtResource( 16 )]
 
 [node name="Doom2 deoptmized" type="Node2D" parent="."]
-position = Vector2( 188, 2343 )
+position = Vector2( -3680, 2509 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 11 )
 kill = true
@@ -3426,7 +3470,7 @@ textures = [ "a", "", "a", "a", "a", "a", "a", "a", "", "" ]
 polygon = PoolVector2Array( 267, 80.5, 272, 80.5, 279, 75.5, 279, 68, 274, 63.5, 267, 63.5, 262, 68.5, 262, 75.5 )
 
 [node name="lodsa walls" type="Node2D" parent="."]
-position = Vector2( -9.15527e-05, 0 )
+position = Vector2( -3868, 166 )
 scale = Vector2( 0.999999, 0.999999 )
 script = ExtResource( 11 )
 kill = true

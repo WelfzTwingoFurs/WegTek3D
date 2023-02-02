@@ -673,17 +673,31 @@ func collide():
 			col_proccess(n,col_floors[n].heights[0])
 		
 		else: #sometimes we gotta process a fuckin slope
-#			col_proccess(n, slope(
-#				Vector3(position.x,position.y,0), 
+			##position at minimum height, that height = margem de erro, margem - player's new height = correct height
+#			var margin = col_floors[n].heights.find(col_floors[n].heights.min())
+#			var globalpos = col_floors[n].points[margin]# * col_floors[n].scale
+#
+#			print("index:",margin,"     height:", col_floors[n].heights[margin],"    position:",globalpos)
+#
+#			if Input.is_action_pressed("mouse1"):
+#				position = globalpos
+#
+#
+#			margin = slope(
+#				Vector3(globalpos.x, globalpos.y, 0), 
 #				Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
 #				Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
-#				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])))
+#				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2]))
+#
+#
+#			print(margin)
 			
 			positionZ = slope(
 				Vector3(position.x,position.y,0), 
 				Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
 				Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
-				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2]))
+				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])) #+ margin
+
 
 
 
@@ -1053,7 +1067,7 @@ func render():
 			else:#all vertices in front of camera
 				#shading = true
 				var xkusu = (array_walls[n].points[m]-to_global($Camera2D.position)).angle() - midscreen
-				var lineH = (OS.window_size.y / sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2)))   /  cos(xkusu)
+				var lineH = (OS.window_size.y / not_zero(sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu)
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
 				var C
@@ -1276,6 +1290,8 @@ func render():
 						shadow.modulate.a8 = new_sprite.modulate.a8/1.5 - array_sprites[o].positionZ-array_sprites[o].shadowZ
 						shadow.scale.y *= -0.25
 					
+					if shadow.position.y < 0:
+						shadow.queue_free()
 					
 					new_container.add_child(shadow)
 				
@@ -1580,12 +1596,15 @@ func array_looping(to_check, array_size):
 	
 	return(to_check)
 
+func not_zero(n):
+	if n == 0:
+		return 1
+	else:
+		return n
 
 
 
-
-
-func slope_overflow(N, minn, maxx):
+func overflow(N, minn, maxx):
 	while N > maxx:
 		N -= range(minn, maxx).size()
 	
