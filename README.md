@@ -1,6 +1,6 @@
 <i>NOTE: Low color & FPS recording (game runs Real Smoof™!)</i><br>
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="ello there dude">
-<img src="https://github.com/WelfzTwingoFurs/godot-raycaster-like/blob/main/readmegif.gif?raw=true">
+<img src="https://github.com/WelfzTwingoFurs/godot-raycaster-like/blob/main/readmegif.gif?raw=true" height=350>
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="whats good chap">
 <hr>
 
