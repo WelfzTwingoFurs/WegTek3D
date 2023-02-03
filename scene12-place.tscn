@@ -30,31 +30,17 @@ radius = 1.0
 
 [node name="Node2D" type="Node2D"]
 
-[node name="player13" parent="." instance=ExtResource( 2 )]
+[node name="Node2D" type="Node2D" parent="."]
 position = Vector2( -113, 237 )
-angles = 120
-draw_distance = 1000
-skycolor = Color( 1, 0.533333, 0.12549, 1 )
-gunscale = 4
-head_height = 40
-cull_on = true
-shading = false
-map_draw = 6
+script = ExtResource( 7 )
 
-[node name="Sky" parent="player13/Background" index="0"]
-modulate = Color( 0.266667, 0.196078, 0.333333, 1 )
-texture = ExtResource( 1 )
+[node name="Dynamic test" parent="Node2D" instance=ExtResource( 17 )]
+position = Vector2( 508, -200 )
 
-[node name="Floor" parent="player13/Background" index="1"]
-modulate = Color( 0.133333, 0.176471, 0.411765, 1 )
+[node name="tri trys" type="Node2D" parent="Node2D"]
+position = Vector2( 3566, 3235 )
 
-[node name="Dynamic test" parent="." instance=ExtResource( 17 )]
-position = Vector2( 395, 37 )
-
-[node name="tri trys" type="Node2D" parent="."]
-position = Vector2( 3453, 3472 )
-
-[node name="triangle1-0-0" type="StaticBody2D" parent="tri trys" groups=[
+[node name="triangle1-0-0" type="StaticBody2D" parent="Node2D/tri trys" groups=[
 "floor",
 "render",
 ]]
@@ -72,10 +58,10 @@ bug_label = true
 darkness = 0.0
 reflect = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tri trys/triangle1-0-0"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys/triangle1-0-0"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle1-0-1" type="StaticBody2D" parent="tri trys" groups=[
+[node name="triangle1-0-1" type="StaticBody2D" parent="Node2D/tri trys" groups=[
 "floor",
 "render",
 ]]
@@ -93,10 +79,10 @@ bug_label = true
 darkness = 0.0
 reflect = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tri trys/triangle1-0-1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys/triangle1-0-1"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle1-0-2" type="StaticBody2D" parent="tri trys" groups=[
+[node name="triangle1-0-2" type="StaticBody2D" parent="Node2D/tri trys" groups=[
 "floor",
 "render",
 ]]
@@ -114,10 +100,10 @@ bug_label = true
 darkness = 0.0
 reflect = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tri trys/triangle1-0-2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys/triangle1-0-2"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle1-0-3" type="StaticBody2D" parent="tri trys" groups=[
+[node name="triangle1-0-3" type="StaticBody2D" parent="Node2D/tri trys" groups=[
 "floor",
 "render",
 ]]
@@ -135,13 +121,13 @@ bug_label = true
 darkness = 0.0
 reflect = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tri trys/triangle1-0-3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys/triangle1-0-3"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="tri trys2" type="Node2D" parent="."]
-position = Vector2( 2348, 3492 )
+[node name="tri trys2" type="Node2D" parent="Node2D"]
+position = Vector2( 2461, 3255 )
 
-[node name="triangle1-0-0" type="StaticBody2D" parent="tri trys2" groups=[
+[node name="triangle1-0-0" type="StaticBody2D" parent="Node2D/tri trys2" groups=[
 "floor",
 "render",
 ]]
@@ -159,10 +145,10 @@ bug_label = true
 darkness = 0.0
 reflect = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tri trys2/triangle1-0-0"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys2/triangle1-0-0"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle1-0-1" type="StaticBody2D" parent="tri trys2" groups=[
+[node name="triangle1-0-1" type="StaticBody2D" parent="Node2D/tri trys2" groups=[
 "floor",
 "render",
 ]]
@@ -180,10 +166,10 @@ bug_label = true
 darkness = 0.0
 reflect = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tri trys2/triangle1-0-1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys2/triangle1-0-1"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle1-0-2" type="StaticBody2D" parent="tri trys2" groups=[
+[node name="triangle1-0-2" type="StaticBody2D" parent="Node2D/tri trys2" groups=[
 "floor",
 "render",
 ]]
@@ -201,10 +187,10 @@ bug_label = true
 darkness = 0.0
 reflect = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tri trys2/triangle1-0-2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys2/triangle1-0-2"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
 
-[node name="triangle1-0-3" type="StaticBody2D" parent="tri trys2" groups=[
+[node name="triangle1-0-3" type="StaticBody2D" parent="Node2D/tri trys2" groups=[
 "floor",
 "render",
 ]]
@@ -222,8 +208,25 @@ bug_label = true
 darkness = 0.0
 reflect = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tri trys2/triangle1-0-3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys2/triangle1-0-3"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
+
+[node name="player13" parent="." instance=ExtResource( 2 )]
+position = Vector2( -113, 237 )
+skycolor = Color( 1, 0.466667, 0, 1 )
+speed = 200
+gunscale = 2
+head_height = 40
+cull_on = true
+shading = false
+map_draw = 6
+
+[node name="Sky" parent="player13/Background" index="0"]
+modulate = Color( 0.266667, 0.196078, 0.333333, 1 )
+texture = ExtResource( 1 )
+
+[node name="Floor" parent="player13/Background" index="1"]
+modulate = Color( 0.133333, 0.176471, 0.411765, 1 )
 
 [node name="hi" type="Node2D" parent="."]
 script = ExtResource( 7 )
@@ -254,6 +257,7 @@ cast_to = Vector2( 9, 0 )
 position = Vector2( 202, -1093 )
 
 [node name="UNO" type="Node2D" parent="hi"]
+script = ExtResource( 7 )
 
 [node name="3Dcar Uno" parent="hi/UNO" instance=ExtResource( 3 )]
 
@@ -588,6 +592,7 @@ cast_to = Vector2( -17, 0 )
 
 [node name="3Dcar Escort" parent="hi" instance=ExtResource( 19 )]
 position = Vector2( 0, 235 )
+script = ExtResource( 7 )
 
 [node name="xtra" type="Node2D" parent="."]
 script = ExtResource( 7 )
