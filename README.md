@@ -1,6 +1,6 @@
-<i>NOTE: Old version; Low color & FPS recording (game runs Real Smoof™!)</i><br>
+<i>NOTE: Low color & FPS recording (game runs Real Smoof™!)</i><br>
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="ello there dude">
-<img src="https://media3.giphy.com/media/cFraOiAcTPDb14GSZJ/giphy.gif" height=350px title="making gifs that work in github IS REALLY ANNOYING">
+<img src="https://github.com/WelfzTwingoFurs/godot-raycaster-like/blob/main/readmegif.gif?raw=true">
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="whats good chap">
 <hr>
 
