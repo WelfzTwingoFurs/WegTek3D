@@ -16,7 +16,7 @@
 [ext_resource path="res://older_versions/queue_free.gd" type="Script" id=14]
 [ext_resource path="res://assets/lensflare.png" type="Texture" id=15]
 [ext_resource path="res://assets/driver.png" type="Texture" id=16]
-[ext_resource path="res://objects/Dynamic test.tscn" type="PackedScene" id=17]
+[ext_resource path="res://objects/Dynamic test2.tscn" type="PackedScene" id=17]
 [ext_resource path="res://map-floor-animated.gd" type="Script" id=18]
 [ext_resource path="res://objects/car Escort.tscn" type="PackedScene" id=19]
 
@@ -34,9 +34,6 @@ radius = 1.0
 position = Vector2( -113, 237 )
 script = ExtResource( 7 )
 
-[node name="Dynamic test" parent="Node2D" instance=ExtResource( 17 )]
-position = Vector2( 508, -200 )
-
 [node name="tri trys" type="Node2D" parent="Node2D"]
 position = Vector2( 3566, 3235 )
 
@@ -52,7 +49,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 100.0, 0.0, 0.0 ]
-textures_on = false
 texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
@@ -73,7 +69,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 100.0, 0.0, 0.0 ]
-textures_on = false
 texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
@@ -94,7 +89,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 100.0, 0.0, 0.0 ]
-textures_on = false
 texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
@@ -115,7 +109,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 100.0, 0.0, 0.0 ]
-textures_on = false
 texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
@@ -139,7 +132,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 0.0, 0.0, 500.0 ]
-textures_on = false
 texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
@@ -160,7 +152,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 0.0, 0.0, 500.0 ]
-textures_on = false
 texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
@@ -181,7 +172,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 0.0, 0.0, 500.0 ]
-textures_on = false
 texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
@@ -202,7 +192,6 @@ __meta__ = {
 "_edit_group_": true
 }
 heights = [ 0.0, 0.0, 500.0 ]
-textures_on = false
 texture_path = "res://textures/EGA/0-8.png"
 bug_label = true
 darkness = 0.0
@@ -210,6 +199,9 @@ reflect = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/tri trys2/triangle1-0-3"]
 polygon = PoolVector2Array( 0, 0, 100, 100, 100, 0 )
+
+[node name="Dynamic test2" parent="Node2D" instance=ExtResource( 17 )]
+position = Vector2( 345, -117 )
 
 [node name="player13" parent="." instance=ExtResource( 2 )]
 position = Vector2( -113, 237 )
@@ -229,7 +221,9 @@ texture = ExtResource( 1 )
 modulate = Color( 0.133333, 0.176471, 0.411765, 1 )
 
 [node name="hi" type="Node2D" parent="."]
+position = Vector2( -1282, 0 )
 script = ExtResource( 7 )
+kill = true
 
 [node name="lo" type="Node2D" parent="hi"]
 position = Vector2( 0, -342 )
