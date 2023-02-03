@@ -20,15 +20,16 @@ FEATURES:
 -Z_Index sorting (Polygons in front of polygons behind);
 -One-sided polygon option;
 -Whole-polygon culling (if entirely outside screen, don't render);
--Sprite objects with any amount of rotation frames;
--Sprite ground-shadows;
+-Sprite objects with height, & any amount of rotation frames;
+-Sprite ground-shadows/reflections;
 -Floor & flat wall collision;
 -Mouse & keyboard control;
+-Convenient map-making options;
 -Screen resizable to any size without stretching;
 -Viewbobbing, viewrolling options;
 -Scrolling sky sprite & stretch options, floor sprite;
 -Animated weapon & feet sprites;
--All changeable textures to any size;
+-All changeable textures support any resolution;
 -Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
