@@ -358,7 +358,7 @@ map_draw = 6
 script = ExtResource( 11 )
 
 [node name="Dynamic test" parent="kill3" instance=ExtResource( 14 )]
-position = Vector2( -754, -1746 )
+position = Vector2( -2075, -2057 )
 
 [node name="base" type="StaticBody2D" parent="kill3" groups=[
 "floor",
