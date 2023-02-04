@@ -5,7 +5,7 @@ export (Array, float) var heights = []
 #for heights.size(): points = heights
 
 export var onesided = 0
-export(bool) var textures_on = true
+export(bool) var textures_on = false
 export(bool) var UV_textures = false
 export(String) var texture_path = "res://textures/gradsimple64.png"
 export var texture_repeat = Vector2(1,1) #Be sure to set texture_repeat at Import!

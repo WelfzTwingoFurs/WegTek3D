@@ -262,7 +262,7 @@ func _physics_process(_delta):
 	
 	########################################################################################################################################################
 	if sky_stretch.y > 0:
-		$Background/Sky.rect_position.y = ($Background/Sky.rect_size.y/OS.window_size.y) +vbob_max +posZlookZ + abs(vbob)
+		$Background/Sky.rect_position.y = ($Background/Sky.rect_size.y/not_zero(OS.window_size.y)) +vbob_max +posZlookZ + abs(vbob)
 		
 	else:
 		$Background/Sky.rect_position.y = -$Background/Sky.rect_size.y +vbob_max +posZlookZ + abs(vbob)
@@ -280,7 +280,7 @@ func _physics_process(_delta):
 	
 	
 	########################################################################################################################################################
-	if sign($Background/Floor.position.y/OS.window_size.y) < 0:         #Floor doesn't stretch until looking down limit, it ends around when Sky is out of view
+	if sign($Background/Floor.position.y/not_zero(OS.window_size.y)) < 0:         #Floor doesn't stretch until looking down limit, it ends around when Sky is out of view
 		VisualServer.set_default_clear_color($Background/Floor.modulate)# and changes the skycolor to its color when that limit is reached
 	else:
 		VisualServer.set_default_clear_color(skycolor)
@@ -1028,11 +1028,11 @@ func render():
 					
 					if (neighbours_pm.x == 0) && (neighbours_pm.y == 1):#minus neighbour bad, go with plus neighbour
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].extraZ.size() ]
+						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].heights.size() ]
 					
 					else:#plus/both neighbour bad, go with minus neighbour
 						point2 = array_walls[n].points[ (m-1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m-1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].extraZ.size() ]
+						height2 = array_walls[n].heights[ (m-1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m-1) % array_walls[n].heights.size() ]
 						
 					
 					
@@ -1066,7 +1066,7 @@ func render():
 					
 					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].extraZ.size() ]
+						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].heights.size() ]
 						
 						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 						
@@ -1222,7 +1222,10 @@ func render():
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
 			var lineH = (OS.window_size.y /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) 
 			
-			new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
+			#new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
+			new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
+			lineH * array_sprites[o].scale_extra.y)
+			
 			
 			if sign(array_sprites[o].scale_extra.x) != sign(new_sprite.scale.x):
 				continue
@@ -1310,12 +1313,14 @@ func render():
 						shadow.modulate = Color(0,0,0)
 						shadow.modulate.a8 = new_sprite.modulate.a8/2 - abs(array_sprites[o].positionZ-array_sprites[o].shadowZ)/10
 						shadow.scale.y *= 0.125
+						shadow.scale.x *= 1.2
 						#shadow.scale.x *= sin(rotation_angle)
 						#shadow.rotation_degrees = sin(rotation_angle)
 					else:
 						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].reflect_height)# + array_sprites[o].positionZ-array_sprites[o].shadow
 						shadow.modulate.a8 = new_sprite.modulate.a8/1.5 - array_sprites[o].positionZ-array_sprites[o].shadowZ
 						shadow.scale.y *= -0.25
+						shadow.scale.x *= 0.7
 					
 					if shadow.position.y < 0:
 						shadow.queue_free()

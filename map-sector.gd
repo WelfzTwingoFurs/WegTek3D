@@ -38,16 +38,16 @@ func _ready():
 				textures[n] = "res://assets/gradientthin.png"
 	
 	if collide:
-		if heights.size() == 2:
-			if heights[0] > heights [1]:
-				print("Ceiling and floor are inverted, At: ",$CollisionPolygon2D.polygon)
-				queue_free()
-			else:
-				new_wall = load("res://map-wall collide for sector.tscn")
-				new_floor = load("res://map-floor collide for sector.tscn")
-		else:
-			print("Can't collide if we're doing diagonals, At: ",$CollisionPolygon2D.polygon)
-			queue_free()
+		#if heights.size() == 2:
+		#	if heights[0] > heights [1]:
+		#		print("Ceiling and floor are inverted, At: ",$CollisionPolygon2D.polygon)
+		#		queue_free()
+		#	else:
+		new_wall = load("res://map-wall collide for sector.tscn")
+		new_floor = load("res://map-floor collide for sector.tscn")
+		#else:
+		#	print("Can't collide if we're doing diagonals, At: ",$CollisionPolygon2D.polygon)
+		#	queue_free()
 	else:
 		new_wall = load("res://map-wall for sector.tscn")
 		new_floor = load("res://map-floor for sector.tscn")
@@ -174,7 +174,7 @@ func _ready():
 		make_new_floor.UV_textures = UV_textures
 		make_new_floor.darkness = darknesses
 		make_new_floor.reflect = reflect
-		#make_new_floor.onesided = -onesided
+		make_new_floor.onesided = -onesided
 		add_child(make_new_floor)
 	
 	if textures[textures.size()-1] != "":
@@ -189,7 +189,7 @@ func _ready():
 		make_new_ceiling.UV_textures = UV_textures
 		make_new_ceiling.darkness = darknesses
 		make_new_ceiling.reflect = reflect
-		#make_new_ceiling.onesided = onesided
+		make_new_ceiling.onesided = onesided
 		add_child(make_new_ceiling)
 	
 	$CollisionPolygon2D.queue_free()
