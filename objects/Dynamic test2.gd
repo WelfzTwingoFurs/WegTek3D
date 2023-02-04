@@ -1,5 +1,14 @@
 extends Node2D
 
+export var scaleZ = 1
+export var offset = -9
+
+func _ready():
+	for n in get_children():
+		if n.is_in_group("render"):
+			for m in n.heights.size():
+				n.heights[m] *= scaleZ
+
 func _physics_process(_delta):
 	if Input.is_action_pressed("ply2_up"):
 		position += Vector2(0,5).rotated(deg2rad(rotation_degrees))
@@ -34,9 +43,9 @@ func _physics_process(_delta):
 			for m in n.points.size():
 				n.extraZ[m] = theraot(
 					Vector3(to_global(n.points[m]).x, to_global(n.points[m]).y, n.heights[m] + n.extraZ[m]),
-		Vector3(to_global($base.points[0]).x, to_global($base.points[0]).y, $base.heights[0] + $base.extraZ[0] -9),
-		Vector3(to_global($base.points[1]).x, to_global($base.points[1]).y, $base.heights[1] + $base.extraZ[1] -9), 
-		Vector3(average.x, average.y, ((($base.heights[2] + $base.extraZ[2]) + ($base.heights[3] + $base.extraZ[3]))/2 -9) ))#############
+		Vector3(to_global($base.points[0]).x, to_global($base.points[0]).y, $base.heights[0] + $base.extraZ[0] +offset),
+		Vector3(to_global($base.points[1]).x, to_global($base.points[1]).y, $base.heights[1] + $base.extraZ[1] +offset), 
+		Vector3(average.x, average.y, ((($base.heights[2] + $base.extraZ[2]) + ($base.heights[3] + $base.extraZ[3]))/2 +offset) ))#############
 
 
 
