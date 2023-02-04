@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://map-floor-animated.gd" type="Script" id=1]
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=2]
@@ -182,6 +182,18 @@ b = Vector2( -2341.01, -123.04 )
 a = Vector2( -2245.01, -442.04 )
 b = Vector2( -2243.01, -154.04 )
 
+[sub_resource type="SegmentShape2D" id=17]
+a = Vector2( 1585, -661 )
+b = Vector2( -2082.07, -441.086 )
+
+[sub_resource type="SegmentShape2D" id=18]
+a = Vector2( -1089, -501 )
+b = Vector2( -1606, -470 )
+
+[sub_resource type="SegmentShape2D" id=20]
+a = Vector2( -3889, 628 )
+b = Vector2( -2082.07, -441.086 )
+
 [node name="guilhermina" type="Node2D"]
 
 [node name="player13" parent="." instance=ExtResource( 3 )]
@@ -231,34 +243,15 @@ scale = Vector2( 3, 3 )
 scaleZ = 3
 offset = -27
 
-[node name="poste" parent="montenegro/objects" groups=[
+[node name="poste4" parent="montenegro/objects" groups=[
 "sprite",
 ] instance=ExtResource( 9 )]
-position = Vector2( -12306, 10368 )
+position = Vector2( -6562, 9914 )
 scale = Vector2( 100, 100 )
-positionZ = -120
+positionZ = 450
 darkness = 1.0
 dontCollideSprite = false
-spr_height = 141
-
-[node name="poste5" parent="montenegro/objects" groups=[
-"sprite",
-] instance=ExtResource( 9 )]
-position = Vector2( -13962, 11264 )
-scale = Vector2( 100, 100 )
-positionZ = -364
-darkness = 1.0
-dontCollideSprite = false
-spr_height = 141
-
-[node name="poste2" parent="montenegro/objects" groups=[
-"sprite",
-] instance=ExtResource( 9 )]
-position = Vector2( -10519, 10196 )
-scale = Vector2( 100, 100 )
-positionZ = 15
-darkness = 1.0
-dontCollideSprite = false
+GRAVITY = 0.0
 spr_height = 141
 
 [node name="poste3" parent="montenegro/objects" groups=[
@@ -266,46 +259,58 @@ spr_height = 141
 ] instance=ExtResource( 9 )]
 position = Vector2( -8506, 10074 )
 scale = Vector2( 100, 100 )
-positionZ = 153
+positionZ = 314
 darkness = 1.0
 dontCollideSprite = false
+GRAVITY = 0.0
 spr_height = 141
 
-[node name="poste4" parent="montenegro/objects" groups=[
+[node name="poste2" parent="montenegro/objects" groups=[
 "sprite",
 ] instance=ExtResource( 9 )]
-position = Vector2( -6562, 9914 )
+position = Vector2( -10519, 10196 )
 scale = Vector2( 100, 100 )
-positionZ = 285
+positionZ = 173
 darkness = 1.0
 dontCollideSprite = false
+GRAVITY = 0.0
 spr_height = 141
 
-[node name="arvore" parent="montenegro/objects" groups=[
+[node name="poste" parent="montenegro/objects" groups=[
 "sprite",
 ] instance=ExtResource( 9 )]
-position = Vector2( -9038, 8974 )
+position = Vector2( -12306, 10368 )
 scale = Vector2( 100, 100 )
-positionZ = -25
-texture = ExtResource( 12 )
-hframes = 10
+positionZ = 39
 darkness = 1.0
 dontCollideSprite = false
-spr_height = 136
-head_height = 328
+GRAVITY = 0.0
+spr_height = 141
+
+[node name="poste5" parent="montenegro/objects" groups=[
+"sprite",
+] instance=ExtResource( 9 )]
+position = Vector2( -13962, 11264 )
+scale = Vector2( 100, 100 )
+positionZ = -197
+darkness = 1.0
+dontCollideSprite = false
+GRAVITY = 0.0
+spr_height = 141
 
 [node name="arvore2" parent="montenegro/objects" groups=[
 "sprite",
 ] instance=ExtResource( 9 )]
 position = Vector2( -7648, 9028 )
 scale = Vector2( 100, 100 )
-positionZ = 127
+positionZ = 145
 anim = 2
 scale_extra = Vector2( 5, 3 )
 texture = ExtResource( 12 )
 hframes = 10
 darkness = 1.0
 dontCollideSprite = false
+GRAVITY = 0.0
 spr_height = 293
 head_height = 555
 
@@ -314,28 +319,44 @@ head_height = 555
 ] instance=ExtResource( 9 )]
 position = Vector2( -8897, 9062 )
 scale = Vector2( 100, 100 )
-positionZ = -53
+positionZ = 133
 anim = 1
 scale_extra = Vector2( 1.5, 1.5 )
 texture = ExtResource( 12 )
 hframes = 10
 darkness = 1.0
 dontCollideSprite = false
+GRAVITY = 0.0
 spr_height = 112
 head_height = 321
+
+[node name="arvore" parent="montenegro/objects" groups=[
+"sprite",
+] instance=ExtResource( 9 )]
+position = Vector2( -9038, 8974 )
+scale = Vector2( 100, 100 )
+positionZ = 132
+texture = ExtResource( 12 )
+hframes = 10
+darkness = 1.0
+dontCollideSprite = false
+GRAVITY = 0.0
+spr_height = 136
+head_height = 328
 
 [node name="arvore4" parent="montenegro/objects" groups=[
 "sprite",
 ] instance=ExtResource( 9 )]
 position = Vector2( -11091, 8888 )
 scale = Vector2( 100, 100 )
-positionZ = -99
+positionZ = 14
 anim = 3
 scale_extra = Vector2( 2.5, 2.5 )
 texture = ExtResource( 12 )
 hframes = 10
 darkness = 1.0
 dontCollideSprite = false
+GRAVITY = 0.0
 spr_height = 172
 head_height = 328
 
@@ -344,13 +365,14 @@ head_height = 328
 ] instance=ExtResource( 9 )]
 position = Vector2( -13626, 9855 )
 scale = Vector2( 100, 100 )
-positionZ = -451
+positionZ = -236
 anim = 6
 scale_extra = Vector2( 1.5, 1.5 )
 texture = ExtResource( 12 )
 hframes = 10
 darkness = 1.0
 dontCollideSprite = false
+GRAVITY = 0.0
 spr_height = 112
 head_height = 328
 
@@ -1040,6 +1062,119 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="condo" type="StaticBody2D" parent="montenegro/bot" groups=[
+"render",
+]]
+modulate = Color( 0.894118, 1, 0.784314, 1 )
+position = Vector2( -10205, 10920 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 126, -130, 256.0, 500.0 ]
+onesided = -1
+texture_path = "res://textures/chainfence2.png"
+texture_repeat = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="montenegro/bot/condo"]
+shape = SubResource( 17 )
+
+[node name="condoporta" type="StaticBody2D" parent="montenegro/bot" groups=[
+"render",
+]]
+position = Vector2( -10205, 10920 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -60, -96, 204.0, 240.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+texture_repeat = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="montenegro/bot/condoporta"]
+shape = SubResource( 18 )
+
+[node name="condoporta2" type="StaticBody2D" parent="montenegro/bot" groups=[
+"render",
+]]
+position = Vector2( -9504, 10878 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -11, -48, 252.0, 289.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+texture_repeat = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="montenegro/bot/condoporta2"]
+shape = SubResource( 18 )
+
+[node name="condoporta3" type="StaticBody2D" parent="montenegro/bot" groups=[
+"render",
+]]
+position = Vector2( -8651, 10827 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 48, 10, 310.0, 348.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+texture_repeat = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="montenegro/bot/condoporta3"]
+shape = SubResource( 18 )
+
+[node name="condoporta4" type="StaticBody2D" parent="montenegro/bot" groups=[
+"render",
+]]
+position = Vector2( -7880, 10781 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 105, 64, 364.0, 405.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+texture_repeat = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="montenegro/bot/condoporta4"]
+shape = SubResource( 18 )
+
+[node name="casa6" type="StaticBody2D" parent="montenegro/bot"]
+position = Vector2( -8260, 9613 )
+scale = Vector2( 100, 100 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -88, -170.0, -185.0, -108.0, 315.0 ]
+plus1_mode = 1
+onesided = 1
+textures = [ "res://textures/wood32.png", "res://textures/shadow2.png", "", "res://textures/shadow2.png", "res://textures/rocks32.png", "" ]
+colors = [ Color( 0.560784, 0.4, 0.270588, 1 ), Color( 0.596078, 0.584314, 0.419608, 1 ), Color( 0, 0, 0, 1 ), Color( 0.537255, 0.52549, 0.376471, 1 ), Color( 0.403922, 0.403922, 0.403922, 1 ), Color( 0.329412, 0.329412, 0.329412, 1 ) ]
+collide = true
+absolute = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="montenegro/bot/casa6"]
+polygon = PoolVector2Array( 4.87995, 5.34001, -2.69005, 7.45001, -2.42004, 8.42001, 4.87, 6.15 )
+
 [node name="calça2" parent="montenegro/bot" groups=[
 "floor",
 "render",
@@ -1059,6 +1194,25 @@ polygon = PoolVector2Array( 15180.3, -36980, 18540.3, -36960, 39940.4, -55029.9,
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="casa" type="StaticBody2D" parent="montenegro/bot" groups=[
+"render",
+]]
+modulate = Color( 0.894118, 1, 0.784314, 1 )
+position = Vector2( -10205, 10920 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 126, -130, 256.0, 500.0 ]
+onesided = -1
+texture_path = "res://textures/chainfence2.png"
+texture_repeat = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="montenegro/bot/casa"]
+shape = SubResource( 20 )
 
 [node name="calça3" parent="montenegro/bot" groups=[
 "floor",
