@@ -63,6 +63,7 @@ var vroll_strafe_divi = 1 #changes if strafing
 
 
 var posZlookZ = 0
+export var bg_offset = 1
 #Used for sky & floor position according to draw_distance
 
 var lookingZ = 0
@@ -206,7 +207,7 @@ func _physics_process(_delta):
 		lookingZ = ($PolyContainer.scale.y*10) * sign(lookingZ)
 	
 	#posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*lookingZ
-	posZlookZ = ( (OS.window_size.y*(positionZ/draw_distance/10)) * ($PolyContainer.scale.y*10) )  +  OS.window_size.y*lookingZ
+	posZlookZ = ( (OS.window_size.y*(positionZ/not_zero(draw_distance*bg_offset)/10)) * ($PolyContainer.scale.y*10) )  +  OS.window_size.y*lookingZ
 	#Used for sky & floor position according to draw_distance
 	
 	
@@ -586,7 +587,7 @@ func shoot():
 
 ################################################################################
 var motionZ = 0
-var positionZ = 0
+export var positionZ = 0
 #var motionZ = 0
 #const GRAVITY = 1
 
@@ -973,6 +974,7 @@ var rot_minus90
 var midscreen = 0
 
 export(bool) var cull_on = 1
+export(bool) var textures_on = true
 
 func render():
 	if (weakref(new_container).get_ref()):
@@ -1013,7 +1015,7 @@ func render():
 				
 				
 				if (neighbours_pm.x == 1) && (neighbours_pm.y == 1):  #both neighbours bad, delete
-					continue#pass
+					pass
 				
 				
 				
@@ -1162,7 +1164,7 @@ func render():
 				new_poly.modulate = array_walls[n].modulate
 				
 				
-				if array_walls[n].textures_on && (array_walls[n].texture_path != "res://textures/solid1.png"): #Texture mapping
+				if textures_on && array_walls[n].textures_on && (array_walls[n].texture_path != "res://textures/solid1.png"): #Texture mapping
 					new_poly.texture = load(array_walls[n].texture_path)
 					new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
 					#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
@@ -1223,7 +1225,8 @@ func render():
 			var lineH = (OS.window_size.y /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) 
 			
 			#new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
-			new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
+			#new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
+			new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * (180-angles)/1000) * array_sprites[o].scale_extra.x *4,
 			lineH * array_sprites[o].scale_extra.y)
 			
 			

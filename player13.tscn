@@ -154,14 +154,21 @@ tracks/0/keys = {
 }
 
 [node name="player13" type="KinematicBody2D"]
+position = Vector2( -1743, -2021 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
+draw_distance = 5000
 skycolor = Color( 0, 0.301961, 0.0509804, 1 )
+sky_stretch = Vector2( 1, 2 )
+min_Z = -150
+gunscale = 2
+head_height = 40
 cull_on = false
+map_draw = 6
 
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
@@ -230,6 +237,7 @@ __meta__ = {
 }
 
 [node name="Poly0" type="Polygon2D" parent="PolyContainer"]
+z_index = 4096
 texture_scale = Vector2( 6.4, 6.4 )
 __meta__ = {
 "_edit_lock_": true

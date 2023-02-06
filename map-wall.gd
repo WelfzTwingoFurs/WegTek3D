@@ -1,6 +1,6 @@
 extends StaticBody2D
 #Use this script for straight walls, made using the shape SEGMENT.
-export (Array, float) var heights = [1,0]
+export (Array, int) var heights = [1,0]
 #for 2: A-top & B-top ... A-bottom & B-bottom    (square)
 #for 3: A-top .... B .... A-down               (triangle)
 #for 4: A-top .. B-top .. B-bottom .. A-bottom   (square)
