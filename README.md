@@ -30,7 +30,8 @@ FEATURES:
 -Scrolling sky sprite & stretch options, floor sprite;
 -Animated weapon & feet sprites;
 -All changeable textures support any resolution;
--Map using draw_line, 2D & 3D options.
+-Map using draw_line, 2D & 3D options;
+-A WIP car with really basic suspension, collision, and movement.
 
 IMPERFECTIONS:
 -No diagonal wall collision;
@@ -42,7 +43,8 @@ IMPERFECTIONS:
 -Draw distance innacurate to value depending on Angles FOV;
 -Floor-sprite position slightly innacurate to aspect ratio;
 -Mouselook entirely innacurate;
--No in-game options (all settings in editor).
+-No in-game options (all settings in editor);
+-The car is infinitely tall.
 
 
 ###################################################################################
