@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://map-floor-animated.gd" type="Script" id=1]
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://objects/chaser.tscn" type="PackedScene" id=6]
 [ext_resource path="res://objects/dyna4.tscn" type="PackedScene" id=7]
 [ext_resource path="res://map-sector.gd" type="Script" id=8]
+[ext_resource path="res://objects/higfx on off.gd" type="Script" id=9]
 [ext_resource path="res://map-floor.gd" type="Script" id=10]
 [ext_resource path="res://map-wall.gd" type="Script" id=11]
 [ext_resource path="res://objects/arvore.tscn" type="PackedScene" id=12]
@@ -302,6 +303,7 @@ a = Vector2( -2735, -54 )
 b = Vector2( -2889, 40 )
 
 [node name="guilhermina midtown" type="Node2D"]
+script = ExtResource( 9 )
 
 [node name="player14" parent="." instance=ExtResource( 3 )]
 position = Vector2( -10386, 9136 )
@@ -318,7 +320,12 @@ script = ExtResource( 5 )
 scale_extra = Vector2( 0.8, 0.8 )
 
 [node name="dyna4" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( -14027, 11151 )
+scaleZ = 0.1
+
+[node name="dyna5" parent="objects" instance=ExtResource( 7 )]
 position = Vector2( -14035, 10638 )
+scaleZ = 0.1
 
 [node name="metrostreet" type="Node2D" parent="."]
 script = ExtResource( 5 )
@@ -521,7 +528,9 @@ texture_repeat = Vector2( 10, 5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="metrostreet/streetblockR/wall2"]
 shape = SubResource( 7 )
 
-[node name="objects" type="Node2D" parent="metrostreet"]
+[node name="objects" type="Node2D" parent="metrostreet" groups=[
+"higfx",
+]]
 
 [node name="arvore22" parent="metrostreet/objects" instance=ExtResource( 12 )]
 position = Vector2( -17941, 4544 )
@@ -810,7 +819,9 @@ collide = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="metrostreet/top/casayard2"]
 polygon = PoolVector2Array( 0.770004, -2.14, 10.5981, -6.07972, 19.4, -8.91, 27.57, 11.31, 18.7832, 15.4068, 10.48, 19.21 )
 
-[node name="casa" type="StaticBody2D" parent="metrostreet/top"]
+[node name="casa" type="StaticBody2D" parent="metrostreet/top" groups=[
+"higfx",
+]]
 position = Vector2( -11322, -2765 )
 scale = Vector2( 100, 100 )
 script = ExtResource( 8 )
@@ -826,7 +837,9 @@ colors = [ Color( 0.643137, 0.643137, 0.643137, 1 ), Color( 0.768627, 0.768627, 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="metrostreet/top/casa"]
 polygon = PoolVector2Array( 7.97, 0.370001, 16.61, -3.87, 21.36, 6.81, 12.21, 10.54 )
 
-[node name="casa2" type="StaticBody2D" parent="metrostreet/top"]
+[node name="casa2" type="StaticBody2D" parent="metrostreet/top" groups=[
+"higfx",
+]]
 position = Vector2( -13351, -2017 )
 scale = Vector2( 100, 100 )
 script = ExtResource( 8 )
@@ -859,7 +872,9 @@ collide = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="metrostreet/top/casa5yard"]
 polygon = PoolVector2Array( 0.730011, -2.17, -34.61, 12.83, -33.05, 17.51, -26.49, 36.08, -23.32, 34.66, -16.05, 31.34, 10.44, 19.18 )
 
-[node name="casa5" type="StaticBody2D" parent="metrostreet/top"]
+[node name="casa5" type="StaticBody2D" parent="metrostreet/top" groups=[
+"higfx",
+]]
 position = Vector2( -12581, -677 )
 scale = Vector2( 100, 100 )
 script = ExtResource( 8 )
@@ -871,7 +886,6 @@ plus1_mode = 1
 onesided = 1
 textures = [ "", "res://textures/rocks32.png", "res://textures/rocks32.png", "", "", "res://textures/grass32.png" ]
 colors = [ Color( 0.172549, 0.239216, 0.113725, 1 ), Color( 0.215686, 0.313726, 0.129412, 1 ), Color( 0.172549, 0.231373, 0.121569, 1 ), Color( 0, 0, 0, 1 ), Color( 0.4, 0.4, 0.4, 1 ), Color( 0.4, 0.4, 0.4, 1 ) ]
-collide = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="metrostreet/top/casa5"]
 polygon = PoolVector2Array( -38.42, 19.76, -32.9, 17.61, -30.97, 23.09, -36.13, 25.47 )
@@ -926,7 +940,9 @@ collide = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="metrostreet/top/igreja"]
 polygon = PoolVector2Array( -62.86, 14.37, -52.57, 10.27, -48.48, 20.9, -51.58, 22.11, -55.34, 23.44, -59.0379, 24.7419 )
 
-[node name="igreja2" type="StaticBody2D" parent="metrostreet/top"]
+[node name="igreja2" type="StaticBody2D" parent="metrostreet/top" groups=[
+"higfx",
+]]
 position = Vector2( -12581, -677 )
 scale = Vector2( 100, 100 )
 script = ExtResource( 8 )
@@ -1109,6 +1125,7 @@ texture_path = "res://textures/shadow2.png"
 shape = SubResource( 8 )
 
 [node name="casacontinue2" type="StaticBody2D" parent="metrostreet/bot" groups=[
+"higfx",
 "render",
 "wall",
 ]]
@@ -1145,6 +1162,7 @@ colors = [ Color( 0, 0, 0, 1 ), Color( 1, 0.960784, 0, 1 ), Color( 0.756863, 0.7
 polygon = PoolVector2Array( 18.39, 42.43, 21.16, 32.11, 14.92, 35.08 )
 
 [node name="casa2porta" type="StaticBody2D" parent="metrostreet/bot" groups=[
+"higfx",
 "render",
 "wall",
 ]]
@@ -1164,6 +1182,7 @@ texture_path = "res://textures/gate32.png"
 shape = SubResource( 10 )
 
 [node name="casa2teto2" parent="metrostreet/bot" groups=[
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.305882, 0.313726, 0.0470588, 1 )
@@ -1668,6 +1687,7 @@ collide = true
 polygon = PoolVector2Array( 22.89, 0.899994, 22.59, -8.37, 17.5, -8.19 )
 
 [node name="casaporta" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.176471, 0.176471, 0.176471, 1 )
@@ -1687,6 +1707,7 @@ texture_path = "res://textures/gate32.png"
 shape = SubResource( 20 )
 
 [node name="casaporta2" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.176471, 0.176471, 0.176471, 1 )
@@ -1722,6 +1743,7 @@ colors = [ Color( 0.172549, 0, 1, 1 ), Color( 0.521569, 0.447059, 0.266667, 1 ),
 polygon = PoolVector2Array( 22.35, -15.58, 22.59, -8.37, 17.5, -8.19, 17.37, -15.53 )
 
 [node name="casa2teto" parent="downie/left" groups=[
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.886275, 0.372549, 0.0941176, 1 )
@@ -1741,6 +1763,7 @@ __meta__ = {
 }
 
 [node name="casa2porta" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.862745, 0.188235, 0.188235, 1 )
@@ -1799,6 +1822,7 @@ collide = true
 polygon = PoolVector2Array( 22.35, -15.58, 22.01, -25.9, 17.4, -25.85, 17.37, -15.53 )
 
 [node name="casa3porta" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.309804, 0.309804, 0.309804, 1 )
@@ -1821,6 +1845,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 23 )
 
 [node name="casa3porta2" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.843137, 0.843137, 0.843137, 1 )
@@ -1843,6 +1868,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 23 )
 
 [node name="casa3porta3" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.309804, 0.309804, 0.309804, 1 )
@@ -1901,6 +1927,7 @@ jumpover = false
 shape = SubResource( 24 )
 
 [node name="casa4gate" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.737255, 0.737255, 0.737255, 1 )
@@ -1959,6 +1986,7 @@ collide = true
 polygon = PoolVector2Array( 22.52, -34.67, 22.03, -25.35, 20.18, -25.36, 20.38, -34.69 )
 
 [node name="casa5porta" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.603922, 0.807843, 0.796078, 1 )
@@ -2017,6 +2045,7 @@ collide = true
 polygon = PoolVector2Array( 22.52, -34.67, 26.46, -54.59, 18.99, -57.59, 16.01, -34.72 )
 
 [node name="casa6porta" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.737255, 0.737255, 0.737255, 1 )
@@ -2037,6 +2066,7 @@ jumpover = false
 shape = SubResource( 26 )
 
 [node name="casa6porta2" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.737255, 0.737255, 0.737255, 1 )
@@ -2057,6 +2087,7 @@ jumpover = false
 shape = SubResource( 27 )
 
 [node name="casa6jane" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0, 0.0941176, 1, 1 )
@@ -2093,6 +2124,7 @@ colors = [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0.364706, 0.427451, 
 polygon = PoolVector2Array( 30.77, -76.33, 26.46, -54.59, 18.99, -57.59, 12.68, -67.72 )
 
 [node name="casa7jane" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0, 0.0941176, 1, 1 )
@@ -2113,6 +2145,7 @@ jumpover = false
 shape = SubResource( 29 )
 
 [node name="casa7porta" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.12549, 0.12549, 0.12549, 1 )
@@ -2133,6 +2166,7 @@ jumpover = false
 shape = SubResource( 30 )
 
 [node name="casa7dink" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.454902, 0, 1, 1 )
@@ -2154,6 +2188,7 @@ jumpover = false
 shape = SubResource( 31 )
 
 [node name="casa7dink2" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
@@ -2174,6 +2209,7 @@ jumpover = false
 shape = SubResource( 31 )
 
 [node name="casa7dink3" type="StaticBody2D" parent="downie/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.0627451, 0.0666667, 0.0980392, 1 )
@@ -2285,7 +2321,9 @@ colors = [ Color( 0.596078, 0.588235, 0.266667, 1 ), Color( 0.596078, 0.588235, 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="downie/right/casapatio"]
 polygon = PoolVector2Array( 22.89, 0.899994, 22.15, -14.45, 14.38, -14.37, 15.9, 1.92001 )
 
-[node name="casafence" type="StaticBody2D" parent="downie/right"]
+[node name="casafence" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
+]]
 position = Vector2( -7241, 8755 )
 scale = Vector2( 100, 100 )
 script = ExtResource( 8 )
@@ -2334,7 +2372,9 @@ colors = [ Color( 0.580392, 0.239216, 0.239216, 1 ), Color( 0, 0, 0, 1 ), Color(
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="downie/right/casa2"]
 polygon = PoolVector2Array( 20.47, -26.3, 22.15, -14.45, 14.38, -14.37, 13.25, -26.04 )
 
-[node name="casa2fence" type="StaticBody2D" parent="downie/right"]
+[node name="casa2fence" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
+]]
 position = Vector2( -7241, 8755 )
 scale = Vector2( 100, 100 )
 script = ExtResource( 8 )
@@ -2372,6 +2412,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 33 )
 
 [node name="casa2teto" parent="downie/right" groups=[
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.886275, 0.372549, 0.0941176, 1 )
@@ -2408,6 +2449,7 @@ collide = true
 polygon = PoolVector2Array( 18.98, -42.67, 11.68, -42.77, 13.25, -26.04 )
 
 [node name="murosnug3" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.678431, 1, 0.819608, 1 )
@@ -2429,6 +2471,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 34 )
 
 [node name="murosnug4" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.678431, 1, 0.819608, 1 )
@@ -2509,6 +2552,7 @@ collide = true
 polygon = PoolVector2Array( 32.92, -25.59, 33.13, -39.91, 20.35, -40.57, 16.93, -25.49 )
 
 [node name="prediodoor" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( -8796, 8340 )
@@ -2529,6 +2573,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 72 )
 
 [node name="prediojane" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.196078, 0.627451, 0.815686, 1 )
@@ -2550,6 +2595,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 73 )
 
 [node name="prediojane2" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.196078, 0.627451, 0.815686, 1 )
@@ -2571,6 +2617,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 74 )
 
 [node name="predioporta" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( -8846, 8569 )
@@ -2629,6 +2676,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 35 )
 
 [node name="casa3porta" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.0980392, 0.0980392, 0.0980392, 1 )
@@ -2666,7 +2714,9 @@ collide = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="downie/right/bar"]
 polygon = PoolVector2Array( 35.08, -59.57, 34, -47.83, 22.35, -49.39, 24.73, -59.88 )
 
-[node name="barpíllar" type="StaticBody2D" parent="downie/right"]
+[node name="barpíllar" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
+]]
 position = Vector2( -7537, 4556 )
 scale = Vector2( 100, 100 )
 script = ExtResource( 8 )
@@ -2725,6 +2775,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 37 )
 
 [node name="bardoor" type="StaticBody2D" parent="downie/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.0980392, 0.0980392, 0.0980392, 1 )
@@ -2746,7 +2797,7 @@ position = Vector2( -0.0693359, -831.09 )
 shape = SubResource( 69 )
 
 [node name="barteto" parent="downie/right" groups=[
-"floor",
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.886275, 0.372549, 0.0941176, 1 )
@@ -2893,7 +2944,9 @@ __meta__ = {
 [node name="viela" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
-[node name="objects" type="Node2D" parent="viela"]
+[node name="objects" type="Node2D" parent="viela" groups=[
+"higfx",
+]]
 
 [node name="arvore9" parent="viela/objects" instance=ExtResource( 12 )]
 position = Vector2( -16569, 6582 )
@@ -3150,6 +3203,7 @@ darknesses = 0.0
 polygon = PoolVector2Array( -24.33, 11.23, -34.06, 16.67, -25.93, 26.33, -18.2, 19.49 )
 
 [node name="casafence" type="StaticBody2D" parent="viela/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.396078, 0.396078, 0.384314, 1 )
@@ -3224,6 +3278,7 @@ darknesses = 0.0
 polygon = PoolVector2Array( -47.87, -20.41, -51.88, -17.52, -44.24, -7.88, -40.49, -10.42 )
 
 [node name="casa3teto" type="StaticBody2D" parent="viela/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.0745098, 0.0745098, 0.0745098, 1 )
@@ -3240,6 +3295,7 @@ texture_path = "res://textures/roof32.png"
 polygon = PoolVector2Array( -46.93, -21.08, -51.85, -17.62, -44.3, -7.82, -39.49, -10.99 )
 
 [node name="casa3fence" type="StaticBody2D" parent="viela/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.396078, 0.396078, 0.384314, 1 )
@@ -3297,6 +3353,7 @@ collide = true
 polygon = PoolVector2Array( -47.87, -20.41, -65.39, -30.04, -58.97, -35.41 )
 
 [node name="casa4jane" type="StaticBody2D" parent="viela/left" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.180392, 0.415686, 0.709804, 1 )
@@ -3373,6 +3430,7 @@ darknesses = 0.0
 polygon = PoolVector2Array( -33.36, -14.42, -37.89, -20.26, -36.72, -21.49, -32.03, -16.06 )
 
 [node name="casafence" type="StaticBody2D" parent="viela/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.396078, 0.396078, 0.384314, 1 )
@@ -3429,6 +3487,7 @@ collide = true
 polygon = PoolVector2Array( -41.34, -24.7, -37.89, -20.26, -34.83, -23.52, -38.13, -27.64 )
 
 [node name="casafence2" type="StaticBody2D" parent="viela/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0, 0, 0, 1 )
@@ -3540,6 +3599,7 @@ jumpover = false
 shape = SubResource( 50 )
 
 [node name="treefence" type="StaticBody2D" parent="viela/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.109804, 0.101961, 0.101961, 1 )
@@ -3560,6 +3620,7 @@ jumpover = false
 shape = SubResource( 51 )
 
 [node name="treefence2" type="StaticBody2D" parent="viela/right" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.109804, 0.101961, 0.101961, 1 )
@@ -3582,7 +3643,9 @@ shape = SubResource( 52 )
 [node name="montenegro" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
-[node name="objects2" type="Node2D" parent="montenegro"]
+[node name="objects2" type="Node2D" parent="montenegro" groups=[
+"higfx",
+]]
 script = ExtResource( 5 )
 
 [node name="poste" parent="montenegro/objects2" instance=ExtResource( 13 )]
@@ -3964,8 +4027,8 @@ collide = true
 polygon = PoolVector2Array( 5.16, 7.28999, 22.89, 0.899994, 23.23, 11.08, 5.22, 11.47 )
 
 [node name="porta" type="StaticBody2D" parent="montenegro/top" groups=[
+"higfx",
 "render",
-"wall",
 ]]
 position = Vector2( -87.7393, 90.1309 )
 scale = Vector2( 0.01, 0.01 )
@@ -3985,8 +4048,8 @@ texture_repeat = Vector2( 2, 2 )
 shape = SubResource( 56 )
 
 [node name="porta2" type="StaticBody2D" parent="montenegro/top" groups=[
+"higfx",
 "render",
-"wall",
 ]]
 modulate = Color( 0.0941176, 0.729412, 1, 1 )
 position = Vector2( -87.7393, 90.1309 )
@@ -4089,6 +4152,7 @@ texture_path = "res://textures/shadow.png"
 shape = SubResource( 58 )
 
 [node name="casa2porta" type="StaticBody2D" parent="montenegro/top" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( -87.7393, 90.1309 )
@@ -4109,6 +4173,7 @@ texture_repeat = Vector2( 2, 2 )
 shape = SubResource( 59 )
 
 [node name="casa2teto" parent="montenegro/top" groups=[
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.592157, 0.270588, 0, 1 )
@@ -4150,6 +4215,7 @@ texture_path = "res://textures/shadow.png"
 shape = SubResource( 60 )
 
 [node name="casa3porta" type="StaticBody2D" parent="montenegro/top" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 1, 0, 0, 1 )
@@ -4191,6 +4257,7 @@ texture_path = "res://textures/shadow.png"
 shape = SubResource( 62 )
 
 [node name="case34teto" parent="montenegro/top" groups=[
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.25098, 0.25098, 0.25098, 1 )
@@ -4309,6 +4376,7 @@ absolute = true
 polygon = PoolVector2Array( -16.47, 7.37001, -2.42004, 8.42001, -9.92004, 10.77 )
 
 [node name="casa5teto" parent="montenegro/top" groups=[
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.423529, 0.294118, 0.294118, 1 )
@@ -4329,7 +4397,30 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="casa5teto4" parent="montenegro/top" groups=[
+"higfx",
+"render",
+] instance=ExtResource( 2 )]
+modulate = Color( 0.423529, 0.294118, 0.294118, 1 )
+position = Vector2( -106.828, 98.4766 )
+rotation = 1.5708
+scale = Vector2( 0.0005, -0.001 )
+script = ExtResource( 1 )
+heights = [ 400.0, -200.0, 35.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/roof32.png"
+texture_repeat = Vector2( 2, 2 )
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="montenegro/top/casa5teto4"]
+polygon = PoolVector2Array( -12552.9, -35791.9, -9172.84, -38601.9, -18533, -32212 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="casa5teto2" parent="montenegro/top" groups=[
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.541176, 0.380392, 0.380392, 1 )
@@ -4351,6 +4442,7 @@ __meta__ = {
 }
 
 [node name="casa5teto3" parent="montenegro/top" groups=[
+"higfx",
 "render",
 ] instance=ExtResource( 2 )]
 modulate = Color( 0.494118, 0.317647, 0.317647, 1 )
@@ -4414,6 +4506,7 @@ texture_repeat = Vector2( 2, 2 )
 shape = SubResource( 63 )
 
 [node name="condoporta" type="StaticBody2D" parent="montenegro/bot" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( -10205, 10920 )
@@ -4433,6 +4526,7 @@ texture_repeat = Vector2( 2, 2 )
 shape = SubResource( 64 )
 
 [node name="condoporta2" type="StaticBody2D" parent="montenegro/bot" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( -9504, 10878 )
@@ -4452,6 +4546,7 @@ texture_repeat = Vector2( 2, 2 )
 shape = SubResource( 64 )
 
 [node name="condoporta3" type="StaticBody2D" parent="montenegro/bot" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( -8651, 10827 )
@@ -4471,6 +4566,7 @@ texture_repeat = Vector2( 2, 2 )
 shape = SubResource( 64 )
 
 [node name="condoporta4" type="StaticBody2D" parent="montenegro/bot" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( -7880, 10781 )
@@ -4506,7 +4602,9 @@ collide = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="montenegro/bot/predio"]
 polygon = PoolVector2Array( 15.03, 5.34, -3.6, 6.46, 0.410004, 28.5, 20.77, 26.6 )
 
-[node name="prediojane" type="StaticBody2D" parent="montenegro/bot"]
+[node name="prediojane" type="StaticBody2D" parent="montenegro/bot" groups=[
+"higfx",
+]]
 position = Vector2( -8260, 9613 )
 scale = Vector2( 100, 100 )
 script = ExtResource( 8 )
@@ -4564,6 +4662,7 @@ texture_repeat = Vector2( 2, 2 )
 shape = SubResource( 65 )
 
 [node name="casaporta2" type="StaticBody2D" parent="montenegro/bot" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0, 0.772549, 1, 1 )
@@ -4584,6 +4683,7 @@ texture_repeat = Vector2( 2, 2 )
 shape = SubResource( 66 )
 
 [node name="casaporta" type="StaticBody2D" parent="montenegro/bot" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( -10205, 10920 )
