@@ -40,8 +40,7 @@ IMPERFECTIONS:
 -No camera-edge clipping (polys pieces outside screen still render);
 -No screen clipping (polygons pieces behind others still render);
 -Draw distance innacurate to value depending on Angles FOV;
--Floor sprite position slightly innacurate to aspect ratio;
--Sprite X scaling innacurate to FOV;
+-Floor-sprite position slightly innacurate to aspect ratio;
 -Mouselook entirely innacurate;
 -No in-game options (all settings in editor).
 
