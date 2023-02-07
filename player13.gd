@@ -1015,7 +1015,7 @@ func render():
 				
 				
 				if (neighbours_pm.x == 1) && (neighbours_pm.y == 1):  #both neighbours bad, delete
-					pass
+					continue#pass
 				
 				
 				
