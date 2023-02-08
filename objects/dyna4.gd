@@ -9,7 +9,8 @@ var head_height = 100
 var motion = Vector2()
 
 func _ready():
-	add_collision_exception_with($model)
+	Worldconfig.playeraim = self
+	#add_collision_exception_with($model)
 	add_collision_exception_with($wheel0)
 	add_collision_exception_with($wheel1)
 	add_collision_exception_with($wheel2)
@@ -18,30 +19,96 @@ func _ready():
 		#if n.is_in_group("render"):
 		add_collision_exception_with(n)
 
-func _physics_process(_delta):
-	motion = move_and_slide(motion, Vector2(0,-1))
 
-	
-	if Input.is_action_pressed("ply2_up"):
-		motion += Vector2(0,10).rotated(deg2rad(rotation_degrees))
-	
-	elif Input.is_action_pressed("ply2_down"):
-		motion -= Vector2(0,10).rotated(deg2rad(rotation_degrees))
-	
-	else:
-		motion = lerp(motion,Vector2(0,0),0.1)
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var wheel_base = 70  # Distance from front to rear wheel
+var steering_angle = 15  # Amount that front wheel turns, in degrees
+
+var ply2_angle
+
+
+func move_and_steer(delta):
+	var turn = 0
+	if Input.is_action_pressed("ply2_right"):
+		turn += 1
 	if Input.is_action_pressed("ply2_left"):
-		if Input.is_action_pressed("ui_select"):
-			position += Vector2(5,0).rotated(deg2rad(rotation_degrees))
-		else:
-			rotation_degrees -= 5
+		turn -= 1
+	ply2_angle = turn * deg2rad(steering_angle)
+	motion = Vector2.ZERO
+	if Input.is_action_pressed("ply2_up"):
+		motion = transform.x * 500
 	
-	elif Input.is_action_pressed("ply2_right"):
-		if Input.is_action_pressed("ui_select"):
-			position -= Vector2(5,0).rotated(deg2rad(rotation_degrees))
-		else:
-			rotation_degrees += 5
+	var rear_wheel = position - transform.x * wheel_base / 2.0
+	var front_wheel = position + transform.x * wheel_base / 2.0
+	rear_wheel += motion * delta
+	front_wheel += motion.rotated(ply2_angle) * delta
+	var new_heading = (front_wheel - rear_wheel).normalized()
+	motion = new_heading * motion.length()
+	rotation = new_heading.angle()
+
+
+
+
+export var camdist = 500
+export var camheight = 500
+export var camZdivide = 2
+
+func _physics_process(delta):
+	motion = move_and_slide(motion, Vector2(0,-1))
+	move_and_steer(delta)
+	
+	Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
+	Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees)-PI/2)+0.0001
+	#Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle, rad_overflow(deg2rad(rotation_degrees)), 0.1)
+	#Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4 + camheight
+	Worldconfig.player.positionZ = lerp(Worldconfig.player.positionZ, (($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4 + camheight + abs([$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min() - [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].max())/camZdivide), 0.1)
+	
+	if motion != Vector2(0,0):
+		Worldconfig.player.vbob += Worldconfig.player.vbob_speed
+		
+	
+	#Worldconfig.player.vroll = (($wheel0.positionZ + $wheel1.positionZ)/2 - ($wheel2.positionZ + $wheel3.positionZ)/2)*0.1
+	
+	
+	
+	
+	
+	
+	
+#	if Input.is_action_pressed("ply2_up"):
+#		motion += Vector2(0,10).rotated(deg2rad(rotation_degrees))
+#
+#	elif Input.is_action_pressed("ply2_down"):
+#		motion -= Vector2(0,10).rotated(deg2rad(rotation_degrees))
+#
+#	else:
+#		motion = lerp(motion,Vector2(0,0),0.1)
+#
+#	if Input.is_action_pressed("ply2_left"):
+#		if Input.is_action_pressed("ui_select"):
+#			position += Vector2(5,0).rotated(deg2rad(rotation_degrees))
+#		else:
+#			rotation_degrees -= 5
+#
+#	elif Input.is_action_pressed("ply2_right"):
+#		if Input.is_action_pressed("ui_select"):
+#			position -= Vector2(5,0).rotated(deg2rad(rotation_degrees))
+#		else:
+#			rotation_degrees += 5
 	
 	
 	
@@ -53,8 +120,13 @@ func _physics_process(_delta):
 	$model/base.extraZ[2] = $wheel2.positionZ
 	$model/base.extraZ[3] = $wheel3.positionZ
 	
-	positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4
-
+	
+	
+	
+	#positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4
+	positionZ = [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min()
+	
+	#head_height = [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min() - [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].max()
 
 
 
@@ -273,3 +345,26 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		if col_sprites.has(body):
 			col_sprites.erase(body)
 			on_floor = false
+
+
+
+
+
+
+
+
+func rad_overflow(N):
+	if N > PI*2:
+		N -= PI*2
+	elif N < 0:
+		N += PI*2
+	
+	return N
+
+func deg_overflow(N):
+	if N > 360:
+		N -= 360
+	elif N < 360:
+		N += 360
+	
+	return N
