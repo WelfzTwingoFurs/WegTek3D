@@ -34,13 +34,13 @@ FEATURES:
 -A car.
 
 IMPERFECTIONS:
--"Both bad neighbours" vertex clipping deletes polygon if index over 0 (why??);
 -No diagonal wall collision;
 -No shared vertices;
 -Heavy texture distortion up-close;
 -Clipping intervenes with UV-texturing;
 -No camera-edge clipping (polys pieces outside screen still render);
 -No screen clipping (polygons pieces behind others still render);
+-Cull on + "Both bad neighbours" deletes polygon if index over 0;
 -Draw distance innacurate to value depending on Angles FOV;
 -Floor-sprite position slightly innacurate to aspect ratio;
 -Mouselook entirely innacurate;
