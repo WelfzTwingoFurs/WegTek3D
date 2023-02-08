@@ -12,7 +12,7 @@ config_version=4
 
 config/name="a-weird 3D engine"
 config/description="Welfz Twingo Furs 2022 suckaasss :)"
-run/main_scene="res://scene12.tscn"
+run/main_scene="res://scene-guilhermina.tscn"
 boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
@@ -277,6 +277,11 @@ ply2_left={
 ply2_right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":75,"unicode":0,"echo":false,"script":null)
+ ]
+}
+bug_camera={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
  ]
 }
 
