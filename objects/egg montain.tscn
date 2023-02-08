@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://map-sector.gd" type="Script" id=1]
+
+[node name="egg montain2" type="StaticBody2D"]
+position = Vector2( -404, -2155 )
+scale = Vector2( 0.534999, 0.504 )
+script = ExtResource( 1 )
+textures = [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "res://splash.png", "" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 0, 740, 29, 651, 74, 571, 133, 520, 198, 487, 284, 454, 366, 425, 460, 393, 562.47, 366.611, 645.334, 371.924, 736.987, 397.162, 854, 469, 954, 535, 981, 590, 990, 673, 983, 740, 946, 809, 894, 893, 840, 947, 756, 1026, 674, 1103, 627, 1138, 557, 1174, 451, 1202, 354, 1221, 260, 1227, 166, 1213, 95, 1166, 46, 1109, 17, 1062, 0, 1000, -19, 924, -21, 844 )

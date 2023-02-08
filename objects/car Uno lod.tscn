@@ -1,0 +1,224 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://map-floor.gd" type="Script" id=1]
+
+[node name="3Dcar Uno lod" type="Node2D"]
+
+[node name="top" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+modulate = Color( 0.658824, 0.329412, 0, 1 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 45.0 ]
+onesided = 1
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="top"]
+polygon = PoolVector2Array( 7, -15, 6.75, 0, -6.75, 0, -7, -15 )
+
+[node name="hood" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+modulate = Color( 0.658824, 0.329412, 0, 1 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 26.0 ]
+onesided = -1
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hood"]
+polygon = PoolVector2Array( 7.75, 15.25, 7.25, -17.25, -7.25, -17.25, -7.75, 15.25 )
+
+[node name="base" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 10.0 ]
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="base"]
+polygon = PoolVector2Array( 7.25, -17.25, 7.5, 15.25, -7.5, 15.25, -7.25, -17.25 )
+
+[node name="frontback" type="Node2D" parent="."]
+position = Vector2( -7, 0 )
+
+[node name="back" type="StaticBody2D" parent="frontback" groups=[
+"render",
+]]
+modulate = Color( 0.658824, 0.329412, 0, 1 )
+position = Vector2( -39, -60 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 28.0, 28.0, 17.0, 17.0 ]
+onesided = 1
+textures_on = false
+texture_path = "res://textures/wheel16.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontback/back"]
+polygon = PoolVector2Array( 19.25, -3, 3.75, -3, 4.25, -2.25, 18.75, -2.25 )
+
+[node name="windowT" type="StaticBody2D" parent="frontback" groups=[
+"render",
+]]
+modulate = Color( 0, 0.658824, 0.658824, 1 )
+position = Vector2( -39, -60 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 28.0, 28.0, 45.0, 45.0 ]
+onesided = -1
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontback/windowT"]
+polygon = PoolVector2Array( 19.25, -3, 3.75, -3, 4.75, 0, 18.25, 0 )
+
+[node name="windowB" type="StaticBody2D" parent="frontback" groups=[
+"render",
+]]
+modulate = Color( 0, 0.658824, 0.658824, 1 )
+position = Vector2( -39, -60 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 26.0, 26.0, 45.0, 45.0 ]
+onesided = 1
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontback/windowB"]
+polygon = PoolVector2Array( 19.25, 22.75, 3.75, 22.75, 4.75, 15, 18.25, 15 )
+
+[node name="front" type="StaticBody2D" parent="frontback" groups=[
+"render",
+]]
+modulate = Color( 0.658824, 0.329412, 0, 1 )
+position = Vector2( 7, 0 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 26.5, 17.0, 17.0, 26.5 ]
+onesided = 1
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontback/front"]
+polygon = PoolVector2Array( 7.75, 15.25, 7.75, 14.75, -7.75, 14.75, -7.75, 15.25 )
+
+[node name="left" type="Node2D" parent="."]
+position = Vector2( 7, 0 )
+
+[node name="side" type="StaticBody2D" parent="left" groups=[
+"render",
+]]
+modulate = Color( 0.658824, 0.329412, 0, 1 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 10.0, 10.0, 26.0, 28.0 ]
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/side"]
+polygon = PoolVector2Array( -9, -17.25, -9.25, 15.25, -9.5, 15.25, -9.5, -18 )
+
+[node name="windows" type="StaticBody2D" parent="left" groups=[
+"render",
+]]
+modulate = Color( 0, 0.658824, 0.658824, 1 )
+position = Vector2( -1, 0 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 28.0, 26.0, 45.0, 45.0 ]
+onesided = -1
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/windows"]
+polygon = PoolVector2Array( -9.25, -18, -9.25, 7.75, -8.25, 0, -8.25, -15 )
+
+[node name="wheelT" type="StaticBody2D" parent="left" groups=[
+"render",
+]]
+position = Vector2( -39, -60 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 0.0, 20.0, 20.0, 0.0 ]
+onesided = 1
+UV_textures = true
+texture_path = "res://textures/wheelEGA64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/wheelT"]
+polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 5, 0, 5 )
+
+[node name="wheelB" type="StaticBody2D" parent="left" groups=[
+"render",
+]]
+position = Vector2( -39, 29 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 0.0, 20.0, 20.0, 0.0 ]
+onesided = 1
+UV_textures = true
+texture_path = "res://textures/wheelEGA64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/wheelB"]
+polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 5, 0, 5 )
+
+[node name="right" type="Node2D" parent="."]
+position = Vector2( -7, 0 )
+scale = Vector2( -1, 1 )
+
+[node name="side" type="StaticBody2D" parent="right" groups=[
+"render",
+]]
+modulate = Color( 0.658824, 0.329412, 0, 1 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 10.0, 10.0, 26.0, 28.0 ]
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/side"]
+polygon = PoolVector2Array( -9, -17.25, -9.25, 15.25, -9.5, 15.25, -9.5, -18 )
+
+[node name="windows" type="StaticBody2D" parent="right" groups=[
+"render",
+]]
+modulate = Color( 0, 0.658824, 0.658824, 1 )
+position = Vector2( -1, 0 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 28.0, 26.0, 45.0, 45.0 ]
+onesided = 1
+texture_path = "res://textures/stretchtest.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/windows"]
+polygon = PoolVector2Array( -9.25, -18, -9.25, 7.75, -8.25, 0, -8.25, -15 )
+
+[node name="wheelT" type="StaticBody2D" parent="right" groups=[
+"render",
+]]
+position = Vector2( -39, -60 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 0.0, 20.0, 20.0, 0.0 ]
+onesided = -1
+UV_textures = true
+texture_path = "res://textures/wheelEGA64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/wheelT"]
+polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 5, 0, 5 )
+
+[node name="wheelB" type="StaticBody2D" parent="right" groups=[
+"render",
+]]
+position = Vector2( -39, 29 )
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+heights = [ 0.0, 20.0, 20.0, 0.0 ]
+onesided = -1
+UV_textures = true
+texture_path = "res://textures/wheelEGA64.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/wheelB"]
+polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 5, 0, 5 )

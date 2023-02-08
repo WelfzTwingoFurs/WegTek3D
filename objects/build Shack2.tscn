@@ -1,0 +1,177 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://map-floor.gd" type="Script" id=1]
+[ext_resource path="res://map-wall.gd" type="Script" id=2]
+
+[sub_resource type="SegmentShape2D" id=1]
+a = Vector2( -200, 0 )
+b = Vector2( -200, 500 )
+
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( -200, 0 )
+b = Vector2( -200, 500 )
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( -200, 0 )
+b = Vector2( -200, 50 )
+
+[sub_resource type="SegmentShape2D" id=4]
+a = Vector2( -200, 0 )
+b = Vector2( -250, 0 )
+
+[sub_resource type="SegmentShape2D" id=5]
+a = Vector2( -200, 0 )
+b = Vector2( -200, 200 )
+
+[node name="Shack1" type="Node2D"]
+
+[node name="Vwall1" type="StaticBody2D" parent="." groups=[
+"render",
+"wall",
+]]
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 2 )
+heights = [ 0, 100 ]
+texture_path = "res://textures/busy64.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vwall1"]
+shape = SubResource( 1 )
+
+[node name="Vwall2" type="StaticBody2D" parent="." groups=[
+"render",
+"wall",
+]]
+position = Vector2( 400, 0 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 2 )
+heights = [ 0, 100 ]
+onesided = 1
+texture_path = "res://textures/busy64.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vwall2"]
+shape = SubResource( 2 )
+
+[node name="Hwall1" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+scale = Vector2( 1, 1e-05 )
+script = ExtResource( 1 )
+heights = [ 0.0, 100.0, 200.0, 100.0, 0.0 ]
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hwall1"]
+polygon = PoolVector2Array( 200, 0, 200, 1, 0, 2, -200, 1, -200, 0 )
+
+[node name="Hwall2" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+scale = Vector2( 1, 1e-05 )
+script = ExtResource( 1 )
+heights = [ 0.0, 100.0, 100.0, 0.0 ]
+onesided = 1
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hwall2"]
+polygon = PoolVector2Array( 200, 0, 200, 1, -200, 1, -200, 0 )
+
+[node name="Hwall3" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+position = Vector2( 0, 500 )
+scale = Vector2( 1, 1e-05 )
+script = ExtResource( 1 )
+heights = [ 0.0, 100.0, 200.0, 100.0, 0.0 ]
+onesided = -1
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hwall3"]
+polygon = PoolVector2Array( 200, 0, 200, 1, 0, 2, -200, 1, -200, 0 )
+
+[node name="roof1" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+modulate = Color( 0.435294, 0.270588, 0.0470588, 1 )
+position = Vector2( 0, 517 )
+scale = Vector2( 1, 1.5 )
+script = ExtResource( 1 )
+heights = [ 200.0, 200.0, 90.0, 90.0 ]
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="roof1"]
+polygon = PoolVector2Array( 0, -364, 0, 0, -240, 0, -240, -364 )
+
+[node name="roof2" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+modulate = Color( 0.435294, 0.270588, 0.0470588, 1 )
+position = Vector2( 0, 517 )
+scale = Vector2( -1, 1.5 )
+script = ExtResource( 1 )
+heights = [ 200.0, 200.0, 80.0, 80.0 ]
+textures_on = false
+texture_path = "res://textures/solid1.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="roof2"]
+polygon = PoolVector2Array( 0, -364, 0, 0, -240, 0, -240, -364 )
+
+[node name="door" type="StaticBody2D" parent="." groups=[
+"render",
+"wall",
+]]
+modulate = Color( 0.419608, 0.0313726, 0.0313726, 1 )
+position = Vector2( 402, 0 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 2 )
+heights = [ 0, 75 ]
+onesided = 1
+texture_path = "res://textures/busy64.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door"]
+position = Vector2( 0, 335 )
+shape = SubResource( 3 )
+
+[node name="door2" type="StaticBody2D" parent="." groups=[
+"render",
+"wall",
+]]
+modulate = Color( 0.419608, 0.0313726, 0.0313726, 1 )
+position = Vector2( 223, 199 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 2 )
+heights = [ 0, 75 ]
+onesided = -1
+texture_path = "res://textures/busy64.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door2"]
+position = Vector2( -138, -200 )
+shape = SubResource( 4 )
+
+[node name="window" type="StaticBody2D" parent="." groups=[
+"render",
+"wall",
+]]
+modulate = Color( 0.0313726, 0.211765, 0.419608, 1 )
+position = Vector2( 401, -205 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 2 )
+heights = [ 25, 70 ]
+onesided = 1
+texture_path = "res://textures/busy64.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="window"]
+position = Vector2( 0, 241 )
+shape = SubResource( 5 )

@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/chaser.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites chaser jake.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:anim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "walk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:anim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id=4]
+
+[node name="chaser" type="KinematicBody2D" groups=[
+"rendersprite",
+"sprite",
+]]
+position = Vector2( -6721, 9155 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+anim = 2
+scale_extra = Vector2( 1.2, 1.2 )
+texture = ExtResource( 2 )
+head_height = 88
+turn = 0.01
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/_ready = SubResource( 1 )
+anims/walk = SubResource( 2 )
+
+[node name="ColArea" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]

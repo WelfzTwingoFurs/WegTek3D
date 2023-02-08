@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/static-sprite.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id=4]
+
+[node name="arvore" type="KinematicBody2D" groups=[
+"rendersprite",
+"sprite",
+]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+spr_height = 59
+
+[node name="ColArea" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+
+[connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]
