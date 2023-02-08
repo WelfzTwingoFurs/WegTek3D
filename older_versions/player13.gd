@@ -3,8 +3,8 @@ extends KinematicBody2D
 
 var motion = Vector2()
 
-export var angles = 120
-export var draw_distance = 1000
+export var angles = 145
+export var draw_distance = 10000
 
 onready var change_checker = []
 
@@ -17,7 +17,7 @@ func _ready():
 	#Turn everything on
 	
 	$ViewArea/ViewCol.polygon = [Vector2(0,0),   Vector2(0,draw_distance*2).rotated(-deg_rad(angles/2)),   Vector2(0,draw_distance*2).rotated( deg_rad(angles/2))]
-	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size*0, sky_stretch]
+	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size*0, sky_stretch]
 	#Checks if things changed and updates
 	
 
@@ -42,13 +42,13 @@ func _ready():
 
 export var skycolor = Color8(47,0,77)
 export var sky_stretch = Vector2(1,1)
-
+export var min_Z = 0
 
 export var rotate_rate = 3.0
-var rotation_angle = 0.000001
+var rotation_angle = 0
 
 
-export var speed = 100
+export var speed = 300
 var input_dir = Vector2(0,0)
 var move_dir = Vector3(0,0,0)
 
@@ -63,20 +63,33 @@ var vroll_strafe_divi = 1 #changes if strafing
 
 
 var posZlookZ = 0
+export var bg_offset = 1
 #Used for sky & floor position according to draw_distance
 
 var lookingZ = 0
 #View pans up and down
 
+var mouselock = false
+var mousedir = Vector2(0,0)
 
-
-
+func _input(event):
+	if mouselock:
+		if event is InputEventMouseMotion:
+			mousedir = event.relative
+			
+			if (lookingZ < $PolyContainer.scale.y*10) or (lookingZ > -$PolyContainer.scale.y*10):
+				lookingZ -= ($PolyContainer.scale.y/50)*mousedir.y
+			rotation_angle += 0.0174533 * mousedir.x
+			rotation_angle = rad_overflow(rotation_angle)
+			
+		else:
+			mousedir = Vector2(0,0)
 
 func _physics_process(_delta):
 	motion = move_and_slide(motion, Vector2(0,-1))
 	motion = Vector2(speed*move_dir.x, speed*move_dir.y).rotated(rotation_angle)
 	$ViewArea/ViewCol.rotation_degrees = rad_deg(rotation_angle) #radian to degrees
-	
+	 
 	if Input.is_action_pressed("ui_up"):
 		input_dir.y = 1
 		move_dir.y = 1
@@ -90,11 +103,10 @@ func _physics_process(_delta):
 		move_dir.y = 0
 	
 	
-	
 	if Input.is_action_pressed("ui_left"):
 		input_dir.x = 1
 		
-		if Input.is_action_pressed("ui_select"): #strafe
+		if Input.is_action_pressed("ui_select") or mouselock: #strafe
 			move_dir.x = 1
 			vroll_strafe_divi = 1
 			
@@ -110,7 +122,7 @@ func _physics_process(_delta):
 	elif Input.is_action_pressed("ui_right"):
 		input_dir.x = -1
 		
-		if Input.is_action_pressed("ui_select"): #strafe
+		if Input.is_action_pressed("ui_select") or mouselock: #strafe
 			move_dir.x = -1
 			vroll_strafe_divi = 1
 			
@@ -171,21 +183,31 @@ func _physics_process(_delta):
 	############################################################################
 	############################################################################
 	#Z inputs & math
+	if !mouselock:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
+			if lookingZ < $PolyContainer.scale.y*10:
+				lookingZ += rotate_rate*0.01 #* Engine.time_scale
+		elif Input.is_action_pressed("ply_lookdown"):
+			if lookingZ > -$PolyContainer.scale.y*10:
+				lookingZ -= rotate_rate*0.01 #* Engine.time_scale
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		
 	
-	if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
-		if lookingZ < $PolyContainer.scale.y*10:
-			lookingZ += rotate_rate*0.01 #* Engine.time_scale
-	elif Input.is_action_pressed("ply_lookdown"):
-		if lookingZ > -$PolyContainer.scale.y*10:
-			lookingZ -= rotate_rate*0.01 #* Engine.time_scale
-	elif Input.is_action_pressed("ply_lookcenter"):
+	#mousedir = lerp(mousedir, Vector2(0,0), 1)
+	
+	if Input.is_action_just_pressed("bug_lockmouse"):
+		mouselock = !mouselock
+	
+	if Input.is_action_pressed("ply_lookcenter"):
 		lookingZ = lerp(lookingZ, 0, 0.1)
 	
 	if abs(lookingZ) > $PolyContainer.scale.y*10:# don't overflow
 		lookingZ = ($PolyContainer.scale.y*10) * sign(lookingZ)
 	
 	#posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*lookingZ
-	posZlookZ = ( (OS.window_size.y*(positionZ/draw_distance/10)) * ($PolyContainer.scale.y*10) )  +  OS.window_size.y*lookingZ
+	posZlookZ = ( (OS.window_size.y*(positionZ/not_zero(draw_distance*bg_offset)/10)) * ($PolyContainer.scale.y*10) )  +  OS.window_size.y*lookingZ
 	#Used for sky & floor position according to draw_distance
 	
 	
@@ -241,7 +263,7 @@ func _physics_process(_delta):
 	
 	########################################################################################################################################################
 	if sky_stretch.y > 0:
-		$Background/Sky.rect_position.y = ($Background/Sky.rect_size.y/OS.window_size.y) +vbob_max +posZlookZ + abs(vbob)
+		$Background/Sky.rect_position.y = ($Background/Sky.rect_size.y/not_zero(OS.window_size.y)) +vbob_max +posZlookZ + abs(vbob)
 		
 	else:
 		$Background/Sky.rect_position.y = -$Background/Sky.rect_size.y +vbob_max +posZlookZ + abs(vbob)
@@ -259,7 +281,7 @@ func _physics_process(_delta):
 	
 	
 	########################################################################################################################################################
-	if sign($Background/Floor.position.y/OS.window_size.y) < 0:         #Floor doesn't stretch until looking down limit, it ends around when Sky is out of view
+	if sign($Background/Floor.position.y/not_zero(OS.window_size.y)) < 0:         #Floor doesn't stretch until looking down limit, it ends around when Sky is out of view
 		VisualServer.set_default_clear_color($Background/Floor.modulate)# and changes the skycolor to its color when that limit is reached
 	else:
 		VisualServer.set_default_clear_color(skycolor)
@@ -278,100 +300,112 @@ func _physics_process(_delta):
 	####      ####      ##      ##  ##    ##      ##  ####  ####  ####
 	
 	
-#	if lookingZ < -280: #feet when looking down, imprecise to collision shape NEEDS WERKIN
-#		$View/Feet.scale.y = 1#-(OS.window_size.y/lookingZ)*2
-#		#$View/Feet.position.y = (OS.window_size.y/$View/Feet.texture.get_height()) + (OS.window_size.y*(lookingZ/100))
-#		$View/Feet.position.y = $PolyContainer.position.y
-#
-#
-#
-#		#lookingZ 
-#		#$View/Feet.position.y
-#		#$View/Feet.scale.y
-#
-#		#print(lookingZ,":  ",$View/Feet.position.y," ",$View/Feet.scale.y)
-#
-#
-#
-#
-#
-#
-#		$View/Feet.visible = 1
-#		$View/Feet.rotation_degrees = (-input_dir.x*vroll_strafe_divi)*$View/Feet.scale.y*2
-#		#feetY = $View/Feet.position.y
-#
-#
-#
-#		if input_dir.y != 0:
-#			$AnimationPlayer.play("walk")
-#			$AnimationPlayer.playback_speed = input_dir.y
-#
-#		elif input_dir.x != 0:
-#			if Input.is_action_pressed("ui_select"):
-#				if input_dir.x == -1:
-#					$AnimationPlayer.play("strafeR")
-#				else:
-#					$AnimationPlayer.play("strafeL")
-#
-#			else:
-#				$AnimationPlayer.play("spin")
-#				$AnimationPlayer.playback_speed = input_dir.x
-#
-#
-#		else:
-#			$View/Feet.frame = 0
-#			$AnimationPlayer.stop()
-#
-#	else:
-#		$View/Feet.visible = 0
-#		$AnimationPlayer.stop()
-	
-	### ### ### ###
-	##  ##  ##   #
-	#   ### ###  #
-	
-	########################################################################################################################################################
-	########################################################################################################################################################
-	########################################################################################################################################################
-	########################################################################################################################################################
+	var C = float(1)
+	if darkness < 0: C *= -darkness
+	elif darkness > 0: C /= darkness
+	$View.modulate = Color(C,C,C)
 	
 	
 	
-	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, feet_stretch, draw_distance, angles, OS.window_size, sky_stretch]:
-		recalculate()
+	if lookingZ < 0:
+		#var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
+		#$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
+		#$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
+		
+		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height()
+		$View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*10) - $PolyContainer.position.y)
+		
+		
+		
+		$View/Feet.visible = 1
+		#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
+		#feetY = $View/Feet.position.y
+		
+		if on_floor or on_body:
+			if input_dir.y != 0:
+				$View/AniPlayFeet.play("walk")
+				$View/AniPlayFeet.playback_speed = input_dir.y
+
+			elif input_dir.x != 0:
+				if Input.is_action_pressed("ui_select"):
+					if input_dir.x == -1:
+						$View/AniPlayFeet.play("strafeR")
+					else:
+						$View/AniPlayFeet.play("strafeL")
+
+				else:
+					$View/AniPlayFeet.play("spin")
+					$View/AniPlayFeet.playback_speed = input_dir.x
+
+
+			else:
+				$View/Feet.frame = 0
+				$View/AniPlayFeet.stop()
+		else:
+			$View/AniPlayFeet.stop()
+			if move_dir.z == 1:
+				$View/Feet.frame = 7
+			else:# move_dir.z == -1:
+				$View/Feet.frame = 8
+		
 	else:
-		if !Input.is_action_pressed("bug_closeeyes"):
-			BSP()
+		$View/Feet.visible = 0
+		$View/AniPlayFeet.stop()
 	
+	########  ########  ########  ########
+	####      ####      ####        ####
+	######    ########  ######      ####
+	####      ####      ####        ####
+	####      ########  ########    ####
 	
-	update() #for the map
+	########################################################################################################################################################
+	########################################################################################################################################################
+	########################################################################################################################################################
+	########################################################################################################################################################
 	
-	collide()
+#	if Input.is_action_pressed("ply_flycenter"):
+#		motionZ = 0
+#		positionZ = lerp(positionZ, 0, 0.1)
 	
-	if motionZ < 0:
-		move_dir.z = -1
-	elif motionZ > 0:
-		move_dir.z = 1
-	elif motionZ == 0:
-		move_dir.z = 0
+	#if col_floors.size() != 0:
+	if Input.is_action_just_pressed("ply_noclip"):
+		noclip = !noclip
+		$Col.disabled = !$Col.disabled
+		on_floor = false
 	
-	
-	
-	
-	if Input.is_action_pressed("ply_flycenter"):
-		motionZ = 0
-		positionZ = lerp(positionZ, 0, 0.1)
-	
-	if col_floors.size() != 0:
-		if on_floor == 1:
+	if !noclip:
+		collide()
+		
+		if on_body == true:
+			motionZ = 0
+			positionZ = body_on.positionZ + body_on.head_height
 			if Input.is_action_pressed("ply_jump"):
 				motionZ += JUMP
-				on_floor = 0
+				on_body = false
+			if col_sprites.size() == 0:
+				on_body = false
 		
-		if on_floor == 0:
-			motionZ -= GRAVITY
+		if on_floor == true:
+			motionZ = 0
+			if Input.is_action_pressed("ply_jump"):
+				motionZ += JUMP
+				on_floor = false
+		
+		else:
+			if (col_floors.size() == 0 && positionZ <= min_Z):
+				on_floor = true
+				motionZ = 0
+			elif positionZ > min_Z:
+				motionZ -= GRAVITY
+			else:
+				on_floor = true
+				motionZ = 0
 		
 		positionZ += motionZ
+	
+	#elif (col_floors.size() == 0 && positionZ <= 0):
+	#	motionZ = 0
+	#	on_floor = true
 	
 	else:
 		motionZ = 0
@@ -381,11 +415,73 @@ func _physics_process(_delta):
 		elif Input.is_action_pressed("ply_crouch"):
 			positionZ -= 1 * rotate_rate * Engine.time_scale
 			move_dir.z = -1
+		elif Input.is_action_pressed("ply_flycenter"):
+			positionZ = lerp(positionZ, 0-head_height, 0.1)
 		else:
 			move_dir.z = 0
 	#print(positionZ)
 	#print(lookingZ)
 	
+	############################################################################
+	
+	if Input.is_action_just_pressed("ply_wpn_next"):
+		guninv += 1
+		if guninv > 3: guninv = 0
+		gunswitch()
+	elif Input.is_action_just_pressed("ply_wpn_previous"):
+		guninv -= 1
+		if guninv < 0: guninv = 3
+		gunswitch()
+	
+	if Input.is_action_pressed("ply_wpn_fire1"):
+		gunfire(false)
+	if Input.is_action_just_released("ply_wpn_fire1"):
+		gunstop(false)
+	
+	if Input.is_action_pressed("ply_wpn_fire2"):
+		gunfire(true)
+	if Input.is_action_just_released("ply_wpn_fire2"):
+		gunstop(true)
+	
+	if Worldconfig.zoom < 2:
+		#$View/Hand.position.x = 0#(get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
+		#$View/Hand.position.x = get_viewport().get_mouse_position().x - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*$View/Hand.scale.x)
+		$View/Hand.position.x = lerp($View/Hand.position.x, abs(vbob*10)*-input_dir.x, 0.01)
+		
+		$View/Hand.position.y = lerp($View/Hand.position.y, (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes)*gunscale)/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30 +lookingZ*5 +($PolyContainer.scale.y*50), 0.5) 
+		$View/Hand.rotation_degrees = lerp($View/Hand.rotation_degrees, -input_dir.x*(vroll_strafe_divi)*-vroll_multi, 0.5)
+		
+		if !gunstretch:
+			$View/Hand.scale = Vector2(gunscale,gunscale)
+		else:
+			$View/Hand.scale.x = OS.window_size.x/$View/Hand.texture.get_width()
+			$View/Hand.scale.y = gunscale
+	
+	Worldconfig.playeraim = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*450)
+	
+	##  ##    ##    ####    ####
+	##  ##  ##  ##  ##  ##  ##  ##
+	######  ######  ##  ##  ##  ##
+	##  ##  ##  ##  ##  ##  ##  ##
+	##  ##  ##  ##  ##  ##  ####
+	
+	
+	
+	update() #for the map
+	
+	if motionZ < 0:
+		move_dir.z = -1
+	elif motionZ > 0:
+		move_dir.z = 1
+	elif motionZ == 0:
+		move_dir.z = 0
+
+func _process(delta):
+	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:
+		recalculate()
+	else:
+		if !Input.is_action_pressed("bug_closeeyes"):
+			render()
 
 #####    #####      #####      #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ##  ##       ##           ###         ###
@@ -400,6 +496,91 @@ func _physics_process(_delta):
 ################################################################################
 ################################################################################
 
+var guninv = 0
+export var gunscale = 3
+export(bool) var gunstretch = false
+export var feet1 = preload("res://assets/feet1.png")
+export var feet2 = preload("res://assets/feet2.png")
+
+
+func gunswitch():
+	print(guninv)
+	if guninv == 0:
+		$View/Hand.visible = 0
+		$View/Feet.texture = feet1
+	else:
+		$View/Hand.visible = 1
+		$View/Feet.texture = feet2
+	
+	if guninv == 1:
+		$View/Hand.texture = load("res://assets/weapon handgun.png")
+		$View/Hand.hframes = 1
+		$View/Hand.vframes = 2
+	elif guninv == 2:
+		$View/Hand.texture = load("res://assets/weapon flamethrower.png")
+		$View/Hand.hframes = 1
+		$View/Hand.vframes = 7
+	elif guninv == 3:
+		$View/Hand.texture = load("res://assets/weapon doomarms.png")
+		$View/Hand.hframes = 1
+		$View/Hand.vframes = 1
+
+func gunfire(alt):
+	if guninv == 1:
+		
+		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"):
+			shoot()
+			$View/AniPlayHand.play("hand-fire")
+	
+	elif guninv == 2:
+		if $View/Hand.frame == 5 or $View/Hand.frame == 4 or $View/Hand.frame == 3 or $View/Hand.frame == 2: darkness = 1
+		
+		if !alt && Input.is_action_just_pressed("ply_wpn_fire1") && ($View/Hand.frame != 4 or $View/Hand.frame != 3):
+			if $View/AniPlayHand.current_animation == "flame-no":
+				$View/AniPlayHand.play("flame-fire")
+			else:
+				$View/AniPlayHand.play("flame-start")
+		elif alt:
+			if $View/AniPlayHand.current_animation == "flame-start" or $View/AniPlayHand.current_animation == "flame-fire":
+				$View/AniPlayHand.play("flame-fire")
+			else:
+				$View/AniPlayHand.play("flame-no")
+				
+	elif guninv == 3:
+		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"): shoot()
+
+func gunstop(alt):
+	if guninv == 2:
+		if alt && $View/AniPlayHand.current_animation == "flame-fire":
+			$View/AniPlayHand.play("flame-end")
+			$View/AniPlayHand.play("flame-end")
+		elif $View/AniPlayHand.current_animation == "flame-no":
+			$View/Hand.frame = 0
+
+
+const shot = preload("res://objects/projectile.tscn")
+#const shot = preload("res://chaser.tscn")
+func shoot():
+	if guninv == 1:
+		var shoot_instance = shot.instance()
+		shoot_instance.rotation_degrees = rotation_angle + PI/2
+		shoot_instance.positionZ = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*450)
+		shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*117#*59
+		shoot_instance.speed = 700#350
+		
+		shoot_instance.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
+		if Input.is_action_just_pressed("ply_wpn_fire2"):
+			shoot_instance.dontCollideWall = false
+			#shoot_instance.dontCollideSprite = false
+		
+		get_parent().add_child(shoot_instance)
+	
+	elif guninv == 3:
+		var uno = load("res://objects/car Uno.tscn").instance()
+		uno.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
+		get_parent().add_child(uno)
+
+
 
 
 
@@ -407,140 +588,193 @@ func _physics_process(_delta):
 
 ################################################################################
 var motionZ = 0
-var positionZ = 0
+export var positionZ = 0
 #var motionZ = 0
 #const GRAVITY = 1
 
 
-var on_floor = 0
+var on_floor = false
 var col_floors = []
 var col_walls = []
+var col_sprites = []
 
-export(float) var GRAVITY = 1
+export(float) var GRAVITY = 0.5
 export(float) var JUMP = 10
-export var ply_height = 50
+export var head_height = 45
+
+var noclip = false
+
+var darkness = 1
+
+var on_body = false
+var body_on = null
 
 func collide():
-	for n in col_floors.size():
-	#if col_floors != null:
-		if col_floors[n].flag_1height:
-			if move_dir.z == -1:
-				if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
-					positionZ = col_floors[n].heights[0]# + ply_height
-					
-					on_floor = 1 
-					if motionZ < 0:
-						motionZ = 0
-						
+	for n in col_sprites.size():
+		if col_sprites[n].dontCollideSprite:
+			add_collision_exception_with(col_sprites[n])
+		else:
+			var heightsBT = Vector2(-1,1)
 			
-			if move_dir.z == 1:
-				if (positionZ < col_floors[n].heights[0]) && (positionZ+ply_height > col_floors[n].heights[0]):
-					positionZ = col_floors[n].heights[0] - ply_height
-					
-					on_floor = 0
-					if motionZ > 0:
-						motionZ = 0
-		
-		
-		
-		
-		else: #sometimes we gotta process a fuckin slope
-			#big_process(n, rotation_angle+PI/2, rotation_angle-PI/2)
-			#big_process(n, rad_overflow(Worldconfig.player.motion.angle()-PI/2)+PI/2, rad_overflow(Worldconfig.player.motion.angle()-PI/2)-PI/2)
-			big_process(n, Worldconfig.player.motion.angle(), rad_overflow(Worldconfig.player.motion.angle()-PI))
-			#big_process(n, motion.angle()+PI/2, motion.angle()-PI/2)
+			heightsBT.x = col_sprites[n].positionZ
+			heightsBT.y = col_sprites[n].positionZ+col_sprites[n].head_height
 			
-
-func big_process(n, angle1, angle2):
-			var array_ender = []
 			
-			for m in col_floors[n].points.size():
-				pass
-				#first we do horizontals, then verticals? Horizontals MIGHT do, who knows
-				var Plus90  = position+(Vector2(0,100).rotated(angle1))
-				var Minus90 = position+(Vector2(0,100).rotated(angle2))
+			#pé < baixo, cabeça > baixo
+			#pé > baixo, cabeça < topo
+			#pé < topo, cabeça > topo
+			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
+				# pé < topo, cabeça > topo, pé - topo = <head_height
+				if (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
+					positionZ = heightsBT.y
+					on_body = true
+					body_on = col_sprites[n]
 				
-				
-				var point1 = col_floors[n].points[m]
-				var point2 = col_floors[n].points[(m+1) % col_floors[n].points.size()]
-				
-				
-				#intersection between limitPlus/Minus with point1/2
-				var new_position = new_position(point1, point2, Plus90, Minus90, (point1.x - point2.x)*(Plus90.y - Minus90.y) - (point1.y - point2.y)*(Plus90.x - Minus90.x))  +  Vector2(0,1).rotated(rotation_angle)
-				
-				
-				var actives = Vector2(0,0)
-				
-				if rotation_angle > PI/2 && rotation_angle < 3*PI/2:
-					#print("RED PLUS IS BIGGEST")
-					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(angle2) or rad_overflow((point1-position).angle()-PI/2) > rad_overflow(angle1):
-						#print("!!RED ALERT!!")
-						actives.x = 1
-						
-					else:
-						actives.x = 0
-						
-					
-					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(angle2) or rad_overflow((point2-position).angle()-PI/2) > rad_overflow(angle1):
-						#print("!!RED ALERT!!")
-						actives.y = 1
-						
-					else:
-						actives.y = 0
-				
+				elif (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+					positionZ = heightsBT.x - head_height -1
+					on_body = false
 				
 				else:
-					#print("PINK MINUS IS BIGGER")
-					if rad_overflow((point1-position).angle()-PI/2) < rad_overflow(angle2) && rad_overflow((point1-position).angle()-PI/2) > rad_overflow(angle1):
-						#print("!!PINK ALERT!!")
-						actives.x = 1
-						
-					else:
-						actives.x = 0
-					
-					if rad_overflow((point2-position).angle()-PI/2) < rad_overflow(angle2) && rad_overflow((point2-position).angle()-PI/2) > rad_overflow(angle1):
-						#print("!!PINK ALERT!!")
-						actives.y = 1
-						
-					else:
-						actives.y = 0
+					remove_collision_exception_with(col_sprites[n])
+			
+			else:
+				add_collision_exception_with(col_sprites[n])
+	
+	
+	
+	for n in col_walls.size():
+		#darkness = col_floors[n].darkness
+		
+		if col_walls[n].flag_2height:
+			var heightsBT = Vector2(-1,1)
+			
+			if col_walls[n].heights[1] < col_walls[n].heights[2]:
+				heightsBT.x = col_walls[n].heights[1]
+				heightsBT.y = col_walls[n].heights[2]
+			else:
+				heightsBT.x = col_walls[n].heights[2]
+				heightsBT.y = col_walls[n].heights[1]
+			
+			#pé < baixo, cabeça > baixo
+			#pé > baixo, cabeça < topo
+			#pé < topo, cabeça > topo
+			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
+				# pé < topo, cabeça > topo, pé - topo = <head_height
+				if col_walls[n].jumpover && (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
+					positionZ = heightsBT.y
+					on_floor = true
 				
-				if actives.x != actives.y:
-					
-					####################################
-					
-					var height1 = col_floors[n].heights[m]
-					var height2 = col_floors[n].heights[(m+1) % col_floors[n].points.size()]
-					
-					var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
-					
-					if height2 > height1: #dont know
-						new_height += height2
-					elif height2 < height1:# why, OK
-						if (new_height < height2) or (new_height > height1):
-							new_height += height2
-					
-					
-					if input_dir != Vector2(0,0):
-						on_floor = 0
-
-					if (positionZ < new_height) && (positionZ+ply_height > new_height):
+				elif col_walls[n].jumpover && (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+					positionZ = heightsBT.x - head_height -1
+					on_floor = false
+				
+				else:
+					remove_collision_exception_with(col_walls[n])
+			
+			else:
+				add_collision_exception_with(col_walls[n])
+	
+	for n in col_floors.size():
+		darkness = col_floors[n].darkness
+		
+		if col_floors[n].flag_1height:
+			col_proccess(n,col_floors[n].heights[0])
+		
+		else: #sometimes we gotta process a fuckin slope
+			##position at minimum height, that height = margem de erro, margem - player's new height = correct height
+#			var margin = col_floors[n].heights.find(col_floors[n].heights.min())
+#			var globalpos = col_floors[n].points[margin]# * col_floors[n].scale
+#
+#			print("index:",margin,"     height:", col_floors[n].heights[margin],"    position:",globalpos)
+#
+#			if Input.is_action_pressed("mouse1"):
+#				position = globalpos
+#
+#
+#			margin = slope(
+#				Vector3(globalpos.x, globalpos.y, 0), 
+#				Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
+#				Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
+#				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2]))
+#
+#
+#			print(margin)
+			
+			var new_height = slope(
+				Vector3(position.x,position.y,0), 
+				Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
+				Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
+				Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])) #+ margin
+			
+			
+			if (col_floors[n].absolute == 1) && (positionZ < new_height):
+				positionZ = new_height
+				on_floor = true
+			elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height):
+				positionZ = new_height - head_height
+				on_floor = false
+				continue
+			
+			
+			if move_dir:
+				if new_height > positionZ + head_height:
+					if new_height < positionZ + head_height + motionZ:
+						motionZ = -motionZ
+				
+				elif new_height > positionZ:
+					positionZ = new_height
+					on_floor = true
+				else:
+					if on_floor:
 						positionZ = new_height
-						on_floor = 1 
-						if motionZ < 0:
-							motionZ = 0
-					
-					print(m,"  ", new_height)
-					array_ender.append(new_height)
-					if array_ender.size() == 2:
-						break
-					
-					
-
-			#print(array_ender)
-			#return((array_ender[0] + array_ender[1])/2)
 
 
+
+
+func slope(v0,v1,v2,v3):
+	var normal = (v2 - v1).cross(v3 - v1).normalized()
+	var dir = Vector3(0.0, 0.0, 1.0)
+	var r = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
+	
+	return r.z
+	
+
+
+
+
+
+
+
+
+
+
+func col_proccess(n,col_height):
+	if col_floors[n].absolute == -1:
+		if positionZ > col_height-1:
+			positionZ = col_height - head_height
+			on_floor = false
+	elif col_floors[n].absolute == 1:
+		if positionZ < col_height-head_height:
+			positionZ = col_height
+			on_floor = true
+	
+	
+	if move_dir.z == -1:
+		if (positionZ < col_height) && (positionZ+head_height > col_height):
+			positionZ = col_height# + head_height
+			
+			on_floor = true 
+			if motionZ < 0:
+				motionZ = 0
+				
+	
+	if move_dir.z == 1:
+		if (positionZ < col_height) && (positionZ+head_height > col_height):
+			positionZ = col_height - head_height
+			
+			on_floor = false
+			if motionZ > 0:
+				motionZ = 0
 
 
 
@@ -555,13 +789,40 @@ func big_process(n, angle1, angle2):
 func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
 		if !col_floors.has(body):
+			if (col_floors.size() == 0) && (body.flag_1height) && (on_floor == true) && (body.heights[0] < positionZ): on_floor = false
+			
 			col_floors.push_back(body)
+			
+			
+	elif body.is_in_group("wall"):
+		if !col_walls.has(body):
+			col_walls.push_back(body)
+	
+	elif body.is_in_group("sprite"):
+		if !col_sprites.has(body):
+			col_sprites.push_back(body)
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
-		on_floor = 0
+		on_floor = false
 		if col_floors.has(body):
 			col_floors.erase(body)
+			
+			if (col_floors.size() == 0):
+				if (positionZ <= min_Z): positionZ = min_Z
+				darkness = 1
+			
+	
+	if body.is_in_group("wall"):
+		if col_walls.has(body):
+			col_walls.erase(body)
+			
+	
+	if body.is_in_group("sprite"):
+		if col_sprites.has(body):
+			col_sprites.erase(body)
+			on_body = false
+			on_floor = false
 
 ######    #######    ###      ###      ###   ######      ######
 ###      ###   ###   ###      ###            ###   ##    ###
@@ -586,22 +847,15 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 ################################################################################
 
-var feet_stretch = 1
+#var feet_stretch = 1
 
 func recalculate():
-	if change_checker[0] != $View/Feet.texture or change_checker[3] != feet_stretch or change_checker[6] != OS.window_size:
-		if feet_stretch == 1:
-			$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
-		else:
-			$View/Feet.scale.x = $View/Feet.scale.y 
+	if change_checker[0] != $View/Feet.texture or change_checker[6] != OS.window_size:
+		$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
 		
 		if change_checker[0] != $View/Feet.texture:
 			print("-      TEXTURE: Feet changed")
 			change_checker[0] = $View/Feet.texture
-			
-		elif change_checker[3] != feet_stretch:
-			print("- FEET_STRETCH: ",feet_stretch,", changed from ",change_checker[3])
-			change_checker[3] = feet_stretch
 			
 		
 	
@@ -720,10 +974,10 @@ var rot_minus90
 
 var midscreen = 0
 
-export(bool) var textures_on = 0
 export(bool) var cull_on = 1
+export(bool) var textures_on = true
 
-func BSP():
+func render():
 	if (weakref(new_container).get_ref()):
 		new_container.queue_free()
 		
@@ -762,7 +1016,8 @@ func BSP():
 				
 				
 				if (neighbours_pm.x == 1) && (neighbours_pm.y == 1):  #both neighbours bad, delete
-					pass
+					continue#pass
+				
 				
 				
 				else:
@@ -770,131 +1025,153 @@ func BSP():
 					var limitMinus = to_global($Camera2D.position)+(Vector2(0,100).rotated(rotation_angle-PI/2))
 					var point1 = array_walls[n].points[m]
 					var point2
-					var height1 = array_walls[n].heights[m]
+					var height1 = array_walls[n].heights[m] + array_walls[n].extraZ[m]
 					var height2
 					
 					
 					if (neighbours_pm.x == 0) && (neighbours_pm.y == 1):#minus neighbour bad, go with plus neighbour
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ]
+						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].heights.size() ]
 					
 					else:#plus/both neighbour bad, go with minus neighbour
 						point2 = array_walls[n].points[ (m-1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m-1) % array_walls[n].heights.size() ]
-					
+						height2 = array_walls[n].heights[ (m-1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m-1) % array_walls[n].heights.size() ]
+						
 					
 					
 					var new_position = new_position(point1, point2, limitPlus, limitMinus, (point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 					#func new_position(point1,point2,height1,height2,limitPlus,limitMinus,det):
 					var xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
-					var lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
+					var lineH = (OS.window_size.y / not_zero(sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					
-					
-					
+					var C = 1
+					if !shading:
+						if array_walls[n].darkness != 0:
+							C = float(1)/array_walls[n].darkness
+						else:
+							C = 1
+					else: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 					
 					
 					if height1 == height2:#No diagonals, we're done
-						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 						
 					else:#Need to make diagonal clipping
-						#var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2))             #broken (0% -> valid neighbour (100%)
-						#var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #broken (05) -> it's new (X%), logic from other raycasters
-						#var new_height = (distX_2/dist1_2)*(height1-height2)
 						var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
 						
-						if height2 > height1: #dont know
+						if (height2 > height1)  or  (height2 < height1): #dont know
 							new_height += height2
-						elif height2 < height1:# why, OK
-							if (new_height < height2) or (new_height > height1):
-								new_height += height2
 						
-						array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
 						
+						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*new_height)) #OVER
 					
+					array_shading.append(Color(C,C,C))
 					
 					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
-						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ]
+						height2 = array_walls[n].heights[ (m+1) % array_walls[n].heights.size() ] + array_walls[n].extraZ[ (m+1) % array_walls[n].heights.size() ]
 						
 						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 						
 						xkusu = (new_position-to_global($Camera2D.position)).angle() - midscreen
-						lineH = (OS.window_size.y / (sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
+						lineH = (OS.window_size.y / not_zero(sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						
+						if shading: C = -(    sqrt(pow((new_position.x - to_global($Camera2D.position).x), 2) + pow((new_position.y - to_global($Camera2D.position).y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 						
 						if height1 == height2:#No diagonals
-							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
+							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 						
 						else:#diagonal
-							#var dist1_2 = sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)) #Logic from other raycasters
-							#var distX_2 = sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2)) #Logic from other raycasters
-							#var new_height = (distX_2/dist1_2)*(height1-height2)
 							var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
 							
 							if height2 > height1: #dont know
 								new_height += height2
 							elif (height2 < height1) or (new_height > height1):# why, OK
-								if new_height < height2:
-									new_height += height2
+								#if new_height < height2:
+								new_height += height2
 							
-							array_polygon.append(Vector2(tan(xkusu), ((positionZ+ply_height)*lineH)-lineH*new_height)) #OVER
-							
+							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*new_height)) #OVER
 						
+						array_shading.append(Color(C,C,C))
 			
 			
 			else:#all vertices in front of camera
+				#shading = true
 				var xkusu = (array_walls[n].points[m]-to_global($Camera2D.position)).angle() - midscreen
-				#var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2)) #Logic from other raycasters
-				#var lineH = (OS.window_size.y / distance)   /  cos(xkusu)
-				var lineH = (OS.window_size.y / sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2)))   /  cos(xkusu)
+				var lineH = (OS.window_size.y / not_zero(sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2))))   /  cos(xkusu)
 				
-				array_polygon.append(Vector2(tan(xkusu),((positionZ+ply_height)*lineH)-lineH*array_walls[n].heights[m])) #OVER
-			
-			if cull_on && array_polygon.size() > 0:# && lookingZ == 0:
-				#$Sprite.position = (array_polygon[array_polygon.size()-1])*$PolyContainer.scale+Vector2(0, OS.window_size.y*lookingZ)
-				#if (abs(array_polygon[array_polygon.size()-1].x*$PolyContainer.scale.x) > OS.window_size.x/2)  or  (abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y) > OS.window_size.y/2):
-				if abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
-					outtasight +=1
-					
-			
-			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow((array_walls[n].heights[m] - positionZ), 2))
-			
-			if shading:
-				var C = -(distance*(float(1*darkness)/draw_distance)-1)
+				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
+				var C
+				if !shading:
+					if array_walls[n].darkness != 0:
+						C = float(1)/array_walls[n].darkness
+					else:
+						C = 1
+				else: C = -(    sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 				array_shading.append(Color(C,C,C))
 			
-			#if (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096)) < min_distance:
-			#	min_distance = (-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
-			#min_distance.append(-(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow((array_walls[n].heights[m] - positionZ), 2)) *(float(8192)/draw_distance)-4096))
+			if cull_on && array_polygon.size() > 0:
+				if abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
+					outtasight += sign(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ))
+					
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			var distance = sqrt(pow((array_walls[n].points[m].x - to_global($Camera2D.position).x), 2) + pow((array_walls[n].points[m].y - to_global($Camera2D.position).y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))
+			
+			
 			if -(distance*(float(8192)/draw_distance)-4096) < min_distance:
 				min_distance = -(distance*(float(8192)/draw_distance)-4096)
 			
 			if m == array_walls[n].points.size()-1:#Last cycle, time to end things
-				if outtasight > array_polygon.size()-1:
-					#new_poly.visible = 0
+				if array_walls[n].onesided != 0:
+					if sign(array_walls[n].onesided) == 1:
+						if Geometry.is_polygon_clockwise(array_polygon):
+							new_poly.queue_free()
+							break
+					elif sign(array_walls[n].onesided) == -1:
+						if !Geometry.is_polygon_clockwise(array_polygon):
+							new_poly.queue_free()
+							break
+				
+				
+				
+				
+				
+				if cull_on && (abs(outtasight) > array_polygon.size()-1):
 					new_poly.queue_free()
 					break
-					#continue
-				
-				
-				#min_distance = min_distance.min()
-				if abs(min_distance) > 4096:
-					#new_poly.z_index = 4096*sign(min_distance)
-					#new_poly.visible = 0
-					#break #if we don't cull it gets inverted since things will stack at -4096
-					new_poly.z_index = -4095
-					new_poly.modulate = Color(0,0,0,0.5)
 					
+				
+				
+				
+				if abs(min_distance) > 4096:
+					new_poly.modulate = Color(0,0,0)
+					new_poly.modulate.a8 = array_walls[n].modulate.a8/2
+					new_poly.z_index = -4095
 				else:
 					new_poly.z_index = min_distance
 					
-					new_poly.modulate = array_walls[n].modulate
-					
-					if textures_on: #Texture mapping
-						new_poly.texture = load(array_walls[n].texture_path)
-						new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
-						#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+				new_poly.modulate = array_walls[n].modulate
+				
+				
+				if textures_on && array_walls[n].textures_on && (array_walls[n].texture_path != "res://textures/solid1.png"): #Texture mapping
+					new_poly.texture = load(array_walls[n].texture_path)
+					new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
+					#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
+					if array_walls[n].UV_textures:
 						var howmany = array_polygon.size() #m+1
+						
 						
 						if  howmany == 3:
 							new_poly.texture_offset = Vector2(0,0) + array_walls[n].texture_offset
@@ -929,10 +1206,14 @@ func BSP():
 							new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()/6
 							new_poly.uv = [Vector2(1,2), Vector2(2,1), Vector2(4,1), Vector2(5,2), Vector2(6,4), Vector2(5,6), Vector2(4,7), Vector2(2,7), Vector2(1,6), Vector2(0,4)]
 							
+					else:
+						new_poly.texture_scale = $PolyContainer.scale * float(1)/array_walls[n].texture_repeat
+						
+						
 		#end of M loop, back to N
 		
-		if shading:
-			new_poly.vertex_colors = array_shading
+		
+		new_poly.vertex_colors = array_shading
 		new_poly.polygon = array_polygon
 		new_container.add_child(new_poly) #Over!!!!
 		
@@ -942,46 +1223,63 @@ func BSP():
 			var new_sprite = $PolyContainer/Sprite0.duplicate()
 			
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
-			var lineH = (OS.window_size.y /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) 
+			var lineH = (OS.window_size.y /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) 
 			
-			new_sprite.scale = Vector2( ((((OS.window_size.x /  sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.3) * array_sprites[o].scale_extra.x , lineH * array_sprites[o].scale_extra.y )
-			if new_sprite.scale.x < 0:
+			#new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
+			#new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
+			new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * (180-angles)/1000) * array_sprites[o].scale_extra.x *4,
+			lineH * array_sprites[o].scale_extra.y)
+			
+			
+			if sign(array_sprites[o].scale_extra.x) != sign(new_sprite.scale.x):
 				continue
 			
-			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*array_sprites[o].positionZ)
+			if( (array_sprites[o].dontScale == -1) && ((new_sprite.scale.x < array_sprites[o].scale_extra.x/$PolyContainer.scale.x) or (new_sprite.scale.y < array_sprites[o].scale_extra.y/$PolyContainer.scale.y))) or ((array_sprites[o].dontScale == 1) && ((new_sprite.scale.x > array_sprites[o].scale_extra.x/$PolyContainer.scale.x) or (new_sprite.scale.y > array_sprites[o].scale_extra.y/$PolyContainer.scale.y))) or (array_sprites[o].dontScale == 2):
+				new_sprite.scale = array_sprites[o].scale_extra/$PolyContainer.scale
 			
-			new_sprite.texture = load(array_sprites[o].texture)
+			new_sprite.position = Vector2(tan(xkusu), ((positionZ)*lineH)-lineH*(array_sprites[o].positionZ-head_height+array_sprites[o].spr_height) )
 			
-			if cull_on && (abs(new_sprite.position.y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2):
-				continue
+			new_sprite.texture = array_sprites[o].texture
+			
+			#if cull_on && (abs(new_sprite.position.y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2):
+			#	continue
 			
 			
 			new_sprite.vframes = array_sprites[o].vframes
 			new_sprite.hframes = array_sprites[o].hframes
-			new_sprite.offset.y = -new_sprite.texture.get_height()/10
+			if !array_sprites[o].dontScale:
+				new_sprite.offset.y = -new_sprite.texture.get_height()/10
 			
 			
-			#lets re-use it
-			#xkusu = -(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2)) *(float(8192)/draw_distance)-4096)
-			xkusu = sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2))
-			if abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096:
-				#break
-				new_sprite.modulate = Color(0,0,0,0.5)
-				new_sprite.z_index = -4095
-				
+			
+			if !array_sprites[o].dontZ:#lets re-use xkusu
+				xkusu = sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2))
+				if abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096:
+					#break
+					new_sprite.modulate = Color(0,0,0)
+					new_sprite.modulate.a8 = array_sprites[o].modulate.a8/2
+					new_sprite.z_index = -4095
+					
+				else:
+					var C
+					if shading: C =  -(xkusu*(float(1*array_sprites[o].darkness)/draw_distance)-1)
+					elif array_sprites[o].darkness > 0: C = float(1)/array_sprites[o].darkness
+					else: C = float(1)*-array_sprites[o].darkness
+					new_sprite.modulate = array_sprites[o].modulate*C
+					new_sprite.modulate.a8 = array_sprites[o].modulate.a8
+					new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
+					
 			else:
-				var C =  -(xkusu*(float(1*darkness)/draw_distance)-1)
-				#new_sprite.modulate = Color8(C,C,C,255)
-				new_sprite.modulate = array_sprites[o].modulate*C
-				new_sprite.modulate.a8 = array_sprites[o].modulate.a8
-				new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
-				
+				new_sprite.z_index = 4096
 			
 			
-			
-			if array_sprites[o].rotations != 1:
+			if array_sprites[o].rotations > 1:
 				var frame_rot = 0
-				var angletester = int(((rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180)) % 360
+				var angletester
+				
+				
+				angletester = int(deg_overflow(rad_deg(rotation_angle) - array_sprites[o].rotation_degrees)+180) % 360
+				
 				
 				for n in array_sprites[o].rotations:
 					if (angletester < (360/(array_sprites[o].rotations+1))*n) or (angletester > 360-((360/(array_sprites[o].rotations+1))*n)):
@@ -990,22 +1288,53 @@ func BSP():
 							frame_rot = 0
 						
 						if range(array_sprites[o].vframes*array_sprites[o].hframes).has(array_sprites[o].anim + frame_rot):
-							#new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
-							new_sprite.frame = (array_sprites[o].anim + frame_rot) #% (array_sprites[o].vframes*10)
+							new_sprite.frame = (array_sprites[o].anim + frame_rot) % (array_sprites[o].vframes*10)
 							break
-						
 				
-				if angletester < 180:
+				
+				if angletester > 180:
 					new_sprite.flip_h = true
 				
+				
+				
+			else:
+				new_sprite.frame = array_sprites[o].anim
+			
+			
+			
+			
 			
 			new_container.add_child(new_sprite)
 			
+			if sprite_shadows && array_sprites[o].shadow:## && (array_sprites[o].positionZ > positionZ-head_height):# && (new_sprite.position.y+(new_sprite.texture.get_size().y*new_sprite.scale.y)/2 > 0):
+				#if new_sprite.position.y - (new_sprite.offset.y*new_sprite.scale.y) > 0:
+				#if ((new_sprite.position.y - new_sprite.offset.y)*new_sprite.scale.y)*new_container.scale.y > 0:
+					var shadow = new_sprite.duplicate()
+					
+					shadow.z_index = new_sprite.z_index-1
+					if !array_sprites[o].reflect:
+						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].shadow_height )# - array_sprites[o].positionZ-array_sprites[o].shadow_height
+						shadow.modulate = Color(0,0,0)
+						shadow.modulate.a8 = new_sprite.modulate.a8/2 - abs(array_sprites[o].positionZ-array_sprites[o].shadowZ)/10
+						shadow.scale.y *= 0.125
+						shadow.scale.x *= 1.2
+						#shadow.scale.x *= sin(rotation_angle)
+						#shadow.rotation_degrees = sin(rotation_angle)
+					else:
+						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].reflect_height)# + array_sprites[o].positionZ-array_sprites[o].shadow
+						shadow.modulate.a8 = new_sprite.modulate.a8/1.5 - array_sprites[o].positionZ-array_sprites[o].shadowZ
+						shadow.scale.y *= -0.25
+						shadow.scale.x *= 0.7
+					
+					if shadow.position.y < 0:
+						shadow.queue_free()
+					
+					new_container.add_child(shadow)
+				
+			
 
 export(bool) var shading = true
-export(float) var darkness = 1
-export(bool) var flip_frontback_sprites = false
-
+export(bool) var sprite_shadows = true
 
 
 func new_position(point1,point2,limitPlus,limitMinus,det):
@@ -1064,23 +1393,6 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 		new_container.queue_free()
 
 
-
-#var array_objects = []
-#
-#func _on_ViewArea_body_entered(body):
-#	if body.is_in_group("object"):
-#		if !array_objects.has(body):
-#			array_objects.push_back(body)
-#			print(body)
-#
-#
-#func _on_ViewArea_body_exited(body):
-#	if body.is_in_group("object"):
-#		if !array_objects.has(body):
-#			array_objects.push_back(body)
-#			print(body)
-
-
 ########        ########            ####        ####            ####  
 ########        ########            ####        ####            ####
 ####    ####    ####    ####    ####    ####    ####    ####    ####  
@@ -1118,17 +1430,16 @@ func _draw():
 	
 	if Worldconfig.zoom < 1:
 		#draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
+		draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
+		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,0,0), 1)
 		
-		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,1,1), 1)
+		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
+		draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,0,0), 1)
 		
 	
 	
 	if Input.is_action_pressed("ui_accept"): #Must always update otherwise it doesn't dissapear
 		var shine1 = Color((randi() % 2),(randi() % 2),(randi() % 2))
-		var orange = Color(1, 0.5, 0)
 		
 		draw_line(Vector2(0,0), Vector2(0,draw_distance).rotated(rotation_angle), Color(1,1,1), 1)
 		if sign(map_draw) == 1:
@@ -1136,8 +1447,6 @@ func _draw():
 			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
 			draw_line(Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
 			
-			#draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle+PI/2), Color(1,0,0, 0.4), 1)
-			#draw_line(Vector2(0,0), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(1,0,0, 0.4), 1)
 			draw_line(Vector2(0,9999).rotated(rotation_angle+PI/2), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(0.5, 0, 1), 1)
 		
 		
@@ -1154,9 +1463,9 @@ func _draw():
 					#	zoomies = Worldconfig.Camera2D.zoom
 					
 					if m < array_walls[n].points.size()-1:
-						draw_line((array_walls[n].points[m]-position)*zoomies, (array_walls[n].points[m+1]-position)*zoomies, orange, 1)
+						draw_line((array_walls[n].points[m]-position)*zoomies, (array_walls[n].points[m+1]-position)*zoomies, array_walls[n].modulate, 1)
 					else:
-						draw_line((array_walls[n].points[array_walls[n].points.size()-1]-position)*zoomies, (array_walls[n].points[0]-position)*zoomies, orange, 1)
+						draw_line((array_walls[n].points[array_walls[n].points.size()-1]-position)*zoomies, (array_walls[n].points[0]-position)*zoomies, array_walls[n].modulate, 1)
 		
 		
 		
@@ -1171,15 +1480,11 @@ func _draw():
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								var zoomies = 1
-								#if Worldconfig.zoom > 0:
-								#	zoomies = float(1)/Worldconfig.zoom
-								#else:
-								#	zoomies = Worldconfig.Camera2D.zoom
 								
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line((targets_in_scene[n].points[m]-position)*zoomies, (targets_in_scene[n].points[m+1]-position)*zoomies, orange, 1)
+									draw_line((targets_in_scene[n].points[m]-position)*zoomies, (targets_in_scene[n].points[m+1]-position)*zoomies, targets_in_scene[n].modulate, 1)
 								else:
-									draw_line((targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position)*zoomies, (targets_in_scene[n].points[0]-position)*zoomies, orange, 1)
+									draw_line((targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position)*zoomies, (targets_in_scene[n].points[0]-position)*zoomies, targets_in_scene[n].modulate, 1)
 						targets_in_scene = []
 		
 		
@@ -1194,9 +1499,9 @@ func _draw():
 				for m in array_walls[n].points.size():
 					
 					if m < array_walls[n].points.size()-1:
-						draw_line(((array_walls[n].heights[m]+1) / lookingZ/1000)*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / lookingZ/1000)*(array_walls[n].points[m+1]-position), orange, 1)
+						draw_line(((array_walls[n].heights[m]+1) / lookingZ/1000)*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / lookingZ/1000)*(array_walls[n].points[m+1]-position), array_walls[n].modulate, 1)
 					else:
-						draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / lookingZ/1000)*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / lookingZ/1000)*(array_walls[n].points[0]-position), orange, 1)
+						draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / lookingZ/1000)*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / lookingZ/1000)*(array_walls[n].points[0]-position), array_walls[n].modulate, 1)
 			
 		
 		elif abs(map_draw) == 4: #all 3D walls
@@ -1210,10 +1515,10 @@ func _draw():
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  ((targets_in_scene[n].heights[m+1]+1) / lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  ((targets_in_scene[n].heights[m+1]+1) / lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), targets_in_scene[n].modulate, 1)
 									
 								else:
-									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), targets_in_scene[n].modulate, 1)
 									
 						
 						targets_in_scene = []
@@ -1227,10 +1532,10 @@ func _draw():
 					
 					
 					if m < array_walls[n].points.size()-1:
-						draw_line((1+array_walls[n].heights[ m                            ] * lookingZ/1000) * (array_walls[n].points[ m                            ]-position),  (1+array_walls[n].heights[m+1] * lookingZ/1000)*(array_walls[n].points[m+1]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[ m                            ] * lookingZ/1000) * (array_walls[n].points[ m                            ]-position),  (1+array_walls[n].heights[m+1] * lookingZ/1000)*(array_walls[n].points[m+1]-position), array_walls[n].modulate, 1)
 						
 					else:
-						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * lookingZ/1000) * (array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * lookingZ/1000)*(array_walls[n].points[ 0 ]-position), orange, 1)
+						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * lookingZ/1000) * (array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * lookingZ/1000)*(array_walls[n].points[ 0 ]-position), array_walls[n].modulate, 1)
 						
 		
 		elif abs(map_draw) == 6: #all 3D walls 2
@@ -1246,11 +1551,11 @@ func _draw():
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line((1+targets_in_scene[n].heights[ m                                 ] * lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  (1+targets_in_scene[n].heights[m+1] * lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), orange, 1)
+									draw_line((1+targets_in_scene[n].heights[ m                                 ] * lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  (1+targets_in_scene[n].heights[m+1] * lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), targets_in_scene[n].modulate, 1)
 									
 								
 								else:
-									draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), orange, 1)
+									draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), targets_in_scene[n].modulate, 1)
 									
 						targets_in_scene = []
 		
@@ -1273,45 +1578,6 @@ func _draw():
 
 
 
-#GRAVITY AND JUMPING FOR WHEN WE LATER NEED IT
-#	if Input.is_action_just_pressed("ply_jump"):
-#		motionZ += JUMP
-#	positionZ += motionZ
-#	if positionZ < 0:
-#		if Input.is_action_pressed("ply_jump"):
-#			motionZ += (GRAVITY-0.5)
-#		else:
-#			motionZ += GRAVITY # 1
-#	elif motionZ > 0: #If goes over, correct to 0
-#		positionZ = 0
-#		motionZ = 0
-
-
-
-#WORLD LOOKING ROUND RENDER
-#sprites[n].position.y = texture_cellsize/(-positionZ*lineH)
-
-
-#OLD VARIABLE I DON'T KNOW IF EVEN WORKED
-#			var dir = Vector2( sign(rays[n].get_collision_point().x - position.x), sign(rays[n].get_collision_point().y - position.y) )
-#			#   up = -1,-1.   left = -1, 1.   down =  1, 1.   right =  1,-1.
-#			#right     -ok
-#			#up/down   -fuzzy
-#			#left/down -flipped but not always?
-
-
-#HOW TO GET POSITION AHEAD OF RAYCAST
-#					var Numba = 0#angles/2
-#					
-#					draw_line(Vector2(0,0), rays[Numba].get_collision_point() - position, Color(1,1,0), 2)
-#					
-#					
-#					var cum = deg_rad($RayContainer.rotation_degrees + rays[Numba].rotation_degrees)
-#					
-#					draw_line(rays[Numba].get_collision_point() - position,
-#							 (rays[Numba].get_collision_point() - position) + Vector2(0,10).rotated(  cum  ),
-#					Color(1,0,0), 3)
-					# This was gonna be used for a fix_cell() idea when that was still around, worth keeping nonetheless
 
 
 func rad_deg(N):
@@ -1366,5 +1632,19 @@ func array_looping(to_check, array_size):
 	
 	return(to_check)
 
+func not_zero(n):
+	if n == 0:
+		return 1
+	else:
+		return n
 
 
+
+func overflow(N, minn, maxx):
+	while N > maxx:
+		N -= range(minn, maxx).size()
+	
+	while N < minn:
+		N += range(minn, maxx).size()
+	
+	return N
