@@ -31,9 +31,10 @@ FEATURES:
 -Animated weapon & feet sprites;
 -All changeable textures support any resolution;
 -Map using draw_line, 2D & 3D options;
--A WIP car with really basic suspension, collision, and movement.
+-A car.
 
 IMPERFECTIONS:
+-"Both bad neighbours" vertex clipping deletes polygon if index over 0 (why??);
 -No diagonal wall collision;
 -No shared vertices;
 -Heavy texture distortion up-close;
@@ -44,7 +45,7 @@ IMPERFECTIONS:
 -Floor-sprite position slightly innacurate to aspect ratio;
 -Mouselook entirely innacurate;
 -No in-game options (all settings in editor);
--The car is infinitely tall.
+-The car is partially infinitely tall.
 
 
 ###################################################################################
@@ -57,7 +58,8 @@ CONTROL KEYS:
 - Enter (hold):       View map;
 -    Quote ('): Console toggle;
 -            L:   Mouse toggle;
--        [ & ]:  Weapon select.
+-        [ & ]:  Weapon select;
+-            C: Driving toggle;
 
 DEBUG KEYS:
 - Scroll-lock (+Move):   Angle;
