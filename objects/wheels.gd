@@ -69,6 +69,9 @@ func _physics_process(_delta):
 	move_dir.y = sign(motion.y)
 	
 	collide()
+	
+	if on_floor == false:
+		print(OS.get_system_time_msecs())
 
 export(float) var GRAVITY = 0.5
 export var head_height = 65
@@ -205,48 +208,62 @@ func collide():
 			
 			
 			
-			else:
-				var new_height = slope(
+			else: #slope moment
+				var new_height = Vector2(slope(
 					Vector3(to_global(position).x, to_global(position).y,0), 
 					Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
 					Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
-					Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])) #+ margin
+					Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2]), n)) #+ margin
 				
 				#positionZ = new_height
 				
-				if (col_floors[n].absolute == 1) && (positionZ < new_height):
-					positionZ = new_height
+				if (col_floors[n].absolute == 1) && (positionZ < new_height.x):
+					positionZ = new_height.x
 					on_floor = true
-				elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height):
-					positionZ = new_height - head_height
+				elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height.x):
+					positionZ = new_height.x - head_height
 					on_floor = false
 					continue
 				
 				
-				if new_height > positionZ + head_height:
-					if new_height < positionZ + head_height + motionZ:
+				if new_height.x > positionZ + head_height:
+					if new_height.x < positionZ + head_height + motionZ:
 						motionZ = -motionZ
 				
-				elif new_height > positionZ:
-					positionZ = new_height
+				elif new_height.y > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max(): #THINK ABOUT THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSISISIISISISISIISIS
+					positionZ = new_height.y
+					on_floor = false
+					motionZ += (new_height.y - positionZ)*10 #THINK ABOUT THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSS
+				
+				elif new_height.x > positionZ:
+					positionZ = new_height.x
 					on_floor = true
 				else:
 					if on_floor:
-						positionZ = new_height
+						positionZ = new_height.x
 					else:
 						on_floor = false
 				
-				positionZ = new_height
+				#positionZ = new_height
 				#print(positionZ)
 
 
+var heading = Vector2(0,0)
 
-func slope(v0,v1,v2,v3):
+func slope(v0,v1,v2,v3, n):
 	var normal = (v2 - v1).cross(v3 - v1).normalized()
 	var dir = Vector3(0.0, 0.0, 1.0)
 	var r = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
 	
-	return r.z
+	#if r.z > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max():
+	#	motionZ = abs(r.z)
+	
+	v0 += Vector3(heading.x, heading.y, 0)
+	var r2 = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
+	if r2.z > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max():
+		return Vector2(r.z, r2.z)
+	
+	return Vector2(r.z, r2.z)
 	
 
 

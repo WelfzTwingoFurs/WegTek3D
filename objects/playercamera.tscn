@@ -163,6 +163,7 @@ __meta__ = {
 angles = 120
 draw_distance = 5000
 min_Z = -2100
+map_draw = 1
 skycolor = Color( 0, 1, 1, 1 )
 bg_offset = 5.0
 shading = false

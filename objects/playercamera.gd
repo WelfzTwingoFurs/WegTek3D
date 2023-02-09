@@ -31,6 +31,11 @@ export var sky_stretch = Vector2(1,1)
 export(float) var bg_offset = 1
 #Used for sky & floor position according to draw_distance
 
+export(bool) var cull_on = 1
+export(bool) var textures_on = true
+export var higfx = false
+export(bool) var shading = true
+export(bool) var sprite_shadows = true
 
 onready var change_checker = []
 
@@ -322,8 +327,7 @@ func _physics_process(_delta):
 		move_dir.z = 1
 	elif motionZ == 0:
 		move_dir.z = 0
-
-func _process(_delta):
+	
 	if Worldconfig.zoom < 2:
 		#$View/Hand.position.x = 0#(get_viewport().size.x/2) - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*gunscale)/2
 		#$View/Hand.position.x = get_viewport().get_mouse_position().x - (($View/Hand.texture.get_size().x/$View/Hand.hframes)*$View/Hand.scale.x)
@@ -487,15 +491,26 @@ func _process(_delta):
 	########################################################################################################################################################
 	########################################################################################################################################################
 	########################################################################################################################################################
-	
+
+func _process(_delta):
 	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:
 		recalculate()
 	else:
-		if !Input.is_action_pressed("bug_closeeyes"):
+		if Input.is_action_pressed("bug_closeeyes"):
+			$Background.visible = 0
+			$View.visible = 0
+			VisualServer.set_default_clear_color(0)
+			update()
+			if (weakref(new_container).get_ref()):
+				new_container.queue_free()
+			
+		elif Input.is_action_just_released("bug_closeeyes"):
+			update()
+			$Background.visible = 1
+			$View.visible = 1
+		
+		else:
 			render()
-	
-	if Input.is_action_pressed("ui_accept") or Input.is_action_just_released("ui_accept"):
-		update() #for the map
 
 #####    #####      #####      #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ##  ##       ##           ###         ###
@@ -511,10 +526,11 @@ func _process(_delta):
 ################################################################################
 
 var guninv = 0
-export var feet1 = preload("res://assets/feet1.png")
-export var feet2 = preload("res://assets/feet2.png")
 export var gunscale = 3
 export(bool) var gunstretch = false
+export var feet1 = preload("res://assets/feet1.png")
+export var feet2 = preload("res://assets/feet2.png")
+
 
 func gunswitch():
 	print(guninv)
@@ -979,8 +995,7 @@ var rot_minus90
 
 var midscreen = 0
 
-export(bool) var cull_on = 1
-export(bool) var textures_on = true
+
 
 func render():
 	if (weakref(new_container).get_ref()):
@@ -1021,7 +1036,7 @@ func render():
 				
 				
 				if (neighbours_pm.x == 1) && (neighbours_pm.y == 1):  #both neighbours bad, delete
-					continue#pass
+					pass#continue#passd
 				
 				
 				
@@ -1169,8 +1184,12 @@ func render():
 					
 				new_poly.modulate = array_walls[n].modulate
 				
+				if !textures_on && array_walls[n].textures_on && (array_walls[n].texture_path == "res://textures/chainfence.png" or array_walls[n].texture_path == "res://textures/chainfence2.png" or array_walls[n].texture_path == "res://textures/stretchtest.png"):
+					new_poly.modulate.a8 /= 2
 				
-				if textures_on && array_walls[n].textures_on && (array_walls[n].texture_path != "res://textures/solid1.png"): #Texture mapping
+				
+				
+				if (textures_on or array_walls[n].texture_path == "res://textures/wheelEGA64.png") && array_walls[n].textures_on && (array_walls[n].texture_path != "res://textures/solid1.png"): #Texture mapping
 					new_poly.texture = load(array_walls[n].texture_path)
 					new_poly.texture_rotation_degrees = array_walls[n].texture_rotate
 					#new_poly.texture_scale = array_walls[n].texture_repeat*new_poly.texture.get_size()
@@ -1338,8 +1357,7 @@ func render():
 				
 			
 
-export(bool) var shading = true
-export(bool) var sprite_shadows = true
+
 
 
 func new_position(point1,point2,limitPlus,limitMinus,det):
@@ -1376,11 +1394,11 @@ var array_walls = []
 var array_sprites = []
 
 func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
-	if body.is_in_group("render"):
+	if body.is_in_group("render") && (higfx or ((higfx) == (body.is_in_group("higfx")))):
 		if !array_walls.has(body):
 			array_walls.push_back(body)
 	
-	elif body.is_in_group("rendersprite"):
+	elif body.is_in_group("rendersprite") && (higfx or ((higfx) == (body.is_in_group("higfx")))):
 		if !array_sprites.has(body):
 			array_sprites.push_back(body)
 	
@@ -1429,56 +1447,49 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 
 func _draw():
-	if abs(map_draw) > 6:
-		print(">M I S T A K E: map_draw value invalid!")
-		map_draw = 6*sign(map_draw)
-	
-	if Worldconfig.zoom < 1:
-		#draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
-		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,0,0), 1)
+	if Input.is_action_pressed("bug_closeeyes"):
+		if abs(map_draw) > 3:
+			print(">M I S T A K E: map_draw value invalid!")
+			map_draw = 3*sign(map_draw)
 		
-		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
-		draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,0,0), 1)
+		if Worldconfig.zoom < 1:
+			draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
+			draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,0,0), 1)
+			draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
+			draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,0,0), 1)
 		
-	
-	
-	if Input.is_action_pressed("ui_accept"): #Must always update otherwise it doesn't dissapear
-		var shine1 = Color((randi() % 2),(randi() % 2),(randi() % 2))
 		
-		draw_line(Vector2(0,0), Vector2(0,draw_distance).rotated(rotation_angle), Color(1,1,1), 1)
+		#if Input.is_action_pressed("bug_closeeyes"): #Must always update otherwise it doesn't dissapear
+		var shine = Color((randi() % 2),(randi() % 2),(randi() % 2))
+		
+		
 		if sign(map_draw) == 1:
-			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), shine1, 1)
-			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
-			draw_line(Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine1, 1)
+			draw_line(Vector2(0,0), Vector2(0,draw_distance).rotated(rotation_angle), Color(1,1,1), 1)
+			
+			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), shine, 1)
+			draw_line(Vector2(0,0), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine, 1)
+			draw_line(Vector2(0,draw_distance*2).rotated(rotation_angle-deg_rad(angles/2)), Vector2(0,draw_distance*2).rotated(rotation_angle+deg_rad(angles/2)), shine, 1)
 			
 			draw_line(Vector2(0,9999).rotated(rotation_angle+PI/2), Vector2(0,9999).rotated(rotation_angle-PI/2), Color(0.5, 0, 1), 1)
 		
+		else:
+			draw_line(Vector2(0,0), Vector2(0,draw_distance).rotated(rotation_angle), shine, 1)
 		
 		
 		
 		
-		if abs(map_draw) == 1: #walls in area
-			for n in array_walls.size():
-				for m in array_walls[n].points.size():
-					var zoomies = 1
-					#if Worldconfig.zoom > 0:
-					#	zoomies = float(1)/Worldconfig.zoom
-					#else:
-					#	zoomies = Worldconfig.Camera2D.zoom
-					
-					if m < array_walls[n].points.size()-1:
-						draw_line((array_walls[n].points[m]-position)*zoomies, (array_walls[n].points[m+1]-position)*zoomies, array_walls[n].modulate, 1)
-					else:
-						draw_line((array_walls[n].points[array_walls[n].points.size()-1]-position)*zoomies, (array_walls[n].points[0]-position)*zoomies, array_walls[n].modulate, 1)
 		
 		
 		
-		elif abs(map_draw) == 2: #all walls
-			var targets_in_scene = []
-			targets_in_scene = get_tree().get_nodes_in_group("render") #Who is spawned
-			
-			if targets_in_scene.size() != 0: #If anyone at all
+		
+		
+		
+		
+		var targets_in_scene = get_tree().get_nodes_in_group("render")
+		
+		
+		if targets_in_scene.size() != 0: #If anyone at all
+			if abs(map_draw) == 1: #all walls
 				for item in targets_in_scene:
 					if (weakref(item).get_ref()): #If they are, then
 					
@@ -1490,64 +1501,28 @@ func _draw():
 									draw_line((targets_in_scene[n].points[m]-position)*zoomies, (targets_in_scene[n].points[m+1]-position)*zoomies, targets_in_scene[n].modulate, 1)
 								else:
 									draw_line((targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position)*zoomies, (targets_in_scene[n].points[0]-position)*zoomies, targets_in_scene[n].modulate, 1)
-						targets_in_scene = []
-		
-		
-		
-		
-		
-		
-		
-		
-		elif abs(map_draw) == 3: #3D walls in area
-			for n in array_walls.size():
-				for m in array_walls[n].points.size():
-					
-					if m < array_walls[n].points.size()-1:
-						draw_line(((array_walls[n].heights[m]+1) / lookingZ/1000)*(array_walls[n].points[m]-position), ((array_walls[n].heights[m+1]+1) / lookingZ/1000)*(array_walls[n].points[m+1]-position), array_walls[n].modulate, 1)
-					else:
-						draw_line(((array_walls[n].heights[array_walls[n].points.size()-1]+1) / lookingZ/1000)*(array_walls[n].points[array_walls[n].points.size()-1]-position), ((array_walls[n].heights[0]+1) / lookingZ/1000)*(array_walls[n].points[0]-position), array_walls[n].modulate, 1)
+									
+						
+						targets_in_scene = [] #reset
 			
-		
-		elif abs(map_draw) == 4: #all 3D walls
-			var targets_in_scene = []
-			targets_in_scene = get_tree().get_nodes_in_group("render") #Who is spawned
 			
-			if targets_in_scene.size() != 0: #If anyone at all
+			elif abs(map_draw) == 2: #all 3D walls
 				for item in targets_in_scene:
 					if (weakref(item).get_ref()): #If they are, then
 						
 						for n in targets_in_scene.size():
 							for m in targets_in_scene[n].points.size():
 								if m < targets_in_scene[n].points.size()-1:
-									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  ((targets_in_scene[n].heights[m+1]+1) / lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), targets_in_scene[n].modulate, 1)
+									draw_line(((targets_in_scene[n].heights[ m                                 ]+1) / not_zero(lookingZ)/1000) * (targets_in_scene[n].points[ m                                 ]-position),  ((targets_in_scene[n].heights[m+1]+1) / not_zero(lookingZ)/1000)*(targets_in_scene[n].points[m+1]-position), targets_in_scene[n].modulate, 1)
 									
 								else:
-									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), targets_in_scene[n].modulate, 1)
+									draw_line(((targets_in_scene[n].heights[targets_in_scene[n].points.size()-1]+1) / not_zero(lookingZ)/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  ((targets_in_scene[n].heights[ 0 ]+1) / not_zero(lookingZ)/1000)*(targets_in_scene[n].points[ 0 ]-position), targets_in_scene[n].modulate, 1)
 									
 						
-						targets_in_scene = []
-		
-		
-		
-		
-		elif abs(map_draw) == 5: #3D walls in area 2
-			for n in array_walls.size():
-				for m in array_walls[n].points.size():
-					
-					
-					if m < array_walls[n].points.size()-1:
-						draw_line((1+array_walls[n].heights[ m                            ] * lookingZ/1000) * (array_walls[n].points[ m                            ]-position),  (1+array_walls[n].heights[m+1] * lookingZ/1000)*(array_walls[n].points[m+1]-position), array_walls[n].modulate, 1)
-						
-					else:
-						draw_line((1+array_walls[n].heights[array_walls[n].points.size()-1] * lookingZ/1000) * (array_walls[n].points[array_walls[n].points.size()-1]-position),  (1+array_walls[n].heights[ 0 ] * lookingZ/1000)*(array_walls[n].points[ 0 ]-position), array_walls[n].modulate, 1)
-						
-		
-		elif abs(map_draw) == 6: #all 3D walls 2
-			var targets_in_scene = []
-			targets_in_scene = get_tree().get_nodes_in_group("render") #Who is spawned
+						targets_in_scene = [] #reset
 			
-			if targets_in_scene.size() != 0: #If anyone at all
+			
+			elif abs(map_draw) == 3: #all 3D walls 2
 				for item in targets_in_scene:
 					if (weakref(item).get_ref()): #If they are, then
 						
@@ -1558,14 +1533,11 @@ func _draw():
 								if m < targets_in_scene[n].points.size()-1:
 									draw_line((1+targets_in_scene[n].heights[ m                                 ] * lookingZ/1000) * (targets_in_scene[n].points[ m                                 ]-position),  (1+targets_in_scene[n].heights[m+1] * lookingZ/1000)*(targets_in_scene[n].points[m+1]-position), targets_in_scene[n].modulate, 1)
 									
-								
 								else:
 									draw_line((1+targets_in_scene[n].heights[targets_in_scene[n].points.size()-1] * lookingZ/1000) * (targets_in_scene[n].points[targets_in_scene[n].points.size()-1]-position),  (1+targets_in_scene[n].heights[ 0 ] * lookingZ/1000)*(targets_in_scene[n].points[ 0 ]-position), targets_in_scene[n].modulate, 1)
 									
-						targets_in_scene = []
-		
-		
-		#print(position)
+						
+						targets_in_scene = [] #reset
 
 
 	####    ####                ####            ############

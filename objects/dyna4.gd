@@ -35,35 +35,59 @@ func _ready():
 
 
 
-var wheel_base = 70  # Distance from front to rear wheel
-var steering_angle = 15  # Amount that front wheel turns, in degrees
+export var wheel_base = 70  # Distance from front to rear wheel
+export var steer_multi = 15  # Amount that front wheel turns, in degrees
+export(float) var steer_max = 1.5
+export(float) var steer_rate = 0.075
+
+export var engine_power = 8  
+export var break_power = 16
 
 var steer_angle
-
-var engine_power = 800  # Forward acceleration force.
-
-var acceleration = Vector2.ZERO
+var turn = 0
+var traction = 0.1
 
 func move_and_steer(delta):
-	var turn = 0
-	if Input.is_action_pressed("ply2_right"):
-		turn += 1
-	if Input.is_action_pressed("ply2_left"):
-		turn -= 1
-	steer_angle = turn * deg2rad(steering_angle)
-	motion = Vector2.ZERO
-	if Input.is_action_pressed("ply2_up"):
-		motion = transform.x * 500
+	
+	if abs(turn) > steer_max:
+		turn = steer_max*sign(turn)
+	
+	if Input.is_action_pressed("ui_right"):
+		turn += steer_rate
+	elif Input.is_action_pressed("ui_left"):
+		turn -= steer_rate
+	else:
+		turn = lerp(turn, 0, 1)
+	steer_angle = turn * deg2rad(steer_multi)
+	
+	#motion = Vector2.ZERO
+	
+	if Input.is_action_pressed("ui_up"):
+		motion += transform.x*engine_power
+	elif Input.is_action_pressed("ui_down"):
+		motion -= transform.x*break_power
+		if abs(motion.x) < 10:
+			motion.x = 0
+		if abs(motion.y) < 10:
+			motion.y = 0
+	
+	#print(transform)
 	
 	
 	var rear_wheel = position - transform.x * wheel_base / 2.0
 	var front_wheel = position + transform.x * wheel_base / 2.0
-	rear_wheel += motion * delta
-	front_wheel += motion.rotated(steer_angle) * delta
+	
+	if ($wheel0.on_floor == true) or ($wheel1.on_floor == true):
+		rear_wheel += motion * delta
+	if ($wheel2.on_floor == true) or ($wheel3.on_floor == true):
+		front_wheel += motion.rotated(steer_angle) * delta
+	
+	
 	var new_heading = (front_wheel - rear_wheel).normalized()
-	motion = new_heading * motion.length()
+	#motion = new_heading * motion.length()
+	motion = motion.linear_interpolate(new_heading * motion.length(), traction)
+	#velocity.linear_interpolate(new_heading * velocity.length(), traction)
 	rotation = new_heading.angle()
-
 
 
 export var cameraon = true
@@ -76,8 +100,8 @@ func _process(_delta):
 		Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
 		Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees)-PI/2)+0.0001
 		#Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle, rad_overflow(deg2rad(rotation_degrees)), 0.1)
-		#Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4 + camheight
-		Worldconfig.player.positionZ = lerp(Worldconfig.player.positionZ, (($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4 + camheight + abs([$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min() - [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].max())/camZdivide), 0.1)
+		Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4 + camheight
+		#Worldconfig.player.positionZ = lerp(Worldconfig.player.positionZ, (($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4 + camheight + abs([$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min() - [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].max())/camZdivide), 0.1)
 		
 		if motion != Vector2(0,0):
 			Worldconfig.player.vbob += Worldconfig.player.vbob_speed
@@ -85,7 +109,8 @@ func _process(_delta):
 
 func _physics_process(delta):
 	motion = move_and_slide(motion, Vector2(0,-1))
-	move_and_steer(delta)
+	if Worldconfig.player.camera:
+		move_and_steer(delta)
 	
 	#Worldconfig.player.vroll = (($wheel0.positionZ + $wheel1.positionZ)/2 - ($wheel2.positionZ + $wheel3.positionZ)/2)*0.1
 	
@@ -129,8 +154,8 @@ func _physics_process(delta):
 	
 	
 	
-	#positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4
-	positionZ = [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min()
+	positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4
+	#positionZ = [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min()
 	
 	#head_height = [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min() - [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].max()
 

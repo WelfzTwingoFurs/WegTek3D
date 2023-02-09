@@ -16,6 +16,9 @@ export var dontCollideSprite = false
 export var dontCollideWall = false
 
 func _ready():
+	if anim > vframes*hframes:
+		anim = 0
+	
 	if $CollisionShape2D.position != Vector2(0,0):
 		position = to_global($CollisionShape2D.position)
 		$CollisionShape2D.position = Vector2(0,0)

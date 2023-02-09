@@ -1,9 +1,7 @@
 extends Node2D
 
-export var higfx = true
-
 func _ready():
-	if !higfx:
+	if !Worldconfig.higfx:
 		for n in get_children():
 			if n.is_in_group("higfx"):
 				n.queue_free()

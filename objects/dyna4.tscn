@@ -41,8 +41,6 @@ shape = SubResource( 2 )
 position = Vector2( -42.1429, 32.8571 )
 rotation = -1.5708
 script = ExtResource( 3 )
-scaleZ = 2.8
-offset = -11
 
 [node name="base" type="StaticBody2D" parent="model"]
 modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
@@ -60,6 +58,7 @@ onesided = -1
 polygon = PoolVector2Array( -31, -70, 31, -70, 33, 71, -33, 71 )
 
 [node name="base2" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
@@ -93,6 +92,7 @@ heights = [ 39.0 ]
 polygon = PoolVector2Array( -26, -37, 26, -37, 26, 7, -26, 7 )
 
 [node name="inside" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
@@ -248,6 +248,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -9.25, -13.75, -9.25, 7.75, -7.5, 2.75, -7.5, -8.25 )
 
 [node name="LshockT" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.211765, 0.211765, 0.211765, 1 )
@@ -262,6 +263,7 @@ onesided = -1
 polygon = PoolVector2Array( -9.5, 17.25, -9.25, 11.75, -9, 11.75, -9.25, 17 )
 
 [node name="LshockB" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.211765, 0.211765, 0.211765, 1 )
@@ -276,25 +278,28 @@ onesided = 1
 polygon = PoolVector2Array( -9.5, 16.25, -9.25, 11.75, -9, 11.75, -9.25, 16 )
 
 [node name="LlightT" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.988235, 0.329412, 0.329412, 1 )
-position = Vector2( 33, -90.5 )
+position = Vector2( 33, -91.5714 )
 rotation = -2.53518e-06
 scale = Vector2( 4, 4 )
 collision_layer = 0
 script = ExtResource( 4 )
 heights = [ 15.0, 21.0, 21.0, 15.0 ]
 onesided = 1
+texture_path = "res://textures/car/escort-rearlight.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="model/LlightT"]
 polygon = PoolVector2Array( -3.5, 15.375, -3.5, 15.125, -7.75, 15.125, -7.75, 15.375 )
 
 [node name="LturnT" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
-position = Vector2( 33, -90.5 )
+position = Vector2( 33, -91.5714 )
 rotation = -2.53518e-06
 scale = Vector2( 4, 4 )
 collision_layer = 0
@@ -303,9 +308,10 @@ heights = [ 15.0, 21.0, 21.0, 15.0 ]
 onesided = -1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="model/LturnT"]
-polygon = PoolVector2Array( -8, 15.625, -8.25, 15.625, -7.75, 15.125, -7.75, 15.375 )
+polygon = PoolVector2Array( -7.98217, 15.6607, -7.98216, 15.3928, -7.75, 15.125, -7.75, 15.375 )
 
 [node name="LlightB" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( 33, 51.5 )
@@ -319,6 +325,7 @@ onesided = -1
 polygon = PoolVector2Array( -3.5, 15.375, -3.75, 15.125, -7.75, 15.125, -7.75, 15.375 )
 
 [node name="LturnB" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
@@ -399,6 +406,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -9.25, -13.75, -9.25, 7.75, -7.5, 2.75, -7.5, -8.25 )
 
 [node name="RshockT" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.211765, 0.211765, 0.211765, 1 )
@@ -414,6 +422,7 @@ onesided = 1
 polygon = PoolVector2Array( -9.5, 17.25, -9.25, 11.75, -9, 11.75, -9.25, 17 )
 
 [node name="RshockB" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.211765, 0.211765, 0.211765, 1 )
@@ -429,25 +438,28 @@ onesided = -1
 polygon = PoolVector2Array( -9.5, 16.25, -9.25, 11.75, -9, 11.75, -9.25, 16 )
 
 [node name="RlightT" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.988235, 0.329412, 0.329412, 1 )
-position = Vector2( 33, -90.5 )
+position = Vector2( 33, -91.2143 )
 rotation = 3.14159
 scale = Vector2( 4, -4 )
 collision_layer = 0
 script = ExtResource( 4 )
 heights = [ 15.0, 21.0, 21.0, 15.0 ]
 onesided = -1
+texture_path = "res://textures/car/escort-rearlight.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="model/RlightT"]
 polygon = PoolVector2Array( -3.5, 15.375, -3.5, 15.125, -7.75, 15.125, -7.75, 15.375 )
 
 [node name="RturnT" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
-position = Vector2( 33, -90.5 )
+position = Vector2( 33, -91.2143 )
 rotation = 3.14159
 scale = Vector2( 4, -4 )
 collision_layer = 0
@@ -456,9 +468,10 @@ heights = [ 15.0, 21.0, 21.0, 15.0 ]
 onesided = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="model/RturnT"]
-polygon = PoolVector2Array( -8, 15.625, -8.25, 15.625, -7.75, 15.125, -7.75, 15.375 )
+polygon = PoolVector2Array( -7.99998, 15.5715, -7.99998, 15.3037, -7.75, 15.125, -7.75, 15.375 )
 
 [node name="RlightB" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 position = Vector2( 33, 51.5 )
@@ -473,6 +486,7 @@ onesided = 1
 polygon = PoolVector2Array( -3.5, 15.375, -3.75, 15.125, -7.75, 15.125, -7.75, 15.375 )
 
 [node name="RturnB" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
@@ -522,6 +536,7 @@ onesided = -1
 polygon = PoolVector2Array( 31, 73, 33, 71, -33, 71, -31, 73 )
 
 [node name="shockB" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
@@ -536,6 +551,7 @@ onesided = -1
 polygon = PoolVector2Array( -9.25, 12.25, -9, 12.25, 7, 12.25, 7.25, 12.25 )
 
 [node name="shockT" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
@@ -550,6 +566,7 @@ onesided = 1
 polygon = PoolVector2Array( -9.25, 12.25, -9, 12.25, 7, 12.25, 7.25, 12.25 )
 
 [node name="signB" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
@@ -565,6 +582,7 @@ modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
 polygon = PoolVector2Array( 13.25, -3.25, 9.75, -3.25, 9.75, -3.5, 13.25, -3.5 )
 
 [node name="signT" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.643137, 0.643137, 0.643137, 1 )
@@ -580,6 +598,7 @@ scale = Vector2( 1, 0.5 )
 polygon = PoolVector2Array( -4.5, 15.25, -4.5, 15, -8, 15, -8, 15.25 )
 
 [node name="air" type="StaticBody2D" parent="model" groups=[
+"higfx",
 "render",
 ]]
 modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
