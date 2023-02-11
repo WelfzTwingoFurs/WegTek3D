@@ -6,7 +6,7 @@
 [ext_resource path="res://older_versions/Tile10-Texture.png" type="Texture" id=4]
 [ext_resource path="res://older_versions/Tile10-Col.tscn" type="PackedScene" id=5]
 [ext_resource path="res://older_versions/Tile10-Texture.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/skybox bubsysnes.png" type="Texture" id=7]
+[ext_resource path="res://older_versions/skybox bubsysnes.png" type="Texture" id=7]
 [ext_resource path="res://older_versions/TileCol.gd" type="Script" id=8]
 [ext_resource path="res://older_versions/,test-spinning body.tscn" type="PackedScene" id=9]
 

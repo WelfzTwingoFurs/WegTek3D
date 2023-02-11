@@ -2,8 +2,8 @@
 
 [ext_resource path="res://older_versions/player12.gd" type="Script" id=1]
 [ext_resource path="res://assets/feet2.png" type="Texture" id=2]
-[ext_resource path="res://assets/gradientthin.png" type="Texture" id=5]
-[ext_resource path="res://assets/skybox bubsy.png" type="Texture" id=6]
+[ext_resource path="res://older_versions/gradientthin.png" type="Texture" id=5]
+[ext_resource path="res://older_versions/skybox bubsy3D.png" type="Texture" id=6]
 [ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=7]
 
 [sub_resource type="CircleShape2D" id=1]

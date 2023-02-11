@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://older_versions/player6.tscn" type="PackedScene" id=1]
-[ext_resource path="res://make_invisible.gd" type="Script" id=2]
+[ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://older_versions/Tile10-Col.png" type="Texture" id=3]
 [ext_resource path="res://older_versions/Tile10-Texture.png" type="Texture" id=4]
 [ext_resource path="res://older_versions/Tile10-Col.tscn" type="PackedScene" id=5]
