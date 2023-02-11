@@ -1,4 +1,4 @@
-extends "res://sprite object physics.gd"
+extends "res://objects/sprite object physics.gd"
 
 export var speed = 50
 export var turn = 0.1
@@ -24,3 +24,12 @@ func _physics_process(_delta):
 	if jumpy:
 		if Worldconfig.player.positionZ > positionZ:
 			jump()
+
+func jump():
+	if on_floor == true:
+		motionZ += JUMP
+		on_floor = false
+	elif on_body == true:
+		motionZ += JUMP
+		on_body = false
+		on_floor = false

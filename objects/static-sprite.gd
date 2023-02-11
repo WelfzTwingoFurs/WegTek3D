@@ -14,6 +14,7 @@ export var dontZ = false
 export var dontMove = true
 export var dontCollideSprite = false
 export var dontCollideWall = false
+export(bool) var stepover = false
 
 func _ready():
 	if anim > vframes*hframes:

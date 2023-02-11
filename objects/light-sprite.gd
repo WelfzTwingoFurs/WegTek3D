@@ -12,6 +12,8 @@ export var darkness = 1
 export var dynamic_darkness = true
 export var dontScale = 0
 export var dontZ = false
+var stepover = false
+var shadow = false
 
 var daddy = null
 
@@ -40,6 +42,9 @@ func _process(_delta):
 		elif abs(switch) == 3:
 			position = daddy.lightRB
 			rotation_degrees = daddy.rotation_degrees + 90
+		elif abs(switch) == 4:
+			position = daddy.driver
+			rotation_degrees = daddy.rotation_degrees - 90
 		
 	if sign(switch) == -1:
 		dontScale = -1
@@ -100,5 +105,5 @@ func _process(_delta):
 #	pass # Replace with function body.
 
 
-func _on_Area2D_body_exited(body):
+func _on_Area2D_body_exited(_body):
 	pass # Replace with function body.

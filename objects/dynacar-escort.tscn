@@ -13,7 +13,7 @@ extents = Vector2( 32.8572, 72.1428 )
 
 [sub_resource type="CircleShape2D" id=3]
 
-[node name="dyna4" type="KinematicBody2D" groups=[
+[node name="dynacar-escort" type="KinematicBody2D" groups=[
 "sprite",
 ]]
 modulate = Color( 1, 1, 1, 0.498039 )

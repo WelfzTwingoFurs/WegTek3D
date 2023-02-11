@@ -1,4 +1,4 @@
-extends "res://sprite object physics.gd"
+extends "res://objects/sprite object physics.gd"
 
 export var speed = 350
 

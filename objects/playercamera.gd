@@ -634,6 +634,7 @@ var darkness = 1
 
 var on_body = false
 var body_on = null
+export var stepover = false
 
 func collide():
 	for n in col_sprites.size():
@@ -651,14 +652,13 @@ func collide():
 			#pé < topo, cabeça > topo
 			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
 				# pé < topo, cabeça > topo, pé - topo = <head_height
-				if (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
+				if col_sprites[n].stepover && (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height):#think think think
 					positionZ = heightsBT.y
 					on_body = true
 					body_on = col_sprites[n]
 				
-				elif (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+				elif col_sprites[n].stepover && (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height):#think think think
 					positionZ = heightsBT.x - head_height -1
-					on_body = false
 				
 				else:
 					remove_collision_exception_with(col_sprites[n])

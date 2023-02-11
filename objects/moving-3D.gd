@@ -4,6 +4,7 @@ export var positionZ = 0
 export var dontMove = false
 export var dontCollideSprite = false
 export var dontCollideWall = false
+export(bool) var stepover = false
 export(float) var scaleZ = 1
 
 func _ready():
