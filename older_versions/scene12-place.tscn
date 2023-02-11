@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://assets/skybox google.png" type="Texture" id=1]
+[ext_resource path="res://older_versions/skybox google.png" type="Texture" id=1]
 [ext_resource path="res://older_versions/player13.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/car Uno.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/car Uno lod.tscn" type="PackedScene" id=4]
@@ -12,7 +12,7 @@
 [ext_resource path="res://map-sector.gd" type="Script" id=10]
 [ext_resource path="res://objects/car FordA.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/car Kombi.tscn" type="PackedScene" id=12]
-[ext_resource path="res://sprite object physics.gd" type="Script" id=13]
+[ext_resource path="res://objects/sprite object physics.gd" type="Script" id=13]
 [ext_resource path="res://older_versions/queue_free.gd" type="Script" id=14]
 [ext_resource path="res://assets/lensflare.png" type="Texture" id=15]
 [ext_resource path="res://assets/driver.png" type="Texture" id=16]
@@ -34,11 +34,8 @@ radius = 1.0
 position = Vector2( -113, 237 )
 skycolor = Color( 1, 0.466667, 0, 1 )
 speed = 200
-gunscale = 2
-head_height = 40
 cull_on = true
 shading = false
-map_draw = 6
 
 [node name="Sky" parent="player13/Background" index="0"]
 modulate = Color( 0.266667, 0.196078, 0.333333, 1 )
