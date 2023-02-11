@@ -4,34 +4,26 @@ export(float) var scaleZ = 2.8
 export var offset = -27
 
 func _ready():
-#	if !Worldconfig.higfx:
-#		for n in get_children():
-#			if n.is_in_group("higfx"):
-#				n.queue_free()
-#
-#			for m in n.get_children():
-#				if m.is_in_group("higfx"):
-#					m.queue_free()
-#
-#				for o in m.get_children():
-#					if o.is_in_group("higfx"):
-#						o.queue_free()
-#
-#					for p in o.get_children():
-#						if p.is_in_group("higfx"):
-#							p.queue_free()
-
-	
 	for n in get_children():
 		if n.is_in_group("render"):
 			for m in n.heights.size():
 				n.heights[m] *= scaleZ
 
 
-func _physics_process(_delta):
+func _process(_delta):
 	var average = (to_global($base.points[2]) + to_global($base.points[3]))/2
 	
 	for n in get_children():
+#		if n.is_in_group("rendersprite"):
+#				n.positionZ = theraot(
+#					Vector3(to_global(n.position).x, to_global(n.position).y, n.positionZ),
+#		Vector3(to_global($base.points[0]).x, to_global($base.points[0]).y, $base.heights[0] + $base.extraZ[0] +offset),
+#		Vector3(to_global($base.points[1]).x, to_global($base.points[1]).y, $base.heights[1] + $base.extraZ[1] +offset), 
+#		Vector3(average.x, average.y, ((($base.heights[2] + $base.extraZ[2]) + ($base.heights[3] + $base.extraZ[3]))/2 +offset) ))#############
+		
+		
+		
+		
 		if n.is_in_group("render"):
 			for m in n.points.size():
 				n.extraZ[m] = theraot(

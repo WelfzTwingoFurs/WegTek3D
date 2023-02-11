@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/gradientverybig.png" type="Texture" id=4]
 [ext_resource path="res://assets/feet1.png" type="Texture" id=5]
 [ext_resource path="res://assets/weapon handgun.png" type="Texture" id=6]
-[ext_resource path="res://assets/skybox solange.png" type="Texture" id=7]
+[ext_resource path="res://assets/skybox solange lores.png" type="Texture" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -165,6 +165,7 @@ draw_distance = 5000
 min_Z = -2100
 map_draw = 1
 skycolor = Color( 0, 1, 1, 1 )
+sky_stretch = Vector2( 1, 10 )
 bg_offset = 5.0
 shading = false
 
@@ -288,10 +289,8 @@ __meta__ = {
 }
 
 [node name="Sky" type="TextureRect" parent="Background"]
-margin_left = -180.0
-margin_top = -108.0
-margin_right = 180.0
-margin_bottom = 109.0
+margin_right = 2806.0
+margin_bottom = 1747.0
 texture = ExtResource( 7 )
 stretch_mode = 2
 __meta__ = {

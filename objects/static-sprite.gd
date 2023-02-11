@@ -37,29 +37,30 @@ var motion = Vector2()
 func _physics_process(_delta):
 	if dontMove:
 		motion = Vector2(0,0)
+		motionZ = 0
 	else:
 		motion = move_and_slide(motion, Vector2(0,-1))
 	
-	if !dontCollideSprite:
-		if on_body == true:
-			motionZ = 0
-			positionZ = body_on.positionZ + body_on.head_height
-			if col_sprites.size() == 0:
-				on_body = false
-	
-	if !dontCollideWall:
-		if on_floor == false:
-			if (col_floors.size() == 0 && positionZ <= Worldconfig.player.min_Z):
-				on_floor = true
+		if !dontCollideSprite:
+			if on_body == true:
 				motionZ = 0
+				positionZ = body_on.positionZ + body_on.head_height
+				if col_sprites.size() == 0:
+					on_body = false
+		
+		if !dontCollideWall:
+			if on_floor == false:
+				if (col_floors.size() == 0 && positionZ <= Worldconfig.player.min_Z):
+					on_floor = true
+					motionZ = 0
+				else:
+					motionZ -= GRAVITY
+				
 			else:
-				motionZ -= GRAVITY
-			
-		else:
-			motionZ = 0
-	
-	rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - Worldconfig.player.position).angle() + PI/2, 0.05))
-	positionZ += motionZ
+				motionZ = 0
+		
+		rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - Worldconfig.player.position).angle() + PI/2, 0.05))
+		positionZ += motionZ
 	
 	collide()
 
@@ -102,13 +103,13 @@ func collide():
 			#pé < topo, cabeça > topo
 			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
 				# pé < topo, cabeça > topo, pé - topo = <head_height
-				if (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
-					positionZ = heightsBT.y
+				if (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height*2):
+					#positionZ = heightsBT.y
 					#on_floor = true
 					on_body = true
 					body_on = col_sprites[n]
 				
-				elif (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
+				elif (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height*2):
 					positionZ = heightsBT.x - head_height -1
 					on_body = false
 				

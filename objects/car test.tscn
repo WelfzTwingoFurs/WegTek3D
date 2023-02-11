@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://map-floor.gd" type="Script" id=1]
+[ext_resource path="res://map-floor-animated.gd" type="Script" id=1]
 [ext_resource path="res://map-sector.gd" type="Script" id=2]
 
 [node name="3Dcar" type="Node2D"]

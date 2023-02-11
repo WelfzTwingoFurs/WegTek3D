@@ -27,6 +27,7 @@ export var vroll_multi = -1.5
 export var map_draw = 2
 
 export var skycolor = Color8(47,0,77)
+export var scenetint = Color8(255,255,255)
 export var sky_stretch = Vector2(1,1)
 export(float) var bg_offset = 1
 #Used for sky & floor position according to draw_distance
@@ -48,7 +49,7 @@ func _ready():
 	#Turn everything on
 	
 	$ViewArea/ViewCol.polygon = [Vector2(0,0),   Vector2(0,draw_distance*2).rotated(-deg_rad(angles/2)),   Vector2(0,draw_distance*2).rotated( deg_rad(angles/2))]
-	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size*0, sky_stretch]
+	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size*0, sky_stretch, Color8(255,255,255)]
 	#Checks if things changed and updates
 	
 
@@ -109,11 +110,11 @@ func _physics_process(_delta):
 	$ViewArea/ViewCol.rotation_degrees = rad_deg(rotation_angle) #radian to degrees
 	 
 	if !camera:
-		if Input.is_action_pressed("ui_up"):
+		if Input.is_action_pressed("ply_up"):
 			input_dir.y = 1
 			move_dir.y = 1
 		
-		elif Input.is_action_pressed("ui_down"):
+		elif Input.is_action_pressed("ply_down"):
 			input_dir.y = -1
 			move_dir.y = -1
 		
@@ -122,10 +123,10 @@ func _physics_process(_delta):
 			move_dir.y = 0
 		
 		
-		if Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("ply_left"):
 			input_dir.x = 1
 			
-			if Input.is_action_pressed("ui_select") or mouselock: #strafe
+			if Input.is_action_pressed("ply_strafe") or mouselock: #strafe
 				move_dir.x = 1
 				vroll_strafe_divi = 1
 				
@@ -134,14 +135,12 @@ func _physics_process(_delta):
 				move_dir.x = 0
 				
 				rotation_angle -= 0.0174533 * rotate_rate #1 degree in radian
-				if rotation_angle < 0:
-					rotation_angle = 2*PI #360 in radian
 		
 		
-		elif Input.is_action_pressed("ui_right"):
+		elif Input.is_action_pressed("ply_right"):
 			input_dir.x = -1
 			
-			if Input.is_action_pressed("ui_select") or mouselock: #strafe
+			if Input.is_action_pressed("ply_strafe") or mouselock: #strafe
 				move_dir.x = -1
 				vroll_strafe_divi = 1
 				
@@ -150,8 +149,6 @@ func _physics_process(_delta):
 				move_dir.x = 0
 				
 				rotation_angle += 0.0174533 * rotate_rate #1 degree in radian
-				if rotation_angle > 2*PI: #360 in radian
-					rotation_angle = 0
 		
 		
 		else: #no inputs
@@ -357,15 +354,16 @@ func _physics_process(_delta):
 	# vv Sprite effects, vbob
 	########################################################################################################################################################
 	########################################################################################################################################################
-	if move_dir != Vector3(0,0,0):
-		if move_dir.y == 1:
-			vbob += vbob_speed
+	if !camera:
+		if move_dir != Vector3(0,0,0):
+			if move_dir.y == 1:
+				vbob += vbob_speed
+			else:
+				vbob -= vbob_speed
+		
 		else:
-			vbob -= vbob_speed
-	
-	else:
-		if vbob != 0:
-			vbob = stepify(lerp(vbob,0,0.1),0.1)
+			if vbob != 0:
+				vbob = stepify(lerp(vbob,0,0.1),0.1)
 	
 	
 	if vbob > vbob_max:
@@ -432,7 +430,7 @@ func _physics_process(_delta):
 	var C = float(1)
 	if darkness < 0: C *= -darkness
 	elif darkness > 0: C /= darkness
-	$View.modulate = Color(C,C,C)
+	$View.modulate = Color(C,C,C)*scenetint
 	
 	
 	
@@ -456,7 +454,7 @@ func _physics_process(_delta):
 				$View/AniPlayFeet.playback_speed = input_dir.y
 
 			elif input_dir.x != 0:
-				if Input.is_action_pressed("ui_select"):
+				if Input.is_action_pressed("ply_strafe"):
 					if input_dir.x == -1:
 						$View/AniPlayFeet.play("strafeR")
 					else:
@@ -493,7 +491,14 @@ func _physics_process(_delta):
 	########################################################################################################################################################
 
 func _process(_delta):
-	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:
+	if rotation_angle < 0:
+		rotation_angle = 2*PI #360 in radian
+
+	if rotation_angle > 2*PI: #360 in radian
+		rotation_angle = 0
+	
+	
+	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch, scenetint]:
 		recalculate()
 	else:
 		if Input.is_action_pressed("bug_closeeyes"):
@@ -963,7 +968,16 @@ func recalculate():
 			print("-   RESOLUTION: ",OS.window_size,", changed from ",change_checker[6])
 			change_checker[6] = OS.window_size
 		
+		
 	
+	
+	if change_checker[8] != scenetint:
+		$View.modulate = scenetint
+		$PolyContainer.modulate = scenetint
+		$Background.modulate = scenetint
+		
+		print("-    SCENETINT: ",scenetint,", changed from ",change_checker[8])
+		change_checker[8] = scenetint
 
 
 

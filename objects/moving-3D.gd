@@ -1,27 +1,21 @@
 extends KinematicBody2D
 
-var scale_extra = Vector2(0.5,0.5)
-var dontScale = 0
-var spr_height = 0
-var texture = preload("res://textures/wheelEGA64.png")
-var vframes = 1
-var hframes = 1
-var dontZ = false
-var rotations = 1
-var anim = 0
-var shadow = false
-var darkness = 1
-
 export var positionZ = 0
-export(bool) var dontMove = false
-export(bool) var dontCollideSprite = false
-export(bool) var dontCollideWall = false
+export var dontMove = false
+export var dontCollideSprite = false
+export var dontCollideWall = false
+export(float) var scaleZ = 1
 
 func _ready():
-	if !is_in_group("sprite"):
-		add_collision_exception_with(Worldconfig.player)
+	$model.scaleZ = scaleZ
+	head_height *= scaleZ
 	
-	remove_from_group("rendersprite")
+	if $CollisionShape2D.position != Vector2(0,0):
+		position = to_global($CollisionShape2D.position)
+		$CollisionShape2D.position = Vector2(0,0)
+	
+	
+	rotation_degrees = rad2deg(int(position.x * position.y) % 360)
 
 
 
@@ -33,47 +27,38 @@ func _ready():
 var motion = Vector2()
 
 func _physics_process(_delta):
-	#if dontMove:
-	motion = Vector2(0,0)
-	#else:
-	#	motion = move_and_slide(motion, Vector2(0,-1))
+	$model.extraZ = positionZ
 	
-	if !dontCollideSprite:
-		if on_body == true:
-			motionZ = 0
-			positionZ = body_on.positionZ + body_on.head_height
-			if col_sprites.size() == 0:
-				on_body = false
+	if dontMove:
+		motion = Vector2(0,0)
+	else:
+		motion = move_and_slide(motion, Vector2(0,-1))
 	
-	if !dontCollideWall:
-		if on_floor == false:
-			if (col_floors.size() == 0 && positionZ <= Worldconfig.player.min_Z):
-				on_floor = true
+		if !dontCollideSprite:
+			if on_body == true:
 				motionZ = 0
+				positionZ = body_on.positionZ + body_on.head_height
+				if col_sprites.size() == 0:
+					on_body = false
+		
+		if !dontCollideWall:
+			if on_floor == false:
+				if (col_floors.size() == 0 && positionZ <= Worldconfig.player.min_Z):
+					on_floor = true
+					motionZ = 0
+				else:
+					motionZ -= GRAVITY
+				
 			else:
-				motionZ -= GRAVITY
-			
-		else:
-			motionZ = 0
-	
-	positionZ += motionZ
-	
-	if motionZ < 0:
-		move_dir.z = -1
-	elif motionZ > 0:
-		move_dir.z = 1
-	elif motionZ == 0:
-		move_dir.z = 0
-	
-	move_dir.x = sign(motion.x)
-	move_dir.y = sign(motion.y)
+				motionZ = 0
+		
+		#rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - Worldconfig.player.position).angle() + PI/2, 0.05))
+		
+		positionZ += motionZ
 	
 	collide()
-	
-	#if on_floor == false:
-	#	print(OS.get_system_time_msecs())
 
-export(float) var GRAVITY = 0.5
+export var GRAVITY = 0.5
 export var head_height = 65
 var col_walls = []
 var col_floors = []
@@ -84,6 +69,8 @@ var on_body = false
 var body_on = null
 var motionZ = 0
 var compareZ = INF
+
+
 
 func collide():
 	for n in col_sprites.size():
@@ -105,10 +92,11 @@ func collide():
 			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
 				# pé < topo, cabeça > topo, pé - topo = <head_height
 				if (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height/2):
-					positionZ = heightsBT.y
+					if !dontMove:
+						positionZ = heightsBT.y
 					#on_floor = true
-					on_body = true
-					body_on = col_sprites[n]
+						on_body = true
+						body_on = col_sprites[n]
 				
 				elif (positionZ < heightsBT.x && positionZ+head_height > heightsBT.x) && ((positionZ+head_height) - heightsBT.x < head_height/2):
 					positionZ = heightsBT.x - head_height -1
@@ -208,63 +196,52 @@ func collide():
 			
 			
 			
-			else: #slope moment
-				var new_height = Vector2(slope(
-					Vector3(to_global(position).x, to_global(position).y,0), 
+			else:
+				var new_height = slope(
+					Vector3(position.x,position.y,0), 
 					Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
 					Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
-					Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2]), n)) #+ margin
+					Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])) #+ margin
 				
-				#positionZ = new_height
 				
-				if (col_floors[n].absolute == 1) && (positionZ < new_height.x):
-					positionZ = new_height.x
+				if (col_floors[n].absolute == 1) && (positionZ < new_height):
+					positionZ = new_height
 					on_floor = true
-				elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height.x):
-					positionZ = new_height.x - head_height
+				elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height):
+					positionZ = new_height - head_height
 					on_floor = false
 					continue
 				
 				
-				if new_height.x > positionZ + head_height:
-					if new_height.x < positionZ + head_height + motionZ:
-						motionZ = -motionZ
-				
-				elif new_height.y > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max(): #THINK ABOUT THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSISISIISISISISIISIS
-					positionZ = new_height.y
-					on_floor = false
-				#	motionZ += (new_height.y - positionZ)*10 #THINK ABOUT THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSS
-				
-				elif new_height.x > positionZ:
-					positionZ = new_height.x
-					on_floor = true
-				else:
-					if on_floor:
-						positionZ = new_height.x
+				if move_dir:
+					if new_height > positionZ + head_height:
+						if new_height < positionZ + head_height + motionZ:
+							motionZ = -motionZ
+					
+					elif new_height > positionZ:
+						positionZ = new_height
+						on_floor = true
 					else:
-						on_floor = false
-				
-				#positionZ = new_height
-				#print(positionZ)
+						if on_floor:
+							positionZ = new_height
+						else:
+							on_floor = false
 
 
-var heading = Vector2(0,0)
 
-func slope(v0,v1,v2,v3, n):
+
+func slope(v0,v1,v2,v3):
 	var normal = (v2 - v1).cross(v3 - v1).normalized()
 	var dir = Vector3(0.0, 0.0, 1.0)
 	var r = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
 	
-	#if r.z > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max():
-	#	motionZ = abs(r.z)
+	return r.z
 	
-	v0 += Vector3(heading.x, heading.y, 0)
-	var r2 = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
-	if r2.z > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max():
-		return Vector2(r.z, r2.z)
-	
-	return Vector2(r.z, r2.z)
-	
+
+
+
+
+
 
 
 

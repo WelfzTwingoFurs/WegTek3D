@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=1]
+[ext_resource path="res://objects/car FordA.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/car Testarossa.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/car Kombi.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/car Escort.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/car Uno.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/playercamera.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/thing Tree1.tscn" type="PackedScene" id=8]
+
+[node name="scene models" type="Node2D"]
+
+[node name="playercamera" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, -44 )
+speed = 200
+head_height = 0
+min_Z = 0
+vbob_max = 0.0
+vbob_speed = 0.0
+vroll_multi = 0.0
+cull_on = false
+higfx = true
+
+[node name="Escort" parent="." instance=ExtResource( 5 )]
+position = Vector2( -960, 1 )
+rotation = 4.71239
+script = ExtResource( 1 )
+
+[node name="FordA" parent="." instance=ExtResource( 2 )]
+position = Vector2( -304, 1 )
+rotation = 4.71239
+script = ExtResource( 1 )
+
+[node name="Kombi" parent="." instance=ExtResource( 4 )]
+position = Vector2( -801, 1 )
+rotation = 4.71239
+script = ExtResource( 1 )
+
+[node name="Testarossa" parent="." instance=ExtResource( 3 )]
+position = Vector2( -474, 1 )
+rotation = 4.71239
+script = ExtResource( 1 )
+
+[node name="Uno" parent="." instance=ExtResource( 6 )]
+position = Vector2( -628, 1 )
+rotation = 4.71239
+script = ExtResource( 1 )
+
+[node name="Tree" parent="." instance=ExtResource( 8 )]
+position = Vector2( -190, 0 )
