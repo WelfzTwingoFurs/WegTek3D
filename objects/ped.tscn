@@ -1,11 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/ped.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites ped0.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
+resource_name = "fall"
 length = 0.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:anim")
 tracks/0/interp = 1
@@ -13,14 +13,30 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 2, 3, 4 ]
+"values": [ 5, 6, 7, 8, 9 ]
 }
 
 [sub_resource type="Animation" id=2]
-resource_name = "walk"
+resource_name = "idle"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:anim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 4 ]
+}
+
+[sub_resource type="Animation" id=3]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -36,12 +52,13 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=4]
 radius = 20.0
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=5]
 
 [node name="ped" type="KinematicBody2D" groups=[
+"ped",
 "rendersprite",
 "sprite",
 ]]
@@ -49,26 +66,29 @@ position = Vector2( -6721, 9155 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
-scale_extra = Vector2( 2, 2 )
+anim = 2
+scale_extra = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 vframes = 3
 rotations = 4
 spr_height = 17
 head_height = 100
+shadow_height = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/_ready = SubResource( 1 )
-anims/walk = SubResource( 2 )
+anims/fall = SubResource( 1 )
+anims/idle = SubResource( 2 )
+anims/walk = SubResource( 3 )
 
 [node name="ColArea" type="Area2D" parent="."]
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 
