@@ -8,7 +8,8 @@
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster-like
 ###################################################################################
-########### Godot Raycaster-like!!  V13; written by "Welfz Twingo Furs" ###########
+########### Godot raycaster-like engine!! ... WEGTEK Engine, Version 13 ###########
+###################### written by Welfz Twingo Furs, aka Weg ######################
 ###################################################################################
  [created using Godot Engine v3.3.2-stable Win64, at https://www.godotengine.org/]
 
@@ -31,7 +32,8 @@ FEATURES:
 -Animated weapon & feet sprites;
 -All changeable textures support any resolution;
 -Map using draw_line, 2D & 3D options;
--A car.
+-A driveable car;
+-Basic pedestrians;
 
 IMPERFECTIONS:
 -No diagonal wall collision;
