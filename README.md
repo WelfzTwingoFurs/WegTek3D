@@ -33,7 +33,7 @@ FEATURES:
 -All changeable textures support any resolution;
 -Map using draw_line, 2D & 3D options;
 -A driveable car;
--Basic pedestrians;
+-Basic pedestrians.
 
 IMPERFECTIONS:
 -No diagonal wall collision;
