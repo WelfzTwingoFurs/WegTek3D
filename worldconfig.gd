@@ -11,16 +11,16 @@ var config = 1
 # 1 = Window & Image stretch together
 var step = 0
 var zoom = 1
-var Camera2D
 #var zoom_config = 0
 # 0 = Software exploit zoom-out
 # 1 = Better and obvious Camera2D zoom-out
 ##################################
 
 var player
-var playeraim
+var playercar = null
 
 func _process(_delta):
+	#print(playercar)
 	### STOCK zoom configuration ###
 	### zoom process ###
 	
@@ -141,6 +141,12 @@ func _process(_delta):
 						zoom = -1
 					
 					print("=  WORLDCONFIG: config=",config,", zoom=",zoom,", Camera2D.zoom=",Camera2D.zoom)
+		
+		
+		#if Input.is_action_just_pressed("bug_resstay"):
+		#	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(OS.window_size.x, OS.window_size.y))
+		#	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP, Vector2(OS.window_size.x, OS.window_size.y))
+		#	
 		
 		
 		

@@ -10,10 +10,10 @@ func _ready():
 
 var pause = false
 
-func _physics_process(_delta):
-	if Input.is_action_just_pressed("bug_animationplayer_pause"):
-		pause = !pause
-		if pause == true:
-			stop()
-		else:
-			play()
+#func _physics_process(_delta):
+#	if Input.is_action_just_pressed("bug_animationplayer_pause"):
+#		pause = !pause
+#		if pause == true:
+#			stop()
+#		else:
+#			play()

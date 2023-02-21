@@ -1,6 +1,6 @@
-<i>NOTE: Low color & FPS recording (game runs Real Smoof™!)</i><br>
+<i>NOTE: Low color & FPS recording, game runs real smoof!</i><br>
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="ello there dude">
-<img src="https://github.com/WelfzTwingoFurs/godot-raycaster-like/blob/main/readmegif.gif?raw=true" height=350>
+<img src="https://media3.giphy.com/media/cFraOiAcTPDb14GSZJ/giphy.gif" height=350px title="making gifs that work in github IS REALLY ANNOYING">
 <img src="https://raw.githubusercontent.com/WelfzTwingoFurs/godot-raycaster/main/icon.png" title="whats good chap">
 <hr>
 
@@ -8,46 +8,36 @@
 ```text
 https://github.com/WelfzTwingoFurs/godot-raycaster-like
 ###################################################################################
-########### Godot raycaster-like engine!! ... WEGTEK Engine, Version 13 ###########
-###################### written by Welfz Twingo Furs, aka Weg ######################
+############ Godot Raycaster-like!!  Written by "Welfz Twingo Furs"... ############
 ###################################################################################
  [created using Godot Engine v3.3.2-stable Win64, at https://www.godotengine.org/]
 
 FEATURES:
 -Polygon world with height;
--Moving up & down, looking up & down;
+-Flying up & down, looking up & down;
 -Field of view (FOV), draw distance options;
--Clipping (vertices behind camera don't distort);
+-Clipping (vertexes behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
--One-sided polygon option;
--Whole-polygon culling (if entirely outside screen, don't render);
--Sprite objects with height, & any amount of rotation frames;
--Sprite ground-shadows/reflections;
--Floor & flat wall collision;
--Mouse & keyboard control;
--Convenient map-making options;
--Screen resizable to any size without stretching;
+-Screen resizable to any size;
 -Viewbobbing, viewrolling options;
--Scrolling sky sprite & stretch options, floor sprite;
--Animated weapon & feet sprites;
--All changeable textures support any resolution;
--Map using draw_line, 2D & 3D options;
--A driveable car;
--Basic pedestrians.
+-Scrolling sky texture & stretch options, floor texture;
+-All changeable textures to any size;
+-Map using draw_line, 2D & 3D options.
 
 IMPERFECTIONS:
--No diagonal wall collision;
--No shared vertices;
+-No Y FOV;
+-No collision;
+-No sprite objects;
+-Only 1 texture at a time (lazy, it just needs configuring);
 -Heavy texture distortion up-close;
--Clipping intervenes with UV-texturing;
--No camera-edge clipping (polys pieces outside screen still render);
--No screen clipping (polygons pieces behind others still render);
--Cull on + "Both bad neighbours" deletes polygon if index over 0;
--Draw distance innacurate to value depending on Angles FOV;
--Floor-sprite position slightly innacurate to aspect ratio;
--Mouselook entirely innacurate;
--No in-game options (all settings in editor);
--The car is partially infinitely tall.
+-Non-square polygons don't texture properly (& intervenes with clipping);
+-No camera-edge clipping (polys outside screen still render);
+-No culling (polygons behind others still render);
+-Draw distance innacurate to value (depending on Angles FOV);
+-Floor texture position slightly innacurate to aspect ratio;
+-Feet when you look down, draw distance fading,
+depth-shading options, have been deactivated;
+-No in-game options (all settings in editor).
 
 
 ###################################################################################
@@ -58,10 +48,7 @@ CONTROL KEYS:
 -PGup & PGdown: Look up & down;
 - Space & Ctrl:  Fly up & down;
 - Enter (hold):       View map;
--    Quote ('): Console toggle;
--            L:   Mouse toggle;
--        [ & ]:  Weapon select;
--            C: Driving toggle;
+-    Quote ('): Console toggle.
 
 DEBUG KEYS:
 - Scroll-lock (+Move):   Angle;
@@ -85,9 +72,7 @@ SPECIAL THANKS:
 -JJoeyay, for teaching me Godot and inspiring me to make games;
 -3DSage's 'Make Your Own Raycaster' series on YouTube;
 -Kofybrek's 'Writing my First Ray Casting Game using C++ and SFML - SFML Tutorial';
--javidx9's 'Code-It-Yourself! 3D Graphics Engine' series on YouTube;
--Nic from college, for helping understand the polygon processing logic;
--Theraot from Stackoverflow, for making the slope collision for me.
+-Nic from college, for making me understand the polygon processing logic.
 
 8)
 ```
