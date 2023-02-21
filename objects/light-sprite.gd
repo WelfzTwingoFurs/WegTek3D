@@ -30,6 +30,11 @@ var switch = 0
 
 func _process(_delta):
 	if daddy != null:
+		if daddy == Worldconfig.playercar && !Worldconfig.player.camera:
+			anim = 1
+		else:
+			anim = 0
+		
 		if abs(switch) == 0:
 			position = daddy.lightFT
 			rotation_degrees = daddy.rotation_degrees - 90
@@ -42,9 +47,11 @@ func _process(_delta):
 		elif abs(switch) == 3:
 			position = daddy.lightRB
 			rotation_degrees = daddy.rotation_degrees + 90
-		elif abs(switch) == 4:
-			position = daddy.driver
-			rotation_degrees = daddy.rotation_degrees - 90
+		#elif abs(switch) == 4:
+		#	position = daddy.driver
+		#	rotation_degrees = daddy.rotation_degrees - 90
+		
+		
 		
 	if sign(switch) == -1:
 		dontScale = -1

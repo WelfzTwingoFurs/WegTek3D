@@ -12,27 +12,12 @@ var motion = Vector2()
 
 
 func _ready():
-	Worldconfig.playeraim = self
-	#add_collision_exception_with($model)
 	add_collision_exception_with($wheel0)
 	add_collision_exception_with($wheel1)
 	add_collision_exception_with($wheel2)
 	add_collision_exception_with($wheel3)
 	for n in $model.get_children():
-		#if n.is_in_group("render"):
 		add_collision_exception_with(n)
-	
-	
-#	for n in get_children():
-#		if n.is_in_group("position"):
-#			var instance = load(n.path).instance()
-#			instance.daddy = self
-#			instance.position = Worldconfig.player.position
-#			instance.positionZ = Worldconfig.player.min_Z
-#
-#			get_parent().add_child(instance)
-#			call_deferred("add child", instance)
-#			get_tree().get_root().add_child(instance)
 
 
 
@@ -51,9 +36,6 @@ func _ready():
 
 
 
-
-
-export var cameraon = true
 export var camdist = 500
 export var camheight = 80
 export(float) var camZdivide = 4
@@ -110,22 +92,23 @@ func shoot():
 
 
 
-
 var lightFT = Vector2()
 var lightFB = Vector2()
 var lightRT = Vector2()
 var lightRB = Vector2()
-
 #var driver = Vector2()
-
 #var seatFT = Vector2()
 #var seatFB = Vector2()
 #var seatRT = Vector2()
 #var seatRB = Vector2()
 
+var lightshit = false
+
 func _process(_delta):
-	if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"):
+	if lightshit == false:
 		shoot()
+		lightshit = true
+	
 	lightFT = position + ($lightFT.position*scale).rotated(deg2rad(rotation_degrees))
 	lightFB = position + ($lightFB.position*scale).rotated(deg2rad(rotation_degrees))
 	lightRT = position + ($lightRT.position*scale).rotated(deg2rad(rotation_degrees))
@@ -141,36 +124,37 @@ func _process(_delta):
 			Vector3(to_global($model/base.points[1]).x, to_global($model/base.points[1]).y, $model/base.heights[1] + $model/base.extraZ[1] +$model.offset), 
 			Vector3(average.x, average.y, ((($model/base.heights[2] + $model/base.extraZ[2]) + ($model/base.heights[3] + $model/base.extraZ[3]))/2 +$model.offset) ))#############
 	
-	if Worldconfig.player.camera:
-	#	print(transform)
 	
 	
 	
-	
-	
-	
-	
-	
-	#if Worldconfig.player.camera:
-		Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
-		
-		#var plyposZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/camZdivide# + camheight
-		#if plyposZ > positionZ:
-		#	Worldconfig.player.positionZ = plyposZ + camheight
-		#else:
-		#	Worldconfig.player.positionZ = (positionZ + camheight*3)
-		Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/camZdivide + camheight
-		#Worldconfig.player.positionZ = lerp(Worldconfig.player.positionZ, (($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4 + camheight + abs([$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min() - [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].max())/camZdivide), 0.1)
-		
-		#Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees)-PI/2)+0.0001
-		#Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle, rad_overflow(deg2rad(rotation_degrees)-PI/2), 0.5)
-		Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees-turn)-PI/2)
-		
-		if (abs(motion.x) > 10) or (abs(motion.y) > 10):
-			Worldconfig.player.vbob += Worldconfig.player.vbob_speed
-		
-		#Worldconfig.player.vroll = (($wheel0.positionZ + $wheel1.positionZ)/2 - ($wheel2.positionZ + $wheel3.positionZ)/2)*0.1
-	
+	if Worldconfig.playercar == self: #GE-GE OUT
+		if Input.is_action_just_pressed("ply_use"):
+			Worldconfig.player.position = position - Vector2(0,150).rotated(deg2rad(rotation_degrees))
+			Worldconfig.player.noclip = false
+			$model.scale = Vector2(1,1)
+			Worldconfig.player.vroll_car = 0
+			Worldconfig.playercar = null
+			
+			
+		else:
+			if (abs(motion.x) > 10) or (abs(motion.y) > 10):
+				Worldconfig.player.vbob += Worldconfig.player.vbob_speed
+			
+			
+			if Worldconfig.player.camera:
+				Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
+				Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
+				Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/camZdivide + camheight
+				$model.scale = Vector2(1,1)
+				
+			else:
+				Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees)-PI/2)
+				Worldconfig.player.position = position - Vector2(0,50).rotated(deg2rad(rotation_degrees))
+				Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4
+				Worldconfig.player.lookingZ = -float((($wheel0.positionZ+$wheel1.positionZ)/2)-(($wheel3.positionZ+$wheel2.positionZ)/2))/1000
+				Worldconfig.player.vroll_car = ((($wheel0.positionZ+$wheel3.positionZ)/2) - (($wheel1.positionZ+$wheel2.positionZ)/2))/4
+				
+				$model.scale = Vector2(0.1,0.1)
 
 
 
@@ -185,7 +169,7 @@ func theraot(v0,v1,v2,v3):
 
 func _physics_process(delta):
 	motion = move_and_slide(motion, Vector2(0,-1))
-	if Worldconfig.player.camera:
+	if Worldconfig.playercar == self:
 		move_and_steer(delta)
 	
 	

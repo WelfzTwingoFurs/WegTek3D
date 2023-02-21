@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://objects/playercamera.gd" type="Script" id=1]
 [ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=2]
@@ -11,7 +11,10 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 4, 52 )
+
+[sub_resource type="Animation" id=3]
 length = 0.55
 loop = true
 tracks/0/type = "value"
@@ -27,7 +30,7 @@ tracks/0/keys = {
 "values": [ 5, 6 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -43,7 +46,7 @@ tracks/0/keys = {
 "values": [ 3, 2 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -59,7 +62,7 @@ tracks/0/keys = {
 "values": [ 1, 4 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -75,8 +78,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "flame-end"
+[sub_resource type="Animation" id=7]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -91,7 +93,7 @@ tracks/0/keys = {
 "values": [ 5, 6, 0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -107,8 +109,7 @@ tracks/0/keys = {
 "values": [ 3, 4 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "flame-no"
+[sub_resource type="Animation" id=9]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -123,7 +124,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -138,7 +139,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -167,7 +168,6 @@ map_draw = 1
 skycolor = Color( 0, 1, 1, 1 )
 sky_stretch = Vector2( 1, 10 )
 bg_offset = 5.0
-shading = false
 
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
@@ -189,6 +189,16 @@ shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Interact" type="Area2D" parent="."]
+visible = false
+collision_layer = 31
+collision_mask = 31
+
+[node name="ColShape" type="CollisionShape2D" parent="Interact"]
+position = Vector2( 0, 52 )
+shape = SubResource( 2 )
+disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 4096
@@ -252,10 +262,10 @@ __meta__ = {
 }
 
 [node name="AniPlayFeet" type="AnimationPlayer" parent="View"]
-anims/spin = SubResource( 2 )
-anims/strafeL = SubResource( 3 )
-anims/strafeR = SubResource( 4 )
-anims/walk = SubResource( 5 )
+anims/spin = SubResource( 3 )
+anims/strafeL = SubResource( 4 )
+anims/strafeR = SubResource( 5 )
+anims/walk = SubResource( 6 )
 
 [node name="Feet" type="Sprite" parent="View"]
 visible = false
@@ -268,11 +278,11 @@ __meta__ = {
 }
 
 [node name="AniPlayHand" type="AnimationPlayer" parent="View"]
-anims/flame-end = SubResource( 6 )
-anims/flame-fire = SubResource( 7 )
-anims/flame-no = SubResource( 8 )
-anims/flame-start = SubResource( 9 )
-anims/hand-fire = SubResource( 10 )
+anims/flame-end = SubResource( 7 )
+anims/flame-fire = SubResource( 8 )
+anims/flame-no = SubResource( 9 )
+anims/flame-start = SubResource( 10 )
+anims/hand-fire = SubResource( 11 )
 
 [node name="Hand" type="Sprite" parent="View"]
 visible = false
@@ -303,5 +313,6 @@ texture = ExtResource( 4 )
 
 [connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]
+[connection signal="body_entered" from="Interact" to="." method="_on_Interact_body_entered"]
 [connection signal="body_shape_entered" from="ViewArea" to="." method="_on_ViewArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="ViewArea" to="." method="_on_ViewArea_body_shape_exited"]
