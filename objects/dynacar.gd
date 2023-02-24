@@ -5,11 +5,11 @@ var dontCollideWall = false
 var dontCollideSprite = false
 export(bool) var stepover = true
 var averages = 0
-var head_height = 100
+export var head_height = 100
 
 var motion = Vector2()
 
-
+var default_scale = Vector2()
 
 func _ready():
 	add_collision_exception_with($wheel0)
@@ -18,7 +18,8 @@ func _ready():
 	add_collision_exception_with($wheel3)
 	for n in $model.get_children():
 		add_collision_exception_with(n)
-
+	
+	default_scale = $model.scale
 
 
 
@@ -42,12 +43,15 @@ export(float) var camZdivide = 4
 
 
 var arr_sprites = []
+export var lightFh = 45
+export var lightRh = 50
+
 
 func shoot():
 	var instance = load("res://objects/light-sprite.tscn").instance()
 	instance.daddy = self
 	instance.switch = 0
-	instance.spr_height = 45
+	instance.spr_height = lightFh
 	add_collision_exception_with(instance)
 	arr_sprites.push_back(instance)
 	get_parent().add_child(instance)
@@ -55,7 +59,7 @@ func shoot():
 	instance = load("res://objects/light-sprite.tscn").instance()
 	instance.daddy = self
 	instance.switch = 1
-	instance.spr_height = 45
+	instance.spr_height = lightFh
 	add_collision_exception_with(instance)
 	arr_sprites.push_back(instance)
 	get_parent().add_child(instance)
@@ -63,7 +67,7 @@ func shoot():
 	instance = load("res://objects/light-sprite.tscn").instance()
 	instance.daddy = self
 	instance.switch = 2
-	instance.spr_height = 50
+	instance.spr_height = lightRh
 	instance.modulate = Color(0.5,0,0,0.5)
 	add_collision_exception_with(instance)
 	arr_sprites.push_back(instance)
@@ -72,7 +76,7 @@ func shoot():
 	instance = load("res://objects/light-sprite.tscn").instance()
 	instance.daddy = self
 	instance.switch = 3
-	instance.spr_height = 50
+	instance.spr_height = lightRh
 	instance.modulate = Color(0.5,0,0,0.5)
 	add_collision_exception_with(instance)
 	arr_sprites.push_back(instance)
@@ -128,12 +132,16 @@ func _process(_delta):
 	
 	
 	if Worldconfig.playercar == self: #GE-GE OUT
-		if Input.is_action_just_pressed("ply_use"):
-			Worldconfig.player.position = position - Vector2(0,150).rotated(deg2rad(rotation_degrees))
-			Worldconfig.player.noclip = false
-			$model.scale = Vector2(1,1)
-			Worldconfig.player.vroll_car = 0
-			Worldconfig.playercar = null
+		if !Worldconfig.player.camera && Worldconfig.player.guninv != -1:
+			Worldconfig.player.guninv = -1
+			Worldconfig.player.gunswitch()
+		
+#		if Input.is_action_just_pressed("ply_use"):
+#			Worldconfig.player.position = position - Vector2(0,150).rotated(deg2rad(rotation_degrees))
+#			Worldconfig.player.noclip = false
+#			$model.scale = default_scale
+#			Worldconfig.player.vroll_car = 0
+#			Worldconfig.playercar = null
 			
 			
 		else:
@@ -145,7 +153,7 @@ func _process(_delta):
 				Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
 				Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
 				Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/camZdivide + camheight
-				$model.scale = Vector2(1,1)
+				$model.scale = default_scale
 				
 			else:
 				Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees)-PI/2)
@@ -186,21 +194,29 @@ func _physics_process(delta):
 	#positionZ = [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min()
 	
 	#head_height = [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].min() - [$wheel0.positionZ, $wheel1.positionZ, $wheel2.positionZ, $wheel3.positionZ].max()
-
-
-
-
+	
+	
+	
+	if Worldconfig.playercar == self: #GE-GE OUT
+		if Input.is_action_just_pressed("ply_use"):
+			Worldconfig.player.position = position - Vector2(0,150).rotated(deg2rad(rotation_degrees))
+			Worldconfig.player.noclip = false
+			$model.scale = default_scale
+			Worldconfig.player.vroll_car = 0
+			Worldconfig.playercar = null
 
 
 
 
 export var wheel_base = 70  # Distance from front to rear wheel
 export var steer_multi = 15  # Amount that front wheel turns, in degrees
-export(float) var steer_max = 1.5
+#export(float) var steer_max = 1.5
+var steer_max = 1.5
 export(float) var steer_rate = 0.075
 
-export var engine_power = 8  
+export(float) var engine_power = 8  
 export var break_power = 16
+export var max_speed = 140
 
 var steer_angle
 var turn = 0
@@ -212,9 +228,9 @@ func move_and_steer(delta):
 		turn = steer_max*sign(turn)
 	
 	if Input.is_action_pressed("ply_right"):
-		turn += steer_rate
+		turn += steer_rate * Worldconfig.player.steer_sensibility
 	elif Input.is_action_pressed("ply_left"):
-		turn -= steer_rate
+		turn -= steer_rate * Worldconfig.player.steer_sensibility
 	else:
 		turn = lerp(turn, 0, 0.5)
 	steer_angle = turn * deg2rad(steer_multi)
@@ -222,7 +238,8 @@ func move_and_steer(delta):
 	#motion = Vector2.ZERO
 	
 	if Input.is_action_pressed("ply_up"):
-		motion += transform.x*engine_power
+		if motion.length() < max_speed:
+			motion += transform.x*engine_power
 	elif Input.is_action_pressed("ply_down"):
 		motion -= transform.x*break_power
 		if abs(motion.x) < 10:

@@ -373,8 +373,8 @@ func walk():
 	if abs(distanceXY.length()) < 15:
 		old_targets.push_back(target)
 		closest = INF
-		interest = randi()% 2000
-		if interest < 500:
+		interest = randi()% 1425 #
+		if interest > 1500:
 			change_state(STATES.LOOK)
 		
 		for n in get_tree().get_nodes_in_group("path"):
@@ -383,7 +383,7 @@ func walk():
 					closest = abs((n.position - position).length())
 					new_target = n
 		target = new_target
-		if old_targets.size() > 3:
+		if old_targets.size() > 4:
 			old_targets.remove(0)
 	
 	

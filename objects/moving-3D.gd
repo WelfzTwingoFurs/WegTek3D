@@ -6,6 +6,7 @@ export var dontCollideSprite = false
 export var dontCollideWall = false
 export(bool) var stepover = false
 export(float) var scaleZ = 1
+export var randomrotate = true
 
 func _ready():
 	$model.scaleZ = scaleZ
@@ -15,8 +16,8 @@ func _ready():
 		position = to_global($CollisionShape2D.position)
 		$CollisionShape2D.position = Vector2(0,0)
 	
-	
-	rotation_degrees = rad2deg(int(position.x * position.y) % 360)
+	if randomrotate:
+		rotation_degrees = rad2deg(int(position.x * position.y) % 360)
 
 
 

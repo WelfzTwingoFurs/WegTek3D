@@ -7,10 +7,12 @@ export var camera = false
 export var noclip = false
 
 export var angles = 145
-export var draw_distance = 10000
+export var draw_distance = 8192
+export(float) var lod_ddist_divi = 2.5
 
 export var rotate_rate = 3.0
 export var speed = 1500
+export(float) var steer_sensibility = 1
 
 
 export(float) var GRAVITY = 0.5
@@ -47,6 +49,7 @@ onready var change_checker = []
 func _ready():
 	Worldconfig.player = self
 	Worldconfig.playercar = null
+	Worldconfig.Camera2D = $Camera2D
 	
 	$Background.visible = 1
 	#$View/Feet.visible = 1
@@ -206,28 +209,28 @@ func _physics_process(_delta):
 		############################################################################
 		############################################################################
 		#Z inputs & math
-			if !mouselock:# && !autolook:
-				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-				if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
-					if lookingZ < $PolyContainer.scale.y*10:
-						lookingZ += rotate_rate*0.01 #* Engine.time_scale
-				elif Input.is_action_pressed("ply_lookdown"):
-					if lookingZ > -$PolyContainer.scale.y*10:
-						lookingZ -= rotate_rate*0.01 #* Engine.time_scale
-			#elif autolook:
-			#elif (Worldconfig.playercar != null && camera):
-			#	lookingZ = lerp(lookingZ, new_lookingZ, 0.1)
-			else:
-				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-				
+		if !mouselock:# && !autolook:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			if Input.is_action_pressed("ply_lookup"): #3.6 won't cut it with the new Y-FOV stretching!
+				if lookingZ < $PolyContainer.scale.y*10:
+					lookingZ += rotate_rate*0.01 #* Engine.time_scale
+			elif Input.is_action_pressed("ply_lookdown"):
+				if lookingZ > -$PolyContainer.scale.y*10:
+					lookingZ -= rotate_rate*0.01 #* Engine.time_scale
+		#elif autolook:
+		#elif (Worldconfig.playercar != null && camera):
+		#	lookingZ = lerp(lookingZ, new_lookingZ, 0.1)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			
-			#mousedir = lerp(mousedir, Vector2(0,0), 1)
-			
-			if Input.is_action_just_pressed("bug_lockmouse"):
-				mouselock = !mouselock
-			
-			if Input.is_action_pressed("ply_lookcenter"):
-				lookingZ = lerp(lookingZ, 0, 0.1)
+		
+		#mousedir = lerp(mousedir, Vector2(0,0), 1)
+		
+		if Input.is_action_just_pressed("bug_lockmouse"):
+			mouselock = !mouselock
+		
+		if Input.is_action_pressed("ply_lookcenter"):
+			lookingZ = lerp(lookingZ, 0, 0.1)
 	
 	
 	
@@ -256,7 +259,6 @@ func _physics_process(_delta):
 			gunfire(true)
 		if Input.is_action_just_released("ply_wpn_fire2"):
 			gunstop(true)
-	
 	
 	
 	
@@ -337,22 +339,10 @@ func _physics_process(_delta):
 		$Col.disabled = false
 	
 	
-	
-	
-	
-	if abs(lookingZ) > $PolyContainer.scale.y*10:# don't overflow
-		lookingZ = ($PolyContainer.scale.y*10) * sign(lookingZ)
-	
-	#posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*lookingZ
-	posZlookZ = ( (OS.window_size.y*(positionZ/not_zero(draw_distance*bg_offset)/10)) * ($PolyContainer.scale.y*10) )  +  OS.window_size.y*lookingZ
-	#Used for sky & floor position according to draw_distance
-	
-	
-	
-	
-	
 	if Input.is_action_just_pressed("bug_camera"):
 		camera = !camera
+		vroll_car = 0
+		
 		
 		if (Worldconfig.playercar != null) && (!camera):
 			guninv = -1
@@ -363,9 +353,12 @@ func _physics_process(_delta):
 	
 	if Input.is_action_just_pressed("ply_use"):
 		$Interact/ColShape.disabled = false
-	elif Input.is_action_just_released("ply_use"):
+		
+	else:#if Input.is_action_just_released("ply_use"):
 		$Interact/ColShape.disabled = true
-	
+		if (Worldconfig.playercar == null) && (guninv == -1):
+			guninv = 0
+			gunswitch()
 	
 	
 	
@@ -478,6 +471,15 @@ func _process(_delta):
 	$Background/Floor.position.y = OS.window_size.y+posZlookZ + abs(vbob)
 	#Floor.scale = Vector2( (OS.window_size.x/Floor.texture.get_width())+1+lookZscale,    (OS.window_size.y/(Floor.texture.get_height()/2))  ) 
 	
+	
+	if abs(lookingZ) > $PolyContainer.scale.y*10:# don't overflow
+		lookingZ = ($PolyContainer.scale.y*10) * sign(lookingZ)
+	
+	#posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*lookingZ
+	posZlookZ = ( (OS.window_size.y*(positionZ/not_zero(draw_distance*bg_offset)/10)) * ($PolyContainer.scale.y*10) )  +  OS.window_size.y*lookingZ
+	#Used for sky & floor position according to draw_distance
+	
+	
 	########################################################################################################################################################
 	########################################################################################################################################################
 	
@@ -570,10 +572,21 @@ func _process(_delta):
 			if (weakref(new_container).get_ref()):
 				new_container.queue_free()
 			
+			if Input.is_action_pressed("bug_zoomplus") && Input.is_action_pressed("bug_zoomminus"):
+				map_scale = 1
+			elif Input.is_action_pressed("bug_zoomplus"):
+				if map_scale < 0.99:
+					map_scale += 0.01
+			elif Input.is_action_pressed("bug_zoomminus"):
+				if map_scale > 0.02:
+					map_scale -= 0.01
+			
+			
 		elif Input.is_action_just_released("bug_closeeyes"):
 			update()
 			$Background.visible = 1
 			$View.visible = 1
+			
 		
 		else:
 			render()
@@ -1116,6 +1129,15 @@ func render():
 	rot_minus90 = rad_overflow(rotation_angle-(PI/2))
 	
 	for n in array_walls.size():
+		if incoming_walls.has(array_walls[n]):
+			if (array_walls[n].points[0] - position).length() > draw_distance/lod_ddist_divi:
+				continue
+		#if incoming_walls.has(array_walls[n]):
+		#	for x in array_walls[n].points.size():
+		#		if (array_walls[n].points[x] - position).length() > draw_distance/lod_ddist_divi:
+		#			break
+		
+		
 		var new_poly = $PolyContainer/Poly0.duplicate()
 		
 		var array_polygon = []
@@ -1302,7 +1324,7 @@ func render():
 					
 				new_poly.modulate = array_walls[n].modulate
 				
-				if !textures_on && array_walls[n].textures_on && (array_walls[n].texture_path == "res://textures/chainfence.png" or array_walls[n].texture_path == "res://textures/chainfence2.png" or array_walls[n].texture_path == "res://textures/stretchtest.png"):
+				if !textures_on && array_walls[n].textures_on && (array_walls[n].texture_path == "res://textures/chainfence.png" or array_walls[n].texture_path == "res://textures/chainfence2.png" or array_walls[n].texture_path == "res://textures/chainfence3.png" or array_walls[n].texture_path == "res://textures/stretchtest.png"):
 					new_poly.modulate.a8 /= 2
 				
 				
@@ -1477,8 +1499,14 @@ func render():
 					new_container.add_child(shadow)
 				
 			
-
-
+	
+	
+	
+#	for x in incoming_walls.size():
+#		if !array_walls.has(incoming_walls[x]):
+#			for z in incoming_walls[x].points.size():
+#				if (incoming_walls[x].points[z] - position).length() < draw_distance/2:
+#					array_walls.push_back(incoming_walls[x])
 
 
 func new_position(point1,point2,limitPlus,limitMinus,det):
@@ -1514,20 +1542,57 @@ func new_position(point1,point2,limitPlus,limitMinus,det):
 var array_walls = []
 var array_sprites = []
 
+var incoming_walls = []
+#var incoming_sprites = []
+
 func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
-	if body.is_in_group("render") && (higfx or ((higfx) == (body.is_in_group("higfx")))):
-		if !array_walls.has(body):
-			array_walls.push_back(body)
-	
-	elif body.is_in_group("rendersprite") && (higfx or ((higfx) == (body.is_in_group("higfx")))):
-		if !array_sprites.has(body):
-			array_sprites.push_back(body)
+	#if body.is_in_group("render") && (higfx or ((higfx) == (body.is_in_group("higfx")))):
+	#if higfx or (!higfx && (body.is_in_group("wall") or body.is_in_group("floor") or body.is_in_group("sprite"))) or body.is_in_group("logfx"):
+	if !array_walls.has(body) or !array_sprites.has(body):
+		if (higfx or (body.is_in_group("wall") or body.is_in_group("floor") or body.is_in_group("sprite") or body.is_in_group("logfx"))):# && body.is_in_group("render") or :
+			if body.is_in_group("render"):
+#				if !(body.is_in_group("wall") or body.is_in_group("floor")):
+#					if !incoming_walls.has(body):
+#						if (body.points[0] - position).length() < draw_distance/2:
+#							incoming_walls.push_back(body)
+#				else:
+#					array_walls.push_back(body)
+		
+		
+				array_walls.push_back(body)
+				if !(body.is_in_group("wall") or body.is_in_group("floor")) && !body.is_in_group("logfx"):
+					if !incoming_walls.has(body):
+						for x in body.points.size():
+							if (body.points[x] - position).length() < draw_distance/lod_ddist_divi:
+								incoming_walls.push_back(body)
+								break
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			elif body.is_in_group("rendersprite"):# && (higfx or ((higfx) == (body.is_in_group("higfx")))):
+			#elif (higfx && body.is_in_group("rendersprite")):# or (body.is_in_group("sprite") && body.is_in_group("rendersprite")):
+				#if !array_sprites.has(body):
+#				if !body.is_in_group("sprite"):
+#					if (body.position - position).length() < draw_distance/2:
+#						incoming_sprites.push_back(body)
+#				else:
+					array_sprites.push_back(body)
 	
 
 func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("render"):
 		if array_walls.has(body):
 			array_walls.erase(body)
+#		if incoming_walls.has(body):
+#			incoming_walls.erase(body)
+	
 	
 	elif body.is_in_group("rendersprite"):
 		if array_sprites.has(body):
@@ -1568,16 +1633,17 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 
 func _draw():
+	if Worldconfig.zoom < 1:
+		draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
+		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
+		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
+		draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,1,1), 1)
+	
 	if Input.is_action_pressed("bug_closeeyes"):
 		if abs(map_draw) > 3:
 			print(">M I S T A K E: map_draw value invalid!")
 			map_draw = 3*sign(map_draw)
 		
-		if Worldconfig.zoom < 1:
-			draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
-			draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,0,0), 1)
-			draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,0,0), 1)
-			draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,0,0), 1)
 		
 		
 		#if Input.is_action_pressed("bug_closeeyes"): #Must always update otherwise it doesn't dissapear
@@ -1607,6 +1673,7 @@ func _draw():
 		
 		
 		var targets_in_scene = get_tree().get_nodes_in_group("render")
+		#var targets_in_scene = get_tree().get_nodes_in_group("wall")
 		
 		
 		if targets_in_scene.size() != 0: #If anyone at all
