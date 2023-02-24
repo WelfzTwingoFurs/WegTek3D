@@ -31,8 +31,8 @@ FEATURES:
 -Scrolling sky sprite & stretch options, floor sprite;
 -Animated weapon & feet sprites;
 -All changeable textures support any resolution;
--Map using draw_line, 2D & 3D options;
--A driveable car;
+-Map using draw_line, 2D & 3D options, zoom option;
+-A driveable car base, customizeable;
 -Basic pedestrians.
 
 IMPERFECTIONS:
@@ -57,11 +57,14 @@ CONTROL KEYS:
 - Shift (hold):         Strafe;
 -PGup & PGdown: Look up & down;
 - Space & Ctrl:  Fly up & down;
-- Enter (hold):       View map;
--    Quote ('): Console toggle;
 -            L:   Mouse toggle;
 -        [ & ]:  Weapon select;
--            C: Driving toggle;
+-            F: Enter/exit car;
+-            C:  Change camera:
+-   Alt (hold):       View map;
+-      Alt +/-:       Zoom map;
+-            X:  Noclip toggle;
+-    Quote ('): Console toggle;
 
 DEBUG KEYS:
 - Scroll-lock (+Move):   Angle;
