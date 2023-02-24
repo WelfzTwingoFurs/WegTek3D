@@ -25,7 +25,6 @@ export var collide = false
 export var absolute = false
 export var jumpover = false
 export var reflect = false
-export var higfx = false
 
 var new_wall
 var new_floor
@@ -126,7 +125,7 @@ func _ready():
 			make_new_wall.darkness = darknesses
 			make_new_wall.jumpover = jumpover
 			make_new_wall.onesided = onesided
-			if higfx: make_new_wall.add_to_group("higfx")
+			#if higfx: make_new_wall.add_to_group("higfx")
 			add_child(make_new_wall)
 			
 		
@@ -177,7 +176,7 @@ func _ready():
 		make_new_floor.darkness = darknesses
 		make_new_floor.reflect = reflect
 		make_new_floor.onesided = -onesided
-		if higfx: make_new_floor.add_to_group("higfx")
+		#if higfx: make_new_floor.add_to_group("higfx")
 		add_child(make_new_floor)
 	
 	if textures[textures.size()-1] != "":
@@ -193,7 +192,7 @@ func _ready():
 		make_new_ceiling.darkness = darknesses
 		make_new_ceiling.reflect = reflect
 		make_new_ceiling.onesided = onesided
-		if higfx: make_new_ceiling.add_to_group("higfx")
+		#if higfx: make_new_ceiling.add_to_group("higfx")
 		add_child(make_new_ceiling)
 	
 	$CollisionPolygon2D.queue_free()

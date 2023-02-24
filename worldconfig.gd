@@ -17,6 +17,7 @@ var zoom = 1
 ##################################
 
 var player
+var Camera2D
 var playercar = null
 
 func _process(_delta):
@@ -72,12 +73,12 @@ func _process(_delta):
 	######################################## Debugging commands below ##########
 	
 	if step == -1:
-		if Input.is_action_just_pressed("bug_resdivide"): # F1 - Half the zoom screen
+		if Input.is_action_just_pressed("bug_windivide"): # F1 - Half the zoom screen
 			OS.window_size /= 2
 			OS.set_window_maximized(false)
 			step = 1
 		
-		if Input.is_action_just_pressed("bug_resmultiply"): # F2 - Double the zoom screen
+		if Input.is_action_just_pressed("bug_winmultiply"): # F2 - Double the zoom screen
 			OS.window_size *= 2
 			OS.set_window_maximized(false)
 			step = 1
@@ -90,60 +91,58 @@ func _process(_delta):
 		
 		
 		
-		
-		if Input.is_action_just_pressed("bug_zoomplus"): # + Zoom in
-			if zoom > 0:
-				config = 0
-				zoom += 1
-				if zoom == 0:
-					zoom = 1
+		if !Input.is_action_pressed("bug_closeeyes"):
+			if Input.is_action_just_pressed("bug_zoomplus"): # + Zoom in
+				if zoom > 0:
+					config = 0
+					zoom += 1
+					if zoom == 0:
+						zoom = 1
+					
+					step = 1
+					
+					
+					
 				
-				step = 1
-				
-				
-				
-			
-			else:
-#				if zoom_config == 0:
-#					config = 0
-#					zoom += 0.1
-#					step = 1
-#
-#				elif zoom_config == 1:
+				else:
 					Camera2D.zoom -= Vector2(1,1)
 					zoom += 1
 					if zoom == 0:
 						zoom = 1
 					
 					print("=  WORLDCONFIG: config=",config,", zoom=",zoom,", Camera2D.zoom=",Camera2D.zoom)
-		
-		
-		if Input.is_action_just_pressed("bug_zoomminus"): # - Zoom out
-			if zoom > 1:
-				config = 0
-				zoom -= 1
-				if zoom == 0:
-					zoom = -1
-				
-				step = 1
 			
-			else:
-#				if zoom_config == 0:
-#					if zoom > 0.2:
-#						config = 0
-#						zoom -= 0.1
-#						step = 1
-#
-#				elif zoom_config == 1:
+			
+			if Input.is_action_just_pressed("bug_zoomminus"): # - Zoom out
+				if zoom > 1:
+					config = 0
+					zoom -= 1
+					if zoom == 0:
+						zoom = -1
+					
+					step = 1
+				
+				else:
 					Camera2D.zoom += Vector2(1,1)
 					zoom -= 1
 					if zoom == 0:
 						zoom = -1
 					
 					print("=  WORLDCONFIG: config=",config,", zoom=",zoom,", Camera2D.zoom=",Camera2D.zoom)
-		
-		
-		#if Input.is_action_just_pressed("bug_resstay"):
+			
+			
+			
+			
+#			if Input.is_action_just_pressed("bug_resplus"):
+#				Camera2D.zoom += Vector2(1,1)
+#				config = 0
+#				zoom += 1
+#				if zoom == 0:
+#					zoom = 1
+#
+#				step = 1
+			
+		#if Input.is_action_just_pressed("bug_winstay"):
 		#	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(OS.window_size.x, OS.window_size.y))
 		#	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP, Vector2(OS.window_size.x, OS.window_size.y))
 		#	
