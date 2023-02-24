@@ -20,19 +20,23 @@ FEATURES:
 -Clipping (vertices behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
 -One-sided polygon option;
--Whole-polygon culling (if entirely outside screen, don't render);
+-Depth-shading;
+-Polygons are 'darkable', colorable, 'unmoving plaid' or UV texturable;
+-WIP Whole-polygon culling (if entirely outside screen, don't render) option;
 -Sprite objects with height, & any amount of rotation frames;
 -Sprite ground-shadows/reflections;
+-Basic 'dynamic' darkness level;
 -Floor & flat wall collision;
 -Mouse & keyboard control;
--Convenient map-making options;
--Screen resizable to any size without stretching;
 -Viewbobbing, viewrolling options;
+-Screen resizable to any size without stretching;
 -Scrolling sky sprite & stretch options, floor sprite;
 -Animated weapon & feet sprites;
 -All changeable textures support any resolution;
 -Map using draw_line, 2D & 3D options, zoom option;
--A driveable car base, customizeable;
+-Convenient map-making options;
+-Basic weapon inventory;
+-Driveable cars, customizeable base, first and third person cameras;
 -Basic pedestrians.
 
 IMPERFECTIONS:
@@ -42,10 +46,10 @@ IMPERFECTIONS:
 -Clipping intervenes with UV-texturing;
 -No camera-edge clipping (polys pieces outside screen still render);
 -No screen clipping (polygons pieces behind others still render);
--Cull on + "Both bad neighbours" deletes polygon if index over 0;
+-Cull on + "Both bad neighbours" deletes polygon if index over 0 (comparing to resized instead of original?);
 -Draw distance innacurate to value depending on Angles FOV;
 -Floor-sprite position slightly innacurate to aspect ratio;
--Mouselook entirely innacurate;
+-Mouselook different sensitivity for X and Y;
 -No in-game options (all settings in editor);
 -The car is partially infinitely tall.
 
