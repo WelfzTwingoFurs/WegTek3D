@@ -1,12 +1,13 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://objects/playercamera.gd" type="Script" id=1]
 [ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://older_versions/player-console2.gd" type="Script" id=3]
 [ext_resource path="res://older_versions/gradientverybig.png" type="Texture" id=4]
 [ext_resource path="res://assets/feet1.png" type="Texture" id=5]
-[ext_resource path="res://assets/weapon handgun.png" type="Texture" id=6]
+[ext_resource path="res://assets/weapon fist.png" type="Texture" id=6]
 [ext_resource path="res://assets/skybox solange lores.png" type="Texture" id=7]
+[ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -79,6 +80,22 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=7]
+resource_name = "fist-punch"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.16, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 2, 1, 0 ]
+}
+
+[sub_resource type="Animation" id=8]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -93,7 +110,7 @@ tracks/0/keys = {
 "values": [ 5, 6, 0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -109,7 +126,7 @@ tracks/0/keys = {
 "values": [ 3, 4 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -124,7 +141,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -139,7 +156,37 @@ tracks/0/keys = {
 "values": [ 1, 2, 0 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.01, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "hand-fire (copy)"
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -178,9 +225,10 @@ __meta__ = {
 }
 
 [node name="ColArea" type="Area2D" parent="."]
-scale = Vector2( 2, 2 )
+scale = Vector2( 10, 10 )
 collision_layer = 3
 collision_mask = 3
+script = ExtResource( 8 )
 
 [node name="Col" type="CollisionShape2D" parent="ColArea"]
 modulate = Color( 100, 100, 100, 1 )
@@ -278,17 +326,19 @@ __meta__ = {
 }
 
 [node name="AniPlayHand" type="AnimationPlayer" parent="View"]
-anims/flame-end = SubResource( 7 )
-anims/flame-fire = SubResource( 8 )
-anims/flame-no = SubResource( 9 )
-anims/flame-start = SubResource( 10 )
-anims/hand-fire = SubResource( 11 )
+anims/fist-punch = SubResource( 7 )
+anims/flame-end = SubResource( 8 )
+anims/flame-fire = SubResource( 9 )
+anims/flame-no = SubResource( 10 )
+anims/flame-start = SubResource( 11 )
+anims/hand-fire = SubResource( 12 )
+"anims/hand-fire (copy)" = SubResource( 13 )
 
 [node name="Hand" type="Sprite" parent="View"]
 visible = false
 z_index = 4095
 texture = ExtResource( 6 )
-vframes = 2
+vframes = 4
 
 [node name="Background" type="Node2D" parent="."]
 visible = false

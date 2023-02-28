@@ -46,6 +46,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -33, 42, -29, 56, -24, 49, 16, 49, 21, 56, 25, 42, 24, -67, -32, -67 )
 
 [node name="hood" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.176471, 0.188235, 0.309804, 1 )
@@ -62,6 +63,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -32, 18, -23, 45, 15, 45, 24, 18 )
 
 [node name="top" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.980392, 0.780392, 0.478431, 1 )
@@ -77,6 +79,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -30, 17, -30.6667, -34, 22.6667, -34, 24, 17 )
 
 [node name="trunk" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.196078, 0.219608, 0.352941, 1 )
@@ -93,6 +96,7 @@ texture_path = "res://textures/kensilverman64.png"
 polygon = PoolVector2Array( -32.5, -64, -33, -70, 25, -70, 24.5, -64 )
 
 [node name="trunk2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.180392, 0.2, 0.321569, 1 )
@@ -222,6 +226,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -14, -7, -14, 5.75, -11.75, 5.75, -11.75, -7 )
 
 [node name="side" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.105882, 0.117647, 0.227451, 1 )
@@ -236,6 +241,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -11.25, -17.25, -11.25, 4.75, -11, 4.75, -11, -9.25, -11, -12.75, -11, -15.75 )
 
 [node name="side2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.133333, 0.14902, 0.266667, 1 )
@@ -250,6 +256,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -9, 11, -11.25, 4, -11, 4, -8.75, 10.75 )
 
 [node name="wheelT" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.47451, 0.380392, 0.380392, 1 )
@@ -265,6 +272,7 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 25, 0, 25 )
 
 [node name="wheelB" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.47451, 0.380392, 0.380392, 1 )
@@ -480,6 +488,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -14, -7, -14, 5.75, -11.75, 5.75, -11.75, -7 )
 
 [node name="side3" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.105882, 0.117647, 0.227451, 1 )
@@ -495,6 +504,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -11.25, -17.25, -11.25, 4.75, -11, 4.75, -11, -9.25, -11, -12.75, -11, -15.75 )
 
 [node name="side4" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.133333, 0.14902, 0.266667, 1 )
@@ -510,6 +520,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -9, 11, -11.25, 4, -11, 4, -8.75, 10.75 )
 
 [node name="wheelT2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.47451, 0.380392, 0.380392, 1 )
@@ -527,6 +538,7 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 1, 0, 1, 25, 0, 25 )
 
 [node name="wheelB2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.47451, 0.380392, 0.380392, 1 )
@@ -647,6 +659,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -18.75, -3.75, -18.5, -3.5, -18.5, 8.75, -18.75, 8.5 )
 
 [node name="windowT" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.980392, 0.780392, 0.478431, 1 )
@@ -660,6 +673,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -16.1667, -4, -16, -3.25, -3, -3.25, -2.83333, -4 )
 
 [node name="windowB" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0, 0.658824, 0.658824, 1 )
@@ -689,6 +703,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -13.75, -3.5, -14.75, -3.25, -13.75, -3, -12.75, -3.25 )
 
 [node name="front" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.0392157, 0.0392157, 0.0392157, 1 )

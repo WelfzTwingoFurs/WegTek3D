@@ -1,16 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/dynacar.gd" type="Script" id=1]
 [ext_resource path="res://objects/wheels.gd" type="Script" id=2]
 [ext_resource path="res://objects/car FordA.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 36.0715, 74.2849 )
-
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 32.8572, 68.5714 )
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 
 [node name="dynacar-fordA" type="KinematicBody2D" groups=[
 "car",
@@ -34,20 +31,22 @@ engine_power = 1.4
 max_speed = 105000
 
 [node name="ColArea" type="Area2D" parent="."]
-rotation = 1.5708
+scale = Vector2( 2, 2 )
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
-shape = SubResource( 1 )
+rotation = 1.5708
+shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="model" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0.714286, 0 )
 rotation = 4.71239
+offset = -9
 
 [node name="lightFT" type="Position2D" parent="." groups=[
 "position",
@@ -68,6 +67,12 @@ position = Vector2( -62.1429, 26.0714 )
 "position",
 ]]
 position = Vector2( -62.1429, 26.0713 )
+
+[node name="driver" type="Position2D" parent="." groups=[
+"position",
+]]
+position = Vector2( 6.78571, -11.4286 )
+scale = Vector2( 1, 1 )
 
 [node name="wheel0" type="KinematicBody2D" parent="." groups=[
 "rendersprite",
@@ -90,11 +95,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wheel0/ColArea"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wheel0"]
 scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="wheel1" type="KinematicBody2D" parent="." groups=[
 "rendersprite",
@@ -117,11 +122,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wheel1/ColArea"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wheel1"]
 scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="wheel3" type="KinematicBody2D" parent="." groups=[
 "rendersprite",
@@ -144,11 +149,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wheel3/ColArea"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wheel3"]
 scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="wheel2" type="KinematicBody2D" parent="." groups=[
 "rendersprite",
@@ -171,11 +176,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wheel2/ColArea"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wheel2"]
 scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]

@@ -9,7 +9,7 @@ export var head_height = 100
 
 var motion = Vector2()
 
-var default_scale = Vector2()
+var default_pos = Vector2()
 
 func _ready():
 	add_collision_exception_with($wheel0)
@@ -19,7 +19,7 @@ func _ready():
 	for n in $model.get_children():
 		add_collision_exception_with(n)
 	
-	default_scale = $model.scale
+	default_pos = $model.position
 
 
 
@@ -139,32 +139,32 @@ func _process(_delta):
 #		if Input.is_action_just_pressed("ply_use"):
 #			Worldconfig.player.position = position - Vector2(0,150).rotated(deg2rad(rotation_degrees))
 #			Worldconfig.player.noclip = false
-#			$model.scale = default_scale
+#			$model.scale = default_pos
 #			Worldconfig.player.vroll_car = 0
 #			Worldconfig.playercar = null
 			
 			
 		else:
-			if (abs(motion.x) > 10) or (abs(motion.y) > 10):
-				Worldconfig.player.vbob += Worldconfig.player.vbob_speed
+			if motion.length() > 10:
+				Worldconfig.player.vbob += motion.length()/10000
 			
 			
 			if Worldconfig.player.camera:
 				Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
 				Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
 				Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/camZdivide + camheight
-				$model.scale = default_scale
+				$model.position = default_pos
 				
 			else:
 				Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees)-PI/2)
-				Worldconfig.player.position = position - Vector2(0,50).rotated(deg2rad(rotation_degrees))
-				Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4
+				Worldconfig.player.position = to_global($driver.position)#position - Vector2(0,50).rotated(deg2rad(rotation_degrees))
+				Worldconfig.player.positionZ = (($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4) + driver_height
 				Worldconfig.player.lookingZ = -float((($wheel0.positionZ+$wheel1.positionZ)/2)-(($wheel3.positionZ+$wheel2.positionZ)/2))/1000
 				Worldconfig.player.vroll_car = ((($wheel0.positionZ+$wheel3.positionZ)/2) - (($wheel1.positionZ+$wheel2.positionZ)/2))/4
 				
-				$model.scale = Vector2(0.1,0.1)
+				$model.position = Vector2(0,-99999)
 
-
+export var driver_height = 0
 
 
 
@@ -201,7 +201,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("ply_use"):
 			Worldconfig.player.position = position - Vector2(0,150).rotated(deg2rad(rotation_degrees))
 			Worldconfig.player.noclip = false
-			$model.scale = default_scale
+			$model.position = default_pos
 			Worldconfig.player.vroll_car = 0
 			Worldconfig.playercar = null
 
@@ -223,7 +223,6 @@ var turn = 0
 var traction = 0.1
 
 func move_and_steer(delta):
-	
 	if abs(turn) > steer_max:
 		turn = steer_max*sign(turn)
 	
@@ -239,13 +238,22 @@ func move_and_steer(delta):
 	
 	if Input.is_action_pressed("ply_up"):
 		if motion.length() < max_speed:
-			motion += transform.x*engine_power
+			if ($wheel0.on_floor == true) or ($wheel1.on_floor == true):
+				if ($wheel0.on_floor) != ($wheel1.on_floor):
+					motion += transform.x*(engine_power/2)
+				else:
+					motion += transform.x*engine_power
+	
+	
 	elif Input.is_action_pressed("ply_down"):
-		motion -= transform.x*break_power
-		if abs(motion.x) < 10:
-			motion.x = 0
-		if abs(motion.y) < 10:
-			motion.y = 0
+		if ($wheel0.on_floor == true) or ($wheel1.on_floor == true):
+			if ($wheel0.on_floor) != ($wheel1.on_floor):
+				motion -= transform.x*(break_power)/2
+			else:
+				motion -= transform.x*break_power
+		
+		if motion.length() < 10:
+			motion = Vector2(0,0)
 	
 	#print(transform)
 	
@@ -479,9 +487,10 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 			col_sprites.push_back(body)
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
-	if body.is_in_group("floor"):
-		on_floor = false
+	#if body.is_in_group("floor"):
+		
 		if col_floors.has(body):
+			on_floor = false
 			col_floors.erase(body)
 			compareZ = INF
 			
@@ -489,12 +498,12 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 				if (positionZ <= Worldconfig.player.min_Z): positionZ = Worldconfig.player.min_Z
 			
 	
-	if body.is_in_group("wall"):
-		if col_walls.has(body):
+	#if body.is_in_group("wall"):
+		elif col_walls.has(body):
 			col_walls.erase(body)
 	
-	if body.is_in_group("sprite"):
-		if col_sprites.has(body):
+	#if body.is_in_group("sprite"):
+		elif col_sprites.has(body):
 			col_sprites.erase(body)
 			on_floor = false
 

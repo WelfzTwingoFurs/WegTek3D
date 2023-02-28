@@ -53,6 +53,7 @@ modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
 polygon = PoolVector2Array( 6.773, 9.355, 6.52716, -10.0456, -6.527, -10.046, -6.77269, 9.35547, 0, 10.486 )
 
 [node name="hood" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 1, 0.0509804, 0.0509804, 1 )
@@ -69,6 +70,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 6.773, 9.355, 7.28, 21.515, -7.28, 21.515, -6.77269, 9.35547, 0, 10.486 )
 
 [node name="windowT" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0, 0.509804, 0.509804, 1 )
@@ -86,6 +88,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.856, -9.03, 5.856, -9.03, 6.512, -10.045, -6.51151, -10.0448 )
 
 [node name="windowB" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0, 0.658824, 0.658824, 1 )
@@ -103,6 +106,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( 6.771, 9.358, 5.856, 1.933, -5.8558, 1.93337, -6.77131, 9.35833, 0, 10.486 )
 
 [node name="top" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 1, 0.0941176, 0.0941176, 1 )
@@ -118,6 +122,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( 5.856, -9.03, 5.856, 1.933, -5.8558, 1.93337, -5.856, -9.03 )
 
 [node name="trunk" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.321569, 0.160784, 0.160784, 1 )
@@ -135,6 +140,7 @@ modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
 polygon = PoolVector2Array( -6.38108, -21.9962, 6.381, -21.996, 6.512, -10.045, -6.51151, -10.0448 )
 
 [node name="wheelT" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 position = Vector2( -38, -17.2222 )
@@ -152,6 +158,7 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 6, 0, 6 )
 
 [node name="wheelB" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 position = Vector2( -36, 10.2778 )
@@ -169,6 +176,7 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 6, 0, 6 )
 
 [node name="sideT" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.85098, 0, 0, 1 )
@@ -185,6 +193,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.95482, -20.7409, -8.91748, -22.0044, -8.16715, 9.12247, -8.28683, 9.1276 )
 
 [node name="side1B" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.882353, 0, 0, 1 )
@@ -218,6 +227,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.16715, 9.12247, -6.77501, 9.35489, -6.38765, -21.4909 )
 
 [node name="topside" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 1, 0, 0, 1 )
@@ -332,6 +342,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 3.81, 21.667, 6.90476, 21.3889, 7.14286, 21.6667, 3.92138, 21.7724 )
 
 [node name="wheelT2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 position = Vector2( 38, -17.2222 )
@@ -351,6 +362,7 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 6, 0, 6 )
 
 [node name="wheelB2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 position = Vector2( 36, 10.2778 )
@@ -370,6 +382,7 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 6, 0, 6 )
 
 [node name="sideT2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.85098, 0, 0, 1 )
@@ -387,6 +400,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.95482, -20.7409, -8.91748, -22.0044, -8.16715, 9.12247, -8.28683, 9.1276 )
 
 [node name="side1B2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.882353, 0, 0, 1 )
@@ -421,6 +435,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.16715, 9.12247, -6.77501, 9.35489, -6.38765, -21.4909 )
 
 [node name="topside2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 1, 0, 0, 1 )
@@ -559,6 +574,7 @@ texture_path = "res://textures/EGA/8-9.png"
 polygon = PoolVector2Array( 9.2, -20.5556, 9.2, -21.6667, -9.2, -21.6667, -9.2, -20.5556 )
 
 [node name="back" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.937255, 0, 0, 1 )
@@ -575,6 +591,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 8.956, -20.753, 8.919, -21.999, -8.91927, -21.9987, -8.95647, -20.753 )
 
 [node name="front" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.964706, 0, 0, 1 )

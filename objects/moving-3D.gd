@@ -270,9 +270,10 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 			col_sprites.push_back(body)
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
-	if body.is_in_group("floor"):
-		on_floor = false
+	#if body.is_in_group("floor"):
+		
 		if col_floors.has(body):
+			on_floor = false
 			col_floors.erase(body)
 			compareZ = INF
 			
@@ -280,12 +281,12 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 				if (positionZ <= Worldconfig.player.min_Z): positionZ = Worldconfig.player.min_Z
 			
 	
-	if body.is_in_group("wall"):
-		if col_walls.has(body):
+	#if body.is_in_group("wall"):
+		elif col_walls.has(body):
 			col_walls.erase(body)
 	
-	if body.is_in_group("sprite"):
-		if col_sprites.has(body):
+	#if body.is_in_group("sprite"):
+		elif col_sprites.has(body):
 			col_sprites.erase(body)
 			on_body = false
 			on_floor = false

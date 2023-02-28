@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/sign.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites signs.png" type="Texture" id=2]
+[ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 42.107
+
+[sub_resource type="CircleShape2D" id=7]
+
+[node name="sign" type="KinematicBody2D" groups=[
+"ped",
+"rendersprite",
+"sprite",
+]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+positionZ = -9999
+scale_extra = Vector2( 1, 1 )
+texture = ExtResource( 2 )
+dynamic_darkness = true
+dontMove = true
+head_height = 64
+shadow_height = 5
+
+[node name="ColArea" type="Area2D" parent="."]
+scale = Vector2( 2, 2 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 7 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+cast_to = Vector2( 0, 150 )
+script = ExtResource( 3 )
+kill = true
+
+[connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]

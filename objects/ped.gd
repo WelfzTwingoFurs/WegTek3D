@@ -1,19 +1,20 @@
 extends KinematicBody2D
 
 export var positionZ = 0
-export var anim = 0
+export var true_anim = 0
+var anim = 0
 export var scale_extra = Vector2(float(0.8),float(0.8))
 export(Texture) var texture = preload("res://assets/sprites chaser jake.png")
 export var vframes = 5
 export var hframes = 10
 export var rotations = 8
-export(float) var darkness = 1
-export(bool) var dynamic_darkness = false
-export var dontScale = 0
-export(bool) var dontZ = false
-export(bool) var dontMove = false
-export(bool) var dontCollideSprite = false
-export(bool) var dontCollideWall = false
+var darkness = 1
+var dynamic_darkness = true
+var dontScale = 0
+var dontZ = false
+var dontMove = false
+var dontCollideSprite = false
+var dontCollideWall = false
 
 
 
@@ -75,7 +76,7 @@ var body_on = null
 var motionZ = 0
 export(bool) var shadow = true
 var shadowZ = INF
-var reflect = false
+var reflect = 0
 export var shadow_height = 0
 export var reflect_height = 0
 var compareZ = INF
@@ -102,7 +103,7 @@ func collide():
 			if (positionZ <= heightsBT.x && positionZ+head_height >= heightsBT.x) or (positionZ >= heightsBT.x && positionZ+head_height <= heightsBT.y) or (positionZ < heightsBT.y && positionZ+head_height >= heightsBT.y): 
 				# pé < topo, cabeça > topo, pé - topo = <head_height
 				if col_sprites[n].stepover && (positionZ < heightsBT.y && positionZ+head_height > heightsBT.y) && (positionZ - heightsBT.y < head_height*2):
-					positionZ = heightsBT.y
+					#positionZ = heightsBT.y
 					on_body = true
 					body_on = col_sprites[n]
 				
@@ -175,7 +176,8 @@ func collide():
 				if col_floors[n].heights[0] - positionZ < compareZ:
 					compareZ = col_floors[n].heights[0] - positionZ
 					shadowZ = col_floors[n].heights[0]
-					reflect = col_floors[n].reflect
+					if reflect != 3:
+						reflect = col_floors[n].reflect
 				
 				
 				
@@ -283,9 +285,120 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	elif body.is_in_group("sprite"):
 		if !col_sprites.has(body):
 			col_sprites.push_back(body)
+			
+			if body.is_in_group("car"):
+				position += Vector2(sign(body.motion.x),sign(body.motion.y))*5
+				motion = body.motion
+				
+				#rotation_degrees = (position - body.position).angle() + PI
+				
+				if true_anim != 23:
+					if body.motion.length() > ouch_resist:
+						interest = body.motion.length()/3
+						ouch_car(body.motion.length())
+					else:
+						ouch_car(0)
+
+
+var ouch_resist = 200
+var fall_resist = 850
+
+func wait():
+	motion = lerp(motion, Vector2(0,0), 0.1)
+	interest -= 1
+	
+	
+	if true_anim == 23:
+		if health < 0:
+			die()
+	
+	if interest < 0:
+		if true_anim == 23:
+			change_state(STATES.GETUP)
+		else:
+			change_state(STATES.WALK)
+
+
+func ouch_car(dmg):
+	change_state(STATES.WAIT)
+	health -= dmg/2
+	
+	if dmg == 0:
+		interest = 10 + randi() % 20
+		change_state(STATES.LOOK)
+	elif (dmg > fall_resist) or (health <= 0):
+		startle = true
+		interest = dmg/10
+		falldown()
+	else:
+		startle = true
+		interest = dmg/2
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("ouch")
+
+func getup():
+	motion = lerp(motion, Vector2(), 1)
+	
+	if motion.length() < 10:
+		if health <= 0:
+			die()
+		else:
+			$AnimationPlayer.play("getup")
+			dontCollideSprite = false
+	else:
+		die()
+
+export var health = 1000
+var bloodtimer = 0
+
+func die():
+	if reflect != 3:
+		head_height /= 4
+		spr_height /= 2
+		shadow_height /= 2
+		reflect = 3
+	bloodtimer = lerp(bloodtimer, 1, 0.01)
+	
+	var rot_object = rad_overflow((position-Worldconfig.player.position).angle()-PI/2)
+	if ((position - Worldconfig.player.position).length() > Worldconfig.player.draw_distance/Worldconfig.player.lod_ddist_divi) && ((Worldconfig.player.rotation_angle > PI/2 && Worldconfig.player.rotation_angle < 3*PI/2 && (rot_object < Worldconfig.player.rot_minus90 or rot_object > Worldconfig.player.rot_plus90))   or   (rot_object < Worldconfig.player.rot_minus90 && rot_object > Worldconfig.player.rot_plus90)):
+		queue_freedom()
+
+func queue_freedom():
+	Worldconfig.npcs -= 1
+	position = Vector2(INF,INF)
+	queue_free()
+
+
+
+export var startle = false
+var attacker = null
+
+func damage(damage,owner):
+	change_state(STATES.WAIT)
+	startle = true
+	$AnimationPlayer.play("damage")
+	health -= damage
+	interest = 10 + randi() %10
+	
+	if health <= 0:
+		health = 0
+		falldown()
+	
+	if aggressive && (owner != null):
+		attacker = owner
+
+
+
+
+
+func falldown():
+	$AnimationPlayer.play("fall")
+	dontCollideSprite = true
+
+
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
-	if body.is_in_group("floor"):
+#	if body.is_in_group("floor"):
 		#on_floor = false#think weg think
 		if col_floors.has(body):
 			col_floors.erase(body)
@@ -296,15 +409,16 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 				shadowZ = Worldconfig.player.min_Z
 			
 	
-	if body.is_in_group("wall"):
-		if col_walls.has(body):
+#	if body.is_in_group("wall"):
+		elif col_walls.has(body):
 			col_walls.erase(body)
 	
-	if body.is_in_group("sprite"):
-		if col_sprites.has(body):
+	#if body.is_in_group("sprite"):
+		elif col_sprites.has(body):
 			col_sprites.erase(body)
 			on_body = false
 			on_floor = false
+
 
 
 
@@ -324,9 +438,21 @@ var closest = INF
 var old_targets = [null]
 var new_target = null
 
+var starting_heights = []
+
+func divide_heights():
+	spr_height = starting_heights[0]/2
+	shadow_height = starting_heights[1]/2
+	reflect_height = starting_heights[2]/2
+
+func height_restore():
+	spr_height = starting_heights[0]
+	shadow_height = starting_heights[1]
+	reflect_height = starting_heights[2]
+
 func _ready():
-	if anim > vframes*hframes:
-		anim = 0
+	aggressive = randi() % 2
+	true_anim = 0
 	
 	if $CollisionShape2D.position != Vector2(0,0):
 		position = to_global($CollisionShape2D.position)
@@ -334,10 +460,18 @@ func _ready():
 		
 	 ##############################################################
 	scale_extra += Vector2(float(randi()%100)/100, float(randi()%50)/100)
-	spr_height += spr_height*scale_extra.y
+	spr_height = spr_height*scale_extra.y
+	shadow_height = shadow_height*scale_extra.y
+	reflect_height = reflect_height*scale_extra.y
+	
+	starting_heights = [spr_height, shadow_height, reflect_height]
+	
+	
+	
+	
 	speed += (randi() % 300)
 	
-	modulate = Color8(randi() % 255, randi() % 255,randi() % 255)
+	modulate = Color8(randi() % 510, randi() % 510,randi() % 510)
 	
 	for n in get_tree().get_nodes_in_group("path"):
 		if abs((n.position - position).length()) < closest: 
@@ -347,82 +481,178 @@ func _ready():
 	
 	for n in get_tree().get_nodes_in_group("ped"):
 		add_collision_exception_with(n)
+	
+	startle = false
 
 
 
-enum STATES {WALK,LOOK,OUCH,FALL}
+enum STATES {WALK,LOOK,WAIT,GETUP,ATTACK}
 export(int) var state = STATES.WALK
 
 func change_state(new_state):
 	state = new_state
 
+
+var textureA = preload("res://assets/sprites ped0a.png")
+var textureB = preload("res://assets/sprites ped0b.png")
+var textureC = preload("res://assets/sprites ped0c.png")
+
 func _process(_delta):
+	if true_anim > 19:
+		texture = textureC
+		hframes = 4
+		rotations = 1
+		anim = true_anim-20
+	elif true_anim > 9:
+		texture = textureB
+		hframes = 10
+		rotations = 4
+		anim = true_anim-10
+	else:
+		texture = textureA
+		hframes = 10
+		rotations = 4
+		anim = true_anim
+	
+	
 	match state:
 		STATES.WALK:
 			walk()
 		STATES.LOOK:
 			look()
-		STATES.OUCH:
-			ouch()
-		STATES.FALL:
-			fall()
-				
+		STATES.WAIT:
+			wait()
+		STATES.GETUP:
+			getup()
+		STATES.ATTACK:
+			attack()
 	
+	if (position - Worldconfig.player.position).length() > Worldconfig.player.draw_distance:
+		queue_freedom()
+	
+	#print($AnimationPlayer.current_animation,"   ",state)
+
+func attack():
+	motion = lerp(motion, Vector2(), 0.5)
+	change_state(STATES.ATTACK)
+	if aggressive == 2 && !gun_on:
+		$AnimationPlayer.play("shootget")
+	elif aggressive == 1:
+		$AnimationPlayer.play("punch")
+	elif aggressive == 2:
+		$AnimationPlayer.play("shoot")
+
+var aggressive = 2
+export var gun_on = 0
+
+
 
 func walk():
-	if abs(distanceXY.length()) < 15:
-		old_targets.push_back(target)
-		closest = INF
-		interest = randi()% 1425 #
-		if interest > 1500:
-			change_state(STATES.LOOK)
-		
-		for n in get_tree().get_nodes_in_group("path"):
-			if !old_targets.has(n):
-				if abs((n.position - position).length()) < closest: 
-					closest = abs((n.position - position).length())
-					new_target = n
-		target = new_target
-		if old_targets.size() > 4:
-			old_targets.remove(0)
+	if attacker == null:
+		if abs(distanceXY.length()) < 50:
+			old_targets.push_back(target)
+			closest = INF
+			interest = randi() % 200
+			if (interest <= 100) && !startle:
+				change_state(STATES.LOOK)
+			
+			
+			for n in get_tree().get_nodes_in_group("path"):
+				if !old_targets.has(n):
+					if abs((n.position - position).length()) < closest: 
+						closest = abs((n.position - position).length())
+						new_target = n
+			target = new_target
+			if old_targets.size() > 10:
+				old_targets.remove(0)
+	
+	
+	
+	
+	else:
+		if aggressive == 1:
+			if (attacker.position - position).length() < 150:
+				#target = null
+				change_state(STATES.ATTACK)
+			else:
+				target = attacker
+			
+		elif aggressive == 2:
+			#ideally, if target is in sight :/
+			if (attacker.position - position).length() < 1000:
+				#target = null
+				change_state(STATES.ATTACK)
+				
+			else:
+				target = attacker
+	
+	
 	
 	
 	if target != null:
-		motion = lerp(motion,  Vector2(speed, 0).rotated((position - target.position).angle() + PI),  turn)
-		rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.05))
+		if !startle or (attacker == null):
+			motion = lerp(motion,  Vector2(speed, 0).rotated((position - target.position).angle() + PI),  turn)
+			rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.05))
+		
+		else:
+			motion = lerp(motion,  Vector2(speed*2, 0).rotated((position - target.position).angle() + PI),  turn)
+			rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.5))
 		
 		distanceXY = position - target.position
 	
 	
 	
 	
-	if $AnimationPlayer != null:
-		if (abs(motion.x) > 2) or (abs(motion.y) > 2):
-			$AnimationPlayer.play("walk")
+	#if $AnimationPlayer != null:
+	if motion.length() > 5:
+		if !gun_on:
+			if startle or (attacker != null): $AnimationPlayer.play("run")
+			else: $AnimationPlayer.play("walk")
 		else:
-			$AnimationPlayer.stop()
-			anim = 0
+			$AnimationPlayer.play("shootwalk")
+	else:
+		$AnimationPlayer.stop()
+		if gun_on:
+			true_anim = 15
+		elif aggressive:
+			true_anim = 11
+		elif startle:
+			true_anim = 10
+		else:
+			true_anim = 0
+	
 
-
-var look_target
-var interest
+var interest = 0
 
 func look():
 	motion = lerp(motion, Vector2(0,0), 0.5)
 	$AnimationPlayer.stop()
-	anim = 0
+	true_anim = 0
 	
 	if target != null:
 		rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.025))
 	interest -= 1
 	
-	if interest < 0:
+	if (interest < 0) or startle:
 		change_state(STATES.WALK)
 
 
-func ouch():
-	$AnimationPlayer.stop()
-	anim = 5
 
-func fall():
-	$AnimationPlayer.play("fall")
+
+func rad_overflow(N):
+	if N > PI*2:
+		N -= PI*2
+	elif N < 0:
+		N += PI*2
+	
+	return N
+
+
+func overflow(N, minn, maxx):
+	while N > maxx:
+		N -= range(minn, maxx).size()
+	
+	while N < minn:
+		N += range(minn, maxx).size()
+	
+	return N

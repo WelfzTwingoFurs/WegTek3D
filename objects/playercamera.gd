@@ -239,11 +239,11 @@ func _physics_process(_delta):
 	
 		if Input.is_action_just_pressed("ply_wpn_next"):
 			guninv += 1
-			if guninv > 3: guninv = 0
+			if guninv > 4: guninv = 0
 			gunswitch()
 		elif Input.is_action_just_pressed("ply_wpn_previous"):
 			guninv -= 1
-			if guninv < 0: guninv = 3
+			if guninv < 0: guninv = 4
 			gunswitch()
 		
 		
@@ -630,20 +630,20 @@ func _on_Interact_body_entered(body):
 
 var guninv = 0
 export var gunscale = 3
-export(bool) var gunstretch = false
+var gunstretch = false
 export var feet1 = preload("res://assets/feet1.png")
 export var feet2 = preload("res://assets/feet2.png")
 
 
 func gunswitch():
-	$View/Hand.rotation_degrees = 0
-	print(guninv)
+	#print("-       WEAPON: ", guninv)
 	if guninv == 0:
 		$View/Hand.visible = 0
 		$View/Feet.texture = feet1
 	else:
 		$View/Hand.visible = 1
 		$View/Feet.texture = feet2
+	
 	
 	if guninv == -1:
 		$View/Hand.texture = load("res://assets/dashboard TD3.png")
@@ -652,26 +652,64 @@ func gunswitch():
 		gunstretch = true
 	
 	elif guninv == 1:
+		$View/Hand.texture = load("res://assets/weapon fist.png")
+		$View/Hand.hframes = 1
+		$View/Hand.vframes = 4
+		gunstretch = false
+		
+	elif guninv == 2:
 		$View/Hand.texture = load("res://assets/weapon handgun.png")
 		$View/Hand.hframes = 1
 		$View/Hand.vframes = 2
-	elif guninv == 2:
+		gunstretch = false
+		
+	elif guninv == 3:
 		$View/Hand.texture = load("res://assets/weapon flamethrower.png")
 		$View/Hand.hframes = 1
 		$View/Hand.vframes = 7
-	elif guninv == 3:
+		gunstretch = false
+		
+	elif guninv == 4:
 		$View/Hand.texture = load("res://assets/weapon doomarms.png")
 		$View/Hand.hframes = 1
 		$View/Hand.vframes = 1
+		gunstretch = false
+		
+	
+	
+	$View/Hand.frame = 0
+	$View/Hand.flip_h = false
+	if guninv != -1:
+		$View/Hand.rotation_degrees = 90
+		$View/Hand.position.y += $View/Hand.texture.get_size().x * $View/Hand.scale.x
+	else:
+		$View/Hand.rotation_degrees = 0
 
 func gunfire(alt):
 	if guninv == 1:
-		
 		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"):
-			shoot()
-			$View/AniPlayHand.play("hand-fire")
+			if ($View/AniPlayHand.current_animation_position > 0.2) or ($View/AniPlayHand.current_animation != "fist-punch"):
+				$View/AniPlayHand.stop()
+				$View/AniPlayHand.play("fist-punch")
+				
+				if Input.is_action_just_pressed("ply_wpn_fire2"):
+					$View/Hand.flip_h = false
+				elif Input.is_action_just_pressed("ply_wpn_fire1"):
+					$View/Hand.flip_h = true
+	
+	
+	
+	
 	
 	elif guninv == 2:
+		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"):
+			$View/AniPlayHand.stop()
+			$View/AniPlayHand.play("hand-fire")
+	
+	
+	
+	
+	elif guninv == 3:
 		if $View/Hand.frame == 5 or $View/Hand.frame == 4 or $View/Hand.frame == 3 or $View/Hand.frame == 2: darkness = 1
 		
 		if !alt && Input.is_action_just_pressed("ply_wpn_fire1") && ($View/Hand.frame != 4 or $View/Hand.frame != 3):
@@ -685,7 +723,10 @@ func gunfire(alt):
 			else:
 				$View/AniPlayHand.play("flame-no")
 				
-	elif guninv == 3:
+	
+	
+	
+	elif guninv == 4:
 		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"): shoot()
 
 func gunstop(alt):
@@ -697,24 +738,38 @@ func gunstop(alt):
 			$View/Hand.frame = 0
 
 
-const shot = preload("res://objects/projectile.tscn")
+const shot = preload("res://objects/bullet.tscn")
 #const shot = preload("res://chaser.tscn")
 func shoot():
-	if guninv == 1:
+	if guninv == 2:
+		var speedy = 10000
+		
 		var shoot_instance = shot.instance()
-		shoot_instance.rotation_degrees = rotation_angle + PI/2
-		shoot_instance.positionZ = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*450)
-		shoot_instance.motionZ = (lookingZ/($PolyContainer.scale.y*10))*117#*59
-		shoot_instance.speed = 700#350
-		
+		shoot_instance.positionZ = positionZ + head_height +((lookingZ/($PolyContainer.scale.y*10))*500)
 		shoot_instance.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
-		if Input.is_action_just_pressed("ply_wpn_fire2"):
-			shoot_instance.dontCollideWall = false
-			#shoot_instance.dontCollideSprite = false
 		
+		
+		var fartnogger = (lookingZ/($PolyContainer.scale.y*10))
+		shoot_instance.motion = Vector2(speedy-(speedy*abs(lookingZ/($PolyContainer.scale.y*10))), 0).rotated(rotation_angle + PI/2)
+		shoot_instance.motionZ = ((fartnogger*2)*speedy/10)  *  (lookingZ/($PolyContainer.scale.y*10))
+		
+		#lookingZ = (0.135-0.01)*($PolyContainer.scale.y*10)
+		
+		
+		
+		
+		
+		
+		
+		
+		shoot_instance.motionZ = (1.6*speedy/10)  *  (lookingZ/($PolyContainer.scale.y*10))
+		#shoot_instance.motionZ = (16-(16*abs(lookingZ/($PolyContainer.scale.y*10))))  *  (lookingZ/($PolyContainer.scale.y*10))
+		shoot_instance.daddy = self
+		add_collision_exception_with(shoot_instance)
+		shoot_instance.add_collision_exception_with(self)
 		get_parent().add_child(shoot_instance)
 	
-	elif guninv == 3:
+	elif guninv == 4:
 		var uno = load("res://objects/car Uno.tscn").instance()
 		uno.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
 		get_parent().add_child(uno)
@@ -934,9 +989,10 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 			col_sprites.push_back(body)
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
-	if body.is_in_group("floor"):
-		on_floor = false
+	#if body.is_in_group("floor"):
+		
 		if col_floors.has(body):
+			on_floor = false
 			col_floors.erase(body)
 			
 			if (col_floors.size() == 0):
@@ -944,13 +1000,13 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 				darkness = 1
 			
 	
-	if body.is_in_group("wall"):
-		if col_walls.has(body):
+	#if body.is_in_group("wall"):
+		elif col_walls.has(body):
 			col_walls.erase(body)
 			
 	
-	if body.is_in_group("sprite"):
-		if col_sprites.has(body):
+	#if body.is_in_group("sprite"):
+		elif col_sprites.has(body):
 			col_sprites.erase(body)
 			on_body = false
 			on_floor = false
@@ -985,7 +1041,7 @@ func recalculate():
 		$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
 		
 		if change_checker[0] != $View/Feet.texture:
-			print("-      TEXTURE: Feet changed")
+			#print("-      TEXTURE: Feet changed")
 			change_checker[0] = $View/Feet.texture
 			
 		
@@ -1132,10 +1188,6 @@ func render():
 		if incoming_walls.has(array_walls[n]):
 			if (array_walls[n].points[0] - position).length() > draw_distance/lod_ddist_divi:
 				continue
-		#if incoming_walls.has(array_walls[n]):
-		#	for x in array_walls[n].points.size():
-		#		if (array_walls[n].points[x] - position).length() > draw_distance/lod_ddist_divi:
-		#			break
 		
 		
 		var new_poly = $PolyContainer/Poly0.duplicate()
@@ -1190,7 +1242,6 @@ func render():
 					var new_position = new_position(point1, point2, limitPlus, limitMinus, (point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 					#func new_position(point1,point2,height1,height2,limitPlus,limitMinus,det):
 					var xkusu = (new_position-position).angle() - midscreen
-					#var lineH = (OS.window_size.y / not_zero(sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 					var lineH = (OS.window_size.y / not_zero( (new_position - position).length()) )   /  cos(xkusu) #Logic from other raycasters
 					
 					var C = 1
@@ -1199,15 +1250,12 @@ func render():
 							C = float(1)/array_walls[n].darkness
 						else:
 							C = 1
-					##else: C = -(    sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
-					#else: C = -(    (Vector3(new_position.x, new_position.y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(1*array_walls[n].darkness)/draw_distance)-1)
-					#else: C = shading
+					
 					
 					if height1 == height2:#No diagonals, we're done
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 						
 					else:#Need to make diagonal clipping
-						#var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
 						var new_height = ((point2 - new_position).length()/(point2 - point1).length()*(height1-height2))
 						
 						
@@ -1226,24 +1274,18 @@ func render():
 						new_position = new_position(point1,point2,limitPlus,limitMinus,(point1.x - point2.x)*(limitPlus.y - limitMinus.y) - (point1.y - point2.y)*(limitPlus.x - limitMinus.x))  +  Vector2(0,1).rotated(rotation_angle)
 						
 						xkusu = (new_position-position).angle() - midscreen
-						#lineH = (OS.window_size.y / not_zero(sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2))))   /  cos(xkusu) #Logic from other raycasters
 						lineH = (OS.window_size.y / not_zero( (new_position - position).length()) )   /  cos(xkusu) #Logic from other raycasters
 						
-						##if shading: C = -(    sqrt(pow((new_position.x - position.x), 2) + pow((new_position.y - position.y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
-						#if shading: C = -(    (Vector3(new_position.x, new_position.y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(1*array_walls[n].darkness)/draw_distance)-1)
 						
 						if height1 == height2:#No diagonals
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 						
 						else:#diagonal
-							#var new_height = (sqrt(pow((point2.x - new_position.x), 2) + pow((point2.y - new_position.y), 2))/sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)))*(height1-height2)
 							var new_height = ((point2 - new_position).length()/(point2 - point1).length()*(height1-height2))
 							
-							#if array_walls[n].extraZ[m] == 0:
 							if height2 > height1: #dont know
 								new_height += height2 
 							elif (height2 < height1) or (new_height > height1):# why, OK
-								#if new_height < height2:
 								new_height += height2 
 							
 							
@@ -1253,10 +1295,9 @@ func render():
 			
 			
 			else:#all vertices in front of camera
-				#shading = true
 				var xkusu = (array_walls[n].points[m]-position).angle() - midscreen
-				#var lineH = (OS.window_size.y / not_zero(sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2))))   /  cos(xkusu)
 				var lineH = (OS.window_size.y / not_zero( (array_walls[n].points[m] - position).length()) )   /  cos(xkusu) #Logic from other raycasters
+				#var lineH = (OS.window_size.y / not_zero( (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()) )   /  cos(xkusu) #Logic from other raycasters
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 				var C
@@ -1265,7 +1306,7 @@ func render():
 						C = float(1)/array_walls[n].darkness
 					else:
 						C = 1
-				#else: C = -(    sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))    *(float(1*array_walls[n].darkness)/draw_distance)-1)
+				
 				else: C = -(    (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(shading*array_walls[n].darkness)/draw_distance)-1)
 				array_shading.append(Color(C,C,C))
 			
@@ -1286,7 +1327,6 @@ func render():
 			
 			
 			
-			#var distance = sqrt(pow((array_walls[n].points[m].x - position.x), 2) + pow((array_walls[n].points[m].y - position.y), 2) + pow(((array_walls[n].heights[m]+array_walls[n].extraZ[m]) - positionZ), 2))
 			var distance = (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()
 			
 			
@@ -1387,14 +1427,12 @@ func render():
 			var new_sprite = $PolyContainer/Sprite0.duplicate()
 			
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
-			#var lineH = (OS.window_size.y /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) 
 			var lineH = (OS.window_size.y / not_zero( (array_sprites[o].position - position).length()) )   /  cos(xkusu) #Logic from other raycasters
 			
-			#new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
-			#new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * 0.145) * array_sprites[o].scale_extra.x ,
-			#new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero(sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2)))) / cos(xkusu) )/$PolyContainer.scale.x) * (180-angles)/1000) * array_sprites[o].scale_extra.x *4,
 			new_sprite.scale = Vector2( ((((OS.window_size.x /  not_zero((array_sprites[o].position - position).length())) / cos(xkusu) )/$PolyContainer.scale.x) * (180-angles)/1000) * array_sprites[o].scale_extra.x *4,
 			lineH * array_sprites[o].scale_extra.y)
+			
+			
 			
 			
 			if sign(array_sprites[o].scale_extra.x) != sign(new_sprite.scale.x):
@@ -1419,7 +1457,6 @@ func render():
 			
 			
 			if !array_sprites[o].dontZ:#lets re-use xkusu
-				#xkusu = sqrt(pow((array_sprites[o].position.x - position.x), 2) + pow((array_sprites[o].position.y - position.y), 2) + pow((array_sprites[o].positionZ - positionZ), 2))
 				xkusu = (Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length()
 				if abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096:
 					#break
@@ -1474,39 +1511,30 @@ func render():
 			new_container.add_child(new_sprite)
 			
 			if sprite_shadows && array_sprites[o].shadow:## && (array_sprites[o].positionZ > positionZ-head_height):# && (new_sprite.position.y+(new_sprite.texture.get_size().y*new_sprite.scale.y)/2 > 0):
-				#if new_sprite.position.y - (new_sprite.offset.y*new_sprite.scale.y) > 0:
-				#if ((new_sprite.position.y - new_sprite.offset.y)*new_sprite.scale.y)*new_container.scale.y > 0:
-					var shadow = new_sprite.duplicate()
-					
-					shadow.z_index = new_sprite.z_index-1
-					if !array_sprites[o].reflect:
-						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].shadow_height )# - array_sprites[o].positionZ-array_sprites[o].shadow_height
-						shadow.modulate = Color(0,0,0)
-						shadow.modulate.a8 = new_sprite.modulate.a8/2 - abs(array_sprites[o].positionZ-array_sprites[o].shadowZ)/10
-						shadow.scale.y *= 0.125
-						shadow.scale.x *= 1.2
-						#shadow.scale.x *= sin(rotation_angle)
-						#shadow.rotation_degrees = sin(rotation_angle)
-					else:
-						shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].reflect_height)# + array_sprites[o].positionZ-array_sprites[o].shadow
-						shadow.modulate.a8 = new_sprite.modulate.a8/1.5 - array_sprites[o].positionZ-array_sprites[o].shadowZ
-						shadow.scale.y *= -0.25
-						shadow.scale.x *= 0.7
-					
-					if shadow.position.y < 0:
-						shadow.queue_free()
-					
-					new_container.add_child(shadow)
+				var shadow = new_sprite.duplicate()
 				
-			
-	
-	
-	
-#	for x in incoming_walls.size():
-#		if !array_walls.has(incoming_walls[x]):
-#			for z in incoming_walls[x].points.size():
-#				if (incoming_walls[x].points[z] - position).length() < draw_distance/2:
-#					array_walls.push_back(incoming_walls[x])
+				shadow.z_index = new_sprite.z_index-1
+				if !array_sprites[o].reflect:
+					shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].shadow_height )# - array_sprites[o].positionZ-array_sprites[o].shadow_height
+					shadow.modulate = Color(0,0,0)
+					shadow.modulate.a8 = new_sprite.modulate.a8/2 - abs(array_sprites[o].positionZ-array_sprites[o].shadowZ)/10
+					shadow.scale.y *= 0.125
+					shadow.scale.x *= 1.2
+					
+				elif array_sprites[o].reflect == 1:
+					shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height+array_sprites[o].reflect_height)# + array_sprites[o].positionZ-array_sprites[o].shadow
+					shadow.modulate.a8 = new_sprite.modulate.a8/1.5 - array_sprites[o].positionZ-array_sprites[o].shadowZ
+					shadow.scale.y *= -0.25
+					shadow.scale.x *= 0.7
+					
+				elif (array_sprites[o].reflect == 3) && array_sprites[o].on_floor: #blood
+					shadow.position.y = ((positionZ)*lineH)-lineH*(array_sprites[o].shadowZ-head_height)
+					shadow.modulate = Color(255 * array_sprites[o].bloodtimer,0,0)
+					shadow.modulate.a8 = 127 * array_sprites[o].bloodtimer
+					shadow.scale.y *= -0.5 * array_sprites[o].bloodtimer
+					shadow.scale.x *= 1.5 * array_sprites[o].bloodtimer
+				
+				new_container.add_child(shadow)
 
 
 func new_position(point1,point2,limitPlus,limitMinus,det):
@@ -1543,22 +1571,11 @@ var array_walls = []
 var array_sprites = []
 
 var incoming_walls = []
-#var incoming_sprites = []
 
 func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
-	#if body.is_in_group("render") && (higfx or ((higfx) == (body.is_in_group("higfx")))):
-	#if higfx or (!higfx && (body.is_in_group("wall") or body.is_in_group("floor") or body.is_in_group("sprite"))) or body.is_in_group("logfx"):
 	if !array_walls.has(body) or !array_sprites.has(body):
 		if (higfx or (body.is_in_group("wall") or body.is_in_group("floor") or body.is_in_group("sprite") or body.is_in_group("logfx"))):# && body.is_in_group("render") or :
 			if body.is_in_group("render"):
-#				if !(body.is_in_group("wall") or body.is_in_group("floor")):
-#					if !incoming_walls.has(body):
-#						if (body.points[0] - position).length() < draw_distance/2:
-#							incoming_walls.push_back(body)
-#				else:
-#					array_walls.push_back(body)
-		
-		
 				array_walls.push_back(body)
 				if !(body.is_in_group("wall") or body.is_in_group("floor")) && !body.is_in_group("logfx"):
 					if !incoming_walls.has(body):
@@ -1587,16 +1604,13 @@ func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	
 
 func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
-	if body.is_in_group("render"):
-		if array_walls.has(body):
-			array_walls.erase(body)
+	if array_walls.has(body):
+		array_walls.erase(body)
 #		if incoming_walls.has(body):
 #			incoming_walls.erase(body)
 	
-	
-	elif body.is_in_group("rendersprite"):
-		if array_sprites.has(body):
-			array_sprites.erase(body)
+	elif array_sprites.has(body):
+		array_sprites.erase(body)
 	
 	if array_walls.size() == 0 && array_sprites.size() == 0 && (weakref(new_container).get_ref()):
 		new_container.queue_free()

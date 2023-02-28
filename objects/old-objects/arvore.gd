@@ -1,28 +1,26 @@
 extends KinematicBody2D
 
-var scale_extra = Vector2(0.5,0.5)
-var dontScale = 0
-var spr_height = 0
-var texture = preload("res://textures/wheelEGA64.png")
-var vframes = 1
-var hframes = 1
-var dontZ = false
-var rotations = 1
-var anim = 0
-var shadow = false
-var darkness = 1
-
 export var positionZ = 0
-export(bool) var dontMove = false
-export(bool) var dontCollideSprite = false
-export(bool) var dontCollideWall = false
-export(bool) var stepover = false
+export var anim = 0
+export var scale_extra = Vector2(float(1),float(1))
+export(Texture) var texture = preload("res://assets/sprites trees.png")
+export var vframes = 1
+export var hframes = 10
+export var rotations = 1
+export var darkness = 1
+export var dynamic_darkness = true
+export var dontScale = 0
+export var dontZ = false
+export var dontMove = true
+export var dontCollideSprite = false
+export var dontCollideWall = false
 
 func _ready():
-	if !is_in_group("sprite"):
-		add_collision_exception_with(Worldconfig.player)
-	
-	remove_from_group("rendersprite")
+	if $CollisionShape2D.position != Vector2(0,0):
+		position = to_global($CollisionShape2D.position)
+		$CollisionShape2D.position = Vector2(0,0)
+
+
 
 
 
@@ -36,41 +34,12 @@ var motion = Vector2()
 func _physics_process(_delta):
 	motion = Vector2(0,0)
 	
-	if !dontCollideSprite:
-		if on_body == true:
-			motionZ = 0
-			positionZ = body_on.positionZ + body_on.head_height
-			if col_sprites.size() == 0:
-				on_body = false
-	
-	if !dontCollideWall:
-		if on_floor == false:
-			if (col_floors.size() == 0 && positionZ <= Worldconfig.player.min_Z):
-				on_floor = true
-				motionZ = 0
-			elif col_floors.size() != 0:#think about this
-				motionZ -= GRAVITY
-			else:#think about this
-				on_floor = true
-			
-		else:
-			motionZ = 0
-	
 	positionZ += motionZ
-	
-	if motionZ < 0:
-		move_dir.z = -1
-	elif motionZ > 0:
-		move_dir.z = 1
-	elif motionZ == 0:
-		move_dir.z = 0
-	
-	move_dir.x = sign(motion.x)
-	move_dir.y = sign(motion.y)
 	
 	collide()
 
-export(float) var GRAVITY = 0.5
+var GRAVITY = 0.5
+export var spr_height = 0
 export var head_height = 65
 var col_walls = []
 var col_floors = []
@@ -80,6 +49,14 @@ var on_floor = false
 var on_body = false
 var body_on = null
 var motionZ = 0
+export(bool) var shadow = true
+var shadowZ = INF
+var reflect = false
+export var shadow_height = 0
+export var reflect_height = 0
+var compareZ = INF
+
+
 
 func collide():
 	for n in col_sprites.size():
@@ -158,14 +135,28 @@ func collide():
 	
 	
 	
+	if col_floors.size() == 0:
+		shadowZ = Worldconfig.player.min_Z
 	
 	for n in col_floors.size():
+		if dynamic_darkness:
+			darkness = col_floors[n].darkness
+		
 		if dontCollideWall:
 			add_collision_exception_with(col_floors[n])
 		
 		else:
 		#if col_floors != null:
 			if col_floors[n].flag_1height:
+				
+				#if col_floors[n].heights[0] < positionZ: #shadow position#
+				if col_floors[n].heights[0] - positionZ < compareZ:
+					compareZ = col_floors[n].heights[0] - positionZ
+					shadowZ = col_floors[n].heights[0]
+					reflect = col_floors[n].reflect
+				
+				
+				
 				if col_floors[n].absolute == -1:
 					if positionZ > col_floors[n].heights[0]-1:
 						positionZ = col_floors[n].heights[0] - head_height
@@ -197,63 +188,53 @@ func collide():
 			
 			
 			
-			else: #slope moment
-				var new_height = Vector2(slope(
-					Vector3(to_global(position).x, to_global(position).y,0), 
+			else:
+				var new_height = slope(
+					Vector3(position.x,position.y,0), 
 					Vector3(col_floors[n].points[0].x, col_floors[n].points[0].y, col_floors[n].heights[0]), 
 					Vector3(col_floors[n].points[1].x, col_floors[n].points[1].y, col_floors[n].heights[1]), 
-					Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2]), n)) #+ margin
+					Vector3(col_floors[n].points[2].x, col_floors[n].points[2].y, col_floors[n].heights[2])) #+ margin
 				
-				#positionZ = new_height
+				shadowZ = new_height
 				
-				if (col_floors[n].absolute == 1) && (positionZ < new_height.x):
-					positionZ = new_height.x
+				if (col_floors[n].absolute == 1) && (positionZ < new_height):
+					positionZ = new_height
 					on_floor = true
-				elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height.x):
-					positionZ = new_height.x - head_height
+				elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height):
+					positionZ = new_height - head_height
 					on_floor = false
 					continue
 				
 				
-				if new_height.x > positionZ + head_height:
-					if new_height.x < positionZ + head_height + motionZ:
-						motionZ = -motionZ
-				
-				elif new_height.y > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max(): #THINK ABOUT THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSISISIISISISISIISIS
-					positionZ = new_height.y
-					on_floor = false
-				#	motionZ += (new_height.y - positionZ)*10 #THINK ABOUT THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSS
-				
-				elif new_height.x > positionZ:
-					positionZ = new_height.x
-					on_floor = true
-				else:
-					if on_floor:
-						positionZ = new_height.x
+				if move_dir:
+					if new_height > positionZ + head_height:
+						if new_height < positionZ + head_height + motionZ:
+							motionZ = -motionZ
+					
+					elif new_height > positionZ:
+						positionZ = new_height
+						on_floor = true
 					else:
-						on_floor = false
-				
-				#positionZ = new_height
-				#print(positionZ)
+						if on_floor:
+							positionZ = new_height
+						else:
+							on_floor = false
 
 
-var heading = Vector2(0,0)
 
-func slope(v0,v1,v2,v3, n):
+
+func slope(v0,v1,v2,v3):
 	var normal = (v2 - v1).cross(v3 - v1).normalized()
 	var dir = Vector3(0.0, 0.0, 1.0)
 	var r = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
 	
-	#if r.z > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max():
-	#	motionZ = abs(r.z)
+	return r.z
 	
-	v0 += Vector3(heading.x, heading.y, 0)
-	var r2 = v0 + dir * ((v1.dot(normal)) - v0.dot(normal)) / dir.dot(normal)
-	if r2.z > [col_floors[n].heights[0], col_floors[n].heights[1], col_floors[n].heights[2]].max():
-		return Vector2(r.z, r2.z)
-	
-	return Vector2(r.z, r2.z)
-	
+
+
+
+
+
 
 
 
@@ -269,6 +250,7 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 			if (col_floors.size() == 0) && (body.flag_1height) && (on_floor == true) && (body.heights[0] < positionZ): on_floor = false
 			
 			col_floors.push_back(body)
+			compareZ = INF
 			
 	elif body.is_in_group("wall"):
 		if !col_walls.has(body):
@@ -279,21 +261,22 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 			col_sprites.push_back(body)
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
-	#if body.is_in_group("floor"):
-		
+	if body.is_in_group("floor"):
+		on_floor = false
 		if col_floors.has(body):
-			on_floor = false
 			col_floors.erase(body)
+			compareZ = INF
 			
 			if (col_floors.size() == 0) && (!dontCollideWall):
 				if (positionZ <= Worldconfig.player.min_Z): positionZ = Worldconfig.player.min_Z
+				shadowZ = Worldconfig.player.min_Z
 			
 	
-	#if body.is_in_group("wall"):
+	if body.is_in_group("wall"):
 		if col_walls.has(body):
 			col_walls.erase(body)
 	
-	#if body.is_in_group("sprite"):
+	if body.is_in_group("sprite"):
 		if col_sprites.has(body):
 			col_sprites.erase(body)
 			on_body = false
