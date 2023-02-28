@@ -133,6 +133,7 @@ func _process(_delta):
 	
 	if Worldconfig.playercar == self: #GE-GE OUT
 		if !Worldconfig.player.camera && Worldconfig.player.guninv != -1:
+			Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
 			Worldconfig.player.guninv = -1
 			Worldconfig.player.gunswitch()
 		
@@ -150,19 +151,51 @@ func _process(_delta):
 			
 			
 			if Worldconfig.player.camera:
-				Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
-				Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
 				Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/camZdivide + camheight
 				$model.position = default_pos
 				
+				if Input.is_action_pressed("ply_lookleft") && Input.is_action_pressed("ply_lookright"):
+					Worldconfig.player.position = position - Vector2(-camdist, 0).rotated(deg2rad(rotation_degrees))
+					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)+PI/2),  0.8)
+				
+				elif Input.is_action_pressed("ply_lookleft"):
+					Worldconfig.player.position = position - Vector2(0, -camdist/2).rotated(deg2rad(rotation_degrees))
+					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(150)),  0.8)
+					
+				elif Input.is_action_pressed("ply_lookright"):
+					Worldconfig.player.position = position - Vector2(0,camdist/2).rotated(deg2rad(rotation_degrees))
+					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(25)),  0.8)
+					
+				else:
+					Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
+					Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
+					
+				
+				
+				
 			else:
-				Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees)-PI/2)
 				Worldconfig.player.position = to_global($driver.position)#position - Vector2(0,50).rotated(deg2rad(rotation_degrees))
 				Worldconfig.player.positionZ = (($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4) + driver_height
 				Worldconfig.player.lookingZ = -float((($wheel0.positionZ+$wheel1.positionZ)/2)-(($wheel3.positionZ+$wheel2.positionZ)/2))/1000
-				Worldconfig.player.vroll_car = ((($wheel0.positionZ+$wheel3.positionZ)/2) - (($wheel1.positionZ+$wheel2.positionZ)/2))/4
+				
+				
+				if Input.is_action_pressed("ply_lookleft"):
+					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(150)),  0.8)
+					Worldconfig.player.vroll_car = lerp(Worldconfig.player.vroll_car, ((($wheel2.positionZ+$wheel3.positionZ)/2) - (($wheel0.positionZ+$wheel1.positionZ)/2))/8, 0.8)
+					
+				elif Input.is_action_pressed("ply_lookright"):
+					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(25)),  0.8)
+					Worldconfig.player.vroll_car = lerp(Worldconfig.player.vroll_car, ((($wheel0.positionZ+$wheel1.positionZ)/2) - (($wheel2.positionZ+$wheel3.positionZ)/2))/8, 0.8)
+					
+				else:
+					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-PI/2),  0.8)
+					Worldconfig.player.vroll_car = ((($wheel0.positionZ+$wheel3.positionZ)/2) - (($wheel1.positionZ+$wheel2.positionZ)/2))/4
+					
 				
 				$model.position = Vector2(0,-99999)
+				
+				
+				
 
 export var driver_height = 0
 

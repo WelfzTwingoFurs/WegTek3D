@@ -383,10 +383,18 @@ func _physics_process(_delta):
 				#$View/Hand.scale.y = gunscale
 				$View/Hand.scale.y = $View/Hand.scale.x
 				$View/Hand.position.y = lerp($View/Hand.position.y, (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes))/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30 +lookingZ*5 +($PolyContainer.scale.y*50), 0.5) 
+				
 			
-		else:
-			$View/Hand.position = Vector2(0,abs(vbob)*vbob_max +lookingZ*5 +($PolyContainer.scale.y*50))
-			$View/Hand.scale.x = OS.window_size.x/$View/Hand.texture.get_width()
+		else: #DASHBOARD GRAPHICS
+			if Input.is_action_pressed("ply_lookleft"):
+				$View/Hand.position = lerp($View/Hand.position, Vector2( ($View/Hand.texture.get_width()*$View/Hand.scale.x)/4,        abs(vbob)*vbob_max +lookingZ*5 +($PolyContainer.scale.y*50)), 0.5)
+			elif Input.is_action_pressed("ply_lookright"):
+				$View/Hand.position = lerp($View/Hand.position, Vector2(-($View/Hand.texture.get_width()*$View/Hand.scale.x)/4,        abs(vbob)*vbob_max +lookingZ*5 +($PolyContainer.scale.y*50)), 0.5)
+			else:
+				$View/Hand.position = lerp($View/Hand.position, Vector2(0,abs(vbob)*vbob_max +lookingZ*5 +($PolyContainer.scale.y*50)), 0.5)
+			
+			
+			$View/Hand.scale.x = (OS.window_size.x/$View/Hand.texture.get_width())*2
 			$View/Hand.scale.y = (OS.window_size.y/$View/Hand.texture.get_height()) +($PolyContainer.scale.y/6)
 			#get it to fill whole screen
 	
@@ -646,7 +654,7 @@ func gunswitch():
 	
 	
 	if guninv == -1:
-		$View/Hand.texture = load("res://assets/dashboard TD3.png")
+		$View/Hand.texture = load("res://assets/dashboard TD3full.png")
 		$View/Hand.hframes = 1
 		$View/Hand.vframes = 1
 		gunstretch = true
