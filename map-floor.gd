@@ -24,7 +24,7 @@ var flag_1height = false
 export var absolute = 0#-1 for stay under, 1 for stay over
 export(float) var darkness = 1
 
-export var reflect = false
+export var reflect = 0
 
 func _ready():
 	#onesided *= 2

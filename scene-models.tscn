@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=1]
 [ext_resource path="res://objects/car FordA.tscn" type="PackedScene" id=2]
@@ -9,6 +9,11 @@
 [ext_resource path="res://objects/playercamera.tscn" type="PackedScene" id=7]
 [ext_resource path="res://objects/thing Tree1.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/thing Lightpost.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/dynacar-uno.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/dynacar-kombi.tscn" type="PackedScene" id=11]
+[ext_resource path="res://objects/dynacar-testarossa.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/dynacar-fordA.tscn" type="PackedScene" id=13]
+[ext_resource path="res://objects/dynacar-escort.tscn" type="PackedScene" id=14]
 
 [node name="scene models" type="Node2D"]
 
@@ -53,3 +58,18 @@ position = Vector2( -295, 0 )
 
 [node name="Lightpost" parent="." instance=ExtResource( 9 )]
 position = Vector2( -234, 0 )
+
+[node name="dynacar-escort" parent="." instance=ExtResource( 14 )]
+position = Vector2( 23.9999, 586 )
+
+[node name="dynacar-fordA" parent="." instance=ExtResource( 13 )]
+position = Vector2( 23.9999, 586 )
+
+[node name="dynacar-kombi" parent="." instance=ExtResource( 11 )]
+position = Vector2( 23.9999, 586 )
+
+[node name="dynacar-testarossa" parent="." instance=ExtResource( 12 )]
+position = Vector2( 23.9999, 586 )
+
+[node name="dynacar-uno" parent="." instance=ExtResource( 10 )]
+position = Vector2( 23.9999, 586 )

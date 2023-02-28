@@ -24,7 +24,7 @@ export(float) var darknesses = 1
 export var collide = false
 export var absolute = false
 export var jumpover = false
-export var reflect = false
+export var reflect = 0
 
 var new_wall
 var new_floor

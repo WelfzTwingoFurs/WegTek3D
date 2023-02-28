@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://objects/playercamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/dynacar-escort.tscn" type="PackedScene" id=2]
@@ -13,43 +13,44 @@
 [ext_resource path="res://map-floor-animated.gd" type="Script" id=11]
 [ext_resource path="res://objects/dynacar-uno.tscn" type="PackedScene" id=12]
 [ext_resource path="res://mapsplan.png" type="Texture" id=13]
+[ext_resource path="res://objects/sign.tscn" type="PackedScene" id=14]
 
-[sub_resource type="SegmentShape2D" id=6]
+[sub_resource type="SegmentShape2D" id=1]
 a = Vector2( 443400, 116500 )
 b = Vector2( 777900, 96600 )
 
-[sub_resource type="SegmentShape2D" id=7]
+[sub_resource type="SegmentShape2D" id=2]
 a = Vector2( 504000, 113000 )
 b = Vector2( 569900, 109000 )
 
-[sub_resource type="SegmentShape2D" id=8]
+[sub_resource type="SegmentShape2D" id=3]
 a = Vector2( 3398.07, -4627.91 )
 b = Vector2( 2870.07, -4604.91 )
 
-[sub_resource type="SegmentShape2D" id=1]
+[sub_resource type="SegmentShape2D" id=4]
 a = Vector2( 153600, 4900 )
 b = Vector2( 59200, 9000 )
 
-[sub_resource type="SegmentShape2D" id=2]
+[sub_resource type="SegmentShape2D" id=5]
 a = Vector2( 153600, 4900 )
 b = Vector2( 267300, -100 )
 
-[sub_resource type="SegmentShape2D" id=3]
+[sub_resource type="SegmentShape2D" id=6]
 a = Vector2( 59200, 9000 )
 b = Vector2( 267300, -100 )
 
-[sub_resource type="SegmentShape2D" id=4]
+[sub_resource type="SegmentShape2D" id=7]
 a = Vector2( -26900, 12800 )
 b = Vector2( 21100, 10700 )
 
-[sub_resource type="SegmentShape2D" id=5]
+[sub_resource type="SegmentShape2D" id=8]
 a = Vector2( 59200, 9000 )
 b = Vector2( 21100, 10700 )
 
 [node name="guilhermina downtown" type="Node2D"]
 
 [node name="playercamera" parent="." instance=ExtResource( 1 )]
-position = Vector2( 3990, 3331 )
+position = Vector2( 2643, 2914 )
 camera = true
 draw_distance = 8192
 positionZ = -2100
@@ -58,8 +59,6 @@ skycolor = Color( 0.666667, 0.772549, 0.772549, 1 )
 cull_on = false
 higfx = true
 shading = 0.25
-gunscale = 1
-gunstretch = true
 
 [node name="Sky" parent="playercamera/Background" index="0"]
 modulate = Color( 1, 0, 1, 1 )
@@ -69,21 +68,27 @@ script = ExtResource( 8 )
 
 [node name="ped" parent="objects" instance=ExtResource( 3 )]
 position = Vector2( 2628, 3158 )
+positionZ = -9999
 
 [node name="dynacar-uno" parent="objects" instance=ExtResource( 12 )]
 position = Vector2( 230, 3790 )
 
 [node name="dynacar-kombi" parent="objects" instance=ExtResource( 5 )]
 position = Vector2( 251, 3561 )
+camdist = 589
+camheight = 196
 
 [node name="dynacar-testarossa" parent="objects" instance=ExtResource( 9 )]
 position = Vector2( 254, 3277 )
 
-[node name="dynacar-ordA" parent="objects" instance=ExtResource( 10 )]
+[node name="dynacar-fordA" parent="objects" instance=ExtResource( 10 )]
 position = Vector2( 281, 3023 )
 
 [node name="dynacar-escort" parent="objects" instance=ExtResource( 2 )]
 position = Vector2( 916, 3688 )
+
+[node name="sign" parent="objects" instance=ExtResource( 14 )]
+position = Vector2( 2277, 3470 )
 
 [node name="mapsplan" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.388235 )
@@ -252,7 +257,7 @@ texture_path = "res://textures/concrete32.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/bot/casa"]
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 
 [node name="casagate" type="StaticBody2D" parent="BLOCK2/middie/bot" groups=[
 "render",
@@ -273,7 +278,7 @@ texture_path = "res://textures/chainfence2.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/bot/casagate"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="casa2" type="StaticBody2D" parent="BLOCK2/middie/bot"]
 position = Vector2( 2540, 5162 )
@@ -397,7 +402,7 @@ jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/predioporta"]
 position = Vector2( -0.0693359, -831.09 )
-shape = SubResource( 8 )
+shape = SubResource( 3 )
 
 [node name="calça" parent="BLOCK2/middie/top" groups=[
 "floor",
@@ -618,7 +623,7 @@ texture_path = "res://textures/concrete32.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9-2"]
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="casa9gate" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
 "render",
@@ -640,7 +645,7 @@ texture_path = "res://textures/chainfence2.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9gate"]
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="casa9wall" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
 "render",
@@ -660,7 +665,7 @@ texture_path = "res://textures/concrete32.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9wall"]
-shape = SubResource( 3 )
+shape = SubResource( 6 )
 
 [node name="casa10" type="StaticBody2D" parent="BLOCK2/middie/top"]
 position = Vector2( -1302, 4087 )
@@ -698,7 +703,7 @@ texture_path = "res://textures/concrete32.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa10gate"]
-shape = SubResource( 4 )
+shape = SubResource( 7 )
 
 [node name="casa10gate2" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
 "render",
@@ -720,7 +725,7 @@ texture_path = "res://textures/chainfence2.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa10gate2"]
-shape = SubResource( 5 )
+shape = SubResource( 8 )
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 8 )
@@ -1182,3 +1187,4 @@ __meta__ = {
 }
 
 [editable path="playercamera"]
+[editable path="objects/dynacar-escort"]

@@ -20,6 +20,9 @@ var player
 var Camera2D
 var playercar = null
 
+var npcs = 0
+var cars = 0
+
 func _process(_delta):
 	#print(playercar)
 	### STOCK zoom configuration ###
