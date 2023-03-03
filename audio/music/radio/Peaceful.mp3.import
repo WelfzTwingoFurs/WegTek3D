@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Peaceful.mp3-7fd895e630c04263869eef4fd618465e.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Peaceful.mp3"
+dest_files=[ "res://.import/Peaceful.mp3-7fd895e630c04263869eef4fd618465e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

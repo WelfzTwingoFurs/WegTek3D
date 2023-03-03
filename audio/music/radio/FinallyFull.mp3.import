@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/FinallyFull.mp3-71ebc27beaa3299642b8bf0b44711ed1.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/FinallyFull.mp3"
+dest_files=[ "res://.import/FinallyFull.mp3-71ebc27beaa3299642b8bf0b44711ed1.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

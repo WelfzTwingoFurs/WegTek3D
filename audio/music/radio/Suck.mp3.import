@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Suck.mp3-9b46f0a245afb322d0a24002bbc1b5ba.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Suck.mp3"
+dest_files=[ "res://.import/Suck.mp3-9b46f0a245afb322d0a24002bbc1b5ba.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

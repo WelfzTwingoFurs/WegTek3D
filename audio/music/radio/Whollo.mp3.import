@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Whollo.mp3-86ca05d16174d71182dc6788658d2b92.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Whollo.mp3"
+dest_files=[ "res://.import/Whollo.mp3-86ca05d16174d71182dc6788658d2b92.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/RPO2.mp3-2ad868af2149c9ad1a492265ff3b2aee.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/RPO2.mp3"
+dest_files=[ "res://.import/RPO2.mp3-2ad868af2149c9ad1a492265ff3b2aee.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

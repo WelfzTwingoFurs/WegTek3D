@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Bionic.mp3-5d2edd00e7b54740ad850508ab8584a7.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Bionic.mp3"
+dest_files=[ "res://.import/Bionic.mp3-5d2edd00e7b54740ad850508ab8584a7.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

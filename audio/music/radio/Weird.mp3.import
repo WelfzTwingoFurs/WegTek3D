@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Weird.mp3-07d0b694ee934274fe4674c896a5831e.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Weird.mp3"
+dest_files=[ "res://.import/Weird.mp3-07d0b694ee934274fe4674c896a5831e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

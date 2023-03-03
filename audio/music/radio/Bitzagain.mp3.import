@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Bitzagain.mp3-037310c7e38791743cad32820c3e7367.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Bitzagain.mp3"
+dest_files=[ "res://.import/Bitzagain.mp3-037310c7e38791743cad32820c3e7367.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

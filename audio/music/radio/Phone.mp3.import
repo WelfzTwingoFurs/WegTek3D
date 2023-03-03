@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Phone.mp3-905ecb531e9218f0b2e03855550743ad.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Phone.mp3"
+dest_files=[ "res://.import/Phone.mp3-905ecb531e9218f0b2e03855550743ad.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

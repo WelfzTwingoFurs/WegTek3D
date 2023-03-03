@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/rippie.mp3-9f789fa4c8b9a41b85fb5fbafa8ae39f.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/rippie.mp3"
+dest_files=[ "res://.import/rippie.mp3-9f789fa4c8b9a41b85fb5fbafa8ae39f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

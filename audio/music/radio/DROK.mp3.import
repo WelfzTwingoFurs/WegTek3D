@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/DROK.mp3-aced3ff510cc79d561bf5877688f7f41.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/DROK.mp3"
+dest_files=[ "res://.import/DROK.mp3-aced3ff510cc79d561bf5877688f7f41.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

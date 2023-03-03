@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Sombreros.mp3-6e23926643b4be458eb4f7a0b92e254c.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Sombreros.mp3"
+dest_files=[ "res://.import/Sombreros.mp3-6e23926643b4be458eb4f7a0b92e254c.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

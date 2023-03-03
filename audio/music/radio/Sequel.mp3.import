@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Sequel.mp3-fe905f11d2cb275d598635f735f98efb.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Sequel.mp3"
+dest_files=[ "res://.import/Sequel.mp3-fe905f11d2cb275d598635f735f98efb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

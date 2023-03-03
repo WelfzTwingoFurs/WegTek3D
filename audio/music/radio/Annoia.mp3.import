@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Annoia.mp3-f57e513d1e0775749d330836c1971ddf.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Annoia.mp3"
+dest_files=[ "res://.import/Annoia.mp3-f57e513d1e0775749d330836c1971ddf.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Nuff.mp3-9bb15ba80adb61cad41147e387e9b7ae.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Nuff.mp3"
+dest_files=[ "res://.import/Nuff.mp3-9bb15ba80adb61cad41147e387e9b7ae.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

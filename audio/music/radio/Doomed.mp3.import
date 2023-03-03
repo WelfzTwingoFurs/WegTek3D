@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Doomed.mp3-b6ea76e25a3b236a639159db9613d8e4.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Doomed.mp3"
+dest_files=[ "res://.import/Doomed.mp3-b6ea76e25a3b236a639159db9613d8e4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
