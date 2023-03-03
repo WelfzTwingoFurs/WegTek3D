@@ -22,11 +22,11 @@ FEATURES:
 -One-sided polygon option;
 -Mono sound system;
 -Depth-shading;
--Polygons are 'darkable', colorable, 'unmoving plaid' or UV texturable;
+-Polygons are colorable, 'darkable', texturable as unmoving-plaid or UV;
 -WIP Whole-polygon culling (if entirely outside screen, don't render) option;
 -Sprite objects with height, & any amount of rotation frames;
 -Sprite ground-shadows/reflections;
--Basic 'dynamic' darkness level;
+-Basic 'dynamic' darkness system for sprites, darken as floor is;
 -Floor & flat wall collision;
 -Mouse & keyboard control;
 -Viewbobbing, viewrolling options;
@@ -64,11 +64,13 @@ CONTROL KEYS:
 -PGup & PGdown: Look up & down;
 - Space & Ctrl:  Fly up & down;
 -            L:   Mouse toggle;
--        [ & ]:  Weapon select;
+-     [/], O/P:  Weapon select;
+-     Mouse1/2:   Shoot weapon;
 -            F: Enter/exit car;
 -            C:  Change camera:
+-          Q/E:   Look, in car;
 -   Alt (hold):       View map;
--      Alt +/-:       Zoom map;
+-    Alt & +/-:       Zoom map;
 -            X:  Noclip toggle;
 -    Quote ('): Console toggle;
 
@@ -79,6 +81,7 @@ DEBUG KEYS:
 -   F1:         /2 screen-size;
 -   F2:         *2 screen-size;
 -   F3:      Reset/Fill screen;
+-   F4:        Pixelize screen;
 -    +:                Zoom in;
 -    -:               Zoom out;
 -   F5:            Reset scene;
