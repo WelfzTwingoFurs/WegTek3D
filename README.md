@@ -20,6 +20,7 @@ FEATURES:
 -Clipping (vertices behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
 -One-sided polygon option;
+-Mono sound system;
 -Depth-shading;
 -Polygons are 'darkable', colorable, 'unmoving plaid' or UV texturable;
 -WIP Whole-polygon culling (if entirely outside screen, don't render) option;
@@ -36,8 +37,8 @@ FEATURES:
 -Map using draw_line, 2D & 3D options, zoom option;
 -Convenient map-making options;
 -Basic weapon inventory;
--Driveable cars, customizeable base, first and third person cameras;
--Basic pedestrians.
+-Driveable cars, dynamic suspension, customizeable base, first and third person cameras;
+-Basic pedestrians that wander, get hurt, fight back or run away, and die.
 
 IMPERFECTIONS:
 -No diagonal wall collision;
@@ -51,7 +52,8 @@ IMPERFECTIONS:
 -Floor-sprite position slightly innacurate to aspect ratio;
 -Mouselook different sensitivity for X and Y;
 -No in-game options (all settings in editor);
--The car is partially infinitely tall.
+-The car is partially infinitely tall;
+-NPCs can't dodge things, only follow targets.
 
 
 ###################################################################################
