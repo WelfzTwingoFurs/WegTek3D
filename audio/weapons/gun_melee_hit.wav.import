@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gun_melee_hit.wav-d6b7a70145158c674ce1a7d1f3778dc1.sample"
+
+[deps]
+
+source_file="res://audio/weapons/gun_melee_hit.wav"
+dest_files=[ "res://.import/gun_melee_hit.wav-d6b7a70145158c674ce1a7d1f3778dc1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

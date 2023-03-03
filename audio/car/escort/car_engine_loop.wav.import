@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/car_engine_loop.wav-f56c9e32737b8aa81bb4ec50844eefa4.sample"
+
+[deps]
+
+source_file="res://audio/car/escort/car_engine_loop.wav"
+dest_files=[ "res://.import/car_engine_loop.wav-f56c9e32737b8aa81bb4ec50844eefa4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

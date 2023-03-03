@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/feet_step_concrete2.wav-15e43c4772c97d4ab4add7ed6f9f8c34.sample"
+
+[deps]
+
+source_file="res://audio/feet/feet_step_concrete2.wav"
+dest_files=[ "res://.import/feet_step_concrete2.wav-15e43c4772c97d4ab4add7ed6f9f8c34.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
