@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://objects/ped.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites ped0a.png" type="Texture" id=2]
+[ext_resource path="res://Audio.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "damage"
@@ -42,6 +42,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath("Audio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "npc_pain"
+} ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 0.5
@@ -69,6 +83,37 @@ tracks/1/keys = {
 "values": [ {
 "args": [  ],
 "method": "divide_heights"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Audio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "npc_pain"
+}, {
+"args": [  ],
+"method": "npc_breathe"
+} ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("Other")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "npc_fall"
 } ]
 }
 
@@ -118,6 +163,32 @@ tracks/2/keys = {
 "method": "height_restore"
 } ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath("Audio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 1.1, 1.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "npc_die"
+}, {
+"args": [  ],
+"method": "stop"
+}, {
+"args": [  ],
+"method": "feet_jump"
+}, {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "npc_pain"
+} ]
+}
 
 [sub_resource type="Animation" id=4]
 length = 0.4
@@ -161,10 +232,41 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 2 ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("Audio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "npc_die"
+}, {
+"args": [  ],
+"method": "npc_beg"
+} ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("Other")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_jump"
+} ]
+}
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=6]
 resource_name = "punch"
-length = 0.5
+length = 0.7
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:true_anim")
@@ -173,10 +275,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 11, 12, 13 ]
+"values": [ 11, 12, 13, 11 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:state")
@@ -185,14 +287,27 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.5 ),
+"times": PoolRealArray( 0.65 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("Other")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_melee_swing"
+} ]
+}
 
-[sub_resource type="Animation" id=6]
-resource_name = "run"
+[sub_resource type="Animation" id=7]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -206,6 +321,23 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 4, 1, 2, 3 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Other")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -234,6 +366,20 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Other")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_pistol_shoot"
+} ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -275,7 +421,7 @@ tracks/2/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=10]
 resource_name = "shootwalk"
 length = 0.8
 loop = true
@@ -291,8 +437,25 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 9, 6, 7, 8 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("Other")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
+}
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=11]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -307,8 +470,25 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 1, 2, 3, 4 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("Other")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
+}
 
-[sub_resource type="CircleShape2D" id=10]
+[sub_resource type="CircleShape2D" id=12]
 radius = 30.0
 
 [node name="ped" type="KinematicBody2D" groups=[
@@ -322,7 +502,6 @@ collision_mask = 2
 script = ExtResource( 1 )
 true_anim = 16
 scale_extra = Vector2( 0.75, 0.75 )
-texture = ExtResource( 2 )
 vframes = 3
 rotations = 4
 spr_height = 17
@@ -330,18 +509,25 @@ head_height = 100
 shadow_height = -12
 startle = true
 
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 2 )
+minus = 8
+
+[node name="Other" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 2 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/damage = SubResource( 1 )
 anims/fall = SubResource( 2 )
 anims/getup = SubResource( 3 )
 anims/idle = SubResource( 4 )
 anims/ouch = SubResource( 5 )
-anims/punch = SubResource( 12 )
-anims/run = SubResource( 6 )
+anims/punch = SubResource( 6 )
+anims/run = SubResource( 7 )
 anims/shoot = SubResource( 8 )
 anims/shootget = SubResource( 9 )
-anims/shootwalk = SubResource( 11 )
-anims/walk = SubResource( 7 )
+anims/shootwalk = SubResource( 10 )
+anims/walk = SubResource( 11 )
 
 [node name="ColArea" type="Area2D" parent="."]
 scale = Vector2( 4, 4 )
@@ -349,10 +535,10 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
-shape = SubResource( 10 )
+shape = SubResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 10 )
+shape = SubResource( 12 )
 
 [connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]

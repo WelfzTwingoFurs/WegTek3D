@@ -4,7 +4,7 @@ export var positionZ = 0
 export var true_anim = 0
 var anim = 0
 export var scale_extra = Vector2(float(0.8),float(0.8))
-export(Texture) var texture = preload("res://assets/sprites chaser jake.png")
+var texture = preload("res://assets/sprites chaser jake.png")
 export var vframes = 5
 export var hframes = 10
 export var rotations = 8
@@ -300,7 +300,7 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 						ouch_car(0)
 
 
-var ouch_resist = 200
+var ouch_resist = 50
 var fall_resist = 850
 
 func wait():
@@ -316,6 +316,12 @@ func wait():
 		if true_anim == 23:
 			change_state(STATES.GETUP)
 		else:
+			if attacker != null:
+				if aggressive:
+					$Audio.npc_treat()
+				else:
+					$Audio.npc_scream()
+			
 			change_state(STATES.WALK)
 
 
@@ -353,6 +359,8 @@ var bloodtimer = 0
 
 func die():
 	if reflect != 3:
+		$AnimationPlayer.stop()
+		$Audio.npc_die()
 		head_height /= 4
 		spr_height /= 2
 		shadow_height /= 2
@@ -381,14 +389,13 @@ func damage(damage,owner):
 	interest = 10 + randi() %10
 	
 	if health <= 0:
-		health = 0
 		falldown()
 	
-	if aggressive && (owner != null):
+	if (owner != null):# && ($AnimationPlayer.current_animation_position > 0.5):
 		attacker = owner
 
 
-
+var feet_terrain = 0
 
 
 func falldown():
@@ -451,7 +458,12 @@ func height_restore():
 	reflect_height = starting_heights[2]
 
 func _ready():
-	aggressive = randi() % 2
+	add_collision_exception_with(Worldconfig.player)
+	if Worldconfig.playercar != null:
+		add_collision_exception_with(Worldconfig.playercar)
+	
+	skin = randi() % 2
+	aggressive = randi() % 3
 	true_anim = 0
 	
 	if $CollisionShape2D.position != Vector2(0,0):
@@ -493,26 +505,35 @@ func change_state(new_state):
 	state = new_state
 
 
-var textureA = preload("res://assets/sprites ped0a.png")
-var textureB = preload("res://assets/sprites ped0b.png")
-var textureC = preload("res://assets/sprites ped0c.png")
+var npcA = [preload("res://assets/sprites ped0a.png"), preload("res://assets/sprites ped1a.png")]
+var npcB = [preload("res://assets/sprites ped0b.png"), preload("res://assets/sprites ped1b.png")]
+var npcC = [preload("res://assets/sprites ped0c.png"), preload("res://assets/sprites ped1c.png")]
+var skin = 0
 
 func _process(_delta):
 	if true_anim > 19:
-		texture = textureC
+		texture = npcC[skin]
 		hframes = 4
 		rotations = 1
 		anim = true_anim-20
+		
+		
 	elif true_anim > 9:
-		texture = textureB
+		texture = npcB[skin]
 		hframes = 10
 		rotations = 4
+		scale_extra.x = abs(scale_extra.x)
 		anim = true_anim-10
+		
+		
 	else:
-		texture = textureA
+		texture = npcA[skin]
 		hframes = 10
 		rotations = 4
+		scale_extra.x = abs(scale_extra.x)
 		anim = true_anim
+		
+		
 	
 	
 	match state:
@@ -531,24 +552,31 @@ func _process(_delta):
 		queue_freedom()
 	
 	#print($AnimationPlayer.current_animation,"   ",state)
+	
+	
 
 func attack():
 	motion = lerp(motion, Vector2(), 0.5)
 	change_state(STATES.ATTACK)
+	var random = randi() % 30
 	if aggressive == 2 && !gun_on:
 		$AnimationPlayer.play("shootget")
 	elif aggressive == 1:
+		if random < 4:
+			$Audio.npc_trashtalk()
 		$AnimationPlayer.play("punch")
 	elif aggressive == 2:
+		if random < 4:
+			$Audio.npc_trashtalk()
 		$AnimationPlayer.play("shoot")
 
 var aggressive = 2
-export var gun_on = 0
+var gun_on = false
 
 
 
 func walk():
-	if attacker == null:
+	if (attacker == null) or (aggressive == 0):
 		if abs(distanceXY.length()) < 50:
 			old_targets.push_back(target)
 			closest = INF
@@ -610,6 +638,8 @@ func walk():
 			else: $AnimationPlayer.play("walk")
 		else:
 			$AnimationPlayer.play("shootwalk")
+		
+		
 	else:
 		$AnimationPlayer.stop()
 		if gun_on:

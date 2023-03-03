@@ -46,6 +46,8 @@ export(bool) var sprite_shadows = true
 
 onready var change_checker = []
 
+var feet_terrain = 0
+
 func _ready():
 	Worldconfig.player = self
 	Worldconfig.playercar = null
@@ -279,6 +281,7 @@ func _physics_process(_delta):
 				motionZ = 0
 				positionZ = body_on.positionZ + body_on.head_height
 				if Input.is_action_pressed("ply_jump"):
+					$Feet.feet_jump()
 					motionZ += JUMP
 					on_body = false
 				if col_sprites.size() == 0:
@@ -287,6 +290,7 @@ func _physics_process(_delta):
 			if on_floor == true:
 				motionZ = 0
 				if Input.is_action_pressed("ply_jump"):
+					$Feet.feet_jump()
 					motionZ += JUMP
 					on_floor = false
 			
@@ -506,49 +510,47 @@ func _process(_delta):
 	
 	
 	if lookingZ < 0:
-		#var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
-		#$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
-		#$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
-		
+	#var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
+	#$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
+	#$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
 		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height()
 		$View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*10) - $PolyContainer.position.y)
-		
-		
-		
 		$View/Feet.visible = 1
-		#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
-		#feetY = $View/Feet.position.y
-		
-		if on_floor or on_body:
-			if input_dir.y != 0:
-				$View/AniPlayFeet.play("walk")
-				$View/AniPlayFeet.playback_speed = input_dir.y
-
-			elif input_dir.x != 0:
-				if Input.is_action_pressed("ply_strafe"):
-					if input_dir.x == -1:
-						$View/AniPlayFeet.play("strafeR")
-					else:
-						$View/AniPlayFeet.play("strafeL")
-
-				else:
-					$View/AniPlayFeet.play("spin")
-					$View/AniPlayFeet.playback_speed = input_dir.x
-
-
-			else:
-				$View/Feet.frame = 0
-				$View/AniPlayFeet.stop()
-		else:
-			$View/AniPlayFeet.stop()
-			if move_dir.z == 1:
-				$View/Feet.frame = 7
-			else:# move_dir.z == -1:
-				$View/Feet.frame = 8
-		
 	else:
 		$View/Feet.visible = 0
+	#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
+	#feetY = $View/Feet.position.y
+	
+	if on_floor or on_body:
+		if input_dir.y != 0:
+			$View/AniPlayFeet.play("walk")
+			$View/AniPlayFeet.playback_speed = input_dir.y
+
+		elif input_dir.x != 0:
+			if Input.is_action_pressed("ply_strafe"):
+				if input_dir.x == -1:
+					$View/AniPlayFeet.play("strafeR")
+				else:
+					$View/AniPlayFeet.play("strafeL")
+
+			else:
+				$View/AniPlayFeet.play("spin")
+				$View/AniPlayFeet.playback_speed = input_dir.x
+
+
+		else:
+			$View/Feet.frame = 0
+			$View/AniPlayFeet.stop()
+	else:
 		$View/AniPlayFeet.stop()
+		if move_dir.z == 1:
+			$View/Feet.frame = 7
+		else:# move_dir.z == -1:
+			$View/Feet.frame = 8
+	
+	#else:
+	#	$View/Feet.visible = 0
+	#	$View/AniPlayFeet.stop()
 	
 	########  ########  ########  ########
 	####      ####      ####        ####

@@ -18,7 +18,7 @@ heights = [ 9.0, 8.0, 8.0, 9.0 ]
 texture_path = "res://textures/solid1.png"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="base"]
-polygon = PoolVector2Array( -8.8785, -20.9021, 8.8785, -20.9021, 7.94393, 22.0022, -7.94393, 22.0022 )
+polygon = PoolVector2Array( -8.8785, -14.0264, 8.8785, -14.0264, 8.41121, 13.2013, -8.41121, 13.7514 )
 
 [node name="base2" type="StaticBody2D" parent="." groups=[
 "render",

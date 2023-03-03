@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+onready var wheelsound = $Other
+export var engine = 0
 export var positionZ = 0
 var dontCollideWall = false
 var dontCollideSprite = false
@@ -130,8 +132,12 @@ func _process(_delta):
 	
 	
 	
+	$Engine.pitch_scale = 1 + (motion.length()/max_speed)
 	
-	if Worldconfig.playercar == self: #GE-GE OUT
+	if Worldconfig.playercar != self: #GE-GE OUT
+		motion = lerp(motion, Vector2(), 1)
+	else:
+		#$Engine.car_engine_loop()
 		if !Worldconfig.player.camera && Worldconfig.player.guninv != -1:
 			Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
 			Worldconfig.player.guninv = -1
@@ -181,11 +187,11 @@ func _process(_delta):
 				
 				if Input.is_action_pressed("ply_lookleft"):
 					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(150)),  0.8)
-					Worldconfig.player.vroll_car = lerp(Worldconfig.player.vroll_car, ((($wheel2.positionZ+$wheel3.positionZ)/2) - (($wheel0.positionZ+$wheel1.positionZ)/2))/8, 0.8)
+					Worldconfig.player.vroll_car = lerp(Worldconfig.player.vroll_car, ((($wheel2.positionZ+$wheel3.positionZ)/2) - (($wheel0.positionZ+$wheel1.positionZ)/2))/9, 0.8)
 					
 				elif Input.is_action_pressed("ply_lookright"):
 					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(25)),  0.8)
-					Worldconfig.player.vroll_car = lerp(Worldconfig.player.vroll_car, ((($wheel0.positionZ+$wheel1.positionZ)/2) - (($wheel2.positionZ+$wheel3.positionZ)/2))/8, 0.8)
+					Worldconfig.player.vroll_car = lerp(Worldconfig.player.vroll_car, ((($wheel0.positionZ+$wheel1.positionZ)/2) - (($wheel2.positionZ+$wheel3.positionZ)/2))/9, 0.8)
 					
 				else:
 					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-PI/2),  0.8)
@@ -195,7 +201,13 @@ func _process(_delta):
 				$model.position = Vector2(0,-99999)
 				
 				
-				
+	
+	
+	
+	
+	
+	
+	
 
 export var driver_height = 0
 
@@ -208,10 +220,18 @@ func theraot(v0,v1,v2,v3):
 	
 	return r.z
 
+var timer = 0
+
 func _physics_process(delta):
 	motion = move_and_slide(motion, Vector2(0,-1))
 	if Worldconfig.playercar == self:
 		move_and_steer(delta)
+		
+		if timer <= 0:
+			$Engine.car_engine_loop()
+			timer = $Engine.stream.get_length()
+		else:
+			timer -= 0.017 * $Engine.pitch_scale
 	
 	
 	
@@ -232,6 +252,7 @@ func _physics_process(delta):
 	
 	if Worldconfig.playercar == self: #GE-GE OUT
 		if Input.is_action_just_pressed("ply_use"):
+			$Engine.car_engine_off()
 			Worldconfig.player.position = position - Vector2(0,150).rotated(deg2rad(rotation_degrees))
 			Worldconfig.player.noclip = false
 			$model.position = default_pos
@@ -562,3 +583,9 @@ func deg_overflow(N):
 		N += 360
 	
 	return N
+
+func not_zero(busta):
+	if busta == 0:
+		busta = 1
+	
+	return busta

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://objects/playercamera.gd" type="Script" id=1]
 [ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/weapon fist.png" type="Texture" id=6]
 [ext_resource path="res://assets/skybox solange lores.png" type="Texture" id=7]
 [ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=8]
+[ext_resource path="res://Audio.gd" type="Script" id=9]
+[ext_resource path="res://assets/weapon aim.png" type="Texture" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -41,10 +43,27 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.15, 0.45 ),
+"times": PoolRealArray( 0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 3, 2 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Feet")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -62,6 +81,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 1, 4 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Feet")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
+}
 
 [sub_resource type="Animation" id=6]
 length = 0.6
@@ -78,6 +114,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 1, 2, 3, 4 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Feet")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "fist-punch"
@@ -93,6 +146,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 1, 2, 3, 2, 1, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Gun")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_melee_swing"
+} ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -184,6 +251,20 @@ tracks/1/keys = {
 "method": "shoot"
 } ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("../Gun")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_pistol_shoot"
+} ]
+}
 
 [sub_resource type="Animation" id=13]
 resource_name = "hand-fire (copy)"
@@ -215,6 +296,13 @@ map_draw = 1
 skycolor = Color( 0, 1, 1, 1 )
 sky_stretch = Vector2( 1, 10 )
 bg_offset = 5.0
+
+[node name="Feet" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 9 )
+minus = 8
+
+[node name="Gun" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 9 )
 
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
@@ -308,6 +396,10 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
+
+[node name="Aim" type="Sprite" parent="View"]
+z_index = 4096
+texture = ExtResource( 10 )
 
 [node name="AniPlayFeet" type="AnimationPlayer" parent="View"]
 anims/spin = SubResource( 3 )

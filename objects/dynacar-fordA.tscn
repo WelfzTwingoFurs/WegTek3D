@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/dynacar.gd" type="Script" id=1]
 [ext_resource path="res://objects/wheels.gd" type="Script" id=2]
 [ext_resource path="res://objects/car FordA.tscn" type="PackedScene" id=3]
+[ext_resource path="res://audio/car/escort/car_engine_off.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio.gd" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32.8572, 68.5714 )
 
 [sub_resource type="CircleShape2D" id=2]
@@ -30,6 +32,16 @@ lightRh = 68
 engine_power = 1.4
 max_speed = 105000
 
+[node name="Engine" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="Other" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 5 )
+
+[node name="Radio" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 5 )
+
 [node name="ColArea" type="Area2D" parent="."]
 scale = Vector2( 2, 2 )
 collision_layer = 3
@@ -37,11 +49,11 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="model" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0.714286, 0 )
@@ -72,7 +84,6 @@ position = Vector2( -62.1429, 26.0713 )
 "position",
 ]]
 position = Vector2( 6.78571, -11.4286 )
-scale = Vector2( 1, 1 )
 
 [node name="wheel0" type="KinematicBody2D" parent="." groups=[
 "rendersprite",

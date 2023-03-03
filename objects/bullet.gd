@@ -228,6 +228,6 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 
 func die():
+	$Audio.gun_pistol_hit()
 	position = Vector2(INF,INF)
-	queue_free()
 	queue_free()

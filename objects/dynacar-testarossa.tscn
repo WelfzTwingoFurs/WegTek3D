@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/dynacar.gd" type="Script" id=1]
 [ext_resource path="res://objects/wheels.gd" type="Script" id=2]
 [ext_resource path="res://objects/car Testarossa.tscn" type="PackedScene" id=3]
+[ext_resource path="res://audio/car/escort/car_engine_off.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 46.7857, 92.5 )
@@ -29,6 +31,16 @@ driver_height = -20
 wheel_base = 89
 engine_power = 39.5
 max_speed = 314000
+
+[node name="Engine" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="Other" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 5 )
+
+[node name="Radio" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 5 )
 
 [node name="ColArea" type="Area2D" parent="."]
 scale = Vector2( 2, 2 )
@@ -72,7 +84,6 @@ position = Vector2( -78.5714, 30.3571 )
 "position",
 ]]
 position = Vector2( 6.07143, -14.6429 )
-scale = Vector2( 1, 1 )
 
 [node name="wheel0" type="KinematicBody2D" parent="." groups=[
 "rendersprite",
