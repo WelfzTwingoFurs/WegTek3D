@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/feet_land1.wav-26e5eeb11f34e9bac99a02065d339bec.sample"
+
+[deps]
+
+source_file="res://audio/feet/feet_land1.wav"
+dest_files=[ "res://.import/feet_land1.wav-26e5eeb11f34e9bac99a02065d339bec.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
