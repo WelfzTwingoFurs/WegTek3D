@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/breathe2.wav-d2601649c3ef9bd8468144e258f469a1.sample"
+
+[deps]
+
+source_file="res://audio/npc/0/breathe2.wav"
+dest_files=[ "res://.import/breathe2.wav-d2601649c3ef9bd8468144e258f469a1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

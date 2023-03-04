@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bump7.wav-ef913d48f749d4bf06244432bbd94fde.sample"
+
+[deps]
+
+source_file="res://audio/npc/0/bump7.wav"
+dest_files=[ "res://.import/bump7.wav-ef913d48f749d4bf06244432bbd94fde.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

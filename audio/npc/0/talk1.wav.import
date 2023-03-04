@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/talk1.wav-f9878e4306ff1593af1976f37478f09f.sample"
+
+[deps]
+
+source_file="res://audio/npc/0/talk1.wav"
+dest_files=[ "res://.import/talk1.wav-f9878e4306ff1593af1976f37478f09f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

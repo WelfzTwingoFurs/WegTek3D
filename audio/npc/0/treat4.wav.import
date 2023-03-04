@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/treat4.wav-0cefa45528ed6720ececb09cf1b61b98.sample"
+
+[deps]
+
+source_file="res://audio/npc/0/treat4.wav"
+dest_files=[ "res://.import/treat4.wav-0cefa45528ed6720ececb09cf1b61b98.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
