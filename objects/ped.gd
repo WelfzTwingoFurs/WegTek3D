@@ -298,6 +298,13 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 						ouch_car(body.motion.length())
 					else:
 						ouch_car(0)
+			
+			elif body.is_in_group("ped") && (body != self):
+				var which = randi() % 5
+				if which == 0:
+					$Audio.npc_bump()
+				elif which == 1:
+					$Audio.npc_talk()
 
 
 var ouch_resist = 50
@@ -458,13 +465,20 @@ func height_restore():
 	reflect_height = starting_heights[2]
 
 func _ready():
-	add_collision_exception_with(Worldconfig.player)
+	#add_collision_exception_with(Worldconfig.player)
 	if Worldconfig.playercar != null:
 		add_collision_exception_with(Worldconfig.playercar)
 	
-	skin = randi() % 2
-	aggressive = randi() % 3
 	true_anim = 0
+	interest_luck += randi() % 500
+	aggressive = randi() % 3
+	skin = randi() % 3
+	if skin == 0:#ME
+		$Audio.minus = -24
+	elif skin == 1:#MOM
+		$Audio.minus = -12
+	else:
+		$Audio.minus = 0
 	
 	if $CollisionShape2D.position != Vector2(0,0):
 		position = to_global($CollisionShape2D.position)
@@ -491,8 +505,8 @@ func _ready():
 			target = n
 	
 	
-	for n in get_tree().get_nodes_in_group("ped"):
-		add_collision_exception_with(n)
+	#for n in get_tree().get_nodes_in_group("ped"):
+	#	add_collision_exception_with(n)
 	
 	startle = false
 
@@ -505,9 +519,9 @@ func change_state(new_state):
 	state = new_state
 
 
-var npcA = [preload("res://assets/sprites ped0a.png"), preload("res://assets/sprites ped1a.png")]
-var npcB = [preload("res://assets/sprites ped0b.png"), preload("res://assets/sprites ped1b.png")]
-var npcC = [preload("res://assets/sprites ped0c.png"), preload("res://assets/sprites ped1c.png")]
+var npcA = [preload("res://assets/sprites ped0a.png"), preload("res://assets/sprites ped1a.png"), preload("res://assets/sprites ped2a.png")]
+var npcB = [preload("res://assets/sprites ped0b.png"), preload("res://assets/sprites ped1b.png"), preload("res://assets/sprites ped2b.png")]
+var npcC = [preload("res://assets/sprites ped0c.png"), preload("res://assets/sprites ped1c.png"), preload("res://assets/sprites ped2c.png")]
 var skin = 0
 
 func _process(_delta):
@@ -574,90 +588,132 @@ var aggressive = 2
 var gun_on = false
 
 
+var interest_luck = 100
+
+func player_hi():
+	if (attacker == null) && !startle:
+		motion = Vector2()
+		
+		if aggressive == 0:
+			if Worldconfig.player.guninv <= 0:
+				target = Worldconfig.player
+				interest = interest_luck*3
+				$Audio.npc_talk()
+				
+				if (interest_luck/2) > 50:
+					interest_luck /= 2
+					
+			
+			elif Worldconfig.player.guninv == 1:
+				target = Worldconfig.player
+				interest = interest_luck*5
+				$Audio.npc_beg()
+			
+			elif Worldconfig.player.guninv >= 2:
+				startle = true
+				$Audio.npc_scream()
+				
+			
+		
+		elif aggressive == 1:
+			if Worldconfig.player.guninv <= 0:
+				$Audio.npc_bump()
+			
+			elif Worldconfig.player.guninv == 1:
+				$Audio.npc_treat()
+				target = Worldconfig.player
+				interest = interest_luck*10
+			
+			elif Worldconfig.player.guninv >= 2:
+				$Audio.npc_beg()
+				aggressive = 0
+				startle = true
+		
+		elif aggressive == 2:
+			if Worldconfig.player.guninv <= 0:
+				$Audio.npc_treat()
+			elif Worldconfig.player.guninv >= 1:
+				$Audio.npc_trashtalk()
+				attacker = Worldconfig.player
+	
+	elif gun_on:
+		change_state(STATES.ATTACK)
 
 func walk():
-	if (attacker == null) or (aggressive == 0):
-		if abs(distanceXY.length()) < 50:
-			old_targets.push_back(target)
-			closest = INF
-			interest = randi() % 200
-			if (interest <= 100) && !startle:
-				change_state(STATES.LOOK)
-			
-			
-			for n in get_tree().get_nodes_in_group("path"):
-				if !old_targets.has(n):
-					if abs((n.position - position).length()) < closest: 
-						closest = abs((n.position - position).length())
-						new_target = n
-			target = new_target
-			if old_targets.size() > 10:
-				old_targets.remove(0)
-	
-	
-	
-	
-	else:
-		if aggressive == 1:
-			if (attacker.position - position).length() < 150:
-				#target = null
-				change_state(STATES.ATTACK)
-			else:
-				target = attacker
-			
-		elif aggressive == 2:
-			#ideally, if target is in sight :/
-			if (attacker.position - position).length() < 1000:
-				#target = null
-				change_state(STATES.ATTACK)
+	if health > 0:
+		if (attacker == null) or (aggressive == 0):
+			if abs(distanceXY.length()) < 50:
+				old_targets.push_back(target)
+				closest = INF
+				interest = randi() % interest_luck
+				if (interest <= 50) && !startle:
+					change_state(STATES.LOOK)
 				
+				
+				for n in get_tree().get_nodes_in_group("path"):
+					if !old_targets.has(n):
+						if abs((n.position - position).length()) < closest: 
+							closest = abs((n.position - position).length())
+							new_target = n
+				target = new_target
+				if old_targets.size() > 10:
+					old_targets.remove(0)
+		
+		
+		
+		
+		else:
+			if aggressive == 1:
+				if (attacker.position - position).length() < 150:
+					#target = null
+					change_state(STATES.ATTACK)
+				else:
+					target = attacker
+				
+			elif aggressive == 2:
+				#ideally, if target is in sight :/
+				if (attacker.position - position).length() < 1000:
+					#target = null
+					change_state(STATES.ATTACK)
+					
+				else:
+					target = attacker
+		
+		
+		
+		
+		if target != null:
+			if !startle or (attacker == null):
+				motion = lerp(motion,  Vector2(speed, 0).rotated((position - target.position).angle() + PI),  turn)
+				rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.05))
+			
 			else:
-				target = attacker
-	
-	
-	
-	
-	if target != null:
-		if !startle or (attacker == null):
-			motion = lerp(motion,  Vector2(speed, 0).rotated((position - target.position).angle() + PI),  turn)
-			rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.05))
+				motion = lerp(motion,  Vector2(speed*2, 0).rotated((position - target.position).angle() + PI),  turn)
+				rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.5))
+			
+			distanceXY = position - target.position
 		
+		
+		
+		
+		#if $AnimationPlayer != null:
+		if motion.length() > 100:
+			if !gun_on:
+				if startle or (attacker != null): $AnimationPlayer.play("run")
+				else: $AnimationPlayer.play("walk")
+			else:
+				$AnimationPlayer.play("shootwalk")
+			
+			
 		else:
-			motion = lerp(motion,  Vector2(speed*2, 0).rotated((position - target.position).angle() + PI),  turn)
-			rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.5))
+			idleanim()
 		
-		distanceXY = position - target.position
-	
-	
-	
-	
-	#if $AnimationPlayer != null:
-	if motion.length() > 5:
-		if !gun_on:
-			if startle or (attacker != null): $AnimationPlayer.play("run")
-			else: $AnimationPlayer.play("walk")
-		else:
-			$AnimationPlayer.play("shootwalk")
-		
-		
-	else:
-		$AnimationPlayer.stop()
-		if gun_on:
-			true_anim = 15
-		elif aggressive:
-			true_anim = 11
-		elif startle:
-			true_anim = 10
-		else:
-			true_anim = 0
-	
 
 var interest = 0
 
 func look():
 	motion = lerp(motion, Vector2(0,0), 0.5)
-	$AnimationPlayer.stop()
-	true_anim = 0
+	idleanim()
 	
 	if target != null:
 		rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.025))
@@ -665,6 +721,52 @@ func look():
 	
 	if (interest < 0) or startle:
 		change_state(STATES.WALK)
+
+func idleanim():
+		$AnimationPlayer.stop()
+		if gun_on:
+			true_anim = 15
+		elif (aggressive == 1) && ((attacker != null) or (target == Worldconfig.player)):
+			true_anim = 11
+		elif startle or ((Worldconfig.player.guninv >= 1) && (target == Worldconfig.player)):
+			true_anim = 10
+		elif (aggressive == 2) && (attacker == null):
+			true_anim = 14
+		else:
+			true_anim = 0
+
+func ouch_voice_random():
+	var which
+	if aggressive == 0:
+		which = randi() % 6 #chances of staying quiet
+		if which == 0:
+			$Audio.npc_beg()
+		elif which == 1:
+			$Audio.npc_pain()
+		elif which == 2:
+			$Audio.npc_bump()
+		elif which == 3:
+			$Audio.npc_breathe()
+		elif which == 4:
+			$Audio.npc_die()
+	
+	else:
+		which = randi() % 3
+		if which == 0:
+			$Audio.npc_treat()
+		elif which == 1:
+			$Audio.npc_trashtalk()
+		elif which == 2:
+			$Audio.npc_bump()
+
+func ouch_voice2():
+	var which = randi() % 2
+	
+	if which == 0:
+		$Audio.npc_pain()
+	elif which == 1:
+		$Audio.npc_scream()
+
 
 
 
@@ -686,3 +788,4 @@ func overflow(N, minn, maxx):
 		N += range(minn, maxx).size()
 	
 	return N
+

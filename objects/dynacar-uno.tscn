@@ -35,9 +35,11 @@ max_speed = 14000
 [node name="Engine" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 script = ExtResource( 5 )
+minus = 0
 
 [node name="Other" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
+minus = -24
 
 [node name="Radio" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )

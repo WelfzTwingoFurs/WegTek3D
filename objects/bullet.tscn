@@ -28,6 +28,7 @@ shape = SubResource( 1 )
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 2 )
+minus = -10
 
 [connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]

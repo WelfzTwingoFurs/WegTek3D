@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://objects/playercamera.gd" type="Script" id=1]
 [ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=8]
 [ext_resource path="res://Audio.gd" type="Script" id=9]
 [ext_resource path="res://assets/weapon aim.png" type="Texture" id=10]
+[ext_resource path="res://audio/weapons/gun_empty.wav" type="AudioStream" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -298,11 +299,18 @@ sky_stretch = Vector2( 1, 10 )
 bg_offset = 5.0
 
 [node name="Feet" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = 1.0
 script = ExtResource( 9 )
-minus = 8
+minus = 0
 
 [node name="Gun" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 9 )
+minus = 0
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 9 )
+minus = 0
 
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
@@ -327,9 +335,9 @@ __meta__ = {
 }
 
 [node name="Interact" type="Area2D" parent="."]
-visible = false
 collision_layer = 31
 collision_mask = 31
+script = ExtResource( 8 )
 
 [node name="ColShape" type="CollisionShape2D" parent="Interact"]
 position = Vector2( 0, 52 )
