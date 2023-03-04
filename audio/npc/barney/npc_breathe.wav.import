@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/npc_breathe.wav-fe0e0782c32ce70e3e23fbcb9d6af7f3.sample"
+
+[deps]
+
+source_file="res://audio/npc/barney/npc_breathe.wav"
+dest_files=[ "res://.import/npc_breathe.wav-fe0e0782c32ce70e3e23fbcb9d6af7f3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
