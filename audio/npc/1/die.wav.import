@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/die.wav-9c5a07b84459bce2a97cf741a0c3b411.sample"
+
+[deps]
+
+source_file="res://audio/npc/1/die.wav"
+dest_files=[ "res://.import/die.wav-9c5a07b84459bce2a97cf741a0c3b411.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

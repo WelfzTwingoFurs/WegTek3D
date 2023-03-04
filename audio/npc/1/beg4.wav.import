@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/beg4.wav-2720e488c9072e1e3b96d3bfb012f0e5.sample"
+
+[deps]
+
+source_file="res://audio/npc/1/beg4.wav"
+dest_files=[ "res://.import/beg4.wav-2720e488c9072e1e3b96d3bfb012f0e5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
