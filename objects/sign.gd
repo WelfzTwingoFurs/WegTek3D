@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var flip_frontback = false
 export var positionZ = 0
 export var anim = 0
 export var scale_extra = Vector2(float(0.8),float(0.8))

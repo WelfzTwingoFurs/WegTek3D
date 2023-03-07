@@ -41,6 +41,7 @@ minus = -24
 
 [node name="Radio" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 4 )
+minus = -10
 
 [node name="ColArea" type="Area2D" parent="."]
 scale = Vector2( 2, 2 )

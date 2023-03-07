@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var flip_frontback = true
 var positionZ = 0
 var anim = 0
 var scale_extra = Vector2(1,1)
@@ -22,8 +23,12 @@ var daddy = null
 
 func _ready():
 	starting_speed = Vector3(motion.x, motion.y, motionZ)
+	damage += randi() % damage_extra
 
 func _physics_process(_delta):
+	if (position - Worldconfig.player.position).length() > Worldconfig.player.draw_distance:
+		die()
+	
 	if Vector3(motion.x, motion.y, motionZ) != starting_speed:
 		die()
 	
@@ -187,6 +192,7 @@ func slope(v0,v1,v2,v3):
 
 
 export var damage = 500
+export var damage_extra = 75
 
 func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	if body.is_in_group("floor"):
@@ -198,6 +204,8 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	elif body.is_in_group("wall"):
 		if !col_walls.has(body):
 			col_walls.push_back(body)
+			
+			die()
 	
 	elif body.is_in_group("sprite"):
 		if body != self:

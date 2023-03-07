@@ -135,8 +135,14 @@ func _process(_delta):
 	$Engine.pitch_scale = 1 + (motion.length()/max_speed)
 	
 	if Worldconfig.playercar != self: #GE-GE OUT
-		motion = lerp(motion, Vector2(), 1)
+		motion = lerp(motion, Vector2(), 0.1)
 	else:
+		if Input.is_action_just_pressed("ply_car_radio"):
+			if $Radio.playing == true:
+				$Radio.stop()
+			else:
+				$Radio.radio()
+		
 		#$Engine.car_engine_loop()
 		if !Worldconfig.player.camera && Worldconfig.player.guninv != -1:
 			Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)

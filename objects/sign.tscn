@@ -10,7 +10,6 @@ radius = 42.107
 [sub_resource type="CircleShape2D" id=2]
 
 [node name="sign" type="KinematicBody2D" groups=[
-"ped",
 "rendersprite",
 "sprite",
 ]]

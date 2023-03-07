@@ -43,8 +43,10 @@ minus = -24
 
 [node name="Radio" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
+minus = -10
 
 [node name="ColArea" type="Area2D" parent="."]
+visible = false
 scale = Vector2( 2, 2 )
 collision_layer = 3
 collision_mask = 3

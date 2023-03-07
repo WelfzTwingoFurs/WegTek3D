@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var flip_frontback = true
 export var spr_height = 0
 export var positionZ = 0
 export var anim = 0

@@ -1,10 +1,13 @@
 extends KinematicBody2D
 #OS.get_system_time_msecs()
 
+var health = 1000
+
 var motion = Vector2()
 
 export var camera = false
 export var noclip = false
+var dontCollideSprite = false
 
 export var angles = 145
 export var draw_distance = 8192
@@ -34,6 +37,7 @@ export var map_scale = 0.1
 
 export var skycolor = Color8(47,0,77)
 export var scenetint = Color8(255,255,255)
+var scenetint_current
 export var sky_stretch = Vector2(1,1)
 export(float) var bg_offset = 1
 #Used for sky & floor position according to draw_distance
@@ -54,13 +58,16 @@ func _ready():
 	Worldconfig.Camera2D = $Camera2D
 	
 	$Background.visible = 1
-	#$View/Feet.visible = 1
+	$View/Feet.visible = 1
+	$Camera2D.visible = 1
+	$View/Hand.visible = 0
 	#Turn everything on
 	
 	$ViewArea/ViewCol.polygon = [Vector2(0,0),   Vector2(0,draw_distance*2).rotated(-deg_rad(angles/2)),   Vector2(0,draw_distance*2).rotated( deg_rad(angles/2))]
-	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size*0, sky_stretch, Color8(255,255,255)]
+	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size*0, sky_stretch]#, Color8(255,255,255)]
 	#Checks if things changed and updates
 	
+	scenetint_current = scenetint
 
 ########        ############        ####        ########        ####    ####
 ####    ####    ####            ####    ####    ####    ####    ####    ####
@@ -118,7 +125,7 @@ func _physics_process(_delta):
 	$ViewArea/ViewCol.rotation_degrees = rad_deg(rotation_angle) #radian to degrees
 	$Interact.rotation_degrees = $ViewArea/ViewCol.rotation_degrees
 	
-	if (Worldconfig.playercar == null):
+	if (Worldconfig.playercar == null) && health > 0:
 		motion = move_and_slide(motion, Vector2(0,-1))
 		motion = Vector2(speed*move_dir.x, speed*move_dir.y).rotated(rotation_angle)
 		
@@ -247,20 +254,29 @@ func _physics_process(_delta):
 			guninv -= 1
 			if guninv < 0: guninv = 4
 			gunswitch()
-		
-		
-		
-		
-		
-		if Input.is_action_pressed("ply_wpn_fire1"):
-			gunfire(false)
-		if Input.is_action_just_released("ply_wpn_fire1"):
-			gunstop(false)
-		
-		if Input.is_action_pressed("ply_wpn_fire2"):
-			gunfire(true)
-		if Input.is_action_just_released("ply_wpn_fire2"):
-			gunstop(true)
+			
+			
+			
+			
+		if !gunbusy:
+			if Input.is_action_pressed("ply_wpn_fire1"):
+				gunfire(false)
+			elif Input.is_action_just_released("ply_wpn_fire1"):
+				gunstop(false)
+			
+			if Input.is_action_pressed("ply_wpn_fire2"):
+				gunfire(true)
+			elif Input.is_action_just_released("ply_wpn_fire2"):
+				gunstop(true)
+			
+			
+			
+			if Input.is_action_just_pressed("ply_wpn_reload"):
+				gunreload()
+			
+	
+	
+	
 	
 	
 	
@@ -268,6 +284,7 @@ func _physics_process(_delta):
 	
 	
 		if Input.is_action_just_pressed("ply_noclip"):
+			health = 1000
 			noclip = !noclip
 			on_floor = false
 		
@@ -275,6 +292,7 @@ func _physics_process(_delta):
 	
 	
 		if !noclip:# && (Worldconfig.playercar == null):
+			dontCollideSprite = false
 			collide()
 			
 			if on_body == true:
@@ -311,6 +329,7 @@ func _physics_process(_delta):
 		#	on_floor = true
 		
 		else:#if (Worldconfig.playercar == null): #noclip zone
+			dontCollideSprite = true
 			motionZ = 0
 			if Input.is_action_pressed("ply_jump"):
 				positionZ += 1 * rotate_rate * Engine.time_scale
@@ -330,6 +349,20 @@ func _physics_process(_delta):
 	###   ###   ###   ##  ##   ###   ###      ###
 	###   ###   ###   ######   ###   ###      ###
 	###   ###   ###   ###      #########      ###
+	
+	elif health < 0:
+		mouselock = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		motion = move_and_slide(motion, Vector2(0,-1))
+		motion = lerp(motion, Vector2(),0.01)
+		guninv = 0
+		gunswitch()
+		head_height = lerp(head_height, 10, 0.1)
+		lookingZ = -0.01
+		
+		if Input.is_action_just_pressed("ply_noclip"):
+			health = 1000
+			head_height = 100
 	
 	########################################################################################################################################################
 	########################################################################################################################################################
@@ -477,7 +510,7 @@ func _process(_delta):
 	if sign($Background/Floor.position.y/not_zero(OS.window_size.y)) < 0:         #Floor doesn't stretch until looking down limit, it ends around when Sky is out of view
 		VisualServer.set_default_clear_color($Background/Floor.modulate)# and changes the skycolor to its color when that limit is reached
 	else:
-		VisualServer.set_default_clear_color(skycolor)
+		VisualServer.set_default_clear_color(skycolor*scenetint_current)
 	
 	
 	$Background/Floor.position.y = OS.window_size.y+posZlookZ + abs(vbob)
@@ -490,6 +523,7 @@ func _process(_delta):
 	#posZlookZ = OS.window_size.y*(positionZ/draw_distance/10) + OS.window_size.y*lookingZ
 	posZlookZ = ( (OS.window_size.y*(positionZ/not_zero(draw_distance*bg_offset)/10)) * ($PolyContainer.scale.y*10) )  +  OS.window_size.y*lookingZ
 	#Used for sky & floor position according to draw_distance
+	
 	
 	
 	########################################################################################################################################################
@@ -505,7 +539,12 @@ func _process(_delta):
 	var C = float(1)
 	if darkness < 0: C *= -darkness
 	elif darkness > 0: C /= darkness
-	$View.modulate = Color(C,C,C)*scenetint
+	$View.modulate = Color(C,C,C)*scenetint_current
+	$PolyContainer.modulate = scenetint_current
+	$Background.modulate = scenetint_current
+	
+	if health > 0:
+		scenetint_current = lerp(scenetint_current, scenetint, 0.1)
 	
 	
 	
@@ -514,14 +553,16 @@ func _process(_delta):
 	#$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
 	#$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
 		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height()
-		$View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*10) - $PolyContainer.position.y)
+		if health > 0: $View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*10) - $PolyContainer.position.y)
+		#else: $View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*0) - $PolyContainer.position.y)
+		else: $View/Feet.position.y = lerp($View/Feet.position.y, (get_viewport().size.y/2) - ($View/Feet.texture.get_size().y * $View/Feet.scale.y)/2, 0.5)
 		$View/Feet.visible = 1
 	else:
 		$View/Feet.visible = 0
 	#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
 	#feetY = $View/Feet.position.y
 	
-	if on_floor or on_body:
+	if (on_floor or on_body) && (health > 0):
 		if input_dir.y != 0:
 			$View/AniPlayFeet.play("walk")
 			$View/AniPlayFeet.playback_speed = input_dir.y
@@ -541,6 +582,12 @@ func _process(_delta):
 		else:
 			$View/Feet.frame = 0
 			$View/AniPlayFeet.stop()
+	
+	
+	elif health < 0:
+		$View/Feet.frame = 9
+	
+	
 	else:
 		$View/AniPlayFeet.stop()
 		if move_dir.z == 1:
@@ -548,6 +595,7 @@ func _process(_delta):
 		else:# move_dir.z == -1:
 			$View/Feet.frame = 8
 	
+
 	#else:
 	#	$View/Feet.visible = 0
 	#	$View/AniPlayFeet.stop()
@@ -572,7 +620,7 @@ func _process(_delta):
 		rotation_angle = 0
 	
 	
-	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch, scenetint]:
+	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:#, scenetint]:
 		recalculate()
 	else:
 		if Input.is_action_pressed("bug_closeeyes"):
@@ -620,6 +668,8 @@ func _on_Interact_body_entered(body):
 	if body.is_in_group("interact"):
 		if body.is_in_group("car"):
 			Worldconfig.playercar = body
+			guninv = 0
+			gunswitch()
 			
 			noclip = true
 		
@@ -640,13 +690,18 @@ func _on_Interact_body_entered(body):
 
 
 
-
+################################################################################
+################################################################################
+################################################################################
 
 var guninv = 0
 export var gunscale = 3
+export var hudscale = 3
 var gunstretch = false
 export var feet1 = preload("res://assets/feet1.png")
 export var feet2 = preload("res://assets/feet2.png")
+export var lefthanded = false
+
 
 
 func gunswitch():
@@ -672,11 +727,11 @@ func gunswitch():
 		gunstretch = false
 		
 	elif guninv == 2:
-		$View/Hand.texture = load("res://assets/weapon handgun.png")
+		$View/Hand.texture = load("res://assets/weapon pistol.png")
 		$View/Hand.hframes = 1
-		$View/Hand.vframes = 2
+		$View/Hand.vframes = 13
 		gunstretch = false
-		
+	
 	elif guninv == 3:
 		$View/Hand.texture = load("res://assets/weapon flamethrower.png")
 		$View/Hand.hframes = 1
@@ -692,12 +747,23 @@ func gunswitch():
 	
 	
 	$View/Hand.frame = 0
-	$View/Hand.flip_h = false
+	$View/Hand.flip_h = lefthanded
+	
 	if guninv != -1:
 		$View/Hand.rotation_degrees = 90
 		$View/Hand.position.y += $View/Hand.texture.get_size().x * $View/Hand.scale.x
 	else:
 		$View/Hand.rotation_degrees = 0
+
+
+
+
+
+
+
+
+
+
 
 func gunfire(alt):
 	if guninv == 1:
@@ -717,8 +783,13 @@ func gunfire(alt):
 	
 	elif guninv == 2:
 		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"):
-			$View/AniPlayHand.stop()
-			$View/AniPlayHand.play("hand-fire")
+			if ammo2loaded > 0:
+				ammo2loaded -= 1
+				$View/AniPlayHand.stop()
+				$View/AniPlayHand.play("hand-fire")
+			else:
+				$View/AniPlayHand.stop()
+				$View/AniPlayHand.play("hand-empty")
 	
 	
 	
@@ -743,6 +814,13 @@ func gunfire(alt):
 	elif guninv == 4:
 		if Input.is_action_just_pressed("ply_wpn_fire1") or Input.is_action_just_pressed("ply_wpn_fire2"): shoot()
 
+
+
+
+
+
+
+
 func gunstop(alt):
 	if guninv == 2:
 		if alt && $View/AniPlayHand.current_animation == "flame-fire":
@@ -750,6 +828,12 @@ func gunstop(alt):
 			$View/AniPlayHand.play("flame-end")
 		elif $View/AniPlayHand.current_animation == "flame-no":
 			$View/Hand.frame = 0
+
+
+
+
+
+
 
 
 const shot = preload("res://objects/bullet.tscn")
@@ -788,12 +872,47 @@ func shoot():
 		uno.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
 		get_parent().add_child(uno)
 
-#### #  # #   #
-#    #  # ##  #
-#  # #  # # # #
-#### #### #  ##
 
 
+
+
+export var gunbusy = false
+
+var ammo2loaded = 17
+var ammo2stock = 170
+
+func gunreload():
+	if guninv == 2:
+		if ammo2stock > 0:
+			$View/AniPlayHand.play("hand-reload")
+
+
+func update_ammo_out():
+	if guninv == 2:
+		ammo2loaded = 0
+
+func update_ammo_in():
+	if guninv == 2:
+		if ammo2stock > 17:
+			ammo2loaded = 17
+			ammo2stock -= 17
+		else:
+			ammo2loaded = ammo2stock
+			ammo2stock = 0
+
+
+
+
+
+
+################    ####        ####    ####            ####
+####                ####        ####    ########        ####
+####        ####    ####        ####    ####    ####    ####
+################    ################    ####        ########
+
+func damage(damage,_daddy):
+	scenetint_current = Color8(255,0,0)
+	health -= damage
 
 
 
@@ -998,9 +1117,11 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 		if !col_walls.has(body):
 			col_walls.push_back(body)
 	
-	elif body.is_in_group("sprite"):
+	elif body.is_in_group("sprite") && body != self:
 		if !col_sprites.has(body):
 			col_sprites.push_back(body)
+
+
 
 func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 	#if body.is_in_group("floor"):
@@ -1146,13 +1267,14 @@ func recalculate():
 		
 	
 	
-	if change_checker[8] != scenetint:
-		$View.modulate = scenetint
-		$PolyContainer.modulate = scenetint
-		$Background.modulate = scenetint
-		
-		print("-    SCENETINT: ",scenetint,", changed from ",change_checker[8])
-		change_checker[8] = scenetint
+#	if change_checker[8] != scenetint:
+#		$View.modulate = scenetint_current
+#		$PolyContainer.modulate = scenetint_current
+#		$Background.modulate = scenetint_current
+#
+#		print("-    SCENETINT: ",scenetint,", changed from ",change_checker[8])
+#		if scenetint_current!= scenetint:
+#			change_checker[8] = scenetint
 
 
 
@@ -1511,7 +1633,9 @@ func render():
 				
 				
 				if angletester > 180:
-					new_sprite.flip_h = true
+					if (frame_rot == 0) && !array_sprites[o].flip_frontback:
+						pass
+					else: new_sprite.flip_h = true
 				
 				
 				

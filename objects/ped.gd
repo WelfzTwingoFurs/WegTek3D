@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var flip_frontback = true
 export var positionZ = 0
 export var true_anim = 0
 var anim = 0
@@ -299,12 +300,16 @@ func _on_ColArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 					else:
 						ouch_car(0)
 			
-			elif body.is_in_group("ped") && (body != self):
-				var which = randi() % 5
-				if which == 0:
-					$Audio.npc_bump()
-				elif which == 1:
-					$Audio.npc_talk()
+			elif body.is_in_group("ped") && (body != self) && !startle && !gun_on && (health > 0):
+				if body.health < 0:
+					$Audio.npc_scream()
+					startle = true
+				else:
+					var which = randi() % 5 #chances of staying quiet
+					if which == 0:
+						$Audio.npc_bump()
+					elif which == 1:
+						$Audio.npc_talk()
 
 
 var ouch_resist = 50
@@ -366,9 +371,10 @@ var bloodtimer = 0
 
 func die():
 	if reflect != 3:
+		dontCollideSprite = true
 		$AnimationPlayer.stop()
 		$Audio.npc_die()
-		head_height /= 4
+		head_height = 0
 		spr_height /= 2
 		shadow_height /= 2
 		reflect = 3
@@ -495,7 +501,9 @@ func _ready():
 	
 	
 	
-	speed += (randi() % 300)
+	speed += randi() % 300
+	health += randi() % 1000
+	health -= randi() % 999
 	
 	modulate = Color8(randi() % 510, randi() % 510,randi() % 510)
 	
@@ -570,28 +578,59 @@ func _process(_delta):
 	
 
 func attack():
-	motion = lerp(motion, Vector2(), 0.5)
-	change_state(STATES.ATTACK)
-	var random = randi() % 30
-	if aggressive == 2 && !gun_on:
-		$AnimationPlayer.play("shootget")
-	elif aggressive == 1:
-		if random < 4:
-			$Audio.npc_trashtalk()
-		$AnimationPlayer.play("punch")
-	elif aggressive == 2:
-		if random < 4:
-			$Audio.npc_trashtalk()
-		$AnimationPlayer.play("shoot")
+	if attacker != null:
+		if attacker.health <= 0:
+			attacker = null
+			gun_on = false
+		
+		motion = lerp(motion, Vector2(), 0.5)
+		change_state(STATES.ATTACK)
+		var random = randi() % 30
+		if aggressive == 2 && !gun_on:
+			$AnimationPlayer.play("shootget")
+		elif aggressive == 1:
+			if random < 4:
+				$Audio.npc_trashtalk()
+			$AnimationPlayer.play("punch")
+		elif aggressive == 2:
+			if random < 4:
+				$Audio.npc_trashtalk()
+			$AnimationPlayer.play("shoot")
+	
+	else:
+		change_state(STATES.LOOK)
 
 var aggressive = 2
 var gun_on = false
 
 
+const shot = preload("res://objects/bullet.tscn")
+func shoot():
+	if aggressive == 1:
+		pass
+	elif aggressive == 2:
+		var shoot_instance = shot.instance()
+		shoot_instance.positionZ = positionZ + head_height
+		shoot_instance.position = position + Vector2(50,0).rotated(deg2rad(rotation_degrees) + PI/2)
+		shoot_instance.motion = Vector2(0,10000).rotated(deg2rad(rotation_degrees))
+		shoot_instance.daddy = self
+		add_collision_exception_with(shoot_instance)
+		get_parent().add_child(shoot_instance)
+
+
+
+
+
+
+
+
+
+
+
 var interest_luck = 100
 
 func player_hi():
-	if (attacker == null) && !startle:
+	if (attacker == null) && !startle && (health > 0):
 		motion = Vector2()
 		
 		if aggressive == 0:
@@ -663,21 +702,40 @@ func walk():
 		
 		
 		else:
-			if aggressive == 1:
-				if (attacker.position - position).length() < 150:
-					#target = null
-					change_state(STATES.ATTACK)
-				else:
-					target = attacker
+				#print(((target.position - position).angle()-PI/2 - deg2rad(rotation_degrees)),"=    ",overflow(rad2deg((target.position - position).angle()-PI/2),0,360),"   -   ",(rotation_degrees))
+			#print(
+			#rad2deg((target.position - position).angle()-PI/2) - (rotation_degrees),"\n",
+			#"   =   ",
+			#overflow(rad2deg((target.position - position).angle()-PI/2),0,360),
+			#"   -   ",
+			#overflow((rotation_degrees),0,360)
+			#" ")
+			
+			#print(rad2deg((target.position - position).angle()-PI/2) - int((rotation_degrees)))
+			#print(int((rotation_degrees)) - rad2deg((target.position - position).angle()-PI/2))
+			
+			#rotation_degrees = lerp_angle(rotation_degrees, (target.position - position).angle() - rad2deg(PI/2), 0.1)
+			#if (((overflow(rad2deg((target.position - position).angle()-PI/2),0,360))) - deg2rad(rotation_degrees)) < 0.5:
+			#if overflow(rad2deg((target.position - position).angle()-PI/2),0,360) - overflow((rotation_degrees),0,360) < 0.5:
+			#if abs(int(rad2deg((target.position - position).angle()-PI/2)) - int((rotation_degrees))) < 1:
+			#if rad2deg((target.position - position).angle()-PI/2) - int((rotation_degrees)) > -270:
+				rotation_degrees = rad2deg((position - target.position).angle() + PI/2)
 				
-			elif aggressive == 2:
-				#ideally, if target is in sight :/
-				if (attacker.position - position).length() < 1000:
-					#target = null
-					change_state(STATES.ATTACK)
+				if aggressive == 1:
+					if (attacker.position - position).length() < 150:
+						#target = null
+						change_state(STATES.ATTACK)
+					else:
+						target = attacker
 					
-				else:
-					target = attacker
+				elif aggressive == 2:
+					#ideally, if target is in sight :/
+					if (attacker.position - position).length() < 1000:
+						#target = null
+						change_state(STATES.ATTACK)
+						
+					else:
+						target = attacker
 		
 		
 		
@@ -686,10 +744,12 @@ func walk():
 			if !startle or (attacker == null):
 				motion = lerp(motion,  Vector2(speed, 0).rotated((position - target.position).angle() + PI),  turn)
 				rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.05))
+				#rotation_degrees = lerp_angle(rotation_degrees, (target.position - position).angle() + rad2deg(PI/2), 0.05)
 			
 			else:
 				motion = lerp(motion,  Vector2(speed*2, 0).rotated((position - target.position).angle() + PI),  turn)
-				rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.5))
+				rotation_degrees = rad2deg(lerp_angle(deg2rad(rotation_degrees), (position - target.position).angle() + PI/2, 0.05))
+				#rotation_degrees = lerp_angle(rotation_degrees, (target.position - position).angle() + rad2deg(PI/2), 0.1)
 			
 			distanceXY = position - target.position
 		

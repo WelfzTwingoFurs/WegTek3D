@@ -1,16 +1,18 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://objects/playercamera.gd" type="Script" id=1]
 [ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=2]
 [ext_resource path="res://older_versions/player-console2.gd" type="Script" id=3]
 [ext_resource path="res://older_versions/gradientverybig.png" type="Texture" id=4]
 [ext_resource path="res://assets/feet1.png" type="Texture" id=5]
-[ext_resource path="res://assets/weapon fist.png" type="Texture" id=6]
+[ext_resource path="res://assets/weapon pistol.png" type="Texture" id=6]
 [ext_resource path="res://assets/skybox solange lores.png" type="Texture" id=7]
 [ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=8]
 [ext_resource path="res://Audio.gd" type="Script" id=9]
 [ext_resource path="res://assets/weapon aim.png" type="Texture" id=10]
 [ext_resource path="res://audio/weapons/gun_empty.wav" type="AudioStream" id=11]
+[ext_resource path="res://objects/player-Ammo.gd" type="Script" id=12]
+[ext_resource path="res://objects/player-HpArmor.gd" type="Script" id=13]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -224,6 +226,36 @@ tracks/0/keys = {
 "values": [ 1, 2, 0 ]
 }
 
+[sub_resource type="Animation" id=15]
+resource_name = "hand-empty"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 10, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Gun")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_empty"
+} ]
+}
+
 [sub_resource type="Animation" id=12]
 length = 0.3
 tracks/0/type = "value"
@@ -233,10 +265,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.01, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 0 ]
+"values": [ 1, 2, 10, 0 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("..")
@@ -266,10 +298,21 @@ tracks/2/keys = {
 "method": "gun_pistol_shoot"
 } ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("..:gunbusy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
-[sub_resource type="Animation" id=13]
-resource_name = "hand-fire (copy)"
-length = 0.3
+[sub_resource type="Animation" id=14]
+resource_name = "hand-reload"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
 tracks/0/interp = 1
@@ -277,13 +320,59 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6, 7, 8, 9, 12, 3, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Gun")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_pistol_reload"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "update_ammo_out"
+}, {
+"args": [  ],
+"method": "update_ammo_in"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("..:gunbusy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 1, 0 ]
+"values": [ true, false ]
 }
 
-[node name="playercamera" type="KinematicBody2D"]
+[node name="playercamera" type="KinematicBody2D" groups=[
+"ouchy",
+"sprite",
+]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -302,7 +391,7 @@ bg_offset = 5.0
 stream = ExtResource( 11 )
 volume_db = 1.0
 script = ExtResource( 9 )
-minus = 0
+minus = -12
 
 [node name="Gun" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 9 )
@@ -318,6 +407,48 @@ z_index = 4096
 shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 4096
+current = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Console" type="Label" parent="Camera2D"]
+visible = false
+margin_right = 4096.0
+margin_bottom = 4096.0
+custom_colors/font_color_shadow = Color( 0, 0, 1, 0.498039 )
+custom_constants/line_spacing = 0
+text = "Testing...testing!"
+autowrap = true
+clip_text = true
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="HpArmor" type="Label" parent="Camera2D"]
+visible = false
+margin_bottom = 14.0
+text = "100%"
+valign = 2
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ammo" type="Label" parent="Camera2D"]
+visible = false
+text = "69/420"
+align = 2
+valign = 2
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
 }
 
 [node name="ColArea" type="Area2D" parent="."]
@@ -343,27 +474,6 @@ script = ExtResource( 8 )
 position = Vector2( 0, 52 )
 shape = SubResource( 2 )
 disabled = true
-
-[node name="Camera2D" type="Camera2D" parent="."]
-z_index = 4096
-current = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Console" type="Label" parent="Camera2D"]
-visible = false
-margin_right = 4096.0
-margin_bottom = 4096.0
-custom_colors/font_color_shadow = Color( 0, 0, 1, 0.498039 )
-custom_constants/line_spacing = 0
-autowrap = true
-clip_text = true
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
 
 [node name="ViewArea" type="Area2D" parent="."]
 z_index = 4096
@@ -420,7 +530,7 @@ visible = false
 z_index = 4095
 texture = ExtResource( 5 )
 hframes = 10
-frame = 6
+frame = 9
 __meta__ = {
 "_edit_lock_": true
 }
@@ -431,14 +541,15 @@ anims/flame-end = SubResource( 8 )
 anims/flame-fire = SubResource( 9 )
 anims/flame-no = SubResource( 10 )
 anims/flame-start = SubResource( 11 )
+anims/hand-empty = SubResource( 15 )
 anims/hand-fire = SubResource( 12 )
-"anims/hand-fire (copy)" = SubResource( 13 )
+anims/hand-reload = SubResource( 14 )
 
 [node name="Hand" type="Sprite" parent="View"]
 visible = false
 z_index = 4095
 texture = ExtResource( 6 )
-vframes = 4
+vframes = 13
 
 [node name="Background" type="Node2D" parent="."]
 visible = false
