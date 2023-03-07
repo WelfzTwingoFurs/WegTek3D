@@ -70,12 +70,14 @@ CONTROL KEYS:
 -            F: Enter/exit car;
 -            C:  Change camera:
 -          Q/E:   Look, in car;
+-             M: Radio, in car;
 -   Alt (hold):       View map;
 -    Alt & +/-:       Zoom map;
--            X:  Noclip toggle;
--    Quote ('): Console toggle;
+-            X:  Noclip toggle.
+
 
 DEBUG KEYS:
+- Quote ('):    Console toggle;
 - Scroll-lock (+Move):   Angle;
 - Home:            Look center;
 -  End:             Fly center;
