@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/treat1.wav-35560030875b202d7b4512f7f59e7619.sample"
+
+[deps]
+
+source_file="res://audio/npc/2/treat1.wav"
+dest_files=[ "res://.import/treat1.wav-35560030875b202d7b4512f7f59e7619.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
