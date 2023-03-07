@@ -15,13 +15,16 @@ func _process(_delta):
 
 	
 	if Worldconfig.playercar != null:# Worldconfig.player.guninv == -1:
-		text = str((int(Worldconfig.playercar.motion.length())/100)*2," KM/H   \n")
+		text = str("[",(int(Worldconfig.playercar.motion.length())/100)*2,"]-KM/H  \n")
+	
+	
+	
 	
 	elif Worldconfig.player.guninv == 1:
 		text = str(" FISTS   \n")
 	
 	elif  Worldconfig.player.guninv == 2:
-		text = str(Worldconfig.player.ammo2loaded,"/",Worldconfig.player.ammo2stock," PISTOL   \n")
+		text = str("[",Worldconfig.player.ammo2loaded,"/",Worldconfig.player.ammo2stock,"]-PISTOL   \n")
 	
 	if (Worldconfig.player.guninv == 0) && (Worldconfig.playercar == null):
 		visible = 0

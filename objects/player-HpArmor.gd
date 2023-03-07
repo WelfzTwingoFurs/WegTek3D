@@ -12,4 +12,4 @@ func _process(_delta):
 		margin_bottom = (abs(get_viewport().size.y)/ 2) / rect_scale.y
 		rect_scale = Worldconfig.Camera2D.zoom * Worldconfig.player.hudscale
 	
-	text = str("   HP ",Worldconfig.player.health/10, "%\n")
+	text = str("   HEALTH-[",Worldconfig.player.health/10, "%]\n")

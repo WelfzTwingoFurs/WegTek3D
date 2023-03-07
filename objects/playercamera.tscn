@@ -226,7 +226,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 0 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=12]
 resource_name = "hand-empty"
 length = 0.1
 tracks/0/type = "value"
@@ -256,7 +256,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hand:frame")
@@ -391,15 +391,12 @@ bg_offset = 5.0
 stream = ExtResource( 11 )
 volume_db = 1.0
 script = ExtResource( 9 )
-minus = -12
 
 [node name="Gun" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 9 )
-minus = 0
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 9 )
-minus = 0
 
 [node name="Col" type="CollisionShape2D" parent="."]
 modulate = Color( 100, 100, 100, 1 )
@@ -410,6 +407,7 @@ __meta__ = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 z_index = 4096
 current = true
 __meta__ = {
@@ -417,7 +415,6 @@ __meta__ = {
 }
 
 [node name="Console" type="Label" parent="Camera2D"]
-visible = false
 margin_right = 4096.0
 margin_bottom = 4096.0
 custom_colors/font_color_shadow = Color( 0, 0, 1, 0.498039 )
@@ -432,8 +429,8 @@ __meta__ = {
 }
 
 [node name="HpArmor" type="Label" parent="Camera2D"]
-visible = false
 margin_bottom = 14.0
+custom_colors/font_color_shadow = Color( 1, 0.498039, 0.498039, 1 )
 text = "100%"
 valign = 2
 script = ExtResource( 13 )
@@ -442,7 +439,7 @@ __meta__ = {
 }
 
 [node name="Ammo" type="Label" parent="Camera2D"]
-visible = false
+custom_colors/font_color_shadow = Color( 0.498039, 0.498039, 0.498039, 1 )
 text = "69/420"
 align = 2
 valign = 2
@@ -541,8 +538,8 @@ anims/flame-end = SubResource( 8 )
 anims/flame-fire = SubResource( 9 )
 anims/flame-no = SubResource( 10 )
 anims/flame-start = SubResource( 11 )
-anims/hand-empty = SubResource( 15 )
-anims/hand-fire = SubResource( 12 )
+anims/hand-empty = SubResource( 12 )
+anims/hand-fire = SubResource( 13 )
 anims/hand-reload = SubResource( 14 )
 
 [node name="Hand" type="Sprite" parent="View"]
