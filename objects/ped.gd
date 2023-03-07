@@ -478,7 +478,7 @@ func _ready():
 	true_anim = 0
 	interest_luck += randi() % 500
 	aggressive = randi() % 3
-	skin = randi() % 3
+	skin = randi() % 4
 	if skin == 0:#ME
 		$Audio.minus = -24
 	elif skin == 1:#MOM
@@ -527,9 +527,9 @@ func change_state(new_state):
 	state = new_state
 
 
-var npcA = [preload("res://assets/sprites ped0a.png"), preload("res://assets/sprites ped1a.png"), preload("res://assets/sprites ped2a.png")]
-var npcB = [preload("res://assets/sprites ped0b.png"), preload("res://assets/sprites ped1b.png"), preload("res://assets/sprites ped2b.png")]
-var npcC = [preload("res://assets/sprites ped0c.png"), preload("res://assets/sprites ped1c.png"), preload("res://assets/sprites ped2c.png")]
+var npcA = [preload("res://assets/sprites ped0a.png"), preload("res://assets/sprites ped1a.png"), preload("res://assets/sprites ped2a.png"), preload("res://assets/sprites ped3a.png")]
+var npcB = [preload("res://assets/sprites ped0b.png"), preload("res://assets/sprites ped1b.png"), preload("res://assets/sprites ped2b.png"), preload("res://assets/sprites ped3b.png")]
+var npcC = [preload("res://assets/sprites ped0c.png"), preload("res://assets/sprites ped1c.png"), preload("res://assets/sprites ped2c.png"), preload("res://assets/sprites ped3c.png")]
 var skin = 0
 
 func _process(_delta):
