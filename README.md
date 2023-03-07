@@ -14,15 +14,15 @@ https://github.com/WelfzTwingoFurs/WegTek3D
  [created using Godot Engine v3.3.2-stable Win64, at https://www.godotengine.org/]
 
 FEATURES:
--Polygon world with height;
 -Moving up & down, looking up & down;
+-Polygon world with height;
 -Field of view (FOV), draw distance options;
 -Clipping (vertices behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
 -One-sided polygon option;
--Mono sound system;
--Depth-shading;
+-Depth-shading, adjustable;
 -Polygons are colorable, 'darkable', texturable as unmoving-plaid or UV;
+-Mono sound system;
 -WIP Whole-polygon culling (if entirely outside screen, don't render) option;
 -Sprite objects with height, & any amount of rotation frames;
 -Sprite ground-shadows/reflections;
