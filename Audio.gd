@@ -15,7 +15,7 @@ var skin = 0
 
 ###############################################################################
 #RANDOM
-const ambienceGDTs = preload("res://audio/ambience gdt.wav")
+const ambienceGDTs = preload("res://audio/ambience-gdt.mp3")
 
 func ambienceGDT():
 	if !playing:
