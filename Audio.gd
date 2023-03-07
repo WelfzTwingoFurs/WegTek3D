@@ -109,6 +109,8 @@ const npc1A4 = preload("res://audio/npc/1/beg4.wav")
 const npc1A5 = preload("res://audio/npc/1/beg5.wav")
 const npc1A6 = preload("res://audio/npc/1/beg6.wav")
 
+const npc2A = preload("res://audio/npc/2/beg1.wav")
+
 func npc_beg():
 	#if !playing: #low priority
 		skin = get_owner().skin
@@ -137,6 +139,15 @@ func npc_beg():
 				set_stream(npc1A6)
 		
 		elif skin == 2:
+			which = randi() % 3
+			if which == 0:
+				set_stream(npc2A)
+			elif which == 1:
+				set_stream(npc2E) #scream
+			else:
+				set_stream(npc2J2) #pain2
+		
+		elif skin == 3:
 			which = (randi() % 2)
 			if which == 0:
 				set_stream(npcSCIA1)
@@ -162,6 +173,8 @@ const npc0B2 = preload("res://audio/npc/0/breathe2.wav")
 
 const npc1B = preload("res://audio/npc/1/breathe1.wav")
 
+const npc2B = preload("res://audio/npc/2/breathe.wav")
+
 func npc_breathe():
 	skin = get_owner().skin
 	if skin == 0: #ME
@@ -175,6 +188,9 @@ func npc_breathe():
 		set_stream(npc1B)
 	
 	elif skin == 2:
+		set_stream(npc2B)
+	
+	elif skin == 3:
 		set_stream(npcSCIB)
 	
 	else:
@@ -200,6 +216,9 @@ const npc0C7 = preload("res://audio/npc/0/bump7.wav")
 const npc1C1 = preload("res://audio/npc/1/bump1.wav")
 const npc1C2 = preload("res://audio/npc/1/bump2.wav")
 const npc1C3 = preload("res://audio/npc/1/bump3.wav")
+
+const npc2C1 = preload("res://audio/npc/2/bump1.wav")
+const npc2C2 = preload("res://audio/npc/2/bump2.wav")
 
 func npc_bump():
 	if !playing: #low priority
@@ -230,9 +249,16 @@ func npc_bump():
 			else:
 				set_stream(npc1C3)
 		
+		elif skin == 2: #RODS
+			which = randi() % 2
+			if which == 0:
+				set_stream(npc2C1)
+			else:
+				set_stream(npc2C2)
+			
+			
 		
-		
-		elif skin == 2:
+		elif skin == 3:
 			which = (randi() % 2)
 			if which == 0:
 				set_stream(npcSCIC1)
@@ -259,6 +285,8 @@ const npc0D3 = preload("res://audio/npc/0/die3.wav")
 
 const npc1D = preload("res://audio/npc/1/die.wav")
 
+#const npc2D = preload("")
+
 func npc_die():
 	skin = get_owner().skin
 	if skin == 0: #ME
@@ -273,7 +301,11 @@ func npc_die():
 	elif skin == 1: #MOM
 		set_stream(npc1D)
 	
-	elif skin == 2:
+	elif skin == 2: #RODS
+		set_stream(npc2C2) #bump2 sound
+	
+	
+	elif skin == 3:
 		set_stream(npcSCID)
 	
 	else:
@@ -298,6 +330,8 @@ const npc1E1 = preload("res://audio/npc/1/scream1.wav")
 const npc1E2 = preload("res://audio/npc/1/scream2.wav")
 const npc1E3 = preload("res://audio/npc/1/scream3.wav")
 const npc1E4 = preload("res://audio/npc/1/scream4.wav")
+
+const npc2E = preload("res://audio/npc/2/scream1.wav")
 
 func npc_scream():
 	skin = get_owner().skin
@@ -326,18 +360,25 @@ func npc_scream():
 		else:
 			set_stream(npc1E4)
 	
-	elif skin == 2:
+	elif skin == 2: #RODS
+		which = randi() % 2
+		if which == 0:
+			set_stream(npc2E)
+		else:
+			set_stream(npc2J2) #pain2 sound
+	
+	elif skin == 3:
 		which = (randi() % 2)
 		if which == 0:
 			set_stream(npcSCIE1)
-		else:#if which == 1:
+		else:
 			set_stream(npcSCIE2)
 	
 	else:
 		which = (randi() % 2)
 		if which == 0:
 			set_stream(npcBARNEYE1)
-		else:#if which == 1:
+		else:
 			set_stream(npcBARNEYE2)
 	
 	play()
@@ -359,6 +400,10 @@ const npc1F2 = preload("res://audio/npc/1/talk2.wav")
 const npc1F3 = preload("res://audio/npc/1/talk3.wav")
 const npc1F4 = preload("res://audio/npc/1/talk4.wav")
 const npc1F5 = preload("res://audio/npc/1/talk5.wav")
+
+const npc2F1 = preload("res://audio/npc/2/talk1.wav")
+const npc2F2 = preload("res://audio/npc/2/talk2.wav")
+const npc2F3 = preload("res://audio/npc/2/talk3.wav")
 
 func npc_talk():
 	if !playing:
@@ -388,8 +433,17 @@ func npc_talk():
 			else:
 				set_stream(npc1F5)
 		
+		elif skin == 2: #RODS
+			which = randi() % 3
+			if which == 0:
+				set_stream(npc2F1)
+			elif which == 1:
+				set_stream(npc2F2)
+			else:
+				set_stream(npc2F3)
 		
-		elif skin == 2:
+		
+		elif skin == 3:
 			which = (randi() % 2)
 			if which == 0:
 				set_stream(npcSCIF1)
@@ -421,6 +475,9 @@ const npc1G1 = preload("res://audio/npc/1/trashtalk1.wav")
 const npc1G2 = preload("res://audio/npc/1/trashtalk2.wav")
 const npc1G3 = preload("res://audio/npc/1/trashtalk3.wav")
 
+const npc2G1 = preload("res://audio/npc/2/trashtalk1.wav")
+const npc2G2 = preload("res://audio/npc/2/trashtalk2.wav")
+
 func npc_trashtalk():
 	if !playing:
 		skin = get_owner().skin
@@ -446,8 +503,15 @@ func npc_trashtalk():
 			else:#
 				set_stream(npc1G3)
 		
+		elif skin == 2: #RODS
+			which = (randi() % 2)
+			if which == 0:
+				set_stream(npc2G1)
+			else:
+				set_stream(npc2G2)
 		
-		elif skin == 2:
+		
+		elif skin == 3:
 			which = (randi() % 2)
 			if which == 0:
 				set_stream(npcSCIG1)
@@ -481,6 +545,10 @@ const npc1H2 = preload("res://audio/npc/1/treat2.wav")
 const npc1H3 = preload("res://audio/npc/1/treat3.wav")
 const npc1H4 = preload("res://audio/npc/1/treat4.wav")
 
+const npc2H1 = preload("res://audio/npc/2/treat1.wav")
+const npc2H2 = preload("res://audio/npc/2/treat2.wav")
+const npc2H3 = preload("res://audio/npc/2/treat3.wav")
+
 func npc_treat():
 	if !playing:
 		skin = get_owner().skin
@@ -509,9 +577,17 @@ func npc_treat():
 			else:
 				set_stream(npc1H4)
 		
+		elif skin == 2: #RODS
+			which = (randi() % 3)
+			if which == 0:
+				set_stream(npc2H1)
+			elif which == 1:
+				set_stream(npc2H2)
+			else:
+				set_stream(npc2H3)
 		
 		
-		elif skin == 2:
+		elif skin == 3:
 			which = (randi() % 2)
 			if which == 0:
 				set_stream(npcSCIH1)
@@ -560,6 +636,11 @@ const npc1J1 = preload("res://audio/npc/1/pain1.wav")
 const npc1J2 = preload("res://audio/npc/1/pain2.wav")
 const npc1J3 = preload("res://audio/npc/1/pain3.wav")
 
+const npc2J1 = preload("res://audio/npc/2/pain1.wav")
+const npc2J2 = preload("res://audio/npc/2/pain2.wav")
+const npc2J3 = preload("res://audio/npc/2/pain3.wav")
+const npc2J4 = preload("res://audio/npc/2/pain4.wav")
+
 func npc_pain():
 	skin = get_owner().skin
 	
@@ -583,8 +664,21 @@ func npc_pain():
 			set_stream(npc1J1)
 		elif which == 1:
 			set_stream(npc1J2)
-		elif which == 2:
+		else:
 			set_stream(npc1J3)
+	
+	elif skin == 2: #RODS
+		which = (randi() % 4)
+		if which == 0:
+			set_stream(npc2J1)
+		elif which == 1:
+			set_stream(npc2J2)
+		elif which == 2:
+			set_stream(npc2J3)
+		else:
+			set_stream(npc2J4)
+	
+	
 	
 	elif skin == 2:
 		which = (randi() % 2)
@@ -721,9 +815,8 @@ func car_land():
 #WEAPONS
 const gunA = preload("res://audio/weapons/gun_empty.wav")
 func gun_empty():
-	if !playing:
-		set_stream(gunA)
-		play()
+	set_stream(gunA)
+	play()
 
 const gunB = preload("res://audio/weapons/gun_melee_hit.wav")
 func gun_melee_hit():
