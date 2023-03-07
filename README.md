@@ -27,7 +27,7 @@ FEATURES:
 -Sprite objects with height, & any amount of rotation frames;
 -Sprite ground-shadows/reflections;
 -Basic 'dynamic' darkness system for sprites, darken as floor is;
--Floor & flat wall collision;
+-Flat floor, triangular diagonal floor, & flat wall collision;
 -Mouse & keyboard control;
 -Viewbobbing, viewrolling options;
 -Screen resizable to any size without stretching;
@@ -52,8 +52,8 @@ IMPERFECTIONS:
 -Floor-sprite position slightly innacurate to aspect ratio;
 -Mouselook different sensitivity for X and Y;
 -No in-game options (all settings in editor);
--The car is partially infinitely tall;
--Car's polygons distort when clipping;
+-The car is infinitely tall for walls and other cars;
+-Cars' polygons distort when clipping;
 -NPCs can't dodge things, only follow targets.
 
 
