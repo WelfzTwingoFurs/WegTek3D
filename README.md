@@ -6,7 +6,7 @@
 
 
 ```text
-https://github.com/WelfzTwingoFurs/godot-raycaster-like
+https://github.com/WelfzTwingoFurs/WegTek3D
 ###################################################################################
 ########### Godot raycaster-like engine!! . . . . WEGTEK-3D, Version 14 ###########
 ###################### written by Welfz Twingo Furs, aka Weg ######################
