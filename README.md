@@ -53,6 +53,7 @@ IMPERFECTIONS:
 -Mouselook different sensitivity for X and Y;
 -No in-game options (all settings in editor);
 -The car is partially infinitely tall;
+-Car's polygons distort when clipping;
 -NPCs can't dodge things, only follow targets.
 
 
