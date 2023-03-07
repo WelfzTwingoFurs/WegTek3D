@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/breathe3.wav-bb4febec96fb58ba01b1d0ae55f21202.sample"
+
+[deps]
+
+source_file="res://audio/npc/3/breathe3.wav"
+dest_files=[ "res://.import/breathe3.wav-bb4febec96fb58ba01b1d0ae55f21202.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

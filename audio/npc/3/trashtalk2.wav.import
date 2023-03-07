@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/trashtalk2.wav-5c4c00d11e2fa48ac2209ec4621480ba.sample"
+
+[deps]
+
+source_file="res://audio/npc/3/trashtalk2.wav"
+dest_files=[ "res://.import/trashtalk2.wav-5c4c00d11e2fa48ac2209ec4621480ba.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
