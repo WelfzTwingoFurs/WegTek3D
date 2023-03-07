@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ambience-gdt.mp3-dc22ac7ae88c30c517cc201712719a0e.mp3str"
+
+[deps]
+
+source_file="res://audio/ambience-gdt.mp3"
+dest_files=[ "res://.import/ambience-gdt.mp3-dc22ac7ae88c30c517cc201712719a0e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
