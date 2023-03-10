@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/dynacar.gd" type="Script" id=1]
 [ext_resource path="res://objects/wheels.gd" type="Script" id=2]
 [ext_resource path="res://objects/car Testarossa.tscn" type="PackedScene" id=3]
-[ext_resource path="res://audio/car/escort/car_engine_off.wav" type="AudioStream" id=4]
 [ext_resource path="res://Audio.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -24,6 +23,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+engine = 2
 head_height = 87
 camheight = 123
 lightFh = 60
@@ -33,7 +33,6 @@ engine_power = 39.5
 max_speed = 314000
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
 script = ExtResource( 5 )
 minus = 0
 

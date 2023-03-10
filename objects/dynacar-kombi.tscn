@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/dynacar.gd" type="Script" id=1]
 [ext_resource path="res://objects/wheels.gd" type="Script" id=2]
-[ext_resource path="res://audio/car/escort/car_engine_off.wav" type="AudioStream" id=3]
 [ext_resource path="res://objects/car Kombi.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Audio.gd" type="Script" id=5]
 
@@ -24,6 +23,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+engine = 1
 head_height = 130
 camheight = 150
 lightFh = 68
@@ -34,7 +34,6 @@ engine_power = 2.5
 max_speed = 13000
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
 script = ExtResource( 5 )
 minus = 0
 

@@ -576,8 +576,9 @@ func _process(_delta):
 			#$View/test.scale = Vector2((($View/Hand.texture.get_width()*$View/Hand.scale.x/$View/test.texture.get_width()))/Worldconfig.playercar.steer_size_divi, $View/test.scale.x)
 			$View/Speed.visible = true
 			$View/RPM.visible = true
-			$View/Speed.points = [$View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale)) + Vector2(0,$View/Hand.scale.y*50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*360))]
-			$View/RPM.points = [$View.position + $View/Hand.position + (Worldconfig.playercar.meter_rpm_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_rpm_pos* $View/Hand.scale)) + Vector2(0,$View/Hand.scale.y*50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*360))]
+			#$View/Speed.points = [$View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale)) + Vector2(0,$View/Hand.scale.y*50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*360))]
+			$View/Speed.points = [$View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale)) + Vector2(0,$View/Hand.scale.y*50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*270)+deg2rad(45))]
+			$View/RPM.points = [$View.position + $View/Hand.position + (Worldconfig.playercar.meter_rpm_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_rpm_pos* $View/Hand.scale)) + Vector2(0,$View/Hand.scale.y*50).rotated(abs(deg2rad((Worldconfig.playercar.motion.length()/(Worldconfig.playercar.max_speed/(float(Worldconfig.playercar.gears)/not_zero(Worldconfig.playercar.gear_in))))*270))+deg2rad(45))]
 			
 			
 		else:

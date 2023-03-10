@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/dynacar.gd" type="Script" id=1]
 [ext_resource path="res://objects/wheels.gd" type="Script" id=2]
 [ext_resource path="res://objects/car Uno.tscn" type="PackedScene" id=3]
-[ext_resource path="res://audio/car/escort/car_engine_off.wav" type="AudioStream" id=4]
 [ext_resource path="res://Audio.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -33,7 +32,6 @@ engine_power = 6.0
 max_speed = 14000
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
 script = ExtResource( 5 )
 minus = 0
 

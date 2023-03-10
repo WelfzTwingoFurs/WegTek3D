@@ -14,12 +14,18 @@ export var steer_pos = Vector2(-74,420)
 export var steer_size_divi = 5.8
 export var meter_speed_pos = Vector2(-255,336)
 export var meter_rpm_pos = Vector2(109,336)
+export var gears = 5
+var gear_in = 0
 
 var motion = Vector2()
 
 var default_pos = Vector2()
 
 func _ready():
+	#if engine == 0: timer_scale = 0.017
+	#elif engine == 1: timer_scale = 0.017
+	#elif engine == 2: timer_scale = 0.017
+	
 	add_collision_exception_with($wheel0)
 	add_collision_exception_with($wheel1)
 	add_collision_exception_with($wheel2)
@@ -138,7 +144,8 @@ func _process(_delta):
 	
 	
 	
-	$Engine.pitch_scale = 1 + (motion.length()/max_speed)
+	#$Engine.pitch_scale = 1 + (motion.length()/max_speed)
+	$Engine.pitch_scale = 1 + (motion.length()/abs(max_speed/(float(gears)/not_zero(gear_in))))
 	
 	if Worldconfig.playercar != self: #GE-GE OUT
 		motion = lerp(motion, Vector2(), 0.1)
@@ -236,18 +243,20 @@ func theraot(v0,v1,v2,v3):
 	
 	return r.z
 
-var timer = 0
+#var timer = 1
+#var timer_scale = 0.017
 
 func _physics_process(delta):
 	motion = move_and_slide(motion, Vector2(0,-1))
 	if Worldconfig.playercar == self:
 		move_and_steer(delta)
+		if !$Engine.playing: $Engine.car_engine_loop()
 		
-		if timer <= 0:
-			$Engine.car_engine_loop()
-			timer = $Engine.stream.get_length()
-		else:
-			timer -= 0.017 * $Engine.pitch_scale
+		#if timer <= 0:
+		#	$Engine.car_engine_loop()
+		#	timer = $Engine.stream.get_length()
+		#else:
+		#	timer -= 0 * $Engine.pitch_scale
 	
 	
 	
@@ -306,24 +315,45 @@ func move_and_steer(delta):
 	
 	#motion = Vector2.ZERO
 	
-	if Input.is_action_pressed("ply_up"):
-		if motion.length() < max_speed:
-			if ($wheel0.on_floor == true) or ($wheel1.on_floor == true):
-				if ($wheel0.on_floor) != ($wheel1.on_floor):
-					motion += transform.x*(engine_power/2)
-				else:
-					motion += transform.x*engine_power
-	
-	
-	elif Input.is_action_pressed("ply_down"):
-		if ($wheel0.on_floor == true) or ($wheel1.on_floor == true):
-			if ($wheel0.on_floor) != ($wheel1.on_floor):
-				motion -= transform.x*(break_power)/2
-			else:
-				motion -= transform.x*break_power
+	if Input.is_action_just_pressed("ply_car_gear"):
+		if Input.is_action_pressed("ply_car_gearup") && (gear_in < gears):
+			gear_in += 1
+		elif Input.is_action_pressed("ply_car_geardown") && (gear_in > -1):
+			gear_in -= 1
 		
-		if motion.length() < 10:
-			motion = Vector2(0,0)
+	elif Input.is_action_pressed("ply_car_gear"):
+		if Input.is_action_just_pressed("ply_car_gearup") && (gear_in < gears):
+			gear_in += 1
+		elif Input.is_action_just_pressed("ply_car_geardown") && (gear_in > -1):
+			gear_in -= 1
+	
+	else:
+		if Input.is_action_pressed("ply_up") && gear_in != 0:
+			#print(max_speed/(gears/gear_in),"   ",max_speed,"    ",float(gears)/gear_in)
+			if (motion.length() < max_speed/(float(gears)/gear_in)) or gear_in == -1:
+				if ($wheel0.on_floor == true) or ($wheel1.on_floor == true):
+					if ($wheel0.on_floor) != ($wheel1.on_floor):
+						if gear_in == -1: motion -= transform.x*(engine_power/2)*10
+						else: motion += transform.x*(engine_power/2)/(gear_in)
+					else:#if ($wheel0.on_floor != false) && ($wheel1.on_floor != false):
+						if gear_in == -1: motion -= (transform.x*engine_power)*10
+						else: motion += transform.x*engine_power
+		
+		
+		elif Input.is_action_pressed("ply_down"):
+			if ($wheel0.on_floor == true) or ($wheel1.on_floor == true):
+				if (motion.length() > (transform.x.length()*(break_power))):
+					if ($wheel0.on_floor) != ($wheel1.on_floor):
+						motion -= transform.x*(break_power)/2
+					else:
+						motion -= transform.x*break_power
+					
+					if motion.length() < 0:
+						motion = Vector2()
+				else:
+					motion = Vector2(0,0)
+			#if motion.length() < 10:
+			#	motion = Vector2(0,0)
 	
 	#print(transform)
 	

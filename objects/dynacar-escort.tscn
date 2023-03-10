@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/wheels.gd" type="Script" id=1]
 [ext_resource path="res://objects/dynacar.gd" type="Script" id=2]
-[ext_resource path="res://audio/car/escort/car_engine_off.wav" type="AudioStream" id=3]
 [ext_resource path="res://Audio.gd" type="Script" id=4]
 [ext_resource path="res://objects/car Escort.tscn" type="PackedScene" id=5]
 
@@ -27,11 +26,10 @@ __meta__ = {
 head_height = 85
 camheight = 150
 driver_height = 5
-engine_power = 6.9
-max_speed = 17800
+engine_power = 5.0
+max_speed = 7200
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
 script = ExtResource( 4 )
 minus = 0
 
