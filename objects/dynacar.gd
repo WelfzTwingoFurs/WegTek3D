@@ -12,6 +12,8 @@ export var dashboard = "res://assets/car dash escort.png"
 export var steeringwheel = "res://assets/car wheel escort.png"
 export var steer_pos = Vector2(-73,385)
 export var steer_size_divi = 5.8
+export var meter_speed_pos = Vector2(0,0)
+export var meter_rpm_pos = Vector2(0,0)
 
 var motion = Vector2()
 

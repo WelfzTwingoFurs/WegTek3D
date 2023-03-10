@@ -561,20 +561,29 @@ func _process(_delta):
 		if !camera:
 			$View/Feet.z_index = 4096
 			$View/Feet.visible = true
-			#$View/Feet.position = Worldconfig.playercar.steer_pos + Vector2(0,abs(vbob))
-			#$View/Feet.position.y = lerp($View/Feet.position.y, (get_viewport().size.y/2) - (($View/Feet.texture.get_size().y))/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30 +lookingZ*5 +($PolyContainer.scale.y*50), 0.5) 
-			#$View/Feet.position = (($View/Hand.position) * $View/Hand.scale)
-			$View/Feet.position = (($View/Hand.position + Worldconfig.playercar.steer_pos) * $View/Hand.scale)
-			#$View/Feet.scale = $View/Hand.scale
-			#$View/Feet.scale.x = (OS.window_size.x/$View/Feet.texture.get_width())
-			$View/Feet.scale.x = (($View/Hand.texture.get_width()*$View/Hand.scale.x/$View/Feet.texture.get_width()))/Worldconfig.playercar.steer_size_divi
-			#$View/Feet.scale.y = (OS.window_size.y/$View/Feet.texture.get_height())/(Worldconfig.playercar.steer_size_divi.y/3)# +($PolyContainer.scale.y/6)
-			$View/Feet.scale.y = $View/Feet.scale.x
-			
 			$View/Feet.rotation_degrees = Worldconfig.playercar.turn * 45
-		else: $View/Feet.visible = false
+			
+			$View/Feet.position = ($View/Hand.position + (Worldconfig.playercar.steer_pos* $View/Hand.scale))# * $View/Hand.scale
+			$View/Feet.scale = Vector2((($View/Hand.texture.get_width()*$View/Hand.scale.x/$View/Feet.texture.get_width()))/Worldconfig.playercar.steer_size_divi, $View/Feet.scale.x)
+			#$View/Feet.scale = Vector2($View/Feet.scale.y,(($View/Hand.texture.get_height()*$View/Hand.scale.x/$View/Feet.texture.get_height()))/Worldconfig.playercar.steer_size_divi)
+			
+			#draw_line($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale)) + Vector2(0,50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*360)), Color(1,0,0), 3, true)
+			#$View/test.position = ($View/Hand.position * $View/Hand.scale)# + (Worldconfig.playercar.meter_speed_pos * $View/Hand.scale)
+			#$test.position = $View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale)
+			#$test.scale = Vector2(1,1)#$View/Hand.scale
+			#$test2.position = $test.position + Vector2(0,50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*360))
+			#print(Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)
+			#$View/test.scale = Vector2((($View/Hand.texture.get_width()*$View/Hand.scale.x/$View/test.texture.get_width()))/Worldconfig.playercar.steer_size_divi, $View/test.scale.x)
+			$View/Speed.visible = true
+			$View/Speed.points = [$View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale)) + Vector2(0,$View/Hand.scale.y*50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*360))]
+			
+			
+		else:
+			$View/Speed.visible = false
+			$View/Feet.visible = false
 		
 	else:
+		$View/Speed.visible = false
 		$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
 		$View/Feet.z_index = 4095
 		if lookingZ < 0:
@@ -652,11 +661,12 @@ func _process(_delta):
 	if change_checker != [$View/Feet.texture, Vector2($Background/Sky.texture.get_size().length(),$Background/Sky2.texture.get_size().length()), $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:#, scenetint]:
 		recalculate()
 	else:
+		update()
 		if Input.is_action_pressed("bug_closeeyes"):
 			$Background.visible = 0
 			$View.visible = 0
 			VisualServer.set_default_clear_color(0)
-			update()
+			#update()
 			if (weakref(new_container).get_ref()):
 				new_container.queue_free()
 			
@@ -671,7 +681,7 @@ func _process(_delta):
 			
 			
 		elif Input.is_action_just_released("bug_closeeyes"):
-			update()
+			#update()
 			$Background.visible = 1
 			$View.visible = 1
 			
@@ -1828,13 +1838,17 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 
 func _draw():
-	if Worldconfig.zoom < 1:
-		draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
-		draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,1,1), 1)
-	
-	if Input.is_action_pressed("bug_closeeyes"):
+	if !Input.is_action_pressed("bug_closeeyes"):
+		#if (Worldconfig.playercar != null) && !camera:
+		#	draw_line($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale)) + Vector2(0,50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*360)), Color(1,0,0), 3, true)
+		
+		if Worldconfig.zoom < 1:
+			draw_line(Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Vector2(get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
+			draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Color(1,1,1), 1)
+			draw_line(Vector2(-get_viewport().size.x/2, get_viewport().size.y/2), Vector2(-get_viewport().size.x/2, -get_viewport().size.y/2), Color(1,1,1), 1)
+			draw_line(Vector2(get_viewport().size.x/2, get_viewport().size.y/2), Vector2(abs(get_viewport().size.x)/2, -get_viewport().size.y/2), Color(1,1,1), 1)
+		
+	else:
 		if abs(map_draw) > 3:
 			print(">M I S T A K E: map_draw value invalid!")
 			map_draw = 3*sign(map_draw)
@@ -1921,6 +1935,7 @@ func _draw():
 									
 						
 						targets_in_scene = [] #reset
+
 
 
 	####    ####                ####            ############

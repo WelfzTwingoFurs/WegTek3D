@@ -374,6 +374,7 @@ tracks/3/keys = {
 "ouchy",
 "sprite",
 ]]
+z_index = -4096
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -548,6 +549,15 @@ visible = false
 z_index = 4095
 texture = ExtResource( 6 )
 vframes = 13
+
+[node name="Speed" type="Line2D" parent="View"]
+z_index = 4095
+width = 3.0
+default_color = Color( 1, 0, 0, 1 )
+round_precision = 1
+
+[node name="RPM" type="Line2D" parent="View"]
+default_color = Color( 1, 0, 0, 1 )
 
 [node name="Background" type="Node2D" parent="."]
 visible = false
