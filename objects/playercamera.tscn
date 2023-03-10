@@ -1,0 +1,598 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://objects/playercamera.gd" type="Script" id=1]
+[ext_resource path="res://older_versions/make_invisible.gd" type="Script" id=2]
+[ext_resource path="res://older_versions/player-console2.gd" type="Script" id=3]
+[ext_resource path="res://older_versions/gradientverybig.png" type="Texture" id=4]
+[ext_resource path="res://assets/feet1.png" type="Texture" id=5]
+[ext_resource path="res://assets/weapon pistol.png" type="Texture" id=6]
+[ext_resource path="res://assets/skybox solange-1.png" type="Texture" id=7]
+[ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=8]
+[ext_resource path="res://Audio.gd" type="Script" id=9]
+[ext_resource path="res://assets/weapon aim.png" type="Texture" id=10]
+[ext_resource path="res://audio/weapons/gun_empty.wav" type="AudioStream" id=11]
+[ext_resource path="res://objects/player-Ammo.gd" type="Script" id=12]
+[ext_resource path="res://objects/player-HpArmor.gd" type="Script" id=13]
+[ext_resource path="res://assets/skybox solange-0.png" type="Texture" id=14]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 4, 52 )
+
+[sub_resource type="Animation" id=3]
+length = 0.55
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 5, 6 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 2 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Feet")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 4 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Feet")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Feet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Feet")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "feet_step"
+}, {
+"args": [  ],
+"method": "feet_step"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "fist-punch"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.16, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 2, 1, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Gun")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_melee_swing"
+} ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 6, 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 4 ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 0 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "hand-empty"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 10, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Gun")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_empty"
+} ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 10, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../Gun")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_pistol_shoot"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("..:gunbusy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "hand-reload"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hand:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6, 7, 8, 9, 12, 3, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Gun")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "gun_pistol_reload"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "update_ammo_out"
+}, {
+"args": [  ],
+"method": "update_ammo_in"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("..:gunbusy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="playercamera" type="KinematicBody2D" groups=[
+"ouchy",
+"sprite",
+]]
+z_index = -4096
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+angles = 120
+draw_distance = 5000
+min_Z = -2100
+map_draw = 1
+skycolor = Color( 0, 1, 1, 1 )
+sky_stretch = Vector2( 1, 10 )
+bg_offset = 5.0
+
+[node name="Feet" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = 1.0
+script = ExtResource( 9 )
+
+[node name="Gun" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 9 )
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 9 )
+
+[node name="Col" type="CollisionShape2D" parent="."]
+modulate = Color( 100, 100, 100, 1 )
+z_index = 4096
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+z_index = 4096
+current = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Console" type="Label" parent="Camera2D"]
+margin_right = 4096.0
+margin_bottom = 4096.0
+custom_colors/font_color_shadow = Color( 0, 0, 1, 0.498039 )
+custom_constants/line_spacing = 0
+text = "Testing...testing!"
+autowrap = true
+clip_text = true
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="HpArmor" type="Label" parent="Camera2D"]
+margin_bottom = 14.0
+custom_colors/font_color_shadow = Color( 1, 0.498039, 0.498039, 1 )
+text = "100%"
+valign = 2
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ammo" type="Label" parent="Camera2D"]
+custom_colors/font_color_shadow = Color( 0.498039, 0.498039, 0.498039, 1 )
+text = "69/420"
+align = 2
+valign = 2
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColArea" type="Area2D" parent="."]
+scale = Vector2( 10, 10 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 8 )
+
+[node name="Col" type="CollisionShape2D" parent="ColArea"]
+modulate = Color( 100, 100, 100, 1 )
+z_index = 4096
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Interact" type="Area2D" parent="."]
+collision_layer = 31
+collision_mask = 31
+script = ExtResource( 8 )
+
+[node name="ColShape" type="CollisionShape2D" parent="Interact"]
+position = Vector2( 0, 52 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="ViewArea" type="Area2D" parent="."]
+z_index = 4096
+collision_layer = 3
+collision_mask = 0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="ViewCol" type="CollisionPolygon2D" parent="ViewArea"]
+modulate = Color( 5, 5, 5, 1 )
+polygon = PoolVector2Array( 0, 0, 10, 10, -10, 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PolyContainer" type="Node2D" parent="."]
+z_index = -1
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Poly0" type="Polygon2D" parent="PolyContainer"]
+z_index = 4096
+texture_scale = Vector2( 6.4, 6.4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite0" type="Sprite" parent="PolyContainer"]
+hframes = 10
+
+[node name="View" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Aim" type="Sprite" parent="View"]
+z_index = 4096
+texture = ExtResource( 10 )
+
+[node name="AniPlayFeet" type="AnimationPlayer" parent="View"]
+anims/spin = SubResource( 3 )
+anims/strafeL = SubResource( 4 )
+anims/strafeR = SubResource( 5 )
+anims/walk = SubResource( 6 )
+
+[node name="Feet" type="Sprite" parent="View"]
+visible = false
+z_index = 4095
+texture = ExtResource( 5 )
+hframes = 10
+frame = 9
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AniPlayHand" type="AnimationPlayer" parent="View"]
+anims/fist-punch = SubResource( 7 )
+anims/flame-end = SubResource( 8 )
+anims/flame-fire = SubResource( 9 )
+anims/flame-no = SubResource( 10 )
+anims/flame-start = SubResource( 11 )
+anims/hand-empty = SubResource( 12 )
+anims/hand-fire = SubResource( 13 )
+anims/hand-reload = SubResource( 14 )
+
+[node name="Hand" type="Sprite" parent="View"]
+visible = false
+z_index = 4095
+texture = ExtResource( 6 )
+vframes = 13
+
+[node name="Speed" type="Line2D" parent="View"]
+z_index = 4095
+width = 3.0
+default_color = Color( 1, 0, 0, 1 )
+round_precision = 1
+
+[node name="RPM" type="Line2D" parent="View"]
+z_index = 4095
+width = 3.0
+default_color = Color( 1, 0, 0, 1 )
+
+[node name="Background" type="Node2D" parent="."]
+visible = false
+z_index = -4096
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Sky2" type="TextureRect" parent="Background"]
+margin_right = 2806.0
+margin_bottom = 1747.0
+texture = ExtResource( 7 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sky" type="TextureRect" parent="Background"]
+margin_right = 2806.0
+margin_bottom = 1747.0
+texture = ExtResource( 14 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor" type="Sprite" parent="Background"]
+modulate = Color( 0.113725, 0.113725, 0.113725, 1 )
+texture = ExtResource( 4 )
+
+[connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]
+[connection signal="body_entered" from="Interact" to="." method="_on_Interact_body_entered"]
+[connection signal="body_shape_entered" from="ViewArea" to="." method="_on_ViewArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ViewArea" to="." method="_on_ViewArea_body_shape_exited"]
