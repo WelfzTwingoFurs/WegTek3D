@@ -37,7 +37,8 @@ FEATURES:
 -Map using draw_line, 2D & 3D options, zoom option;
 -Convenient map-making options;
 -Basic weapon inventory;
--Driveable cars, dynamic suspension, customizeable base, first and third person cameras;
+-Driveable cars, dynamic suspension, manual gears, customizeable base;
+-Third and first person camera, with dashboard, steering wheel, Km/h and RPM gauges;
 -Basic pedestrians that wander, get hurt, fight back or run away, and die.
 
 IMPERFECTIONS:
@@ -71,6 +72,7 @@ CONTROL KEYS:
 -            C:  Change camera:
 -          Q/E:   Look, in car;
 -             M: Radio, in car;
+-Shift (+Move):    Change gear;
 -   Alt (hold):       View map;
 -    Alt & +/-:       Zoom map;
 -            X:  Noclip toggle.
