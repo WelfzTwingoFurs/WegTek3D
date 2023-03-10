@@ -522,7 +522,6 @@ rotations = 4
 spr_height = 17
 head_height = 100
 shadow_height = -12
-startle = true
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 2 )

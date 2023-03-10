@@ -8,6 +8,10 @@ var dontCollideSprite = false
 export(bool) var stepover = true
 var averages = 0
 export var head_height = 100
+export var dashboard = "res://assets/car dash escort.png"
+export var steeringwheel = "res://assets/car wheel escort.png"
+export var steer_pos = Vector2(-73,385)
+export var steer_size_divi = 5.8
 
 var motion = Vector2()
 
@@ -162,8 +166,12 @@ func _process(_delta):
 				Worldconfig.player.vbob += motion.length()/10000
 			
 			
+			
+			
 			if Worldconfig.player.camera:
 				Worldconfig.player.positionZ = ($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/camZdivide + camheight
+				Worldconfig.player.lookingZ = lerp(Worldconfig.player.lookingZ, -abs(-float((($wheel0.positionZ+$wheel1.positionZ)/2)-(($wheel3.positionZ+$wheel2.positionZ)/2))/1500), 0.1)
+				Worldconfig.player.vroll_car = 0
 				$model.position = default_pos
 				
 				if Input.is_action_pressed("ply_lookleft") && Input.is_action_pressed("ply_lookright"):

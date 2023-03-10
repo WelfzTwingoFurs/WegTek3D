@@ -40,6 +40,7 @@ export var scenetint = Color8(255,255,255)
 var scenetint_current
 export var sky_stretch = Vector2(1,1)
 export(float) var bg_offset = 1
+var skytimer = 0
 #Used for sky & floor position according to draw_distance
 
 export(bool) var cull_on = 1
@@ -64,7 +65,7 @@ func _ready():
 	#Turn everything on
 	
 	$ViewArea/ViewCol.polygon = [Vector2(0,0),   Vector2(0,draw_distance*2).rotated(-deg_rad(angles/2)),   Vector2(0,draw_distance*2).rotated( deg_rad(angles/2))]
-	change_checker = [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size*0, sky_stretch]#, Color8(255,255,255)]
+	change_checker = [$View/Feet.texture, Vector2($Background/Sky.texture.get_size().length(),$Background/Sky2.texture.get_size().length()), $Background/Floor.texture, 0, draw_distance, angles, OS.window_size*0, sky_stretch]#, Color8(255,255,255)]
 	#Checks if things changed and updates
 	
 	scenetint_current = scenetint
@@ -490,15 +491,24 @@ func _process(_delta):
 	########################################################################################################################################################
 	if sky_stretch.y > 0:
 		$Background/Sky.rect_position.y = ($Background/Sky.rect_size.y/not_zero(OS.window_size.y)) +vbob_max +posZlookZ + abs(vbob)
+		$Background/Sky2.rect_position.y = ($Background/Sky2.rect_size.y/not_zero(OS.window_size.y)) +vbob_max +posZlookZ + abs(vbob)
 		
 	else:
 		$Background/Sky.rect_position.y = -$Background/Sky.rect_size.y +vbob_max +posZlookZ + abs(vbob)
+		$Background/Sky2.rect_position.y = -$Background/Sky2.rect_size.y +vbob_max +posZlookZ + abs(vbob)
+	
+	
+	skytimer += 0.1
+	if skytimer > 360:
+		skytimer = 0
 	
 	if sky_stretch.x > 0:
 		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ($ViewArea/ViewCol.rotation_degrees*(float(OS.window_size.x)/360))
+		$Background/Sky2.rect_position.x = (-OS.window_size.x/2) - (overflow($ViewArea/ViewCol.rotation_degrees+skytimer,0,360)*(float(OS.window_size.x)/360))
 		
 	else:
 		$Background/Sky.rect_position.x = (-OS.window_size.x/2) - ( $ViewArea/ViewCol.rotation_degrees*(float($Background/Sky.texture.get_width())/360) ) 
+		$Background/Sky2.rect_position.x = (-OS.window_size.x/2) - ( overflow($ViewArea/ViewCol.rotation_degrees+skytimer,0,360)*(float($Background/Sky2.texture.get_width())/360) ) 
 	
 	########################################################################################################################################################
 	########################################################################################################################################################
@@ -547,58 +557,77 @@ func _process(_delta):
 		scenetint_current = lerp(scenetint_current, scenetint, 0.1)
 	
 	
-	
-	if lookingZ < 0:
-	#var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
-	#$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
-	#$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
-		$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height()
-		if health > 0: $View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*10) - $PolyContainer.position.y)
-		#else: $View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*0) - $PolyContainer.position.y)
-		else: $View/Feet.position.y = lerp($View/Feet.position.y, (get_viewport().size.y/2) - ($View/Feet.texture.get_size().y * $View/Feet.scale.y)/2, 0.5)
-		$View/Feet.visible = 1
+	if Worldconfig.playercar != null: #STEERING WHEEL GRAPHX
+		if !camera:
+			$View/Feet.z_index = 4096
+			$View/Feet.visible = true
+			#$View/Feet.position = Worldconfig.playercar.steer_pos + Vector2(0,abs(vbob))
+			#$View/Feet.position.y = lerp($View/Feet.position.y, (get_viewport().size.y/2) - (($View/Feet.texture.get_size().y))/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30 +lookingZ*5 +($PolyContainer.scale.y*50), 0.5) 
+			#$View/Feet.position = (($View/Hand.position) * $View/Hand.scale)
+			$View/Feet.position = (($View/Hand.position + Worldconfig.playercar.steer_pos) * $View/Hand.scale)
+			#$View/Feet.scale = $View/Hand.scale
+			#$View/Feet.scale.x = (OS.window_size.x/$View/Feet.texture.get_width())
+			$View/Feet.scale.x = (($View/Hand.texture.get_width()*$View/Hand.scale.x/$View/Feet.texture.get_width()))/Worldconfig.playercar.steer_size_divi
+			#$View/Feet.scale.y = (OS.window_size.y/$View/Feet.texture.get_height())/(Worldconfig.playercar.steer_size_divi.y/3)# +($PolyContainer.scale.y/6)
+			$View/Feet.scale.y = $View/Feet.scale.x
+			
+			$View/Feet.rotation_degrees = Worldconfig.playercar.turn * 45
+		else: $View/Feet.visible = false
+		
 	else:
-		$View/Feet.visible = 0
-	#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
-	#feetY = $View/Feet.position.y
-	
-	if (on_floor or on_body) && (health > 0):
-		if input_dir.y != 0:
-			$View/AniPlayFeet.play("walk")
-			$View/AniPlayFeet.playback_speed = input_dir.y
+		$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
+		$View/Feet.z_index = 4095
+		if lookingZ < 0:
+		#var percent = -(lookingZ/$PolyContainer.scale.y*10)/100
+		#$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height() * percent
+		#$View/Feet.position.y = ((get_viewport().size.y/2) - (get_viewport().size.y/2)*percent) + (1-percent)*100# + $PolyContainer.position.y - $PolyContainer.scale.y*10
+			$View/Feet.scale.y = OS.window_size.y/$View/Feet.texture.get_height()
+			if health > 0: $View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*10) - $PolyContainer.position.y)
+			#else: $View/Feet.position.y = -((OS.window_size.y*-$PolyContainer.scale.y*0) - $PolyContainer.position.y)
+			else: $View/Feet.position.y = lerp($View/Feet.position.y, (get_viewport().size.y/2) - ($View/Feet.texture.get_size().y * $View/Feet.scale.y)/2, 0.5)
+			$View/Feet.visible = 1
+		else:
+			$View/Feet.visible = 0
+		#$View/Feet.rotation_degrees = -input_dir.x*vroll_strafe_divi*2
+		#feetY = $View/Feet.position.y
+		
+		if (on_floor or on_body) && (health > 0):
+			if input_dir.y != 0:
+				$View/AniPlayFeet.play("walk")
+				$View/AniPlayFeet.playback_speed = input_dir.y
 
-		elif input_dir.x != 0:
-			if Input.is_action_pressed("ply_strafe"):
-				if input_dir.x == -1:
-					$View/AniPlayFeet.play("strafeR")
+			elif input_dir.x != 0:
+				if Input.is_action_pressed("ply_strafe"):
+					if input_dir.x == -1:
+						$View/AniPlayFeet.play("strafeR")
+					else:
+						$View/AniPlayFeet.play("strafeL")
+
 				else:
-					$View/AniPlayFeet.play("strafeL")
+					$View/AniPlayFeet.play("spin")
+					$View/AniPlayFeet.playback_speed = input_dir.x
+
 
 			else:
-				$View/AniPlayFeet.play("spin")
-				$View/AniPlayFeet.playback_speed = input_dir.x
-
-
+				$View/Feet.frame = 0
+				$View/AniPlayFeet.stop()
+		
+		
+		elif health < 0:
+			$View/Feet.frame = 9
+		
+		
 		else:
-			$View/Feet.frame = 0
 			$View/AniPlayFeet.stop()
-	
-	
-	elif health < 0:
-		$View/Feet.frame = 9
-	
-	
-	else:
-		$View/AniPlayFeet.stop()
-		if move_dir.z == 1:
-			$View/Feet.frame = 7
-		else:# move_dir.z == -1:
-			$View/Feet.frame = 8
-	
+			if move_dir.z == 1:
+				$View/Feet.frame = 7
+			else:# move_dir.z == -1:
+				$View/Feet.frame = 8
+		
 
-	#else:
-	#	$View/Feet.visible = 0
-	#	$View/AniPlayFeet.stop()
+		#else:
+		#	$View/Feet.visible = 0
+		#	$View/AniPlayFeet.stop()
 	
 	########  ########  ########  ########
 	####      ####      ####        ####
@@ -620,7 +649,7 @@ func _process(_delta):
 		rotation_angle = 0
 	
 	
-	if change_checker != [$View/Feet.texture, $Background/Sky.texture, $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:#, scenetint]:
+	if change_checker != [$View/Feet.texture, Vector2($Background/Sky.texture.get_size().length(),$Background/Sky2.texture.get_size().length()), $Background/Floor.texture, 0, draw_distance, angles, OS.window_size, sky_stretch]:#, scenetint]:
 		recalculate()
 	else:
 		if Input.is_action_pressed("bug_closeeyes"):
@@ -709,16 +738,21 @@ func gunswitch():
 	if guninv == 0:
 		$View/Hand.visible = 0
 		$View/Feet.texture = feet1
+		$View/Feet.hframes = 10
 	else:
 		$View/Hand.visible = 1
 		$View/Feet.texture = feet2
+		$View/Feet.hframes = 10
 	
 	
 	if guninv == -1:
-		$View/Hand.texture = load("res://assets/dashboard TD3full.png")
+		$View/Hand.texture = load(Worldconfig.playercar.dashboard)
 		$View/Hand.hframes = 1
 		$View/Hand.vframes = 1
 		gunstretch = true
+		$View/Feet.texture = load(Worldconfig.playercar.steeringwheel)
+		$View/Feet.hframes = 1
+		
 	
 	elif guninv == 1:
 		$View/Hand.texture = load("res://assets/weapon fist.png")
@@ -1173,7 +1207,7 @@ func _on_ColArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 func recalculate():
 	if change_checker[0] != $View/Feet.texture or change_checker[6] != OS.window_size:
-		$View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
+		if guninv != -1: $View/Feet.scale.x = OS.window_size.x/$View/Feet.texture.get_width()*10
 		
 		if change_checker[0] != $View/Feet.texture:
 			#print("-      TEXTURE: Feet changed")
@@ -1182,32 +1216,41 @@ func recalculate():
 		
 	
 	
-	if change_checker[1] != $Background/Sky.texture or change_checker[7] != sky_stretch or change_checker[6] != OS.window_size:
+	if change_checker[1] != Vector2($Background/Sky.texture.get_size().length(),$Background/Sky2.texture.get_size().length()) or change_checker[7] != sky_stretch or change_checker[6] != OS.window_size:
 		$Background/Sky.rect_size.y = $Background/Sky.texture.get_height()
+		$Background/Sky2.rect_size.y = $Background/Sky2.texture.get_height()
 		#$Background/Sky.rect_size.x = ($Background/Sky.texture.get_width()+OS.window_size.x)
 		#$Background/Sky.rect_size.x = $Background/Sky.texture.get_width()*2
 		
 		
 		if sky_stretch.y > 0:
 			$Background/Sky.rect_scale.y = ( -(OS.window_size.y/2)/float($Background/Sky.rect_size.y) )*sky_stretch.y
+			$Background/Sky2.rect_scale.y = ( -(OS.window_size.y/2)/float($Background/Sky2.rect_size.y) )*sky_stretch.y
 			$Background/Sky.flip_v = 1
+			$Background/Sky2.flip_v = 1
 		else:
 			$Background/Sky.rect_scale.y = 1
+			$Background/Sky2.rect_scale.y = 1
 			$Background/Sky.flip_v = 0
+			$Background/Sky2.flip_v = 0
 		
 		
 		if sky_stretch.x > 0:
 			$Background/Sky.rect_size.x = sky_stretch.x*($Background/Sky.texture.get_width())*2
+			$Background/Sky2.rect_size.x = sky_stretch.x*($Background/Sky2.texture.get_width())*2
 			$Background/Sky.rect_scale.x = (OS.window_size.x/$Background/Sky.texture.get_width())/sky_stretch.x
+			$Background/Sky2.rect_scale.x = (OS.window_size.x/$Background/Sky2.texture.get_width())/sky_stretch.x
 		else:
 			$Background/Sky.rect_size.x = ($Background/Sky.texture.get_width()+OS.window_size.x)
+			$Background/Sky2.rect_size.x = ($Background/Sky2.texture.get_width()+OS.window_size.x)
 			$Background/Sky.rect_scale.x = 1
+			$Background/Sky2.rect_scale.x = 1
 		
 		
 		
-		if change_checker[1] != $Background/Sky.texture:
+		if change_checker[1] != Vector2($Background/Sky.texture.get_size().length(),$Background/Sky2.texture.get_size().length()):
 			print("-      TEXTURE: Sky changed")
-			change_checker[1] = $Background/Sky.texture
+			change_checker[1] = Vector2($Background/Sky.texture.get_size().length(),$Background/Sky2.texture.get_size().length())
 			
 		
 		

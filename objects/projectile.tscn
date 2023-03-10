@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/projectile.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites skullcube.png" type="Texture" id=2]
+[ext_resource path="res://older_versions/sprites skullcube.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
 length = 0.4

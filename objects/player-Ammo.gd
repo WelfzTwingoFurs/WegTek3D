@@ -15,7 +15,8 @@ func _process(_delta):
 
 	
 	if Worldconfig.playercar != null:# Worldconfig.player.guninv == -1:
-		text = str("[",(int(Worldconfig.playercar.motion.length())/100)*2,"]-KM/H  \n")
+		text = str("[",int((Worldconfig.playercar.motion.length())/100)*2,"]-KM/H  \n")
+		#print(Worldconfig.playercar.transform.x)
 	
 	
 	
