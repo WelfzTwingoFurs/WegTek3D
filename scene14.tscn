@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player14.tscn" type="PackedScene" id=1]
+[ext_resource path="res://polygon14.gd" type="Script" id=2]
+[ext_resource path="res://splash.png" type="Texture" id=3]
+
+[node name="the duo" type="Node2D"]
+
+[node name="player14" parent="." instance=ExtResource( 1 )]
+position = Vector2( 14, -129 )
+angles = 120
+draw_distance = 1000
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=[
+"render",
+]]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+texture = ExtResource( 3 )
+polygon = [ Vector3( 0, 0, 0 ), Vector3( 100, 100, 0 ), Vector3( 0, 100, 0 ) ]

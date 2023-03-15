@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://player14.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.0
+
+[node name="player14" type="KinematicBody2D" groups=[
+"ouchy",
+"sprite",
+]]
+z_index = -4096
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Col" type="CollisionShape2D" parent="."]
+modulate = Color( 100, 100, 100, 1 )
+z_index = 4096
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 4096
+current = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ViewArea" type="Area2D" parent="."]
+modulate = Color( 1, 1, 1, 0.0705882 )
+z_index = 4096
+collision_layer = 3
+collision_mask = 0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="ViewCol" type="CollisionPolygon2D" parent="ViewArea"]
+modulate = Color( 5, 5, 5, 1 )
+polygon = PoolVector2Array( 0, 0, 10, 10, -10, 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PolyContainer" type="Node2D" parent="."]
+z_index = -1
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Sprite0" type="Sprite" parent="PolyContainer"]
+centered = false
+
+[connection signal="body_shape_entered" from="ViewArea" to="." method="_on_ViewArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ViewArea" to="." method="_on_ViewArea_body_shape_exited"]
