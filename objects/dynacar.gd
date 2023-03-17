@@ -1,13 +1,14 @@
 extends KinematicBody2D
 
+export var string = "Describe the vehicle"
 onready var wheelsound = $Other
+export var head_height = 100
 export var engine = 0
 export var positionZ = 0
 var dontCollideWall = false
 var dontCollideSprite = false
-export(bool) var stepover = true
+var stepover = true
 var averages = 0
-export var head_height = 100
 export var dashboard = "res://assets/car dash escort.png"
 export var steeringwheel = "res://assets/car wheel escort.png"
 export var steer_pos = Vector2(-74,420)
@@ -147,9 +148,19 @@ func _process(_delta):
 	#$Engine.pitch_scale = 1 + (motion.length()/max_speed)
 	$Engine.pitch_scale = 1 + (motion.length()/abs(max_speed/(float(gears)/not_zero(gear_in))))
 	
+	#print(transform.x.length(), "    ",transform.y.length())
+	if (motion.length() > 0) && (rotation_degrees + 180)-rad2deg(motion.angle() + PI) > 10:
+		$Tire.pitch_scale = 0.9 + (motion.length()/max_speed)/5
+		$Tire.car_tire_skid()
+	else:
+		$Tire.stop()
+	
 	if Worldconfig.playercar != self: #GE-GE OUT
 		motion = lerp(motion, Vector2(), 0.1)
 	else:
+		#print(sign(motion.length()))
+		#print(rotation_degrees + 180,"    ",rad2deg(motion.angle() + PI))
+		#print((rotation_degrees + 180)-rad2deg(motion.angle() + PI))
 		if Input.is_action_just_pressed("ply_car_radio"):
 			if $Radio.playing == true:
 				$Radio.stop()
@@ -222,7 +233,7 @@ func _process(_delta):
 					
 				
 				$model.position = Vector2(0,-99999)
-				
+				#$model.position = default_pos
 				
 	
 	
@@ -319,13 +330,15 @@ func move_and_steer(delta):
 		if Input.is_action_pressed("ply_car_gearup") && (gear_in < gears):
 			gear_in += 1
 		elif Input.is_action_pressed("ply_car_geardown") && (gear_in > -1):
-			gear_in -= 1
+			if motion.length() < 1: gear_in = -1
+			else: gear_in -= 1
 		
 	elif Input.is_action_pressed("ply_car_gear"):
 		if Input.is_action_just_pressed("ply_car_gearup") && (gear_in < gears):
 			gear_in += 1
 		elif Input.is_action_just_pressed("ply_car_geardown") && (gear_in > -1):
-			gear_in -= 1
+			if motion.length() < 1: gear_in = -1
+			else: gear_in -= 1
 	
 	else:
 		if Input.is_action_pressed("ply_up") && gear_in != 0:
@@ -348,8 +361,9 @@ func move_and_steer(delta):
 					else:
 						motion -= transform.x*break_power
 					
-					if motion.length() < 0:
-						motion = Vector2()
+					#if motion.length() > 0:
+					#	$Other.car_tire_skid()
+					
 				else:
 					motion = Vector2(0,0)
 			#if motion.length() < 10:

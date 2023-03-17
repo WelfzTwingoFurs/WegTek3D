@@ -23,6 +23,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+string = "Premodern fastback"
 head_height = 85
 camheight = 150
 driver_height = 5
@@ -34,6 +35,10 @@ script = ExtResource( 4 )
 minus = 0
 
 [node name="Other" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 4 )
+minus = -24
+
+[node name="Tire" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 4 )
 minus = -24
 

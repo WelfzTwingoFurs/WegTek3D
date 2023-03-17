@@ -23,19 +23,26 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+string = "Classic hatchback"
+dashboard = "res://assets/car dash uno.png"
+steeringwheel = "res://assets/car wheel uno.png"
 camheight = 150
 lightFh = 55
 lightRh = 60
 driver_height = 5
 wheel_base = 89
 engine_power = 6.0
-max_speed = 14000
+max_speed = 7000
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 minus = 0
 
 [node name="Other" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 5 )
+minus = -24
+
+[node name="Tire" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 minus = -24
 

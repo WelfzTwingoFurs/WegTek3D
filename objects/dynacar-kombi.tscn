@@ -23,21 +23,28 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-engine = 1
+string = "Vintage utility"
 head_height = 130
+engine = 1
+dashboard = "res://assets/car dash kombi.png"
+gears = 4
 camheight = 150
 lightFh = 68
 lightRh = 60
 driver_height = 34
 wheel_base = 98
 engine_power = 2.5
-max_speed = 13000
+max_speed = 6500
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 minus = 0
 
 [node name="Other" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 5 )
+minus = -24
+
+[node name="Tire" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 minus = -24
 
@@ -87,7 +94,7 @@ position = Vector2( -77.8571, 28.9286 )
 [node name="driver" type="Position2D" parent="." groups=[
 "position",
 ]]
-position = Vector2( 64.6429, -19.2857 )
+position = Vector2( 46.4286, -19.2857 )
 
 [node name="wheel0" type="KinematicBody2D" parent="." groups=[
 "rendersprite",

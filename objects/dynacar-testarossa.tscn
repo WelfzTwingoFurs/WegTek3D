@@ -23,20 +23,25 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-engine = 2
+string = "Classic sportscar"
 head_height = 87
+engine = 2
 camheight = 123
 lightFh = 60
 driver_height = -20
 wheel_base = 89
-engine_power = 39.5
-max_speed = 314000
+engine_power = 19.25
+max_speed = 14900
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 minus = 0
 
 [node name="Other" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 5 )
+minus = -24
+
+[node name="Tire" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 minus = -24
 
