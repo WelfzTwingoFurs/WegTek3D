@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bump3.wav-40bbb5179021fb9667842a9313bf6875.sample"
+
+[deps]
+
+source_file="res://audio/npc/4/bump3.wav"
+dest_files=[ "res://.import/bump3.wav-40bbb5179021fb9667842a9313bf6875.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
