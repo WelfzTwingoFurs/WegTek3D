@@ -23,10 +23,14 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-string = "Vintage utility"
+string = "Vintage economy utility van: WORKVALOR Model-2"
 head_height = 130
 engine = 1
 dashboard = "res://assets/car dash kombi.png"
+steeringwheel = "res://assets/car wheel kombi.png"
+steer_pos = Vector2( -74, 325 )
+meter_speed_pos = Vector2( -73, 213 )
+meter_rpm_pos = Vector2( 9999, 0 )
 gears = 4
 camheight = 150
 lightFh = 68

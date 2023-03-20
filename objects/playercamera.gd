@@ -32,6 +32,7 @@ var vroll_car = 0
 export var mouselock = false
 var mousedir = Vector2(0,0)
 
+var map_on = false
 export var map_draw = 2
 export var map_scale = 0.1
 
@@ -239,8 +240,11 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("bug_lockmouse"):
 			mouselock = !mouselock
 		
-		if Input.is_action_pressed("ply_lookcenter"):
-			lookingZ = lerp(lookingZ, 0, 0.1)
+		if Input.is_action_pressed("ply_lookcenter") or (Input.is_action_pressed("ply_lookup") && Input.is_action_pressed("ply_lookdown")):
+			if (Input.is_action_pressed("ply_lookup") && Input.is_action_pressed("ply_lookdown")):
+				lookingZ = lerp(lookingZ, -0.27, 0.1)#sure thing fuckeroo
+			else:
+				lookingZ = lerp(lookingZ, 0, 0.1)
 	
 	
 	
@@ -346,6 +350,14 @@ func _physics_process(_delta):
 		#print(lookingZ)
 		
 		############################################################################
+	
+	if Input.is_action_just_pressed("bug_closeeyes"):
+		map_on = !map_on
+		
+		if !map_on:
+			$Background.visible = 1
+			$View.visible = 1
+	
 	###   ######      ######   ###   ###   #########
 	###   ###   ###   ##  ##   ###   ###      ###
 	###   ###   ###   ######   ###   ###      ###
@@ -559,6 +571,7 @@ func _process(_delta):
 	
 	if Worldconfig.playercar != null: #STEERING WHEEL GRAPHX
 		if !camera:
+			darkness = Worldconfig.playercar.darkness
 			$View/Feet.z_index = 4096
 			$View/Feet.visible = true
 			$View/Feet.rotation_degrees = Worldconfig.playercar.turn * 45
@@ -667,7 +680,8 @@ func _process(_delta):
 		recalculate()
 	else:
 		update()
-		if Input.is_action_pressed("bug_closeeyes"):
+		
+		if map_on:
 			$Background.visible = 0
 			$View.visible = 0
 			VisualServer.set_default_clear_color(0)
@@ -684,11 +698,6 @@ func _process(_delta):
 				if map_scale > 0.02:
 					map_scale -= 0.01
 			
-			
-		elif Input.is_action_just_released("bug_closeeyes"):
-			#update()
-			$Background.visible = 1
-			$View.visible = 1
 			
 		
 		else:
@@ -1843,7 +1852,8 @@ func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):
 
 
 func _draw():
-	if !Input.is_action_pressed("bug_closeeyes"):
+	#if !Input.is_action_pressed("bug_closeeyes"):
+	if !map_on:
 		#if (Worldconfig.playercar != null) && !camera:
 		#	draw_line($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale), ($View.position + $View/Hand.position + (Worldconfig.playercar.meter_speed_pos* $View/Hand.scale)) + Vector2(0,50).rotated(deg2rad((Worldconfig.playercar.motion.length()/Worldconfig.playercar.max_speed)*360)), Color(1,0,0), 3, true)
 		

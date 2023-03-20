@@ -136,6 +136,13 @@ func _process(_delta):
 	
 	var average = (to_global($model/base.points[2]) + to_global($model/base.points[3]))/2
 	
+	darkness = ($wheel0.darkness + $wheel1.darkness + $wheel2.darkness + $wheel3.darkness)/4
+	if darkness != was_darkness:
+		for n in $model.get_children():
+			n.darkness = darkness
+			
+		was_darkness = darkness
+	
 	for n in arr_sprites.size():
 		arr_sprites[n].positionZ = theraot(
 			Vector3(to_global(arr_sprites[n].position).x, to_global(arr_sprites[n].position).y, arr_sprites[n].positionZ),
@@ -403,7 +410,8 @@ func move_and_steer(delta):
 
 
 
-
+var darkness = 1
+var was_darkness
 
 func collide():
 	for n in col_sprites.size():
@@ -484,7 +492,6 @@ func collide():
 	
 	
 	for n in col_floors.size():
-		
 		if dontCollideWall:
 			add_collision_exception_with(col_floors[n])
 		
