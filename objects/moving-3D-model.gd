@@ -1,7 +1,7 @@
 extends Node2D
 
 export var scaleZ = 1
-var extraZ
+var extraZ = 0
 
 func _ready():
 	scaleZ = get_parent().scaleZ

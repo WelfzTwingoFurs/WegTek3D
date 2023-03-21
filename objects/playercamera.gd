@@ -700,8 +700,11 @@ func _process(_delta):
 			
 			
 		
-		else:
+		elif skipframe == null:
 			render()
+		#elif OS.get_ticks_msec() != skipframe:
+		elif (OS.get_ticks_msec() - skipframe) > 10:
+			skipframe = null
 
 #####    #####      #####      #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ##  ##       ##           ###         ###
@@ -1374,6 +1377,9 @@ var rot_minus90
 var midscreen = 0
 
 
+var skipframe
+func skip_frame():
+	skipframe = OS.get_ticks_msec()
 
 func render():
 	if (weakref(new_container).get_ref()):
@@ -1627,6 +1633,10 @@ func render():
 	
 	if (weakref(new_container).get_ref()):
 		for o in array_sprites.size():
+			if incoming_sprites.has(array_sprites[o]):
+				if (array_sprites[o].position - position).length() > draw_distance/lod_ddist_divi:
+					continue
+			
 			var new_sprite = $PolyContainer/Sprite0.duplicate()
 			
 			var xkusu = (array_sprites[o].position - position).angle() - midscreen
@@ -1776,6 +1786,7 @@ var array_walls = []
 var array_sprites = []
 
 var incoming_walls = []
+var incoming_sprites = []
 
 func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 	if !array_walls.has(body) or !array_sprites.has(body):
@@ -1784,11 +1795,12 @@ func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 				array_walls.push_back(body)
 				if !(body.is_in_group("wall") or body.is_in_group("floor")) && !body.is_in_group("logfx"):
 					if !incoming_walls.has(body):
-						for x in body.points.size():
-							if (body.points[x] - position).length() < draw_distance/lod_ddist_divi:
+						#for x in body.points.size():
+						#	if (body.points[x] - position).length() < draw_distance/lod_ddist_divi:
+						#		incoming_walls.push_back(body)
+						#		break
+						if (body.points[0] - position).length() < draw_distance/lod_ddist_divi:
 								incoming_walls.push_back(body)
-								break
-		
 		
 		
 		
@@ -1806,6 +1818,10 @@ func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 #						incoming_sprites.push_back(body)
 #				else:
 					array_sprites.push_back(body)
+					if !(body.is_in_group("wall") or body.is_in_group("floor")) && !body.is_in_group("logfx"):
+						if !incoming_sprites.has(body):
+							if (body.position - position).length() < draw_distance/lod_ddist_divi:
+									incoming_sprites.push_back(body)
 	
 
 func _on_ViewArea_body_shape_exited(_body_id, body, _body_shape, _local_shape):

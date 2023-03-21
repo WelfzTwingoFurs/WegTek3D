@@ -1,0 +1,1642 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://map-wall.gd" type="Script" id=1]
+[ext_resource path="res://map-sector.gd" type="Script" id=2]
+[ext_resource path="res://map-floor-animated.gd" type="Script" id=3]
+[ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=4]
+
+[sub_resource type="SegmentShape2D" id=1]
+a = Vector2( 10000, 10859 )
+b = Vector2( 9878, 10558 )
+
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( 10000, 10859 )
+b = Vector2( 10199, 11357 )
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( 10295, 11599 )
+b = Vector2( 10199, 11357 )
+
+[sub_resource type="SegmentShape2D" id=4]
+a = Vector2( 10000, 10859 )
+b = Vector2( 10199, 11357 )
+
+[sub_resource type="SegmentShape2D" id=5]
+a = Vector2( 10295, 11599 )
+b = Vector2( 10199, 11357 )
+
+[node name="igreja" type="Node2D"]
+
+[node name="PATH" type="Node2D" parent="."]
+
+[node name="Position2D" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 7281, 11586 )
+
+[node name="Position2D2" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 7886, 12846 )
+
+[node name="Position2D3" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 9227, 12967 )
+
+[node name="Position2D4" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 10215, 11919 )
+
+[node name="Position2D5" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 9751, 10457 )
+
+[node name="Position2D6" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 7876, 10245 )
+
+[node name="Position2D7" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 8874, 10366 )
+
+[node name="Position2D8" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 10033, 11142 )
+
+[node name="Position2D9" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 9751, 12472 )
+
+[node name="Position2D10" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 8552, 12926 )
+
+[node name="Position2D11" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 7524, 12190 )
+
+[node name="Position2D12" type="Position2D" parent="PATH" groups=[
+"path",
+]]
+position = Vector2( 7534, 10960 )
+
+[node name="left" type="Node2D" parent="."]
+
+[node name="ground" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.113725, 0.113725, 0.113725, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 320.0, 320.0, 320.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground"]
+polygon = PoolVector2Array( 19879.1, 148150, -4140.95, 160170, 32699.1, 147290 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground2" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.101961, 0.101961, 0.101961, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 450.0, 320.0, 320.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground2"]
+polygon = PoolVector2Array( 11919, 164290, -4140.95, 160170, 32699.1, 147290 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground8" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 450.0, 320.0, 320.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground8"]
+polygon = PoolVector2Array( 11919, 164290, -4140.95, 160170, -10521, 167860 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground9" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.133333, 0.133333, 0.133333, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 320.0, 320.0, 320.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground9"]
+polygon = PoolVector2Array( -6520.95, 159890, -4140.95, 160170, -10521, 167860 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground3" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 450.0, 450.0, 320.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground3"]
+polygon = PoolVector2Array( 11919, 164290, 40439.1, 156970, 32699.1, 147290 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground4" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.101961, 0.101961, 0.101961, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 385.0, 450.0, 320.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground4"]
+polygon = PoolVector2Array( 68679.1, 153550, 40439.1, 156970, 32699.1, 147290 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground5" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.109804, 0.109804, 0.109804, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 385.0, 450.0, 450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground5"]
+polygon = PoolVector2Array( 68679.1, 153550, 40439.1, 156970, 69539, 163780 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground6" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.121569, 0.121569, 0.121569, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 385.0, 420.0, 450.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground6"]
+polygon = PoolVector2Array( 68679.1, 153550, 71679.1, 153080, 69539, 163780 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground7" type="StaticBody2D" parent="left" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.133333, 0.133333, 0.133333, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 450.0, 420.0, 450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="left/ground7"]
+polygon = PoolVector2Array( 87439, 158670, 71679.1, 153080, 69539, 163780 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="right" type="Node2D" parent="."]
+
+[node name="ground" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 450.0, 450.0, 320.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground"]
+polygon = PoolVector2Array( 11919, 164290, 14618.9, 184180, -10521, 167860 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground2" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.105882, 0.105882, 0.105882, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 450.0, 450.0, 320.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground2"]
+polygon = PoolVector2Array( -3981.16, 187940, 14618.9, 184180, -10521, 167860 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground3" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 450.0, 450.0, 450.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground3"]
+polygon = PoolVector2Array( -3981.16, 187940, 14618.9, 184180, 48478.8, 190190 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground4" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.105882, 0.105882, 0.105882, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 450.0, 450.0, 450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground4"]
+polygon = PoolVector2Array( -3981.16, 187940, 3118.81, 192030, 48478.8, 190190 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground5" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 385.0, 450.0, 450.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground5"]
+polygon = PoolVector2Array( 48438.8, 199150, 3118.81, 192030, 48478.8, 190190 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground6" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 385.0, 385.0, 450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground6"]
+polygon = PoolVector2Array( 48438.8, 199150, 57838.8, 197160, 48478.8, 190190 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground7" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.105882, 0.105882, 0.105882, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 320.0, 385.0, 450.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground7"]
+polygon = PoolVector2Array( 90338.8, 183190, 57838.8, 197160, 48478.8, 190190 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground8" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 320.0, 450.0, 450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground8"]
+polygon = PoolVector2Array( 90338.8, 183190, 71978.9, 179370, 48478.8, 190190 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground9" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.141176, 0.141176, 0.141176, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 320.0, 450.0, 450.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground9"]
+polygon = PoolVector2Array( 90338.8, 183190, 71978.9, 179360, 69539, 163780 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground10" type="StaticBody2D" parent="right" groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.160784, 0.160784, 0.160784, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 320.0, 450.0, 450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/concrete32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="right/ground10"]
+polygon = PoolVector2Array( 90338.8, 183190, 87439, 158670, 69539, 163780 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="patio" type="StaticBody2D" parent="." groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 455.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="patio"]
+polygon = PoolVector2Array( 11919, 164290, 20718.9, 181270, 46278.9, 186140, 71978.9, 179360, 69539, 163780, 40439.1, 156970 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="patiofront" type="StaticBody2D" parent="." groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 455.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="patiofront"]
+polygon = PoolVector2Array( 11919, 164290, 14618.9, 184180, 21638.9, 182950 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="patiofront2" type="StaticBody2D" parent="." groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 455.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="patiofront2"]
+polygon = PoolVector2Array( 14618.9, 184180, 48478.8, 190190, 42458.8, 187120, 21638.9, 182950 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="patiofront3" type="StaticBody2D" parent="." groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 455.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="patiofront3"]
+polygon = PoolVector2Array( 48478.8, 190190, 71978.9, 179360, 42458.8, 187120 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="climb" type="StaticBody2D" parent="." groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.145098, 0.145098, 0.145098, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 455.0, 700.0, 700.0, 455.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+absolute = 1
+darkness = 2.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="climb"]
+polygon = PoolVector2Array( 46218.9, 186130, 38578.9, 184680, 37618.9, 186160, 42458.8, 187120 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="climb2" type="StaticBody2D" parent="." groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 700.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+absolute = 1
+darkness = 1.75
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="climb2"]
+polygon = PoolVector2Array( 28818.9, 182820, 38578.9, 184680, 37618.9, 186160, 27658.9, 184170 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="climb3" type="StaticBody2D" parent="." groups=[
+"floor",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.278431, 0.278431, 0.278431, 1 )
+position = Vector2( -8591, 9551.99 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 3 )
+heights = [ 700.0, 455.0, 455.0, 700.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="climb3"]
+polygon = PoolVector2Array( 28818.9, 182820, 20718.9, 181270, 21638.9, 182950, 27658.9, 184170 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="igreja" type="StaticBody2D" parent="."]
+position = Vector2( -7241, 8755 )
+scale = Vector2( 100, 100 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 450.0, 2100.0 ]
+plus1_mode = 1
+onesided = 1
+textures = [ "res://textures/bricks32.png", "", "", "res://textures/bricks32.png", "res://textures/bricks32.png", "res://textures/concrete32.png", "res://textures/concrete32.png", "res://textures/bricks32.png", "", "" ]
+colors = [ Color( 0.498039, 0.215686, 0.0666667, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0.760784, 0.356863, 0.141176, 1 ), Color( 0.498039, 0.215686, 0.0666667, 1 ), Color( 0.223529, 0.278431, 0.211765, 1 ), Color( 0.301961, 0.380392, 0.290196, 1 ), Color( 0.898039, 0.45098, 0.215686, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+darknesses = 1.5
+collide = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="igreja"]
+polygon = PoolVector2Array( 146.73, 28.28, 150.01, 22.07, 155.39, 23.15, 157.34, 17.77, 167.77, 18.33, 172.64, 31.11, 164.27, 40.73, 152.61, 40.05 )
+
+[node name="jane" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 900.0, 550.0, 550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane"]
+polygon = PoolVector2Array( 10164, -3404.04, 10247, -3356.04, 10072, -3449.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane2" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4271, 968 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 900.0, 550.0, 550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane2"]
+polygon = PoolVector2Array( 10164, -3404.04, 10247, -3356.04, 10072, -3449.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane3" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane3"]
+polygon = PoolVector2Array( 10164, -3404.04, 10247, -3356.04, 10072, -3449.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane4" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4271, 968 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane4"]
+polygon = PoolVector2Array( 10164, -3404.04, 10247, -3356.04, 10072, -3449.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="door" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.207843, 0.184314, 0.133333, 1 )
+position = Vector2( 4252, 2029 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 900.0, 450.0, 450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/metal.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="door"]
+polygon = PoolVector2Array( 10333.7, -2874.08, 10438, -2909.93, 10224.1, -2817.52 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane5" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4068, 1663 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 900.0, 550.0, 550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane5"]
+polygon = PoolVector2Array( 10333.7, -2874.08, 10438, -2909.93, 10224.1, -2817.52 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane6" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4437, 2402 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 900.0, 550.0, 550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane6"]
+polygon = PoolVector2Array( 10333.7, -2874.08, 10438, -2909.93, 10224.1, -2817.52 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane7" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4068, 1663 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1900.0, 1550.0, 1550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane7"]
+polygon = PoolVector2Array( 10333.7, -2874.08, 10438, -2909.93, 10224.1, -2817.52 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane8" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4437, 2402 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1900.0, 1550.0, 1550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane8"]
+polygon = PoolVector2Array( 10333.7, -2874.08, 10438, -2909.93, 10224.1, -2817.52 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane9" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4139, 1668 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 900.0, 550.0, 550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane9"]
+polygon = PoolVector2Array( 11323.8, -3416.03, 11333.7, -3465.52, 11322.7, -3364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane10" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4346, 1680 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 900.0, 550.0, 550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane10"]
+polygon = PoolVector2Array( 11323.8, -3416.03, 11333.7, -3465.52, 11322.7, -3364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane11" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4696, 1700 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 900.0, 550.0, 550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane11"]
+polygon = PoolVector2Array( 11323.8, -3416.03, 11333.7, -3465.52, 11322.7, -3364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane12" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4903, 1712 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 900.0, 550.0, 550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane12"]
+polygon = PoolVector2Array( 11323.8, -3416.03, 11333.7, -3465.52, 11322.7, -3364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane13" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4139, 1668 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane13"]
+polygon = PoolVector2Array( 11323.8, -3416.03, 11333.7, -3465.52, 11322.7, -3364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane14" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4346, 1680 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane14"]
+polygon = PoolVector2Array( 11323.8, -3416.03, 11333.7, -3465.52, 11322.7, -3364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane15" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4696, 1700 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane15"]
+polygon = PoolVector2Array( 11323.8, -3416.03, 11333.7, -3465.52, 11322.7, -3364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane16" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4903, 1712 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane16"]
+polygon = PoolVector2Array( 11323.8, -3416.03, 11333.7, -3465.52, 11322.7, -3364 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane17" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 4903, 1712 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane17"]
+polygon = PoolVector2Array( 11179.2, -3763.26, 11078.2, -3882.5, 11292.6, -3665.33 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane18" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 5183, 1392 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane18"]
+polygon = PoolVector2Array( 11179.2, -3763.26, 11078.2, -3882.5, 11292.6, -3665.33 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane19" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 5455, 1081 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane19"]
+polygon = PoolVector2Array( 11179.2, -3763.26, 11078.2, -3882.5, 11292.6, -3665.33 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="frontgrade" type="StaticBody2D" parent="." groups=[
+"higfx",
+"render",
+"wall",
+]]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -186, 87 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 700, 455, 505.0, 750.0 ]
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="frontgrade"]
+shape = SubResource( 1 )
+
+[node name="frontgrade2" type="StaticBody2D" parent="." groups=[
+"higfx",
+"render",
+"wall",
+]]
+modulate = Color( 0.627451, 0, 0, 1 )
+position = Vector2( -186, 87 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 700, 700, 750.0, 750.0 ]
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+darkness = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="frontgrade2"]
+shape = SubResource( 2 )
+
+[node name="frontgrade3" type="StaticBody2D" parent="." groups=[
+"higfx",
+"render",
+"wall",
+]]
+modulate = Color( 0.392157, 0, 0, 1 )
+position = Vector2( -186, 87 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 455, 700, 750.0, 505.0 ]
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+darkness = 1.75
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="frontgrade3"]
+shape = SubResource( 3 )
+
+[node name="frontwall" type="StaticBody2D" parent="." groups=[
+"higfx",
+"render",
+]]
+modulate = Color( 0.65098, 0.388235, 0.184314, 1 )
+position = Vector2( -174, 76 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 455, 455, 455.0, 700.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/bricks32.png"
+darkness = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="frontwall"]
+shape = SubResource( 1 )
+
+[node name="frontwall2" type="StaticBody2D" parent="." groups=[
+"higfx",
+"render",
+"wall",
+]]
+modulate = Color( 0.376471, 0.211765, 0.0862745, 1 )
+position = Vector2( -174, 76 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 455, 455, 700.0, 700.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/bricks32.png"
+darkness = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="frontwall2"]
+shape = SubResource( 4 )
+
+[node name="frontwall3" type="StaticBody2D" parent="." groups=[
+"higfx",
+"render",
+]]
+modulate = Color( 0.203922, 0.121569, 0.054902, 1 )
+position = Vector2( -174, 76 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 455, 700, 455.0, 455.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/bricks32.png"
+darkness = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="frontwall3"]
+shape = SubResource( 5 )
+
+[node name="frontjane" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 5455, 1081 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1000.0, 700.0, 700.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontjane"]
+polygon = PoolVector2Array( 10863.8, -3832.19, 10709.6, -3817.35, 10981.2, -3903.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="frontjane2" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 5134, 236 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1000.0, 700.0, 700.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontjane2"]
+polygon = PoolVector2Array( 10863.8, -3832.19, 10709.6, -3817.35, 10981.2, -3903.31 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="frontdoor" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.141176, 0.0901961, 0.00392157, 1 )
+position = Vector2( 5115, 193 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1000.0, 1000.0, 700.0, 700.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/wood32.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontdoor"]
+polygon = PoolVector2Array( 11548.6, -4060.77, 11070, -3914.04, 11059.6, -3923.68, 11552.4, -4074.57 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="frontdoor2" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.54902, 0.172549, 0.0313726, 1 )
+position = Vector2( 5115, 193 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1050.0, 1050.0, 1000.0, 1000.0 ]
+textures_on = true
+texture_path = "res://textures/roof32.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="frontdoor2"]
+polygon = PoolVector2Array( 11548.6, -4060.77, 11070, -3914.04, 11002.9, -4064.31, 11510.7, -4231.33 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane20" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 5134, 236 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane20"]
+polygon = PoolVector2Array( 10498.9, -2905.29, 10483.3, -2795.03, 10506.4, -3031.07 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jane21" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 5793, 275 )
+rotation = 1.51115
+script = ExtResource( 3 )
+heights = [ 1400.0, 1050.0, 1050.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="jane21"]
+polygon = PoolVector2Array( 10498.9, -2905.29, 10483.3, -2795.03, 10506.4, -3031.07 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="teto" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.258824, 0.258824, 0.258824, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3000.0, 2100.0, 2100.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+darkness = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="teto"]
+polygon = PoolVector2Array( 10414, -4609.04, 9272.98, -4377.03, 9328.98, -5420.03 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="teto2" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.317647, 0.317647, 0.317647, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3000.0, 2100.0, 2100.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+darkness = 0.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="teto2"]
+polygon = PoolVector2Array( 10414, -4609.04, 10607, -5907.04, 9328.98, -5420.03 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="teto3" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.368627, 0.368627, 0.368627, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3000.0, 2100.0, 2100.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="teto3"]
+polygon = PoolVector2Array( 10414, -4609.04, 10607, -5907.04, 11569, -5070.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="teto4" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.301961, 0.301961, 0.301961, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3000.0, 2100.0, 2100.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+darkness = 1.25
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="teto4"]
+polygon = PoolVector2Array( 10414, -4609.04, 11501, -3904.04, 11569, -5070.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="teto5" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.258824, 0.258824, 0.258824, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3000.0, 2100.0, 2100.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="teto5"]
+polygon = PoolVector2Array( 10414, -4609.04, 11501, -3904.04, 10324, -3316.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="teto6" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.152941, 0.290196, 0.356863, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3000.0, 2100.0, 2100.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+darkness = 0.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="teto6"]
+polygon = PoolVector2Array( 10414, -4609.04, 9702.99, -3644.04, 10324, -3316.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="teto7" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.152941, 0.290196, 0.356863, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3000.0, 2100.0, 2100.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+darkness = 0.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="teto7"]
+polygon = PoolVector2Array( 10414, -4609.04, 9272.98, -4377.03, 9702.99, -3644.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="igrejatower" type="StaticBody2D" parent="."]
+position = Vector2( -7241, 8755 )
+scale = Vector2( 100, 100 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ 450.0, 3000.0 ]
+plus1_mode = 1
+onesided = -1
+textures = [ "res://textures/bricks32.png", "res://textures/bricks32.png", "res://textures/bricks32.png", "res://textures/bricks32.png", "", "" ]
+colors = [ Color( 0.364706, 0.207843, 0.121569, 1 ), Color( 0.0745098, 0.0431373, 0.0235294, 1 ), Color( 0.121569, 0.0705882, 0.0392157, 1 ), Color( 0.298039, 0.168627, 0.101961, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+collide = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="igrejatower"]
+polygon = PoolVector2Array( 151.25, 15.78, 149.13, 21.9, 155.39, 23.15, 157.62, 16.98 )
+
+[node name="towerteto" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.152941, 0.290196, 0.356863, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3500.0, 3000.0, 3000.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+darkness = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="towerteto"]
+polygon = PoolVector2Array( 9427.99, -3980.03, 9073.99, -3768.03, 9193.98, -4405.03 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="towerteto2" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.0784314, 0.196078, 0.254902, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3500.0, 3000.0, 3000.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="towerteto2"]
+polygon = PoolVector2Array( 9427.99, -3980.03, 9810.98, -4182.04, 9193.98, -4405.03 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="towerteto3" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.105882, 0.290196, 0.380392, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3500.0, 3000.0, 3000.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+darkness = 1.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="towerteto3"]
+polygon = PoolVector2Array( 9427.99, -3980.03, 9810.98, -4182.04, 9685.99, -3556.04 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="towerteto4" type="StaticBody2D" parent="." groups=[
+"higfx",
+"polywall",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.152941, 0.372549, 0.478431, 1 )
+position = Vector2( 4116, 1259 )
+rotation = 1.5708
+script = ExtResource( 3 )
+heights = [ 3500.0, 3000.0, 3000.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+absolute = 1
+darkness = 0.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="towerteto4"]
+polygon = PoolVector2Array( 9427.99, -3980.03, 9073.99, -3768.03, 9685.99, -3556.04 )
+__meta__ = {
+"_edit_lock_": true
+}

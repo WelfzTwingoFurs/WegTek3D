@@ -23,7 +23,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-string = "Antique sportscar"
+string = "Antique luxury sports roadster:\\nFORTE Type-A"
 head_height = 129
 engine = 1
 gears = 3

@@ -160,6 +160,8 @@ func collide():
 	
 	
 	for n in col_floors.size():
+		darkness = col_floors[n].darkness
+		
 		if dontCollideWall:
 			add_collision_exception_with(col_floors[n])
 		

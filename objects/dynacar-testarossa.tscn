@@ -23,7 +23,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-string = "Classic sportscar"
+string = "Classic luxury sports coupe: FERRADO Outtarunna"
 head_height = 87
 engine = 2
 camheight = 123

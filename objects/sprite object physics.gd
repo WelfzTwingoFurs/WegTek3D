@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var positionZ = 0
 export var anim = 0
 export var scale_extra = Vector2(float(0.8),float(0.8))
-export(Texture) var texture = preload("res://assets/sprites chaser jake.png")
+export(Texture) var texture = preload("rres://older_versions/sprites chaser jake.png")
 export var vframes = 5
 export var hframes = 10
 export var rotations = 8

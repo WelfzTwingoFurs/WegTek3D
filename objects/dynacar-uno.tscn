@@ -23,7 +23,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-string = "Classic hatchback"
+string = "Classic economy hatchback car: FATIA Umsó"
 dashboard = "res://assets/car dash uno.png"
 steeringwheel = "res://assets/car wheel uno.png"
 camheight = 150

@@ -411,6 +411,7 @@ __meta__ = {
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
 z_index = 4096
+z_as_relative = false
 current = true
 __meta__ = {
 "_edit_lock_": true
@@ -508,15 +509,15 @@ __meta__ = {
 [node name="Sprite0" type="Sprite" parent="PolyContainer"]
 hframes = 10
 
+[node name="Aim" type="Sprite" parent="."]
+z_index = 4096
+texture = ExtResource( 10 )
+
 [node name="View" type="Node2D" parent="."]
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
-
-[node name="Aim" type="Sprite" parent="View"]
-z_index = 4096
-texture = ExtResource( 10 )
 
 [node name="AniPlayFeet" type="AnimationPlayer" parent="View"]
 anims/spin = SubResource( 3 )

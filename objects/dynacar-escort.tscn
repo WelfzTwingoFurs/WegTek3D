@@ -23,7 +23,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
-string = "Premodern fastback"
+string = "Classic economy fastback: FORTE Esport"
 head_height = 85
 camheight = 150
 driver_height = 5
