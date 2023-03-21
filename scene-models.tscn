@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=1]
 [ext_resource path="res://objects/car FordA.tscn" type="PackedScene" id=2]
@@ -9,11 +9,6 @@
 [ext_resource path="res://objects/playercamera.tscn" type="PackedScene" id=7]
 [ext_resource path="res://objects/thing Tree1.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/thing Lightpost.tscn" type="PackedScene" id=9]
-[ext_resource path="res://objects/dynacar-uno.tscn" type="PackedScene" id=10]
-[ext_resource path="res://objects/dynacar-kombi.tscn" type="PackedScene" id=11]
-[ext_resource path="res://objects/dynacar-testarossa.tscn" type="PackedScene" id=12]
-[ext_resource path="res://objects/dynacar-fordA.tscn" type="PackedScene" id=13]
-[ext_resource path="res://objects/dynacar-escort.tscn" type="PackedScene" id=14]
 
 [node name="scene models" type="Node2D"]
 
@@ -28,48 +23,43 @@ vroll_multi = 0.0
 cull_on = false
 higfx = true
 
+[node name="Hand" parent="playercamera/View" index="3"]
+visible = true
+modulate = Color( 1, 1, 1, 0.498039 )
+
 [node name="Escort" parent="." instance=ExtResource( 5 )]
-position = Vector2( -1065, 1 )
+position = Vector2( -1567, 33 )
 rotation = 4.71239
 script = ExtResource( 1 )
 
 [node name="FordA" parent="." instance=ExtResource( 2 )]
-position = Vector2( -409, 1 )
+position = Vector2( -856, 0 )
 rotation = 4.71239
 script = ExtResource( 1 )
 
 [node name="Kombi" parent="." instance=ExtResource( 4 )]
-position = Vector2( -906, 1 )
+position = Vector2( -1353, 0 )
 rotation = 4.71239
 script = ExtResource( 1 )
 
 [node name="Testarossa" parent="." instance=ExtResource( 3 )]
-position = Vector2( -579, 1 )
+position = Vector2( -1026, 0 )
 rotation = 4.71239
 script = ExtResource( 1 )
 
 [node name="Uno" parent="." instance=ExtResource( 6 )]
-position = Vector2( -733, 1 )
+position = Vector2( -1180, 0 )
 rotation = 4.71239
 script = ExtResource( 1 )
 
-[node name="Tree" parent="." instance=ExtResource( 8 )]
-position = Vector2( -295, 0 )
+[node name="Tree7" parent="." instance=ExtResource( 8 )]
+position = Vector2( -444, 0 )
+scale = Vector2( 1, 1 )
+positionZ = 0
+scaleZ = 1.0
 
 [node name="Lightpost" parent="." instance=ExtResource( 9 )]
-position = Vector2( -234, 0 )
+position = Vector2( -630, 0 )
+positionZ = 0
 
-[node name="dynacar-escort" parent="." instance=ExtResource( 14 )]
-position = Vector2( 23.9999, 586 )
-
-[node name="dynacar-fordA" parent="." instance=ExtResource( 13 )]
-position = Vector2( 23.9999, 586 )
-
-[node name="dynacar-kombi" parent="." instance=ExtResource( 11 )]
-position = Vector2( 23.9999, 586 )
-
-[node name="dynacar-testarossa" parent="." instance=ExtResource( 12 )]
-position = Vector2( 23.9999, 586 )
-
-[node name="dynacar-uno" parent="." instance=ExtResource( 10 )]
-position = Vector2( 23.9999, 586 )
+[editable path="playercamera"]

@@ -1,19 +1,14 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://objects/playercamera.tscn" type="PackedScene" id=1]
-[ext_resource path="res://objects/dynacar-escort.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/ped.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/LoadingZone.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/scene-pieces-guilhermina/B1downie.tscn" type="PackedScene" id=3]
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=4]
-[ext_resource path="res://objects/dynacar-kombi.tscn" type="PackedScene" id=5]
 [ext_resource path="res://map-wall.gd" type="Script" id=6]
 [ext_resource path="res://map-sector.gd" type="Script" id=7]
 [ext_resource path="res://queue_free plus make_invisible.gd" type="Script" id=8]
-[ext_resource path="res://objects/dynacar-testarossa.tscn" type="PackedScene" id=9]
-[ext_resource path="res://objects/dynacar-fordA.tscn" type="PackedScene" id=10]
 [ext_resource path="res://map-floor-animated.gd" type="Script" id=11]
-[ext_resource path="res://objects/dynacar-uno.tscn" type="PackedScene" id=12]
 [ext_resource path="res://mapsplan.png" type="Texture" id=13]
-[ext_resource path="res://objects/sign.tscn" type="PackedScene" id=14]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( 443400, 116500 )
@@ -24,30 +19,73 @@ a = Vector2( 504000, 113000 )
 b = Vector2( 569900, 109000 )
 
 [sub_resource type="SegmentShape2D" id=3]
-a = Vector2( 3398.07, -4627.91 )
-b = Vector2( 2870.07, -4604.91 )
+a = Vector2( 805800, -23700 )
+b = Vector2( 716500, -19700 )
 
 [sub_resource type="SegmentShape2D" id=4]
+a = Vector2( 742100, -90800 )
+b = Vector2( 726500, -90300 )
+
+[sub_resource type="SegmentShape2D" id=5]
+a = Vector2( 800600, -93000 )
+b = Vector2( 760300, -91300 )
+
+[sub_resource type="SegmentShape2D" id=6]
+a = Vector2( 707300, -19300 )
+b = Vector2( 644500, -16700 )
+
+[sub_resource type="SegmentShape2D" id=7]
+a = Vector2( 633800, -16200 )
+b = Vector2( 577700, -13700 )
+
+[sub_resource type="SegmentShape2D" id=8]
+a = Vector2( 574000, -13700 )
+b = Vector2( 521800, -11400 )
+
+[sub_resource type="SegmentShape2D" id=9]
+a = Vector2( 517600, -11000 )
+b = Vector2( 504000, -10500 )
+
+[sub_resource type="SegmentShape2D" id=10]
 a = Vector2( 153600, 4900 )
 b = Vector2( 59200, 9000 )
 
-[sub_resource type="SegmentShape2D" id=5]
+[sub_resource type="SegmentShape2D" id=11]
+a = Vector2( 89500, 7700 )
+b = Vector2( 70000, 8400 )
+
+[sub_resource type="SegmentShape2D" id=12]
+a = Vector2( 155200, -96700 )
+b = Vector2( 154900, -75600 )
+
+[sub_resource type="SegmentShape2D" id=13]
 a = Vector2( 153600, 4900 )
 b = Vector2( 267300, -100 )
 
-[sub_resource type="SegmentShape2D" id=6]
+[sub_resource type="SegmentShape2D" id=14]
 a = Vector2( 59200, 9000 )
 b = Vector2( 267300, -100 )
 
-[sub_resource type="SegmentShape2D" id=7]
+[sub_resource type="SegmentShape2D" id=15]
+a = Vector2( 70200, -13300 )
+b = Vector2( 49800, -12000 )
+
+[sub_resource type="SegmentShape2D" id=16]
+a = Vector2( 36600, -11300 )
+b = Vector2( -1000, -9400 )
+
+[sub_resource type="SegmentShape2D" id=17]
 a = Vector2( -26900, 12800 )
 b = Vector2( 21100, 10700 )
 
-[sub_resource type="SegmentShape2D" id=8]
+[sub_resource type="SegmentShape2D" id=18]
 a = Vector2( 59200, 9000 )
 b = Vector2( 21100, 10700 )
 
 [node name="guilhermina downtown" type="Node2D"]
+
+[node name="LoadingZone" parent="." instance=ExtResource( 2 )]
+level = ExtResource( 3 )
 
 [node name="playercamera" parent="." instance=ExtResource( 1 )]
 position = Vector2( 2643, 2914 )
@@ -60,35 +98,8 @@ cull_on = false
 higfx = true
 shading = 0.25
 
-[node name="Sky" parent="playercamera/Background" index="0"]
+[node name="Sky" parent="playercamera/Background" index="1"]
 modulate = Color( 1, 0, 1, 1 )
-
-[node name="objects" type="Node2D" parent="."]
-script = ExtResource( 8 )
-
-[node name="ped" parent="objects" instance=ExtResource( 3 )]
-position = Vector2( 2628, 3158 )
-positionZ = -9999
-
-[node name="dynacar-uno" parent="objects" instance=ExtResource( 12 )]
-position = Vector2( 230, 3790 )
-
-[node name="dynacar-kombi" parent="objects" instance=ExtResource( 5 )]
-position = Vector2( 251, 3561 )
-camdist = 589
-camheight = 196
-
-[node name="dynacar-testarossa" parent="objects" instance=ExtResource( 9 )]
-position = Vector2( 254, 3277 )
-
-[node name="dynacar-fordA" parent="objects" instance=ExtResource( 10 )]
-position = Vector2( 281, 3023 )
-
-[node name="dynacar-escort" parent="objects" instance=ExtResource( 2 )]
-position = Vector2( 916, 3688 )
-
-[node name="sign" parent="objects" instance=ExtResource( 14 )]
-position = Vector2( 2277, 3470 )
 
 [node name="mapsplan" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.388235 )
@@ -241,6 +252,7 @@ __meta__ = {
 "render",
 "wall",
 ]]
+visible = false
 modulate = Color( 0.866667, 0.803922, 0.466667, 1 )
 position = Vector2( -4292, 2943 )
 scale = Vector2( 0.01, 0.01 )
@@ -297,6 +309,40 @@ absolute = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/bot/casa2"]
 polygon = PoolVector2Array( -23.64, -3.66, -23.98, -10.53, -35.32, -9.86, -35.13, -3.08 )
 
+[node name="casa4" type="StaticBody2D" parent="BLOCK2/middie/bot"]
+position = Vector2( 1401, 5228 )
+scale = Vector2( 100, 100 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -680.0, -300.0 ]
+plus1_mode = 1
+onesided = 1
+textures = [ "res://textures/shadow.png", "", "res://textures/concrete32.png", "res://textures/concrete32.png", "res://textures/grass32.png", "" ]
+colors = [ Color( 0.301961, 0.321569, 0.8, 1 ), Color( 0, 0, 0, 1 ), Color( 0.145098, 0.156863, 0.439216, 1 ), Color( 0.301961, 0.321569, 0.8, 1 ), Color( 0.298039, 0.8, 0.364706, 1 ), Color( 0, 0, 0, 1 ) ]
+absolute = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/bot/casa4"]
+polygon = PoolVector2Array( -23.64, -3.66, -23.98, -10.53, -35.32, -9.86, -35.13, -3.08 )
+
+[node name="casa5" type="StaticBody2D" parent="BLOCK2/middie/bot"]
+position = Vector2( 2341, 3927 )
+scale = Vector2( 100, 100 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -500.0, -500.0, -525.0, -525.0, 150.0 ]
+plus1_mode = 1
+onesided = 1
+textures = [ "res://textures/shadow.png", "res://textures/shadow.png", "res://textures/shadow.png", "", "", "" ]
+colors = [ Color( 0.588235, 0.203922, 0.541176, 1 ), Color( 1, 0.313726, 0.909804, 1 ), Color( 0.588235, 0.203922, 0.541176, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+collide = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/bot/casa5"]
+polygon = PoolVector2Array( -59.62, 17.08, -60.01, 4.07, -44.72, 3.16, -44.37, 16.43 )
+
 [node name="casa3" type="StaticBody2D" parent="BLOCK2/middie/bot"]
 position = Vector2( -1263, 5388 )
 scale = Vector2( 100, 100 )
@@ -333,23 +379,6 @@ polygon = PoolVector2Array( 24.46, -43.54, 11.68, -42.77, 13.25, -26.04 )
 
 [node name="top" type="Node2D" parent="BLOCK2/middie"]
 
-[node name="predioyard" type="StaticBody2D" parent="BLOCK2/middie/top"]
-position = Vector2( -7537, 4556 )
-scale = Vector2( 100, 100 )
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_group_": true
-}
-heights = [ -1110, -820.0, -850.0, -1110.0, -500.0 ]
-plus1_mode = 1
-onesided = 1
-textures = [ "", "res://textures/bricks32.png", "res://textures/bricks32.png", "", "", "" ]
-colors = [ Color( 0.517647, 0.517647, 0.517647, 1 ), Color( 1, 1, 1, 1 ), Color( 0.647059, 0.647059, 0.647059, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
-collide = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/predioyard"]
-polygon = PoolVector2Array( 22.59, -25.55, 22.15, -14.52, 14.36, -14.18, 16.93, -25.49 )
-
 [node name="predio" type="StaticBody2D" parent="BLOCK2/middie/top"]
 position = Vector2( -7537, 4556 )
 scale = Vector2( 100, 100 )
@@ -383,27 +412,6 @@ colors = [ Color( 0, 0, 0.192157, 1 ), Color( 0, 0, 0.423529, 1 ), Color( 0, 0, 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/predio2"]
 polygon = PoolVector2Array( 27.75, -14.81, 22.15, -14.52, 22.5, -23.43 )
 
-[node name="predioporta" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
-"higfx",
-"render",
-]]
-position = Vector2( -8846, 8569 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_group_": true
-}
-heights = [ -600.0, -600.0, -850.0, -830.0 ]
-onesided = -1
-textures_on = true
-texture_path = "res://textures/gate32.png"
-jumpover = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/predioporta"]
-position = Vector2( -0.0693359, -831.09 )
-shape = SubResource( 3 )
-
 [node name="calça" parent="BLOCK2/middie/top" groups=[
 "floor",
 "render",
@@ -418,6 +426,7 @@ onesided = -1
 textures_on = true
 texture_path = "res://textures/concrete32.png"
 absolute = 1
+darkness = 1.5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/calça"]
 polygon = PoolVector2Array( -124920, 23039.7, -134741, 133330, -137661, 132130 )
@@ -438,6 +447,7 @@ heights = [ -850.0, -850.0, -500.0 ]
 textures_on = true
 texture_path = "res://textures/concrete32.png"
 absolute = 1
+darkness = 1.5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/calça2"]
 polygon = PoolVector2Array( -128280, 24899.8, -124920, 23039.7, -137661, 132130 )
@@ -462,6 +472,70 @@ collide = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/casa"]
 polygon = PoolVector2Array( 26.56, -21.14, 22.81, -12.58, 14.25, -12.21, 13.94, -21.48 )
 
+[node name="casagate" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+"wall",
+]]
+modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -528, -564, -300.0, -300.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casagate"]
+shape = SubResource( 3 )
+
+[node name="casadoor" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.172549, 0.172549, 0.172549, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -560, -560, -300.0, -300.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/wood32.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casadoor"]
+shape = SubResource( 4 )
+
+[node name="casawindow" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.0196078, 0, 0.890196, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -450, -450, -300.0, -300.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casawindow"]
+shape = SubResource( 5 )
+
 [node name="casa2" type="StaticBody2D" parent="BLOCK2/middie/top"]
 position = Vector2( 2341, 3927 )
 scale = Vector2( 100, 100 )
@@ -474,7 +548,7 @@ plus1_mode = 1
 onesided = 1
 textures = [ "", "", "", "res://textures/shadow.png", "res://textures/glass32.png", "" ]
 colors = [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0.811765, 0.27451, 0.745098, 1 ), Color( 0.694118, 0.694118, 0.694118, 1 ), Color( 0, 0, 0, 1 ) ]
-collide = true
+darknesses = 2.0
 absolute = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/casa2"]
@@ -497,6 +571,49 @@ collide = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/casa3"]
 polygon = PoolVector2Array( 5.23, -31.08, 5.32, -11.81, -2.95, -11.46, -2.77, -31.15 )
 
+[node name="casagate3" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+"wall",
+]]
+modulate = Color( 0.537255, 0.537255, 0.537255, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -571, -571, -300.0, -300.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/gate32.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casagate3"]
+shape = SubResource( 6 )
+
+[node name="casawindows" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.00392157, 0.0509804, 0.580392, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -100, -100, 100.0, 100.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casawindows"]
+shape = SubResource( 6 )
+
 [node name="casa4" type="StaticBody2D" parent="BLOCK2/middie/top"]
 position = Vector2( 2341, 3927 )
 scale = Vector2( 100, 100 )
@@ -509,11 +626,31 @@ plus1_mode = 1
 onesided = 1
 textures = [ "", "", "", "res://textures/shadow.png", "res://textures/glass32.png", "" ]
 colors = [ Color( 0.172549, 0.172549, 0.172549, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0.168627, 0.490196, 0.596078, 1 ), Color( 0.694118, 0.694118, 0.694118, 1 ), Color( 0, 0, 0, 1 ) ]
-collide = true
+darknesses = 3.0
 absolute = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/casa4"]
 polygon = PoolVector2Array( -8.56, -29.03, -8.56, -11.21, -2.95, -11.46, -2.79, -29.14 )
+
+[node name="casagate2" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -589, -600, -405.0, -405.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casagate2"]
+shape = SubResource( 7 )
 
 [node name="casa5" type="StaticBody2D" parent="BLOCK2/middie/top"]
 position = Vector2( 2341, 3927 )
@@ -532,6 +669,48 @@ collide = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/casa5"]
 polygon = PoolVector2Array( -8.56, -29.03, -8.56, -11.21, -16.17, -10.88, -16.04, -28.89 )
 
+[node name="casagate4" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.101961, 0.0705882, 0.392157, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -601, -601, -300.0, -300.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casagate4"]
+shape = SubResource( 8 )
+
+[node name="casagate5" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.101961, 0.0705882, 0.392157, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -601, -601, -370.0, -370.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/chainfence2.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casagate5"]
+shape = SubResource( 9 )
+
 [node name="casa6" type="StaticBody2D" parent="BLOCK2/middie/top"]
 position = Vector2( 2341, 3927 )
 scale = Vector2( 100, 100 )
@@ -544,6 +723,7 @@ plus1_mode = 1
 onesided = 1
 textures = [ "res://textures/shadow.png", "", "", "res://textures/wood32.png", "res://textures/pebbles32.png", "res://textures/roof32.png" ]
 colors = [ Color( 0.278431, 0.278431, 0.278431, 1 ), Color( 0.768627, 0.486275, 0.211765, 1 ), Color( 0.768627, 0.486275, 0.211765, 1 ), Color( 0.0980392, 0.305882, 0.0705882, 1 ), Color( 0.52549, 0.52549, 0.52549, 1 ), Color( 0.231373, 0.231373, 0.231373, 1 ) ]
+darknesses = 2.0
 collide = true
 absolute = true
 
@@ -562,6 +742,7 @@ plus1_mode = 1
 onesided = 1
 textures = [ "res://textures/concrete32.png", "", "res://textures/concrete32.png", "res://textures/wood32.png", "res://textures/pebbles32.png", "res://textures/roof32.png" ]
 colors = [ Color( 0.278431, 0.278431, 0.278431, 1 ), Color( 0.768627, 0.486275, 0.211765, 1 ), Color( 0.278431, 0.278431, 0.278431, 1 ), Color( 0.635294, 0.635294, 0.635294, 1 ), Color( 0.52549, 0.52549, 0.52549, 1 ), Color( 1, 1, 1, 1 ) ]
+darknesses = 2.0
 collide = true
 absolute = true
 
@@ -580,6 +761,7 @@ plus1_mode = 1
 onesided = 1
 textures = [ "res://textures/shadow.png", "", "res://textures/shadow.png", "res://textures/wood32.png", "res://textures/glass32.png", "res://textures/roof32.png" ]
 colors = [ Color( 0.8, 0.721569, 0.301961, 1 ), Color( 0.768627, 0.486275, 0.211765, 1 ), Color( 0.996078, 0.964706, 0.47451, 1 ), Color( 0.2, 0.0745098, 0.00784314, 1 ), Color( 0.937255, 0.760784, 0.486275, 1 ), Color( 0.639216, 0.278431, 0.109804, 1 ) ]
+darknesses = 2.0
 collide = true
 absolute = true
 
@@ -598,6 +780,7 @@ plus1_mode = 1
 onesided = -1
 textures = [ "res://textures/shadow.png", "", "res://textures/concrete32.png", "res://textures/concrete32.png", "res://textures/grass32.png", "" ]
 colors = [ Color( 0.301961, 0.321569, 0.8, 1 ), Color( 0, 0, 0, 1 ), Color( 0.145098, 0.156863, 0.439216, 1 ), Color( 0.301961, 0.321569, 0.8, 1 ), Color( 0.298039, 0.8, 0.364706, 1 ), Color( 0, 0, 0, 1 ) ]
+darknesses = 3.0
 absolute = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/casa9"]
@@ -623,7 +806,67 @@ texture_path = "res://textures/concrete32.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9-2"]
-shape = SubResource( 4 )
+shape = SubResource( 10 )
+
+[node name="casa9door" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.494118, 0.278431, 0.00392157, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -710, -710, -450.0, -450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/wood32.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9door"]
+shape = SubResource( 11 )
+
+[node name="casa9door2" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.494118, 0.278431, 0.00392157, 1 )
+position = Vector2( -4292, 2943 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -710, -710, -450.0, -450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/wood32.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9door2"]
+shape = SubResource( 12 )
+
+[node name="casa9window" type="StaticBody2D" parent="BLOCK2/middie/top"]
+position = Vector2( 779, 3995 )
+scale = Vector2( 100, 100 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -600.0, -400.0 ]
+plus1_mode = 1
+onesided = 1
+textures = [ "res://textures/stretchtest.png", "res://textures/stretchtest.png", "res://textures/stretchtest.png", "", "" ]
+colors = [ Color( 0.027451, 0.0352941, 0.262745, 1 ), Color( 0.0156863, 0.0627451, 0.192157, 1 ), Color( 0.0235294, 0.0313726, 0.262745, 1 ), Color( 0.0117647, 0.176471, 0.0313726, 1 ), Color( 0.266667, 0.0313726, 0.0313726, 1 ) ]
+darknesses = 3.0
+absolute = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/casa9window"]
+polygon = PoolVector2Array( -35.29, -17.16, -35.32, -10.14, -40.31, -9.91 )
 
 [node name="casa9gate" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
 "render",
@@ -645,7 +888,7 @@ texture_path = "res://textures/chainfence2.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9gate"]
-shape = SubResource( 5 )
+shape = SubResource( 13 )
 
 [node name="casa9wall" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
 "render",
@@ -665,7 +908,7 @@ texture_path = "res://textures/concrete32.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9wall"]
-shape = SubResource( 6 )
+shape = SubResource( 14 )
 
 [node name="casa10" type="StaticBody2D" parent="BLOCK2/middie/top"]
 position = Vector2( -1302, 4087 )
@@ -679,9 +922,52 @@ plus1_mode = 1
 onesided = -1
 textures = [ "res://textures/concrete32.png", "", "res://textures/concrete32.png", "res://textures/concrete32.png", "res://textures/rocks32.png", "" ]
 colors = [ Color( 0.792157, 0.792157, 0.792157, 1 ), Color( 0, 0, 0, 1 ), Color( 0.439216, 0.439216, 0.439216, 1 ), Color( 0.619608, 0.619608, 0.619608, 1 ), Color( 0.329412, 0.501961, 0.301961, 1 ), Color( 0, 0, 0, 1 ) ]
+darknesses = 3.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BLOCK2/middie/top/casa10"]
 polygon = PoolVector2Array( -24.03, -15.74, -23.98, -10.54, -32.59, -10.16, -32.59, -15.24 )
+
+[node name="casa9door3" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.494118, 0.278431, 0.00392157, 1 )
+position = Vector2( -4483, 2651 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -788, -799, -550.0, -550.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/wood32.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9door3"]
+shape = SubResource( 15 )
+
+[node name="casa9door4" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
+"render",
+]]
+modulate = Color( 0.0313726, 0.0235294, 0.717647, 1 )
+position = Vector2( -4483, 2651 )
+scale = Vector2( 0.01, 0.01 )
+collision_layer = 5
+collision_mask = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -710, -710, -450.0, -450.0 ]
+onesided = 1
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+jumpover = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa9door4"]
+shape = SubResource( 16 )
 
 [node name="casa10gate" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
 "render",
@@ -703,7 +989,7 @@ texture_path = "res://textures/concrete32.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa10gate"]
-shape = SubResource( 7 )
+shape = SubResource( 17 )
 
 [node name="casa10gate2" type="StaticBody2D" parent="BLOCK2/middie/top" groups=[
 "render",
@@ -725,7 +1011,7 @@ texture_path = "res://textures/chainfence2.png"
 jumpover = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BLOCK2/middie/top/casa10gate2"]
-shape = SubResource( 8 )
+shape = SubResource( 18 )
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 8 )
@@ -1187,4 +1473,3 @@ __meta__ = {
 }
 
 [editable path="playercamera"]
-[editable path="objects/dynacar-escort"]

@@ -45,6 +45,10 @@ func _physics_process(_delta):
 	else:
 		move.y = 0
 	
+	if Input.is_action_pressed("ply_jump"):
+		positionZ += 1
+	elif Input.is_action_pressed("ply_crouch"):
+		positionZ -= 1
 	
 	position3D = Vector3(position.x,position.y,positionZ)
 
@@ -67,26 +71,6 @@ func _process(_delta):
 	var midscreen = (Vector2(0,draw_distance).rotated(angle)).angle()
 	
 	
-#	for n in walls.size():
-#		for m in walls[n].polygon.size():
-#			var new = $PolyContainer/Sprite0.duplicate()
-#			var polygon2D = (Vector2(walls[n].polygon[m].x, walls[n].polygon[m].y))
-#
-#			var x = (polygon2D - position).angle() - midscreen
-#			var y = (OS.window_size.y / not_zero( (polygon2D - position).length()) )   /  cos(x)
-#
-#			new.scale = Vector2( ((((OS.window_size.x /  not_zero((polygon2D - position).length())) / cos(x) )/$PolyContainer.scale.x) * (180-angles)/1000), y)
-#			new.position = Vector2(tan(x), ((positionZ)*y)-y*(walls[n].polygon[m].z) )
-#			new.z_index = (walls[n].polygon[m] - position3D).length()
-#
-#			new.texture = walls[n].texture
-#			new.hframes = new.texture.get_width()
-#
-#			container.add_child(new)
-		
-#		for m in container.get_children().size():
-#			pass
-
 	for n in walls.size():
 		for m in walls[n].polygon.size()-2:
 			var new1 = $PolyContainer/Sprite0.duplicate()
@@ -100,8 +84,8 @@ func _process(_delta):
 			new1.position = Vector2(tan(x), ((positionZ)*y)-y*(walls[n].polygon[m].z) )
 			new1.z_index = (walls[n].polygon[m] - position3D).length()
 			
-			new1.texture = walls[n].texture
-			new1.hframes = new1.texture.get_width()
+			#new1.texture = walls[n].texture
+			#new1.hframes = new1.texture.get_width()
 			
 			container.add_child(new1)
 			############################################################ strip 1
@@ -120,17 +104,17 @@ func _process(_delta):
 			############################################################ strip 2
 			
 			
-			var Min = [new1.position.x, new2.position.x].min()
-			var Max = [new1.position.x, new2.position.x].max()
+			var Min = Vector2([new1.position.x, new2.position.x].min(), [new1.position.y, new2.position.y].min())
+			var Max = Vector2([new1.position.x, new2.position.x].max(), [new1.position.y, new2.position.y].max())
 			
-			for o in (Max-Min)*container.scale.x:
+			for o in ((Max.x-Min.x)*container.scale.x):
 				var mid = new1.duplicate()
 				mid.modulate = Color8(o,o,o)
-				mid.position.x = Max-(o/container.scale.x)
-				
+				mid.position.x = Max.x-(o/container.scale.x)
 				container.add_child(mid)
-				
+				#sprites.push_back(mid)
 
+#var sprites = []
 
 ################################################################################
 
