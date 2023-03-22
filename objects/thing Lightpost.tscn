@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/moving-3D.gd" type="Script" id=1]
+[ext_resource path="res://objects/moving-3D-model.gd" type="Script" id=2]
+[ext_resource path="res://map-floor-animated.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 25.02
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 14.0
+
+[node name="Lightpost" type="KinematicBody2D" groups=[
+"sprite",
+]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+positionZ = -9999
+dontMove = true
+randomrotate = false
+GRAVITY = 0.0
+head_height = 500
+
+[node name="ColArea" type="Area2D" parent="."]
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 2 )
+
+[node name="model" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 2 )
+
+[node name="fuchs" type="StaticBody2D" parent="model" groups=[
+"logfx",
+"render",
+]]
+modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
+position = Vector2( 2, 0 )
+scale = Vector2( 4.3, 4.3 )
+script = ExtResource( 3 )
+heights = [ 0.0, 500.0, 0.0 ]
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="model/fuchs"]
+polygon = PoolVector2Array( -2.32558, -2.32558, -0.465116, 0, 1.39535, 2.32558 )
+
+[node name="fuchs2" type="StaticBody2D" parent="model" groups=[
+"render",
+]]
+modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
+position = Vector2( 2, 0 )
+scale = Vector2( 4.3, 4.3 )
+script = ExtResource( 3 )
+heights = [ 500.0, 0.0, 0.0 ]
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="model/fuchs2"]
+polygon = PoolVector2Array( -0.465116, 0, -2.32558, 2.32558, 1.39535, -2.32558 )
+
+[node name="lightpost" type="StaticBody2D" parent="model" groups=[
+"logfx",
+"render",
+]]
+modulate = Color( 0.301961, 0.301961, 0.301961, 1 )
+scale = Vector2( 1e-05, 3.5 )
+script = ExtResource( 3 )
+heights = [ 350.0, 325.0, 400.0 ]
+textures_on = true
+texture_path = "res://textures/shadow2.png"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="model/lightpost"]
+polygon = PoolVector2Array( -2.85714, 0, 2.85714, 0, 0, 73.1429 )
+
+[node name="light" type="StaticBody2D" parent="model" groups=[
+"render",
+]]
+modulate = Color( 1, 1, 0, 1 )
+scale = Vector2( 3.5, 3.5 )
+script = ExtResource( 3 )
+heights = [ 390.0, 390.0, 400.0 ]
+textures_on = true
+texture_path = "res://textures/stretchtest.png"
+darkness = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="model/light"]
+polygon = PoolVector2Array( -2.28571, 85.1429, 2.28571, 85.1429, 0, 68 )
+
+[connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]
