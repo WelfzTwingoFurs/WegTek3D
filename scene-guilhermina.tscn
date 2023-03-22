@@ -10,7 +10,7 @@
 [ext_resource path="res://objects/car kombi.tscn" type="PackedScene" id=16]
 [ext_resource path="res://objects/car uno.tscn" type="PackedScene" id=17]
 [ext_resource path="res://objects/pedspawner.tscn" type="PackedScene" id=19]
-[ext_resource path="res://assets/loadmap.gd" type="Script" id=21]
+[ext_resource path="res://objects/loadmap.gd" type="Script" id=21]
 
 [node name="guilhermina downtown" type="Node2D"]
 
