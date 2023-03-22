@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/car_engine_off.wav-ae5fd178d548b8a0f3e061249c39fada.sample"
+
+[deps]
+
+source_file="res://audio/car/ecosport/car_engine_off.wav"
+dest_files=[ "res://.import/car_engine_off.wav-ae5fd178d548b8a0f3e061249c39fada.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

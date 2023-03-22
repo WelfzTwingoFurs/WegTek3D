@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/car_engine_start.wav-5c607c993c68bffcf0bf4a25f0310a96.sample"
+
+[deps]
+
+source_file="res://audio/car/enduro/car_engine_start.wav"
+dest_files=[ "res://.import/car_engine_start.wav-5c607c993c68bffcf0bf4a25f0310a96.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
