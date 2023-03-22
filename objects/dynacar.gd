@@ -2,20 +2,25 @@ extends KinematicBody2D
 
 export var string = "Describe the vehicle"
 export var color_top = Color(1,1,1)
-export var color_inside = Color(1,1,1)
 export var color_sideL = Color(1,1,1)
 export var color_sideR = Color(1,1,1)
 export var color_front = Color(1,1,1)
 export var color_back = Color(1,1,1)
 export var color_hood = Color(1,1,1)
 export var color_trunk = Color(1,1,1)
-export var color_window = Color(1,1,1)
-export var color_rearlight = Color(1,1,1)
+export var color_frontbumper = Color(1,1,1)
+export var color_backbumper = Color(1,1,1)
+export var color_grill = Color(1,1,1)
+export var color_inside = Color(1,1,1)
+export var color_window = Color8(0,139,139)
+export var color_rearlight = Color8(252,84,84)
 export var color_headlight = Color(1,1,1)
+export var color_turnlight = Color8(252,252,84)
 export var color_wheelLB = Color(1,1,1)
 export var color_wheelLF = Color(1,1,1)
 export var color_wheelRB = Color(1,1,1)
 export var color_wheelRF = Color(1,1,1)
+export var color_plate = Color8(168,168,168)
 
 func paint_it():
 	for n in $model.get_children():
@@ -63,6 +68,22 @@ func paint_it():
 		
 		elif n.is_in_group("color_wheelRF"):
 			n.modulate = n.original_color * color_wheelRF
+		
+		elif n.is_in_group("color_grill"):
+			n.modulate = n.original_color * color_grill
+		
+		elif n.is_in_group("color_frontbumper"):
+			n.modulate = n.original_color * color_frontbumper
+			
+		elif n.is_in_group("color_backbumper"):
+			n.modulate = n.original_color * color_backbumper
+			
+		elif n.is_in_group("color_turnlight"):
+			n.modulate = n.original_color * color_turnlight
+			
+		elif n.is_in_group("color_plate"):
+			n.modulate = n.original_color * color_plate
+			
 
 onready var wheelsound = $Other
 export var head_height = 100

@@ -25,6 +25,18 @@ __meta__ = {
 "_edit_group_": true
 }
 string = "Classic economy fastback: FORTE Esport"
+color_top = Color( 0.219608, 0.678431, 1, 1 )
+color_sideL = Color( 0.219608, 0.678431, 1, 1 )
+color_sideR = Color( 0.219608, 0.678431, 1, 1 )
+color_front = Color( 0.219608, 0.678431, 1, 1 )
+color_back = Color( 0.219608, 0.678431, 1, 1 )
+color_hood = Color( 0.219608, 0.678431, 1, 1 )
+color_trunk = Color( 0.219608, 0.678431, 1, 1 )
+color_frontbumper = Color( 0.294118, 0.294118, 0.294118, 1 )
+color_backbumper = Color( 0.294118, 0.294118, 0.294118, 1 )
+color_grill = Color( 0.152941, 0.152941, 0.152941, 1 )
+color_inside = Color( 0.329412, 0.329412, 0.329412, 1 )
+color_rearlight = Color( 0.988235, 0.329412, 0.329412, 1 )
 head_height = 85
 camheight = 150
 driver_height = 5

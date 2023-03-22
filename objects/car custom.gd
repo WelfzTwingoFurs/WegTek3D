@@ -9,10 +9,10 @@ func _on_car_custom_body_entered(body):
 
 var pos = 0
 var pos2 = 0
-var max_pos = 14
+var max_pos = 19
 var string = str("...")
-var menu_string_array = ["top","\ninside","\nside-L","\nside-R","\nfront","\nback","\nhood","\ntrunk","\nwindow","\nrearlight","\nheadlight","\nwheel-LB","\nwheel-LF","\nwheel-RB","\nwheel-RF"]
-var menu_color_array = [Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color()]
+var menu_string_array = ["top","\ninside","\nside-L","\nside-R","\nfront","\nback","\nhood","\ntrunk","\nwindow","\nrearlight","\nheadlight","\nwheel-LB","\nwheel-LF","\nwheel-RB","\nwheel-RF","\nturnlight","\nfront bumper","\nback bumper","\ngrill","\nplate"]
+var menu_color_array = [Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color(),Color()]
 export var myname = str("MHD Customs\n")
 var copy = Color()
 
@@ -24,13 +24,13 @@ func _process(_delta):
 	
 	if on && (Worldconfig.playercar != null):
 		if on == 2:
-			string = str(myname," <Pick color>  //  ^RGBv [",pos2,"/2]\nR:",menu_color_array[pos].r," G:",menu_color_array[pos].g," B:",menu_color_array[pos].b,"\n\nClipboard:",copy)
+			string = str(myname," vPick color^  //  <RGB> [",pos2,"/2]\nR:",menu_color_array[pos].r," G:",menu_color_array[pos].g," B:",menu_color_array[pos].b,"\n\nClipboard:",copy)
 			
 			
-			if Input.is_action_just_pressed("ply_down"):
+			if Input.is_action_just_pressed("ply_right"):
 				pos2 += 1
 				if pos2 > 2: pos2 = 0
-			elif Input.is_action_just_pressed("ply_up"):
+			elif Input.is_action_just_pressed("ply_left"):
 				pos2 -=1
 				if pos2 < 0: pos2 = 2
 			
@@ -39,14 +39,14 @@ func _process(_delta):
 			#Worldconfig.playercar.menu_color_array[pos] = float(randi() % 255)/255
 			
 			if pos2 == 0:
-				if Input.is_action_just_pressed("ply_left"): menu_color_array[pos].r = stepify(overflow(menu_color_array[pos].r+0.1,0,1),0.1)
-				elif Input.is_action_just_pressed("ply_right"): menu_color_array[pos].r = stepify(overflow(menu_color_array[pos].r-0.1,0,1),0.1)
+				if Input.is_action_just_pressed("ply_up"): menu_color_array[pos].r = stepify(overflow(menu_color_array[pos].r+0.1,0,1),0.1)
+				elif Input.is_action_just_pressed("ply_down"): menu_color_array[pos].r = stepify(overflow(menu_color_array[pos].r-0.1,0,1),0.1)
 			elif pos2 == 1:
-				if Input.is_action_just_pressed("ply_left"): menu_color_array[pos].g = stepify(overflow(menu_color_array[pos].g+0.1,0,1),0.1)
-				elif Input.is_action_just_pressed("ply_right"): menu_color_array[pos].g = stepify(overflow(menu_color_array[pos].g-0.1,0,1),0.1)
+				if Input.is_action_just_pressed("ply_up"): menu_color_array[pos].g = stepify(overflow(menu_color_array[pos].g+0.1,0,1),0.1)
+				elif Input.is_action_just_pressed("ply_down"): menu_color_array[pos].g = stepify(overflow(menu_color_array[pos].g-0.1,0,1),0.1)
 			elif pos2 == 2:
-				if Input.is_action_just_pressed("ply_left"): menu_color_array[pos].b = stepify(overflow(menu_color_array[pos].b+0.1,0,1),0.1)
-				elif Input.is_action_just_pressed("ply_right"): menu_color_array[pos].b = stepify(overflow(menu_color_array[pos].b-0.1,0,1),0.1)
+				if Input.is_action_just_pressed("ply_up"): menu_color_array[pos].b = stepify(overflow(menu_color_array[pos].b+0.1,0,1),0.1)
+				elif Input.is_action_just_pressed("ply_down"): menu_color_array[pos].b = stepify(overflow(menu_color_array[pos].b-0.1,0,1),0.1)
 			
 			
 			if Input.is_action_just_pressed("ply_use"):
@@ -71,6 +71,11 @@ func _process(_delta):
 				elif pos == 12: Worldconfig.playercar.color_wheelLF = menu_color_array[pos]
 				elif pos == 13: Worldconfig.playercar.color_wheelRB = menu_color_array[pos]
 				elif pos == 14: Worldconfig.playercar.color_wheelRF = menu_color_array[pos]
+				elif pos == 15: Worldconfig.playercar.color_turnlight = menu_color_array[pos]
+				elif pos == 16: Worldconfig.playercar.color_frontbumper = menu_color_array[pos]
+				elif pos == 17: Worldconfig.playercar.color_backbumper = menu_color_array[pos]
+				elif pos == 18: Worldconfig.playercar.color_grill = menu_color_array[pos]
+				elif pos == 19: Worldconfig.playercar.color_plate = menu_color_array[pos]
 				Worldconfig.playercar.paint_it()
 				on = 1
 				
@@ -102,6 +107,11 @@ func _process(_delta):
 				elif pos == 12: Worldconfig.playercar.color_wheelLF = copy
 				elif pos == 13: Worldconfig.playercar.color_wheelRB = copy
 				elif pos == 14: Worldconfig.playercar.color_wheelRF = copy
+				elif pos == 15: Worldconfig.playercar.color_turnlight = copy
+				elif pos == 16: Worldconfig.playercar.color_frontbumper = copy
+				elif pos == 17: Worldconfig.playercar.color_backbumper = copy
+				elif pos == 18: Worldconfig.playercar.color_grill = copy
+				elif pos == 19: Worldconfig.playercar.color_plate = copy
 				Worldconfig.playercar.paint_it()
 			
 			elif Input.is_action_just_pressed("ply_strafe"):
@@ -140,7 +150,13 @@ func _process(_delta):
 			Worldconfig.playercar.color_wheelLB,
 			Worldconfig.playercar.color_wheelLF,
 			Worldconfig.playercar.color_wheelRB,
-			Worldconfig.playercar.color_wheelRF]
+			Worldconfig.playercar.color_wheelRF,
+			Worldconfig.playercar.color_turnlight,
+			Worldconfig.playercar.color_frontbumper,
+			Worldconfig.playercar.color_backbumper,
+			Worldconfig.playercar.color_grill,
+			Worldconfig.playercar.color_plate,
+			]
 			
 			
 			string = str(

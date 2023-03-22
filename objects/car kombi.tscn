@@ -26,13 +26,16 @@ __meta__ = {
 }
 string = "Vintage economy utility van: WORKVALOR Model-2"
 color_top = Color( 0.905882, 0.905882, 0.905882, 1 )
-color_inside = Color( 0.329412, 0.329412, 0.329412, 1 )
 color_sideL = Color( 0.905882, 0.905882, 0.905882, 1 )
 color_sideR = Color( 0.905882, 0.905882, 0.905882, 1 )
 color_front = Color( 0.905882, 0.905882, 0.905882, 1 )
 color_back = Color( 0.905882, 0.905882, 0.905882, 1 )
 color_hood = Color( 0.905882, 0.905882, 0.905882, 1 )
 color_trunk = Color( 0.905882, 0.905882, 0.905882, 1 )
+color_frontbumper = Color( 0.639216, 0.639216, 0.639216, 1 )
+color_backbumper = Color( 0.4, 0.4, 0.4, 1 )
+color_grill = Color( 0.329412, 0.329412, 0.329412, 1 )
+color_inside = Color( 0.329412, 0.329412, 0.329412, 1 )
 color_window = Color( 0, 0.701961, 0.701961, 1 )
 color_rearlight = Color( 0.988235, 0.329412, 0.329412, 1 )
 color_headlight = Color( 0.988235, 0.988235, 0.329412, 1 )

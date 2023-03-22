@@ -136,9 +136,10 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -36.6667, 44.4444, -38.8889, 44.4444, -38.8889, 94.4445, -36.6667, 83.3333 )
 
 [node name="shockB2" type="StaticBody2D" parent="." groups=[
+"color_frontbumper",
 "render",
 ]]
-modulate = Color( 0.654902, 0.654902, 0.654902, 1 )
+modulate = Color( 0.945098, 0.945098, 0.945098, 1 )
 position = Vector2( 0, -5 )
 scale = Vector2( 0.9, 0.9 )
 script = ExtResource( 1 )
@@ -150,9 +151,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -26.6667, 104.444, -25.5556, 103.333, -40, 96.6667, -41.1111, 97.7778 )
 
 [node name="shockB3" type="StaticBody2D" parent="." groups=[
+"color_frontbumper",
 "render",
 ]]
-modulate = Color( 0.729412, 0.709804, 0.709804, 1 )
 position = Vector2( 0, -5 )
 scale = Vector2( 0.9, 0.9 )
 script = ExtResource( 1 )
@@ -180,9 +181,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 0, 103.333, -38.8889, 94.4445, -40, 96.6667, 0, 105.556 )
 
 [node name="frontair" type="StaticBody2D" parent="." groups=[
+"color_grill",
 "render",
 ]]
-modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
 position = Vector2( 0, -4 )
 scale = Vector2( 0.9, 0.9 )
 script = ExtResource( 1 )
@@ -237,9 +238,9 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -14.5, -3, -14.75, -3.25, -12.75, -3.25, -13, -3 )
 
 [node name="rearlightB" type="StaticBody2D" parent="." groups=[
+"color_turnlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 position = Vector2( 26, -67 )
 scale = Vector2( 4, 1 )
 script = ExtResource( 1 )
@@ -251,9 +252,9 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -14.5, -3, -14.75, -3.25, -12.75, -3.25, -13, -3 )
 
 [node name="shockT" type="StaticBody2D" parent="." groups=[
+"color_backbumper",
 "render",
 ]]
-modulate = Color( 0.6, 0.6, 0.6, 1 )
 position = Vector2( 0, -153 )
 scale = Vector2( 0.9, 0.9 )
 script = ExtResource( 1 )
@@ -400,9 +401,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 0, 105.556, 0, 103.333, -38.8889, 94.4445, -40, 96.6667 )
 
 [node name="frontair2" type="StaticBody2D" parent="." groups=[
+"color_grill",
 "render",
 ]]
-modulate = Color( 0.329412, 0.329412, 0.329412, 1 )
 position = Vector2( 0, -4 )
 rotation = 3.14159
 scale = Vector2( 0.9, -0.9 )
@@ -461,9 +462,9 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -14.5, -3, -14.75, -3.25, -12.75, -3.25, -13, -3 )
 
 [node name="rearlightB2" type="StaticBody2D" parent="." groups=[
+"color_turnlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 position = Vector2( -26, -67 )
 rotation = 3.14159
 scale = Vector2( 4, -1 )
@@ -476,9 +477,9 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -14.5, -3, -14.75, -3.25, -12.75, -3.25, -13, -3 )
 
 [node name="shockT2" type="StaticBody2D" parent="." groups=[
+"color_backbumper",
 "render",
 ]]
-modulate = Color( 0.6, 0.6, 0.6, 1 )
 position = Vector2( 0, -153 )
 rotation = 3.14159
 scale = Vector2( 0.9, -0.9 )
@@ -491,9 +492,10 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -41.1111, 90, -40, 91.1111, -40, 95.5556, -41.1111, 95.5556 )
 
 [node name="shockB4" type="StaticBody2D" parent="." groups=[
+"color_frontbumper",
 "render",
 ]]
-modulate = Color( 0.654902, 0.654902, 0.654902, 1 )
+modulate = Color( 0.945098, 0.945098, 0.945098, 1 )
 position = Vector2( 0, -5 )
 rotation = 3.14159
 scale = Vector2( 0.9, -0.9 )
@@ -506,9 +508,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -26.6667, 104.444, -25.5556, 103.333, -40, 96.6667, -41.1111, 97.7778 )
 
 [node name="shockB5" type="StaticBody2D" parent="." groups=[
+"color_frontbumper",
 "render",
 ]]
-modulate = Color( 0.729412, 0.709804, 0.709804, 1 )
 position = Vector2( 0, -5 )
 rotation = 3.14159
 scale = Vector2( 0.9, -0.9 )
@@ -552,9 +554,11 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -39.5062, -72.8395, -40.7407, -74.0741, 48.1482, -74.0741, 46.9136, -72.8395 )
 
 [node name="signT" type="StaticBody2D" parent="." groups=[
+"color_plate",
 "render",
 ]]
-modulate = Color( 0.643137, 0.643137, 0.643137, 1 )
+visible = false
+modulate = Color( 0.984314, 0.984314, 0.984314, 1 )
 position = Vector2( 25, -101 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
@@ -567,9 +571,10 @@ scale = Vector2( 1, 0.5 )
 polygon = PoolVector2Array( -4.5, 15.25, -4.5, 15, -8, 15, -8, 15.25 )
 
 [node name="shockT3" type="StaticBody2D" parent="." groups=[
+"color_backbumper",
 "render",
 ]]
-modulate = Color( 0.529412, 0.529412, 0.529412, 1 )
+modulate = Color( 0.929412, 0.929412, 0.929412, 1 )
 position = Vector2( 0, -153 )
 scale = Vector2( 0.9, 0.9 )
 script = ExtResource( 1 )

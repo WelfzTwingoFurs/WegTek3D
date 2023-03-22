@@ -66,9 +66,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 7.75, 15.25, 7.75, 7.75, -7.75, 7.75, -7.75, 15.25 )
 
 [node name="turnT" type="StaticBody2D" parent="." groups=[
+"color_turnlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 position = Vector2( 0, -102 )
 scale = Vector2( 4, 2 )
 script = ExtResource( 1 )
@@ -256,9 +256,9 @@ texture_path = "res://textures/wheel16.png"
 polygon = PoolVector2Array( -5, 15.25, -5, 15, -7.25, 15, -7.25, 15.25 )
 
 [node name="turnB" type="StaticBody2D" parent="." groups=[
+"color_turnlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 heights = [ 24.0, 17.0, 17.0, 24.0 ]
@@ -269,9 +269,9 @@ texture_path = "res://textures/wheel16.png"
 polygon = PoolVector2Array( -7.75, 15.25, -7.5, 15, -7.25, 15, -7.25, 15.25 )
 
 [node name="turnT2" type="StaticBody2D" parent="." groups=[
+"color_turnlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 position = Vector2( 0, -102 )
 rotation = 3.14159
 scale = Vector2( 4, -2 )
@@ -411,9 +411,9 @@ texture_path = "res://textures/wheel16.png"
 polygon = PoolVector2Array( -5, 15.25, -5, 15, -7.25, 15, -7.25, 15.25 )
 
 [node name="turnB2" type="StaticBody2D" parent="." groups=[
+"color_turnlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 rotation = 3.14159
 scale = Vector2( 4, -4 )
 script = ExtResource( 1 )

@@ -36,9 +36,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 8.958, -20.757, 8, 22, -8, 22, -8.95808, -20.7571 )
 
 [node name="inside" type="StaticBody2D" parent="." groups=[
+"color_inside",
 "render",
 ]]
-modulate = Color( 0.67451, 0.478431, 0.180392, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -53,10 +53,10 @@ modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
 polygon = PoolVector2Array( 6.773, 9.355, 6.52716, -10.0456, -6.527, -10.046, -6.77269, 9.35547, 0, 10.486 )
 
 [node name="hood" type="StaticBody2D" parent="." groups=[
+"color_hood",
 "logfx",
 "render",
 ]]
-modulate = Color( 1, 0.0509804, 0.0509804, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -70,6 +70,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 6.773, 9.355, 7.28, 21.515, -7.28, 21.515, -6.77269, 9.35547, 0, 10.486 )
 
 [node name="windowT" type="StaticBody2D" parent="." groups=[
+"color_window",
 "logfx",
 "render",
 ]]
@@ -88,6 +89,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.856, -9.03, 5.856, -9.03, 6.512, -10.045, -6.51151, -10.0448 )
 
 [node name="windowB" type="StaticBody2D" parent="." groups=[
+"color_window",
 "logfx",
 "render",
 ]]
@@ -106,10 +108,10 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( 6.771, 9.358, 5.856, 1.933, -5.8558, 1.93337, -6.77131, 9.35833, 0, 10.486 )
 
 [node name="top" type="StaticBody2D" parent="." groups=[
+"color_top",
 "logfx",
 "render",
 ]]
-modulate = Color( 1, 0.0941176, 0.0941176, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -122,10 +124,11 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( 5.856, -9.03, 5.856, 1.933, -5.8558, 1.93337, -5.856, -9.03 )
 
 [node name="trunk" type="StaticBody2D" parent="." groups=[
+"color_trunk",
 "logfx",
 "render",
 ]]
-modulate = Color( 0.321569, 0.160784, 0.160784, 1 )
+modulate = Color( 0.321569, 0.321569, 0.321569, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -140,6 +143,7 @@ modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
 polygon = PoolVector2Array( -6.38108, -21.9962, 6.381, -21.996, 6.512, -10.045, -6.51151, -10.0448 )
 
 [node name="wheelT" type="StaticBody2D" parent="." groups=[
+"color_wheelRB",
 "logfx",
 "render",
 ]]
@@ -158,6 +162,7 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 6, 0, 6 )
 
 [node name="wheelB" type="StaticBody2D" parent="." groups=[
+"color_wheelRF",
 "logfx",
 "render",
 ]]
@@ -176,10 +181,11 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 6, 0, 6 )
 
 [node name="sideT" type="StaticBody2D" parent="." groups=[
+"color_sideR",
 "logfx",
 "render",
 ]]
-modulate = Color( 0.85098, 0, 0, 1 )
+modulate = Color( 0.85098, 0.85098, 0.85098, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -193,10 +199,11 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.95482, -20.7409, -8.91748, -22.0044, -8.16715, 9.12247, -8.28683, 9.1276 )
 
 [node name="side1B" type="StaticBody2D" parent="." groups=[
+"color_sideR",
 "logfx",
 "render",
 ]]
-modulate = Color( 0.882353, 0, 0, 1 )
+modulate = Color( 0.882353, 0.882353, 0.882353, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -210,9 +217,10 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.16715, 9.12247, -6.77501, 9.35489, -7.28, 21.518, -7.99665, 21.9965, -8.29055, 9.13194 )
 
 [node name="side2B" type="StaticBody2D" parent="." groups=[
+"color_sideR",
 "render",
 ]]
-modulate = Color( 0.917647, 0, 0, 1 )
+modulate = Color( 0.917647, 0.917647, 0.917647, 1 )
 position = Vector2( 0, -0.0389745 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
@@ -227,10 +235,10 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.16715, 9.12247, -6.77501, 9.35489, -6.38765, -21.4909 )
 
 [node name="topside" type="StaticBody2D" parent="." groups=[
+"color_frontbumper",
 "logfx",
 "render",
 ]]
-modulate = Color( 1, 0, 0, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -244,9 +252,10 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -6.35872, -21.9967, -8.916, -21.997, -8.16715, 9.12247 )
 
 [node name="windowB2" type="StaticBody2D" parent="." groups=[
+"color_window",
 "render",
 ]]
-modulate = Color( 0, 0.568627, 0.568627, 1 )
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -261,9 +270,10 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.856, -9.03, -5.8558, 1.93337, -6.77131, 9.35833, -6.51151, -10.0448 )
 
 [node name="triangle" type="StaticBody2D" parent="." groups=[
+"color_top",
 "render",
 ]]
-modulate = Color( 0.835294, 0, 0, 1 )
+modulate = Color( 0.835294, 0.835294, 0.835294, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -276,9 +286,10 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.856, -9.03, -6.38951, -21.4844, -6.51151, -10.0448 )
 
 [node name="cpillar2" type="StaticBody2D" parent="." groups=[
+"color_sideL",
 "render",
 ]]
-modulate = Color( 0.835294, 0, 0, 1 )
+modulate = Color( 0.835294, 0.835294, 0.835294, 1 )
 rotation = 3.14159
 scale = Vector2( 4.2, -1 )
 script = ExtResource( 1 )
@@ -293,9 +304,10 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.85, 1.93, -6.77455, 9.35113, -6.39729, 9.42313 )
 
 [node name="cpillar" type="StaticBody2D" parent="." groups=[
+"color_sideR",
 "render",
 ]]
-modulate = Color( 0.835294, 0, 0, 1 )
+modulate = Color( 0.835294, 0.835294, 0.835294, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -309,9 +321,9 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.85, 1.93, -6.77455, 9.35113, -6.39729, 9.42313 )
 
 [node name="lightT" type="StaticBody2D" parent="." groups=[
+"color_rearlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.329412, 0.329412, 1 )
 position = Vector2( 30, -16.25 )
 scale = Vector2( 0.818, 0.25 )
 script = ExtResource( 1 )
@@ -326,9 +338,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 8.55746, -20.5556, 8.55746, -21.6667, -8.55746, -21.6667, -8.55746, -20.5556 )
 
 [node name="turnT" type="StaticBody2D" parent="." groups=[
+"color_turnlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 position = Vector2( 30, -16.5256 )
 scale = Vector2( 0.818, 0.25 )
 script = ExtResource( 1 )
@@ -343,9 +355,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 8.55746, -20.5556, 8.55746, -21.6667, -8.55746, -21.6667, -8.55746, -20.5556 )
 
 [node name="lightBtop" type="StaticBody2D" parent="." groups=[
+"color_hood",
 "render",
 ]]
-modulate = Color( 0.988235, 0.176471, 0.176471, 1 )
 position = Vector2( 0, -0.277778 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
@@ -359,6 +371,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 3.81, 21.667, 6.90476, 21.3889, 7.00852, 19.4058, 3.80952, 19.7222 )
 
 [node name="lightB" type="StaticBody2D" parent="." groups=[
+"color_headlight",
 "render",
 ]]
 position = Vector2( 0, -0.277778 )
@@ -375,6 +388,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 3.81, 21.667, 6.90476, 21.3889, 7.14286, 21.6667, 3.92138, 21.7724 )
 
 [node name="wheelT2" type="StaticBody2D" parent="." groups=[
+"color_wheelLB",
 "logfx",
 "render",
 ]]
@@ -395,6 +409,7 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 6, 0, 6 )
 
 [node name="wheelB2" type="StaticBody2D" parent="." groups=[
+"color_wheelLF",
 "logfx",
 "render",
 ]]
@@ -415,10 +430,11 @@ texture_path = "res://textures/wheelEGA64.png"
 polygon = PoolVector2Array( 0, 0, 0.1, 0, 0.1, 6, 0, 6 )
 
 [node name="sideT2" type="StaticBody2D" parent="." groups=[
+"color_sideL",
 "logfx",
 "render",
 ]]
-modulate = Color( 0.85098, 0, 0, 1 )
+modulate = Color( 0.85098, 0.85098, 0.85098, 1 )
 rotation = 3.14159
 scale = Vector2( 4.2, -1 )
 script = ExtResource( 1 )
@@ -433,10 +449,11 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.95482, -20.7409, -8.91748, -22.0044, -8.16715, 9.12247, -8.28683, 9.1276 )
 
 [node name="side1B2" type="StaticBody2D" parent="." groups=[
+"color_sideL",
 "logfx",
 "render",
 ]]
-modulate = Color( 0.882353, 0, 0, 1 )
+modulate = Color( 0.882353, 0.882353, 0.882353, 1 )
 rotation = 3.14159
 scale = Vector2( 4.2, -1 )
 script = ExtResource( 1 )
@@ -451,9 +468,10 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.16715, 9.12247, -6.77501, 9.35489, -7.28, 21.518, -7.99665, 21.9965, -8.29055, 9.13194 )
 
 [node name="side2B2" type="StaticBody2D" parent="." groups=[
+"color_sideL",
 "render",
 ]]
-modulate = Color( 0.917647, 0, 0, 1 )
+modulate = Color( 0.917647, 0.917647, 0.917647, 1 )
 rotation = 3.14159
 scale = Vector2( 4.2, -1 )
 script = ExtResource( 1 )
@@ -468,10 +486,11 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -8.16715, 9.12247, -6.77501, 9.35489, -6.38765, -21.4909 )
 
 [node name="topside2" type="StaticBody2D" parent="." groups=[
+"color_backbumper",
+"color_rearbumper",
 "logfx",
 "render",
 ]]
-modulate = Color( 1, 0, 0, 1 )
 rotation = 3.14159
 scale = Vector2( 4.2, -1 )
 script = ExtResource( 1 )
@@ -486,9 +505,10 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( -6.35872, -21.9967, -8.916, -21.997, -8.16715, 9.12247 )
 
 [node name="windowB3" type="StaticBody2D" parent="." groups=[
+"color_window",
 "render",
 ]]
-modulate = Color( 0, 0.568627, 0.568627, 1 )
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
 rotation = 3.14159
 scale = Vector2( 4.2, -1 )
 script = ExtResource( 1 )
@@ -504,9 +524,10 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.856, -9.03, -5.8558, 1.93337, -6.77131, 9.35833, -6.51151, -10.0448 )
 
 [node name="triangle2" type="StaticBody2D" parent="." groups=[
+"color_top",
 "render",
 ]]
-modulate = Color( 0.835294, 0, 0, 1 )
+modulate = Color( 0.835294, 0.835294, 0.835294, 1 )
 rotation = 3.14159
 scale = Vector2( 4.2, -1 )
 script = ExtResource( 1 )
@@ -520,9 +541,9 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.856, -9.03, -6.38951, -21.4844, -6.51151, -10.0448 )
 
 [node name="lightT2" type="StaticBody2D" parent="." groups=[
+"color_rearlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.329412, 0.329412, 1 )
 position = Vector2( -30, -16.25 )
 rotation = 3.14159
 scale = Vector2( 0.818, -0.25 )
@@ -538,9 +559,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 8.55746, -20.5556, 8.55746, -21.6667, -8.55746, -21.6667, -8.55746, -20.5556 )
 
 [node name="turnT2" type="StaticBody2D" parent="." groups=[
+"color_turnlight",
 "render",
 ]]
-modulate = Color( 0.988235, 0.988235, 0.329412, 1 )
 position = Vector2( -30, -16.5256 )
 rotation = 3.14159
 scale = Vector2( 0.818, -0.25 )
@@ -556,9 +577,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 8.55746, -20.5556, 8.55746, -21.6667, -8.55746, -21.6667, -8.55746, -20.5556 )
 
 [node name="lightBtop2" type="StaticBody2D" parent="." groups=[
+"color_hood",
 "render",
 ]]
-modulate = Color( 0.988235, 0.176471, 0.176471, 1 )
 position = Vector2( 0, -0.277778 )
 rotation = 3.14159
 scale = Vector2( 4.2, -1 )
@@ -573,6 +594,7 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 3.81, 21.667, 6.90476, 21.3889, 7.00852, 19.4058, 3.80952, 19.7222 )
 
 [node name="lightB2" type="StaticBody2D" parent="." groups=[
+"color_headlight",
 "render",
 ]]
 position = Vector2( 0, -0.277778 )
@@ -590,9 +612,10 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 3.81, 21.667, 6.90476, 21.3889, 7.14286, 21.6667, 3.92138, 21.7724 )
 
 [node name="airT" type="StaticBody2D" parent="." groups=[
+"color_grill",
 "render",
 ]]
-modulate = Color( 0.160784, 0.160784, 0.160784, 1 )
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
 position = Vector2( 0, -11.1111 )
 scale = Vector2( 2.5, 0.5 )
 script = ExtResource( 1 )
@@ -607,10 +630,11 @@ texture_path = "res://textures/EGA/8-9.png"
 polygon = PoolVector2Array( 9.2, -20.5556, 9.2, -21.6667, -9.2, -21.6667, -9.2, -20.5556 )
 
 [node name="back" type="StaticBody2D" parent="." groups=[
+"color_back",
 "logfx",
 "render",
 ]]
-modulate = Color( 0.937255, 0, 0, 1 )
+modulate = Color( 0.937255, 0.937255, 0.937255, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -624,10 +648,11 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 8.956, -20.753, 8.919, -21.999, -8.91927, -21.9987, -8.95647, -20.753 )
 
 [node name="front" type="StaticBody2D" parent="." groups=[
+"color_front",
 "logfx",
 "render",
 ]]
-modulate = Color( 0.964706, 0, 0, 1 )
+modulate = Color( 0.964706, 0.964706, 0.964706, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -641,9 +666,9 @@ texture_path = "res://textures/solid1.png"
 polygon = PoolVector2Array( 7.99479, 21.9944, 7.28, 21.515, -7.28, 21.515, -7.995, 21.994 )
 
 [node name="airB" type="StaticBody2D" parent="." groups=[
+"color_grill",
 "render",
 ]]
-modulate = Color( 0.160784, 0.160784, 0.160784, 1 )
 position = Vector2( 0, 20 )
 scale = Vector2( 3, 0.1 )
 script = ExtResource( 1 )
@@ -658,9 +683,9 @@ texture_path = "res://textures/EGA/8-9.png"
 polygon = PoolVector2Array( 7.025, 21.667, -7.025, 21.667, -6.667, 21.72, 6.667, 21.72 )
 
 [node name="signT" type="StaticBody2D" parent="." groups=[
+"color_plate",
 "render",
 ]]
-modulate = Color( 0.643137, 0.643137, 0.643137, 1 )
 position = Vector2( 25, -51.6667 )
 scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
