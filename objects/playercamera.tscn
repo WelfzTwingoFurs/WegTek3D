@@ -387,7 +387,6 @@ min_Z = -2100
 map_draw = 1
 skycolor = Color( 0, 1, 1, 1 )
 sky_stretch = Vector2( 1, 10 )
-bg_offset = 5.0
 
 [node name="Feet" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )

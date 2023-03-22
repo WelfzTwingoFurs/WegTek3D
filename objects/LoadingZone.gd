@@ -17,7 +17,3 @@ func _on_LoadingZone_body_exited(body):
 		if am != null:
 			Worldconfig.player.skip_frame()
 			am.queue_free()
-
-
-func _on_metrostreet_load_body_entered(body):
-	pass # Replace with function body.

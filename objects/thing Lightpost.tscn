@@ -56,7 +56,6 @@ texture_path = "res://textures/rocks32.png"
 polygon = PoolVector2Array( -2.32558, -2.32558, -0.465116, 0, 1.39535, 2.32558 )
 
 [node name="fuchs2" type="StaticBody2D" parent="model" groups=[
-"logfx",
 "render",
 ]]
 modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
@@ -71,6 +70,7 @@ texture_path = "res://textures/rocks32.png"
 polygon = PoolVector2Array( -0.465116, 0, -2.32558, 2.32558, 1.39535, -2.32558 )
 
 [node name="lightpost" type="StaticBody2D" parent="model" groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.301961, 0.301961, 0.301961, 1 )

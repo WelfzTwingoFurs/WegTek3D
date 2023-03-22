@@ -1,6 +1,69 @@
 extends KinematicBody2D
 
 export var string = "Describe the vehicle"
+export var color_top = Color(1,1,1)
+export var color_inside = Color(1,1,1)
+export var color_sideL = Color(1,1,1)
+export var color_sideR = Color(1,1,1)
+export var color_front = Color(1,1,1)
+export var color_back = Color(1,1,1)
+export var color_hood = Color(1,1,1)
+export var color_trunk = Color(1,1,1)
+export var color_window = Color(1,1,1)
+export var color_rearlight = Color(1,1,1)
+export var color_headlight = Color(1,1,1)
+export var color_wheelLB = Color(1,1,1)
+export var color_wheelLF = Color(1,1,1)
+export var color_wheelRB = Color(1,1,1)
+export var color_wheelRF = Color(1,1,1)
+
+func paint_it():
+	for n in $model.get_children():
+		if n.is_in_group("color_window"):
+			n.modulate = n.original_color * color_window
+		
+		elif n.is_in_group("color_top"):
+			n.modulate = n.original_color * color_top
+		
+		elif n.is_in_group("color_inside"):
+			n.modulate = n.original_color * color_inside
+		
+		elif n.is_in_group("color_sideL"):
+			n.modulate = n.original_color * color_sideL
+		
+		elif n.is_in_group("color_sideR"):
+			n.modulate = n.original_color * color_sideR
+		
+		elif n.is_in_group("color_front"):
+			n.modulate = n.original_color * color_front
+		
+		elif n.is_in_group("color_back"):
+			n.modulate = n.original_color * color_back
+		
+		elif n.is_in_group("color_hood"):
+			n.modulate = n.original_color * color_hood 
+		
+		elif n.is_in_group("color_trunk"):
+			n.modulate = n.original_color * color_trunk
+		
+		elif n.is_in_group("color_rearlight"):
+			n.modulate = n.original_color * color_rearlight
+		
+		elif n.is_in_group("color_headlight"):
+			n.modulate = n.original_color * color_headlight
+		
+		elif n.is_in_group("color_wheelLB"):
+			n.modulate = n.original_color * color_wheelLB
+		
+		elif n.is_in_group("color_wheelLF"):
+			n.modulate = n.original_color * color_wheelLF
+		
+		elif n.is_in_group("color_wheelRB"):
+			n.modulate = n.original_color * color_wheelRB
+		
+		elif n.is_in_group("color_wheelRF"):
+			n.modulate = n.original_color * color_wheelRF
+
 onready var wheelsound = $Other
 export var head_height = 100
 export var engine = 0
@@ -35,12 +98,7 @@ func _ready():
 		add_collision_exception_with(n)
 	
 	default_pos = $model.position
-
-
-
-
-
-
+	paint_it()
 
 
 
@@ -162,7 +220,7 @@ func _process(_delta):
 	else:
 		$Tire.stop()
 	
-	if Worldconfig.playercar != self: #GE-GE OUT
+	if (Worldconfig.playercar != self) or (Worldconfig.menu != null): #GE-GE OUT
 		motion = lerp(motion, Vector2(), 0.1)
 	else:
 		#print(sign(motion.length()))
@@ -201,27 +259,35 @@ func _process(_delta):
 				Worldconfig.player.vroll_car = 0
 				$model.position = default_pos
 				
-				if Input.is_action_pressed("ply_lookleft") && Input.is_action_pressed("ply_lookright"):
-					Worldconfig.player.position = position - Vector2(-camdist, 0).rotated(deg2rad(rotation_degrees))
-					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)+PI/2),  0.8)
-				
-				elif Input.is_action_pressed("ply_lookleft"):
-					Worldconfig.player.position = position - Vector2(0, -camdist/2).rotated(deg2rad(rotation_degrees))
-					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(150)),  0.8)
+				if !Worldconfig.player.map_on:
+					if Input.is_action_pressed("ply_lookleft") && Input.is_action_pressed("ply_lookright"):
+						Worldconfig.player.position = position - Vector2(-camdist, 0).rotated(deg2rad(rotation_degrees))
+						Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)+PI/2),  0.8)
 					
-				elif Input.is_action_pressed("ply_lookright"):
-					Worldconfig.player.position = position - Vector2(0,camdist/2).rotated(deg2rad(rotation_degrees))
-					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(25)),  0.8)
-					
+					elif Input.is_action_pressed("ply_lookleft"):
+						Worldconfig.player.position = position - Vector2(0, -camdist/2).rotated(deg2rad(rotation_degrees))
+						Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(150)),  0.8)
+						
+					elif Input.is_action_pressed("ply_lookright"):
+						Worldconfig.player.position = position - Vector2(0,camdist/2).rotated(deg2rad(rotation_degrees))
+						Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-deg2rad(25)),  0.8)
+						
+					else:
+						Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
+						Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
 				else:
-					Worldconfig.player.position = position - Vector2(camdist,0).rotated(deg2rad(rotation_degrees))
-					Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
-					
+					Worldconfig.player.position = position
 				
 				
 				
 			else:
-				Worldconfig.player.position = to_global($driver.position)#position - Vector2(0,50).rotated(deg2rad(rotation_degrees))
+				if !Worldconfig.player.map_on:
+					Worldconfig.player.position = to_global($driver.position)#position - Vector2(0,50).rotated(deg2rad(rotation_degrees))
+					$model.position = Vector2(0,-99999)
+				else:
+					Worldconfig.player.position = position
+					$model.position = default_pos
+				
 				Worldconfig.player.positionZ = (($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4) + driver_height
 				Worldconfig.player.lookingZ = -float((($wheel0.positionZ+$wheel1.positionZ)/2)-(($wheel3.positionZ+$wheel2.positionZ)/2))/1000
 				
@@ -239,7 +305,7 @@ func _process(_delta):
 					Worldconfig.player.vroll_car = ((($wheel0.positionZ+$wheel3.positionZ)/2) - (($wheel1.positionZ+$wheel2.positionZ)/2))/4
 					
 				
-				$model.position = Vector2(0,-99999)
+				
 				#$model.position = default_pos
 				
 	
@@ -266,9 +332,15 @@ func theraot(v0,v1,v2,v3):
 
 func _physics_process(delta):
 	motion = move_and_slide(motion, Vector2(0,-1))
-	if Worldconfig.playercar == self:
+	if (Worldconfig.playercar == self) && (Worldconfig.menu == null):
 		move_and_steer(delta)
-		if !$Engine.playing: $Engine.car_engine_loop()
+		
+		#if $Engine.stream != $Engine.car0F:
+		if !$Engine.carFs.has($Engine.stream):
+			if !$Engine.playing:
+				$Engine.car_engine_loop()
+		else:
+			$Engine.car_engine_start()
 		
 		#if timer <= 0:
 		#	$Engine.car_engine_loop()
@@ -293,7 +365,7 @@ func _physics_process(delta):
 	
 	
 	
-	if Worldconfig.playercar == self: #GE-GE OUT
+	if Worldconfig.playercar == self && (Worldconfig.menu == null): #GE-GE OUT
 		if Input.is_action_just_pressed("ply_use"):
 			$Engine.car_engine_off()
 			Worldconfig.player.position = position - Vector2(0,150).rotated(deg2rad(rotation_degrees))

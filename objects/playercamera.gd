@@ -38,16 +38,17 @@ export var map_scale = 0.1
 
 export var skycolor = Color8(47,0,77)
 export var scenetint = Color8(255,255,255)
+export(float) var shade_multi = 0.25
+export(float) var fade_ddist_divi = 2
 var scenetint_current
 export var sky_stretch = Vector2(1,1)
-export(float) var bg_offset = 1
+export(float) var bg_offset = 5
 var skytimer = 0
 #Used for sky & floor position according to draw_distance
 
 export(bool) var cull_on = 1
 export(bool) var textures_on = true
 export var higfx = false
-export(float) var shading = 1
 export(bool) var sprite_shadows = true
 
 onready var change_checker = []
@@ -435,7 +436,8 @@ func _physics_process(_delta):
 				$View/Hand.position.y = lerp($View/Hand.position.y, (get_viewport().size.y/2) - (($View/Hand.texture.get_size().y/$View/Hand.vframes))/2 + abs(vbob)*vbob_max + abs(input_dir.x)*30 +lookingZ*5 +($PolyContainer.scale.y*50), 0.5) 
 				
 			
-		else: #DASHBOARD GRAPHICS
+		#else: #DASHBOARD GRAPHICS
+		elif Worldconfig.menu == null:
 			if Input.is_action_pressed("ply_lookleft"):
 				$View/Hand.position = lerp($View/Hand.position, Vector2( ($View/Hand.texture.get_width()*$View/Hand.scale.x)/4,        abs(vbob)*vbob_max +lookingZ*5 +($PolyContainer.scale.y*50)), 0.5)
 			elif Input.is_action_pressed("ply_lookright"):
@@ -571,6 +573,12 @@ func _process(_delta):
 	
 	if Worldconfig.playercar != null: #STEERING WHEEL GRAPHX
 		if !camera:
+			#if $View/Feet.texture.get_path() != Worldconfig.playercar.steeringwheel:
+			#if $View/Feet.frame > ($View/Feet.vframes * $View/Feet.hframes):
+			#	guninv = -1
+			#	gunswitch()
+			$View/AniPlayFeet.stop()
+			$View/Feet.frame = 0
 			darkness = Worldconfig.playercar.darkness
 			$View/Feet.z_index = 4096
 			$View/Feet.visible = true
@@ -777,6 +785,7 @@ func gunswitch():
 		$View/Hand.hframes = 1
 		$View/Hand.vframes = 1
 		gunstretch = true
+		$View/Feet.frame = 0
 		$View/Feet.texture = load(Worldconfig.playercar.steeringwheel)
 		$View/Feet.hframes = 1
 		
@@ -929,7 +938,7 @@ func shoot():
 		get_parent().add_child(shoot_instance)
 	
 	elif guninv == 4:
-		var uno = load("res://objects/car Uno.tscn").instance()
+		var uno = load("res://objects/car kombi.tscn").instance()
 		uno.position = position + Vector2(50,0).rotated(rotation_angle + PI/2)
 		get_parent().add_child(uno)
 
@@ -1454,12 +1463,12 @@ func render():
 					var lineH = (OS.window_size.y / not_zero( (new_position - position).length()) )   /  cos(xkusu) #Logic from other raycasters
 					
 					var C = 1
-					if !shading:
+					if !shade_multi:
 						if array_walls[n].darkness != 0:
 							C = float(1)/array_walls[n].darkness
 						else:
 							C = 1
-					
+					#else: C = -(    (Vector3(new_position.x, new_position.y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(shade_multi*array_walls[n].darkness)/draw_distance)-1)
 					
 					if height1 == height2:#No diagonals, we're done
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
@@ -1474,7 +1483,7 @@ func render():
 						
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*new_height)) #OVER
 					
-					array_shading.append(Color(C,C,C))
+					array_shading.append(Color(C,C,C,1))
 					
 					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
@@ -1500,7 +1509,7 @@ func render():
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*new_height)) #OVER
 						
-						array_shading.append(Color(C,C,C))
+						array_shading.append(Color(C,C,C,1))
 			
 			
 			else:#all vertices in front of camera
@@ -1510,14 +1519,22 @@ func render():
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
 				var C
-				if !shading:
+				if !shade_multi:
 					if array_walls[n].darkness != 0:
 						C = float(1)/array_walls[n].darkness
 					else:
 						C = 1
 				
-				else: C = -(    (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(shading*array_walls[n].darkness)/draw_distance)-1)
-				array_shading.append(Color(C,C,C))
+				else: C = -(    (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(shade_multi*array_walls[n].darkness)/draw_distance)-1)
+				
+				var F = 1
+					#F = -(    (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(1)/(draw_distance*fade_ddist_divi))-1)
+				
+				#print((draw_distance/fade_ddist_divi),"    ",(Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length())
+				if (fade_ddist_divi) && (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length() > (draw_distance/fade_ddist_divi):
+					F = -(    ((Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()-(draw_distance/fade_ddist_divi))    *(float(1)/(draw_distance-(draw_distance/fade_ddist_divi)))-1) 
+				
+				array_shading.append(Color(C,C,C,F))
 			
 			if cull_on && array_polygon.size() > 0:
 				if abs(array_polygon[array_polygon.size()-1].y*$PolyContainer.scale.y+(OS.window_size.y*lookingZ)) > OS.window_size.y/2:
@@ -1679,11 +1696,16 @@ func render():
 					
 				else:
 					var C
-					if shading: C =  -(xkusu*(float(shading*array_sprites[o].darkness)/draw_distance)-1)
+					if shade_multi: C =  -(xkusu*(float(shade_multi*array_sprites[o].darkness)/draw_distance)-1)
 					elif array_sprites[o].darkness > 0: C = float(1)/array_sprites[o].darkness
 					else: C = float(1)*-array_sprites[o].darkness
 					new_sprite.modulate = array_sprites[o].modulate*C
-					new_sprite.modulate.a8 = array_sprites[o].modulate.a8
+					
+					var F = 1
+					if (fade_ddist_divi) && (Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length() > (draw_distance/fade_ddist_divi):
+						F = -(    ((Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length()-(draw_distance/fade_ddist_divi))    *(float(1)/(draw_distance-(draw_distance/fade_ddist_divi)))-1) 
+				
+					new_sprite.modulate.a8 = array_sprites[o].modulate.a8*F
 					new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
 					
 			else:

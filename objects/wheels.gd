@@ -175,7 +175,7 @@ func collide():
 				elif col_floors[n].absolute == 1:
 					if positionZ < col_floors[n].heights[0]-head_height:
 						positionZ = col_floors[n].heights[0]
-						if (motionZ < -10) && !on_floor: get_owner().wheelsound.car_land()
+						if (motionZ < -10) && !on_floor: get_owner().wheelsound.car_land(motionZ)
 						on_floor = true
 				
 				#if on_floor == false:
@@ -183,7 +183,7 @@ func collide():
 					if (positionZ < col_floors[n].heights[0]) && (positionZ+head_height > col_floors[n].heights[0]):
 						positionZ = col_floors[n].heights[0]# + head_height
 						
-						if (motionZ < -10) && !on_floor: get_owner().wheelsound.car_land()
+						if (motionZ < -10) && !on_floor: get_owner().wheelsound.car_land(motionZ)
 						on_floor = true 
 						if motionZ < 0:
 							motionZ = 0
@@ -212,7 +212,7 @@ func collide():
 				
 				if (col_floors[n].absolute == 1) && (positionZ < new_height.x):
 					positionZ = new_height.x
-					if (motionZ < -10) && !on_floor: get_owner().wheelsound.car_land()
+					if (motionZ < -10) && !on_floor: get_owner().wheelsound.car_land(motionZ)
 					on_floor = true
 				elif (col_floors[n].absolute == -1) && (positionZ + head_height > new_height.x):
 					positionZ = new_height.x - head_height
@@ -231,7 +231,7 @@ func collide():
 				
 				elif new_height.x > positionZ:
 					positionZ = new_height.x
-					if (motionZ < -10) && !on_floor: get_owner().wheelsound.car_land()
+					if (motionZ < -10) && !on_floor: get_owner().wheelsound.car_land(motionZ)
 					on_floor = true
 				else:
 					if on_floor:

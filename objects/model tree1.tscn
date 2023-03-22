@@ -33,7 +33,6 @@ texture_path = "res://textures/EGA/16-8.png"
 polygon = PoolVector2Array( 2.5, 2.75, -3.25, -2.5, -1.25, -1.25 )
 
 [node name="leaves" type="StaticBody2D" parent="." groups=[
-"logfx",
 "render",
 ]]
 modulate = Color( 0.109804, 0.568627, 0.152941, 0.615686 )
@@ -47,6 +46,7 @@ texture_path = "res://textures/EGA/0-8.png"
 polygon = PoolVector2Array( 3.75, -8, 7, 6.25, -9, 0.5 )
 
 [node name="leaves2" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.109804, 0.568627, 0.152941, 0.615686 )
@@ -60,6 +60,7 @@ texture_path = "res://textures/EGA/0-8.png"
 polygon = PoolVector2Array( 3.5, -7.75, 1.75, 0.75, -9.25, 0.25 )
 
 [node name="leaves3" type="StaticBody2D" parent="." groups=[
+"logfx",
 "render",
 ]]
 modulate = Color( 0.109804, 0.568627, 0.152941, 0.615686 )

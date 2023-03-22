@@ -1,0 +1,209 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://objects/wheels.gd" type="Script" id=1]
+[ext_resource path="res://objects/dynacar.gd" type="Script" id=2]
+[ext_resource path="res://audio/car/ecosport/car_engine_off.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio.gd" type="Script" id=4]
+[ext_resource path="res://objects/model car Escort.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32.8572, 72.1428 )
+
+[sub_resource type="CircleShape2D" id=2]
+
+[node name="dynacar-escort" type="KinematicBody2D" groups=[
+"car",
+"interact",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+scale = Vector2( 2.8, 2.8 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+string = "Classic economy fastback: FORTE Esport"
+head_height = 85
+camheight = 150
+driver_height = 5
+engine_power = 5.0
+max_speed = 7200
+
+[node name="Engine" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+script = ExtResource( 4 )
+minus = 0
+
+[node name="Other" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 4 )
+minus = -24
+
+[node name="Tire" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 4 )
+minus = 0
+
+[node name="Radio" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 4 )
+minus = -10
+
+[node name="ColArea" type="Area2D" parent="."]
+scale = Vector2( 1.1, 1 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColArea"]
+position = Vector2( 3, 0 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="model" parent="." instance=ExtResource( 5 )]
+
+[node name="lightFT" type="Position2D" parent="." groups=[
+"position",
+]]
+position = Vector2( 70.3571, -22.8571 )
+
+[node name="lightFB" type="Position2D" parent="." groups=[
+"position",
+]]
+position = Vector2( 70.3571, 22.8571 )
+
+[node name="lightRT" type="Position2D" parent="." groups=[
+"position",
+]]
+position = Vector2( -72.5, -22.8571 )
+
+[node name="lightRB" type="Position2D" parent="." groups=[
+"position",
+]]
+position = Vector2( -72.5, 22.8571 )
+
+[node name="driver" type="Position2D" parent="." groups=[
+"position",
+]]
+position = Vector2( 4.64286, -17.5 )
+
+[node name="wheel0" type="KinematicBody2D" parent="." groups=[
+"rendersprite",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( -42.1429, 33.5714 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+dontMove = true
+dontCollideSprite = true
+head_height = 20
+
+[node name="ColArea" type="Area2D" parent="wheel0"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheel0/ColArea"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheel0"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 2 )
+
+[node name="wheel1" type="KinematicBody2D" parent="." groups=[
+"rendersprite",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( -42.1429, -33.5714 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+dontMove = true
+dontCollideSprite = true
+head_height = 20
+
+[node name="ColArea" type="Area2D" parent="wheel1"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheel1/ColArea"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheel1"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 2 )
+
+[node name="wheel3" type="KinematicBody2D" parent="." groups=[
+"rendersprite",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( 43.9286, 33.2143 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+dontMove = true
+dontCollideSprite = true
+head_height = 20
+
+[node name="ColArea" type="Area2D" parent="wheel3"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheel3/ColArea"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheel3"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 2 )
+
+[node name="wheel2" type="KinematicBody2D" parent="." groups=[
+"rendersprite",
+"sprite",
+]]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( 43.5714, -33.5714 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+dontMove = true
+dontCollideSprite = true
+head_height = 20
+
+[node name="ColArea" type="Area2D" parent="wheel2"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheel2/ColArea"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wheel2"]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 2 )
+
+[connection signal="body_shape_entered" from="ColArea" to="." method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="ColArea" to="." method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="wheel0/ColArea" to="wheel0" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="wheel0/ColArea" to="wheel0" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="wheel1/ColArea" to="wheel1" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="wheel1/ColArea" to="wheel1" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="wheel3/ColArea" to="wheel3" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="wheel3/ColArea" to="wheel3" method="_on_ColArea_body_shape_exited"]
+[connection signal="body_shape_entered" from="wheel2/ColArea" to="wheel2" method="_on_ColArea_body_shape_entered"]
+[connection signal="body_shape_exited" from="wheel2/ColArea" to="wheel2" method="_on_ColArea_body_shape_exited"]
