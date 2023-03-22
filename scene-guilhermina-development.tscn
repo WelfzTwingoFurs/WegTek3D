@@ -84,9 +84,6 @@ b = Vector2( 21100, 10700 )
 
 [node name="guilhermina downtown" type="Node2D"]
 
-[node name="LoadingZone" parent="." instance=ExtResource( 2 )]
-level = ExtResource( 3 )
-
 [node name="playercamera" parent="." instance=ExtResource( 1 )]
 position = Vector2( 2643, 2914 )
 camera = true
@@ -94,12 +91,16 @@ draw_distance = 8192
 positionZ = -2100
 map_scale = 1.0
 skycolor = Color( 0.666667, 0.772549, 0.772549, 1 )
+fade_ddist_divi = 1.5
 cull_on = false
 higfx = true
-shading = 0.25
 
 [node name="Sky" parent="playercamera/Background" index="1"]
 modulate = Color( 1, 0, 1, 1 )
+
+[node name="LoadingZone" parent="." instance=ExtResource( 2 )]
+position = Vector2( -2718, -18545 )
+level = ExtResource( 3 )
 
 [node name="mapsplan" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.388235 )
@@ -1468,6 +1469,27 @@ absolute = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/backie/calça6"]
 polygon = PoolVector2Array( 184460, 87040.3, 178840, 87170.3, 68779.1, 151820 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="calça2" parent="." groups=[
+"floor",
+"render",
+] instance=ExtResource( 4 )]
+modulate = Color( 0.345098, 0.345098, 0.345098, 1 )
+position = Vector2( 8959, 3552 )
+rotation = 1.5708
+scale = Vector2( 0.05, -0.1 )
+script = ExtResource( 11 )
+heights = [ -495.0, -845.0, -495.0 ]
+onesided = -1
+textures_on = true
+texture_path = "res://textures/rocks32.png"
+absolute = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="calça2"]
+polygon = PoolVector2Array( -112661, 125350, -106761, 119240, -99980.8, 121280 )
 __meta__ = {
 "_edit_lock_": true
 }

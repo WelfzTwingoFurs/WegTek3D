@@ -26,7 +26,10 @@ export(float) var darkness = 1
 
 export var reflect = 0
 
+var original_color = Color()
+
 func _ready():
+	original_color = modulate
 	if !(weakref($CollisionPolygon2D).get_ref()):
 		print(">M I S T A K E: map-floor's StaticBody missing a ColPoly2D. At: ",position)
 		queue_free()

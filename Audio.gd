@@ -957,12 +957,16 @@ func car_bump():
 
 
 const carB1 = preload("res://audio/car/car_crash1.wav")
-const carB2 = preload("res://audio/car/car_crash1.wav")
+const carB2 = preload("res://audio/car/car_crash2.wav")
+const carB3 = preload("res://audio/car/car_crash3.wav")
 
 func car_crash():
-	which = (randi() % 2)
+	which = (randi() % 3)
 	if which == 0:
 		set_stream(carB1)
+	
+	elif which == 1:
+		set_stream(carB3)
 	
 	else:#if which == 1:
 		set_stream(carB2)
@@ -1009,7 +1013,7 @@ func car_engine_loop():
 const car0F = preload("res://audio/car/TD3/car_engine_off.wav")
 const car1F = preload("res://audio/car/ecosport/car_engine_off.wav")
 const car2F = preload("res://audio/car/enduro/car_engine_off.wav")
-
+onready var carFs = [car0F,car1F,car2F]
 #const car1F = preload("res://audio/car/police_siren.wav")
 
 func car_engine_off():
@@ -1043,19 +1047,15 @@ func car_engine_start():
 	
 	play()
 
-const carH1 = preload("res://audio/car/car_land1.wav")
-const carH2 = preload("res://audio/car/car_land2.wav")
+const carH = preload("res://audio/car/car_land.wav")
 
 
-func car_land():
-	which = (randi() % 2)
-	if which == 0:
-		set_stream(carH1)
-	
-	else:#if which == 1:
-		set_stream(carH2)
-	
-	play()
+func car_land(Speed):
+	if Speed > 0:
+		volume_db = Speed
+		pitch_scale = Speed
+		set_stream(carH)
+		play()
 
 
 #CAR

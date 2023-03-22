@@ -19,9 +19,13 @@ var zoom = 1
 var player
 var Camera2D
 var playercar = null
+onready var menu = null
 
 var npcs = 0
 var cars = 0
+
+func _ready():
+	menu = null
 
 func _process(_delta):
 	#print(playercar)
@@ -94,7 +98,8 @@ func _process(_delta):
 		
 		
 		
-		if !Input.is_action_pressed("bug_closeeyes"):
+		#if !Input.is_action_pressed("bug_closeeyes"):
+		if !Worldconfig.player.map_on:
 			if Input.is_action_just_pressed("bug_zoomplus"): # + Zoom in
 				if zoom > 0:
 					config = 0
