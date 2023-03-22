@@ -6,27 +6,28 @@
 
 
 ```text
-https://github.com/WelfzTwingoFurs/godot-raycaster-like
+https://github.com/WelfzTwingoFurs/WegTek3D
 ###################################################################################
-########### Godot raycaster-like engine!! ... WEGTEK Engine, Version 13 ###########
+########### Godot raycaster-like engine!! . . . . WEGTEK-3D, Version 14 ###########
 ###################### written by Welfz Twingo Furs, aka Weg ######################
 ###################################################################################
  [created using Godot Engine v3.3.2-stable Win64, at https://www.godotengine.org/]
 
 FEATURES:
--Polygon world with height;
 -Moving up & down, looking up & down;
+-Polygon world with height;
 -Field of view (FOV), draw distance options;
 -Clipping (vertices behind camera don't distort);
 -Z_Index sorting (Polygons in front of polygons behind);
 -One-sided polygon option;
--Depth-shading;
--Polygons are 'darkable', colorable, 'unmoving plaid' or UV texturable;
+-Depth-shading, adjustable;
+-Polygons are colorable, 'darkable', texturable as unmoving-plaid or UV;
+-Mono sound system;
 -WIP Whole-polygon culling (if entirely outside screen, don't render) option;
 -Sprite objects with height, & any amount of rotation frames;
 -Sprite ground-shadows/reflections;
--Basic 'dynamic' darkness level;
--Floor & flat wall collision;
+-Basic 'dynamic' darkness system for sprites, darken as floor is;
+-Flat floor, triangular diagonal floor, & flat wall collision;
 -Mouse & keyboard control;
 -Viewbobbing, viewrolling options;
 -Screen resizable to any size without stretching;
@@ -36,8 +37,9 @@ FEATURES:
 -Map using draw_line, 2D & 3D options, zoom option;
 -Convenient map-making options;
 -Basic weapon inventory;
--Driveable cars, customizeable base, first and third person cameras;
--Basic pedestrians.
+-Driveable cars, dynamic suspension, manual gears, customizeable base;
+-Third and first person camera, with dashboard, steering wheel, Km/h and RPM gauges;
+-Basic pedestrians that wander, get hurt, fight back or run away, and die.
 
 IMPERFECTIONS:
 -No diagonal wall collision;
@@ -51,7 +53,9 @@ IMPERFECTIONS:
 -Floor-sprite position slightly innacurate to aspect ratio;
 -Mouselook different sensitivity for X and Y;
 -No in-game options (all settings in editor);
--The car is partially infinitely tall.
+-The car is infinitely tall for walls and other cars;
+-Cars' polygons distort when clipping;
+-NPCs can't dodge things, only follow targets.
 
 
 ###################################################################################
@@ -62,21 +66,27 @@ CONTROL KEYS:
 -PGup & PGdown: Look up & down;
 - Space & Ctrl:  Fly up & down;
 -            L:   Mouse toggle;
--        [ & ]:  Weapon select;
+-     [/], O/P:  Weapon select;
+-     Mouse1/2:   Shoot weapon;
 -            F: Enter/exit car;
 -            C:  Change camera:
+-          Q/E:   Look, in car;
+-             M: Radio, in car;
+-Shift (+Move):    Change gear;
 -   Alt (hold):       View map;
--      Alt +/-:       Zoom map;
--            X:  Noclip toggle;
--    Quote ('): Console toggle;
+-    Alt & +/-:       Zoom map;
+-            X:  Noclip toggle.
+
 
 DEBUG KEYS:
+- Quote ('):    Console toggle;
 - Scroll-lock (+Move):   Angle;
 - Home:            Look center;
 -  End:             Fly center;
 -   F1:         /2 screen-size;
 -   F2:         *2 screen-size;
 -   F3:      Reset/Fill screen;
+-   F4:        Pixelize screen;
 -    +:                Zoom in;
 -    -:               Zoom out;
 -   F5:            Reset scene;
