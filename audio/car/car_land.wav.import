@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/car_land.wav-effc6f9f8d596f87cfc1e3b70de33cca.sample"
+
+[deps]
+
+source_file="res://audio/car/car_land.wav"
+dest_files=[ "res://.import/car_land.wav-effc6f9f8d596f87cfc1e3b70de33cca.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
