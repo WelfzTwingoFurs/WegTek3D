@@ -128,7 +128,7 @@ polygon = PoolVector2Array( 5.856, -9.03, 5.856, 1.933, -5.8558, 1.93337, -5.856
 "logfx",
 "render",
 ]]
-modulate = Color( 0.321569, 0.321569, 0.321569, 1 )
+modulate = Color( 0.960784, 0.960784, 0.960784, 1 )
 scale = Vector2( 4.2, 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -286,7 +286,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.856, -9.03, -6.38951, -21.4844, -6.51151, -10.0448 )
 
 [node name="cpillar2" type="StaticBody2D" parent="." groups=[
-"color_sideL",
+"color_hood",
 "render",
 ]]
 modulate = Color( 0.835294, 0.835294, 0.835294, 1 )
@@ -304,7 +304,7 @@ texture_path = "res://textures/stretchtest.png"
 polygon = PoolVector2Array( -5.85, 1.93, -6.77455, 9.35113, -6.39729, 9.42313 )
 
 [node name="cpillar" type="StaticBody2D" parent="." groups=[
-"color_sideR",
+"color_hood",
 "render",
 ]]
 modulate = Color( 0.835294, 0.835294, 0.835294, 1 )

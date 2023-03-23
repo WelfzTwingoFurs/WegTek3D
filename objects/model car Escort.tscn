@@ -501,7 +501,6 @@ polygon = PoolVector2Array( -9.5, 16.25, -9.25, 11.75, -9, 11.75, -9.25, 16 )
 "higfx",
 "render",
 ]]
-modulate = Color( 0.988235, 0.329412, 0.329412, 1 )
 position = Vector2( 33, -91.2143 )
 rotation = 3.14159
 scale = Vector2( 4, -4 )

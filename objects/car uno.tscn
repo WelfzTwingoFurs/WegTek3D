@@ -25,6 +25,21 @@ __meta__ = {
 "_edit_group_": true
 }
 string = "Classic economy hatchback car: FATIA Umsó"
+color_top = Color( 1, 0.780392, 0.556863, 1 )
+color_sideL = Color( 1, 0.780392, 0.556863, 1 )
+color_sideR = Color( 1, 0.780392, 0.556863, 1 )
+color_front = Color( 1, 0.780392, 0.556863, 1 )
+color_back = Color( 1, 0.780392, 0.556863, 1 )
+color_hood = Color( 1, 0.780392, 0.556863, 1 )
+color_trunk = Color( 0, 0, 0, 1 )
+color_frontbumper = Color( 0.329412, 0.329412, 0.329412, 1 )
+color_backbumper = Color( 0.329412, 0.329412, 0.329412, 1 )
+color_grill = Color( 0.180392, 0.180392, 0.180392, 1 )
+color_inside = Color( 0.329412, 0.329412, 0.329412, 1 )
+color_wheelLB = Color( 0.658824, 0.658824, 0.658824, 1 )
+color_wheelLF = Color( 0.658824, 0.658824, 0.658824, 1 )
+color_wheelRB = Color( 0.658824, 0.658824, 0.658824, 1 )
+color_wheelRF = Color( 0.658824, 0.658824, 0.658824, 1 )
 dashboard = "res://assets/car dash uno.png"
 steeringwheel = "res://assets/car wheel uno.png"
 camheight = 150

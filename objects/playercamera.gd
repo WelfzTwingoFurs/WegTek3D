@@ -1390,6 +1390,7 @@ var skipframe
 func skip_frame():
 	skipframe = OS.get_ticks_msec()
 
+
 func render():
 	if (weakref(new_container).get_ref()):
 		new_container.queue_free()
@@ -1403,9 +1404,12 @@ func render():
 	rot_minus90 = rad_overflow(rotation_angle-(PI/2))
 	
 	for n in array_walls.size():
+		var incoming_trigger = false
 		if incoming_walls.has(array_walls[n]):
 			if (array_walls[n].points[0] - position).length() > draw_distance/lod_ddist_divi:
 				continue
+			else:
+				incoming_trigger = true
 		
 		
 		var new_poly = $PolyContainer/Poly0.duplicate()
@@ -1414,6 +1418,7 @@ func render():
 		var outtasight = 0
 		var min_distance = INF
 		var array_shading = []
+		var clipping_trigger = false
 		
 		for m in array_walls[n].points.size():
 			var rot_object   = rad_overflow((array_walls[n].points[m]-position).angle()-PI/2)
@@ -1421,6 +1426,7 @@ func render():
 			
 			#stretching fix conditions
 			if (rotation_angle > PI/2 && rotation_angle < 3*PI/2 && (rot_object < rot_minus90 or rot_object > rot_plus90))   or   (rot_object < rot_minus90 && rot_object > rot_plus90):
+				clipping_trigger = true
 				var rot_object_plus  = rad_overflow((array_walls[n].points[ (m+1) % array_walls[n].points.size() ]-position).angle()-PI/2)
 				var rot_object_minus = rad_overflow((array_walls[n].points[ (m-1) % array_walls[n].points.size() ]-position).angle()-PI/2)
 				var neighbours_pm = Vector2(0,0) #pm = "plus, minus"
@@ -1518,21 +1524,28 @@ func render():
 				#var lineH = (OS.window_size.y / not_zero( (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()) )   /  cos(xkusu) #Logic from other raycasters
 				
 				array_polygon.append(Vector2(tan(xkusu),((positionZ+head_height)*lineH)-lineH*(array_walls[n].heights[m]+array_walls[n].extraZ[m]))) #OVER
-				var C
+				var C = 1
 				if !shade_multi:
 					if array_walls[n].darkness != 0:
 						C = float(1)/array_walls[n].darkness
-					else:
-						C = 1
+					#else:
+					#	C = 1
 				
-				else: C = -(    (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(shade_multi*array_walls[n].darkness)/draw_distance)-1)
+				#else:
+				elif !clipping_trigger:
+					C = -(    (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(shade_multi*array_walls[n].darkness)/draw_distance)-1)
 				
 				var F = 1
 					#F = -(    (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(1)/(draw_distance*fade_ddist_divi))-1)
 				
 				#print((draw_distance/fade_ddist_divi),"    ",(Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length())
-				if (fade_ddist_divi) && (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length() > (draw_distance/fade_ddist_divi):
-					F = -(    ((Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()-(draw_distance/fade_ddist_divi))    *(float(1)/(draw_distance-(draw_distance/fade_ddist_divi)))-1) 
+				if !clipping_trigger && (fade_ddist_divi):
+					if !incoming_trigger && (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length() > (draw_distance/fade_ddist_divi):
+						F = -(    ((Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()-(draw_distance/fade_ddist_divi))    *(float(1)/(draw_distance-(draw_distance/fade_ddist_divi)))-1) 
+						
+					elif incoming_trigger && (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length() > ((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2)):
+						F = -(    ((Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()-((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2)))    *(float(1)/((draw_distance/lod_ddist_divi)-((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2))))-1) 
+						
 				
 				array_shading.append(Color(C,C,C,F))
 			
@@ -1650,9 +1663,12 @@ func render():
 	
 	if (weakref(new_container).get_ref()):
 		for o in array_sprites.size():
+			var incoming_trigger = false
 			if incoming_sprites.has(array_sprites[o]):
 				if (array_sprites[o].position - position).length() > draw_distance/lod_ddist_divi:
 					continue
+				else:
+					incoming_trigger = true
 			
 			var new_sprite = $PolyContainer/Sprite0.duplicate()
 			
@@ -1689,12 +1705,14 @@ func render():
 			if !array_sprites[o].dontZ:#lets re-use xkusu
 				xkusu = (Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length()
 				if abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096:
-					#break
-					new_sprite.modulate = Color(0,0,0)
-					new_sprite.modulate.a8 = array_sprites[o].modulate.a8/2
-					new_sprite.z_index = -4095
-					
+#					#break
+#					new_sprite.modulate = Color(0,0,0)
+#					new_sprite.modulate.a8 = array_sprites[o].modulate.a8/2
+					new_sprite.modulate.a8 = 0
+#					new_sprite.z_index = -4095
+#
 				else:
+#				if !(abs(-(xkusu*(float(8192)/draw_distance)-4096)) > 4096):
 					var C
 					if shade_multi: C =  -(xkusu*(float(shade_multi*array_sprites[o].darkness)/draw_distance)-1)
 					elif array_sprites[o].darkness > 0: C = float(1)/array_sprites[o].darkness
@@ -1702,9 +1720,14 @@ func render():
 					new_sprite.modulate = array_sprites[o].modulate*C
 					
 					var F = 1
-					if (fade_ddist_divi) && (Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length() > (draw_distance/fade_ddist_divi):
-						F = -(    ((Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length()-(draw_distance/fade_ddist_divi))    *(float(1)/(draw_distance-(draw_distance/fade_ddist_divi)))-1) 
-				
+					if (fade_ddist_divi):
+						if !incoming_trigger && (Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length() > (draw_distance/fade_ddist_divi):
+							F = -(    ((Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length()-(draw_distance/fade_ddist_divi))    *(float(1)/(draw_distance-(draw_distance/fade_ddist_divi)))-1) 
+							
+						elif incoming_trigger && (Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length() > ((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2)):
+							F = -(    ((Vector3(array_sprites[o].position.x, array_sprites[o].position.y, array_sprites[o].positionZ) - Vector3(position.x, position.y, positionZ)).length()-((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2)))    *(float(1)/((draw_distance/lod_ddist_divi)-((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2))))-1) 
+							
+					
 					new_sprite.modulate.a8 = array_sprites[o].modulate.a8*F
 					new_sprite.z_index = -(xkusu*(float(8192)/draw_distance)-4096)
 					
