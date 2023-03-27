@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/arcades/BeJerk/bjweapons.png" type="Texture" id=1]
+[ext_resource path="res://objects/arcades/BeJerk/bjbullet.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 4 )
+
+[node name="bullet" type="KinematicBody2D" groups=[
+"bjbullet",
+]]
+collision_layer = 32768
+collision_mask = 720896
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 3
+vframes = 5
+frame = 12
+
+[node name="Col" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.75, 0.75 )
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 720896
+
+[node name="Col" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

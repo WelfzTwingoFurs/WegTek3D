@@ -1,0 +1,733 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://objects/arcades/BeJerk/bjBG.png" type="Texture" id=1]
+[ext_resource path="res://objects/arcades/BeJerk/bjCamera2D.gd" type="Script" id=2]
+[ext_resource path="res://objects/arcades/BeJerk/bjentry.gd" type="Script" id=3]
+[ext_resource path="res://objects/arcades/BeJerk/bjplayer placeholder.gd" type="Script" id=4]
+[ext_resource path="res://objects/arcades/BeJerk/bjpedspawner.gd" type="Script" id=5]
+[ext_resource path="res://objects/arcades/BeJerk/bjplayer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/arcades/BeJerk/bjitem.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/arcades/BeJerk/bjfont.fnt" type="BitmapFont" id=8]
+[ext_resource path="res://objects/arcades/BeJerk/bjTileMap.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/arcades/BeJerk/bjcar.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/arcades/BeJerk/bjstepover.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/arcades/BeJerk/bjobject.tscn" type="PackedScene" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 4 )
+
+[node name="Node2D" type="Node2D" groups=[
+"owner",
+]]
+scale = Vector2( 3, 3 )
+script = ExtResource( 4 )
+be_player = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 2 )
+
+[node name="BG" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 0, -3.8147e-06 )
+scale = Vector2( 1, 0.9375 )
+z_index = 4096
+texture = ExtResource( 1 )
+
+[node name="Labeltop" type="Label" parent="BG"]
+margin_left = -120.0
+margin_top = -136.0
+margin_right = 120.0
+margin_bottom = -103.0
+custom_fonts/font = ExtResource( 8 )
+text = " LVL3  -  HISCORE:123.456.789"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Labelbot" type="Label" parent="BG"]
+margin_left = -120.0
+margin_top = 128.0
+margin_right = 120.0
+margin_bottom = 160.0
+custom_fonts/font = ExtResource( 8 )
+text = "MEN:^^^^^+3  SCORE:123.456.789"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FG" type="Node2D" parent="."]
+z_index = 4096
+
+[node name="player" parent="FG" instance=ExtResource( 6 )]
+position = Vector2( 0, 17 )
+z_index = 4096
+weapon = 2
+
+[node name="car" parent="FG" instance=ExtResource( 10 )]
+position = Vector2( -24, 31 )
+z_index = 4096
+
+[node name="TileMap" parent="FG" instance=ExtResource( 9 )]
+z_index = 4096
+z_as_relative = false
+tile_data = PoolIntArray( -1048592, 19, 0, -983056, 19, 0, -983055, 19, 0, -983054, 19, 0, -983053, 19, 0, -983052, 19, 0, -983051, 19, 0, -983050, 19, 0, -983049, 19, 0, -983048, 19, 0, -983047, 19, 0, -983046, 19, 0, -983045, 19, 0, -983044, 19, 0, -983043, 19, 0, -983042, 19, 0, -983041, 19, 0, -1048576, 19, 0, -1048575, 19, 0, -1048574, 19, 0, -1048573, 19, 0, -1048572, 19, 0, -1048571, 19, 0, -1048570, 19, 0, -1048569, 19, 0, -1048568, 19, 0, -1048567, 19, 0, -1048566, 19, 0, -1048565, 19, 0, -1048564, 19, 0, -1048563, 19, 0, -1048562, 19, 0, -917520, 1, 0, -917519, -1073741818, 0, -917518, 6, 0, -917517, -1073741818, 0, -917516, 6, 0, -917515, -1073741818, 0, -917514, 6, 0, -917513, -1073741818, 0, -917512, 6, 0, -917511, -1073741818, 0, -917510, 6, 0, -917509, -1073741818, 0, -917508, 6, 0, -983037, -1073741818, 0, -983036, 6, 0, -983035, -1073741818, 0, -983034, 6, 0, -983033, -1073741818, 0, -983032, 6, 0, -983031, -1073741818, 0, -983030, 6, 0, -983029, -1073741818, 0, -983028, 6, 0, -983027, -1073741818, 0, -983026, 6, 0, -983025, 1, 0, -851984, 1, 0, -851983, 1610612742, 0, -851982, -1610612730, 0, -851981, 1610612742, 0, -851980, -1610612730, 0, -851979, 1610612742, 0, -851978, -1610612730, 0, -851977, 1610612742, 0, -851976, -1610612730, 0, -851975, 1610612742, 0, -851974, -1610612730, 0, -851973, 1610612742, 0, -851972, -1610612730, 0, -851969, 1610612740, 0, -917504, 4, 0, -917501, 1610612742, 0, -917500, -1610612730, 0, -917499, 1610612742, 0, -917498, -1610612730, 0, -917497, 1610612742, 0, -917496, -1610612730, 0, -917495, 1610612742, 0, -917494, -1610612730, 0, -917493, 1610612742, 0, -917492, -1610612730, 0, -917491, 1610612742, 0, -917490, -1610612730, 0, -917489, 1, 0, -786448, 1, 0, -786447, -1073741818, 0, -786446, 6, 0, -786438, -536870908, 0, -786437, -536870908, 0, -851955, -1073741818, 0, -851954, 6, 0, -851953, 1, 0, -720912, 1, 0, -720911, 1610612742, 0, -720910, -1610612730, 0, -720902, -2147483644, 0, -720901, -2147483644, 0, -786419, 1610612742, 0, -786418, -1610612730, 0, -786417, 1, 0, -655376, 1, 0, -655375, -1073741818, 0, -655374, 6, 0, -655369, -1073741820, 0, -655366, -536870908, 0, -655365, -536870908, 0, -655363, -1073741820, 0, -655361, 1610612740, 0, -720896, 4, 0, -720894, -536870908, 0, -720891, -536870908, 0, -720888, -536870908, 0, -720883, -1073741818, 0, -720882, 6, 0, -720881, 1, 0, -589840, 1, 0, -589839, 1610612742, 0, -589838, -1610612730, 0, -589833, -1610612732, 0, -589830, -2147483644, 0, -589829, -2147483644, 0, -589827, -1610612732, 0, -655358, -1610612732, 0, -655355, -2147483644, 0, -655352, -1610612732, 0, -655347, 1610612742, 0, -655346, -1610612730, 0, -655345, 1, 0, -524304, 1, 0, -524303, -1073741818, 0, -524302, 6, 0, -524299, 1610612740, 0, -524298, 4, 0, -524294, -536870908, 0, -524293, -536870908, 0, -589815, 1610612740, 0, -589814, 4, 0, -589811, -1073741818, 0, -589810, 6, 0, -589809, 1, 0, -458768, 1, 0, -458767, 1610612742, 0, -458766, -1610612730, 0, -458758, -2147483644, 0, -458757, -2147483644, 0, -524275, 1610612742, 0, -524274, -1610612730, 0, -524273, 1, 0, -393232, 1, 0, -393231, -1073741818, 0, -393230, 6, 0, -393223, -1073741818, 0, -393222, 6, 0, -393221, -1073741818, 0, -393220, 6, 0, -393219, -1073741818, 0, -393218, 6, 0, -393217, -1073741818, 0, -458752, 6, 0, -458751, -1073741818, 0, -458750, 6, 0, -458749, -1073741818, 0, -458748, 6, 0, -458747, -1073741818, 0, -458746, 6, 0, -458739, -1073741818, 0, -458738, 6, 0, -458737, 1, 0, -327696, 1, 0, -327695, 1610612742, 0, -327694, -1610612730, 0, -327691, 1610612740, 0, -327690, 4, 0, -327687, 1610612742, 0, -327686, -1610612730, 0, -327685, 1610612742, 0, -327684, 3, 0, -327683, 12, 0, -327682, 12, 0, -327681, 12, 0, -393216, 12, 0, -393215, 12, 0, -393214, 12, 0, -393213, 536870915, 0, -393212, -1610612730, 0, -393211, 1610612742, 0, -393210, -1610612730, 0, -393209, 1610612740, 0, -393208, 1073741828, 0, -393207, 1610612740, 0, -393206, 1073741828, 0, -393205, 1610612740, 0, -393204, 1073741828, 0, -393203, 1610612742, 0, -393202, -1610612730, 0, -393201, 1, 0, -262160, 1, 0, -262159, -1073741818, 0, -262158, 6, 0, -262151, -1073741818, 0, -262150, 6, 0, -262149, 3, 0, -262148, 19, 0, -262147, 19, 0, -262146, 19, 0, -262145, 19, 0, -327680, 19, 0, -327679, 19, 0, -327678, 19, 0, -327677, 19, 0, -327676, 536870915, 0, -327675, -1073741818, 0, -327674, 6, 0, -327673, 1610612740, 0, -327672, 1073741828, 0, -327671, 1610612740, 0, -327670, 1073741828, 0, -327669, 1610612740, 0, -327668, 1073741828, 0, -327667, -1073741818, 0, -327666, 6, 0, -327665, 1, 0, -196624, 1, 0, -196623, 1610612742, 0, -196622, -1610612730, 0, -196615, 1610612742, 0, -196614, -1610612730, 0, -196613, 2, 0, -196612, 2, 0, -196611, 2, 0, -196610, 2, 0, -196609, 2, 0, -262144, 2, 0, -262143, 2, 0, -262142, 2, 0, -262141, 2, 0, -262140, 2, 0, -262139, 1610612742, 0, -262138, -1610612730, 0, -262131, 1610612742, 0, -262130, -1610612730, 0, -262129, 1, 0, -131088, 1, 0, -131083, 1610612740, 0, -131082, 4, 0, -131079, -1073741818, 0, -131078, 6, 0, -131077, 2, 0, -131076, 8, 0, -131075, 8, 0, -131074, 2, 0, -131073, 2, 0, -196608, 2, 0, -196607, 2, 0, -196606, 8, 0, -196605, 8, 0, -196604, 2, 0, -196603, -1073741818, 0, -196602, 6, 0, -196599, 536870916, 0, -196598, 4, 0, -196593, 1, 0, -65552, 1, 0, -65543, 1610612742, 0, -65542, -1610612730, 0, -65541, 2, 0, -65540, 8, 0, -65539, 8, 0, -65538, 2, 0, -65537, 0, 0, -131072, 0, 0, -131071, 2, 0, -131070, 8, 0, -131069, 8, 0, -131068, 2, 0, -131067, 1610612742, 0, -131066, -1610612730, 0, -131057, 1, 0, -16, 1, 0, -14, -1073741820, 0, -11, -1073741820, 0, -7, -1073741818, 0, -6, 6, 0, -5, 2, 0, -4, 2, 0, -3, 2, 0, -2, 2, 0, -1, 0, 0, -65536, 9, 0, -65535, 2, 0, -65534, 2, 0, -65533, 2, 0, -65532, 2, 0, -65531, -1073741818, 0, -65530, 6, 0, -65526, -1073741820, 0, -65523, -1073741820, 0, -65521, 1, 0, 65520, 1, 0, 65522, -1610612732, 0, 65525, -1610612732, 0, 65529, 1610612742, 0, 65530, -1610612730, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 2, 0, 65535, 0, 0, 0, 0, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 2, 0, 5, 1610612742, 0, 6, -1610612730, 0, 10, -2147483644, 0, 13, -2147483644, 0, 15, 1, 0, 131056, 1, 0, 131065, -1073741818, 0, 131066, 6, 0, 131067, 13, 0, 65540, 13, 0, 65541, -1073741818, 0, 65542, 6, 0, 65551, 1, 0, 196592, 1, 0, 196597, 536870916, 0, 196598, 4, 0, 196601, 1610612742, 0, 196602, -1610612730, 0, 196603, 13, 0, 131076, 13, 0, 131077, 1610612742, 0, 131078, -1610612730, 0, 131081, 536870916, 0, 131082, 4, 0, 131087, 1, 0, 262128, 1, 0, 262129, -1073741818, 0, 262130, 6, 0, 262137, -1073741818, 0, 262138, 6, 0, 262139, 13, 0, 196611, 13, 0, 196612, 13, 0, 196613, -1073741818, 0, 196614, 6, 0, 196621, -1073741818, 0, 196622, 6, 0, 196623, 1, 0, 327664, 1, 0, 327666, -1610612730, 0, 327673, 1610612742, 0, 327674, -1610612730, 0, 327675, 18, 0, 262147, 18, 0, 262148, 18, 0, 262149, 1610612742, 0, 262150, -1610612730, 0, 262157, 1610612742, 0, 262158, -1610612730, 0, 262159, 1, 0, 393200, 1, 0, 393201, -1073741818, 0, 393202, 6, 0, 393205, 536870916, 0, 393206, 4, 0, 393209, -1073741818, 0, 393210, 6, 0, 393211, -1073741818, 0, 393212, 6, 0, 393213, -1073741818, 0, 393214, 6, 0, 393215, -1073741818, 0, 327680, 6, 0, 327681, -1073741818, 0, 327682, 6, 0, 327683, -1073741818, 0, 327684, 6, 0, 327685, -1073741818, 0, 327686, 6, 0, 327689, 536870916, 0, 327690, 4, 0, 327693, -1073741818, 0, 327694, 6, 0, 327695, 1, 0, 458736, 1, 0, 458737, 1610612742, 0, 458738, -1610612730, 0, 458745, 1610612742, 0, 458746, -1610612730, 0, 458747, 1610612742, 0, 458748, -1610612730, 0, 458749, 1610612742, 0, 458750, -1610612730, 0, 458751, 1610612742, 0, 393216, -1610612730, 0, 393217, 1610612742, 0, 393218, -1610612730, 0, 393219, 1610612742, 0, 393220, -1610612730, 0, 393221, 1610612742, 0, 393222, -1610612730, 0, 393229, 1610612742, 0, 393230, -1610612730, 0, 393231, 1, 0, 524272, 1, 0, 524274, 6, 0, 458765, -1073741818, 0, 458766, 6, 0, 458767, 1, 0, 589808, 1, 0, 589810, -1610612730, 0, 589813, 536870916, 0, 589814, 4, 0, 524297, 1610612740, 0, 524298, 4, 0, 524301, 1610612742, 0, 524302, -1610612730, 0, 524303, 1, 0, 655344, 1, 0, 655345, -1073741818, 0, 655346, 6, 0, 655351, -1073741820, 0, 655354, -1073741820, 0, 655357, -1073741820, 0, 589826, -1073741820, 0, 589829, -1073741820, 0, 589832, -1073741820, 0, 589837, -1073741818, 0, 589838, 6, 0, 589839, 1, 0, 720880, 1, 0, 720881, 1610612742, 0, 720882, -1610612730, 0, 720887, -1610612732, 0, 720890, -1610612732, 0, 720893, -1610612732, 0, 720895, 1610612740, 0, 655362, -1610612732, 0, 655365, -1610612732, 0, 655368, -1610612732, 0, 655373, 1610612742, 0, 655374, -1610612730, 0, 655375, 1, 0, 786416, 1, 0, 786417, -1073741818, 0, 786418, 6, 0, 720909, -1073741818, 0, 720910, 6, 0, 720911, 1, 0, 851952, 1, 0, 786445, 1610612742, 0, 786446, -1610612730, 0, 786447, 1, 0, 917488, 1, 0, 917492, 6, 0, 917493, -1073741818, 0, 917494, 6, 0, 917495, -1073741818, 0, 917496, 6, 0, 917497, -1073741818, 0, 917498, 6, 0, 917499, -1073741818, 0, 917500, 6, 0, 917503, 1610612740, 0, 851968, 4, 0, 851971, -1073741818, 0, 851972, 6, 0, 851973, -1073741818, 0, 851974, 6, 0, 851975, -1073741818, 0, 851976, 6, 0, 851977, -1073741818, 0, 851978, 6, 0, 851979, -1073741818, 0, 851980, 6, 0, 851981, -1073741818, 0, 851982, 6, 0, 851983, 1, 0, 983024, 1, 0, 983029, 1610612742, 0, 983032, -1610612730, 0, 983033, 1610612742, 0, 983035, 1610612742, 0, 983036, -1610612730, 0, 917507, 1610612742, 0, 917508, -1610612730, 0, 917509, 1610612742, 0, 917510, -1610612730, 0, 917511, 1610612742, 0, 917512, -1610612730, 0, 917513, 1610612742, 0, 917514, -1610612730, 0, 917515, 1610612742, 0, 917516, -1610612730, 0, 917517, 1610612742, 0, 917518, -1610612730, 0, 917519, 1, 0, 1048560, 1, 0, 1048561, 19, 0, 1048562, 19, 0, 1048563, 19, 0, 1048564, 19, 0, 1048565, 19, 0, 1048566, 19, 0, 1048567, 19, 0, 1048568, 19, 0, 1048569, 19, 0, 1048570, 19, 0, 1048571, 19, 0, 1048572, 19, 0, 1048573, 19, 0, 1048574, 19, 0, 1048575, 19, 0, 983040, 19, 0, 983041, 19, 0, 983042, 19, 0, 983043, 19, 0, 983044, 19, 0, 983045, 19, 0, 983046, 19, 0, 983047, 19, 0, 983048, 19, 0, 983049, 19, 0, 983050, 19, 0, 983051, 19, 0, 983052, 19, 0, 983053, 19, 0, 983054, 19, 0, 983055, 1, 0, 1179653, 19, 0, 1179654, 19, 0, 1179655, 19, 0 )
+
+[node name="pedspawner" type="Node2D" parent="FG"]
+script = ExtResource( 5 )
+
+[node name="objs" type="Node2D" parent="FG"]
+
+[node name="item" parent="FG/objs" instance=ExtResource( 7 )]
+position = Vector2( 1.33333, 75.6667 )
+
+[node name="trash" parent="FG/objs" instance=ExtResource( 13 )]
+position = Vector2( 16, 32 )
+
+[node name="trash2" parent="FG/objs" instance=ExtResource( 13 )]
+position = Vector2( -96, 96 )
+
+[node name="sign" parent="FG/objs" instance=ExtResource( 13 )]
+position = Vector2( 100, -96 )
+
+[node name="Sprite" parent="FG/objs/sign" index="0"]
+hframes = 4
+frame = 4
+
+[node name="CollisionShape2D" parent="FG/objs/sign" index="1"]
+position = Vector2( 0, 4 )
+shape = SubResource( 1 )
+
+[node name="sign2" parent="FG/objs" instance=ExtResource( 13 )]
+position = Vector2( -12, 32 )
+
+[node name="Sprite" parent="FG/objs/sign2" index="0"]
+flip_h = true
+hframes = 4
+frame = 6
+
+[node name="CollisionShape2D" parent="FG/objs/sign2" index="1"]
+position = Vector2( 0, 4 )
+shape = SubResource( 1 )
+
+[node name="stepover9" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -100, 116 )
+
+[node name="Sprite" parent="FG/objs/stepover9" index="0"]
+frame = 18
+
+[node name="stepover10" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -116, 108 )
+
+[node name="stepover11" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -84, 100 )
+
+[node name="Sprite" parent="FG/objs/stepover11" index="0"]
+frame = 18
+
+[node name="stepover12" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -76, 100 )
+
+[node name="stepover13" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -100, 84 )
+
+[node name="Sprite" parent="FG/objs/stepover13" index="0"]
+frame = 18
+
+[node name="stepover" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -20, 12 )
+
+[node name="stepover3" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( 20, 20 )
+
+[node name="Sprite" parent="FG/objs/stepover3" index="0"]
+flip_h = true
+frame = 18
+
+[node name="stepover14" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( 28, 12 )
+
+[node name="Sprite" parent="FG/objs/stepover14" index="0"]
+frame = 18
+
+[node name="stepover4" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( 4, 36 )
+
+[node name="Sprite" parent="FG/objs/stepover4" index="0"]
+flip_h = true
+frame = 18
+
+[node name="stepover5" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -116, 68 )
+
+[node name="Sprite" parent="FG/objs/stepover5" index="0"]
+flip_h = true
+frame = 18
+
+[node name="stepover6" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -108, 100 )
+
+[node name="Sprite" parent="FG/objs/stepover6" index="0"]
+flip_h = true
+frame = 18
+
+[node name="stepover7" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -116, 116 )
+
+[node name="Sprite" parent="FG/objs/stepover7" index="0"]
+flip_h = true
+frame = 18
+
+[node name="stepover8" parent="FG/objs" instance=ExtResource( 12 )]
+position = Vector2( -44, 116 )
+
+[node name="Sprite" parent="FG/objs/stepover8" index="0"]
+flip_h = true
+frame = 18
+
+[node name="BG2" type="Sprite" parent="FG"]
+position = Vector2( 0, 124 )
+scale = Vector2( 1, 0.03125 )
+z_index = -1
+texture = ExtResource( 1 )
+
+[node name="BG3" type="Sprite" parent="FG"]
+position = Vector2( 0, -124 )
+scale = Vector2( 1, 0.03125 )
+z_index = -1
+texture = ExtResource( 1 )
+
+[node name="path points" type="Node2D" parent="."]
+position = Vector2( 0, 8 )
+
+[node name="Node2D" type="Node2D" parent="path points"]
+
+[node name="entry" type="Node2D" parent="path points" groups=[
+"entry",
+]]
+position = Vector2( -32, -120 )
+script = ExtResource( 3 )
+
+[node name="entry2" type="Node2D" parent="path points" groups=[
+"entry",
+]]
+position = Vector2( 32, -120 )
+script = ExtResource( 3 )
+
+[node name="entry3" type="Node2D" parent="path points" groups=[
+"entry",
+]]
+position = Vector2( 112, -40 )
+script = ExtResource( 3 )
+side = 2
+
+[node name="entry4" type="Node2D" parent="path points" groups=[
+"entry",
+]]
+position = Vector2( 112, 24 )
+script = ExtResource( 3 )
+side = 2
+
+[node name="entry5" type="Node2D" parent="path points" groups=[
+"entry",
+]]
+position = Vector2( 32, 104 )
+script = ExtResource( 3 )
+side = 3
+
+[node name="entry6" type="Node2D" parent="path points" groups=[
+"entry",
+]]
+position = Vector2( -32, 104 )
+script = ExtResource( 3 )
+side = 3
+
+[node name="entry7" type="Node2D" parent="path points" groups=[
+"entry",
+]]
+position = Vector2( -112, 23.6667 )
+script = ExtResource( 3 )
+side = 1
+
+[node name="entry8" type="Node2D" parent="path points" groups=[
+"entry",
+]]
+position = Vector2( -112, -40 )
+script = ExtResource( 3 )
+side = 1
+
+[node name="path" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, -40 )
+
+[node name="path69" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -40, -104 )
+
+[node name="path70" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -40, -88 )
+
+[node name="path71" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -40, -72 )
+
+[node name="path79" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -40, -95 )
+
+[node name="path82" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -40, -113 )
+
+[node name="path80" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -40, -79 )
+
+[node name="path81" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -40, -63 )
+
+[node name="path72" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 64, -48 )
+
+[node name="path73" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 80, -48 )
+
+[node name="path74" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 96, -48 )
+
+[node name="path75" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 55.6667, -48 )
+
+[node name="path76" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 71.6667, -48 )
+
+[node name="path77" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 87.6667, -48 )
+
+[node name="path78" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 104.333, -48 )
+
+[node name="path2" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, -56 )
+
+[node name="path3" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, -72.3334 )
+
+[node name="path4" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, -88.3334 )
+
+[node name="path5" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, -104 )
+
+[node name="path45" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48.3333, 8.00003 )
+
+[node name="path46" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48.3333, -7.99998 )
+
+[node name="path47" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48.3333, -24.3333 )
+
+[node name="path48" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48.3333, -40.3333 )
+
+[node name="path49" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48.3333, -56.3333 )
+
+[node name="path91" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48.3333, -48 )
+
+[node name="path50" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, 8.00003 )
+
+[node name="path51" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, -7.99998 )
+
+[node name="path52" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, -24.3333 )
+
+[node name="path53" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, -40.3333 )
+
+[node name="path54" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, -56 )
+
+[node name="path92" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 40, -56.3333 )
+
+[node name="path90" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, -48 )
+
+[node name="path55" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, 48 )
+
+[node name="path89" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, 32 )
+
+[node name="path88" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, 40 )
+
+[node name="path56" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, 24.3333 )
+
+[node name="path57" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48, 47.6667 )
+
+[node name="path87" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48, 39.6667 )
+
+[node name="path84" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48, 32 )
+
+[node name="path58" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48, 24 )
+
+[node name="path30" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, -40 )
+
+[node name="path31" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, -56 )
+
+[node name="path32" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, -72.3333 )
+
+[node name="path33" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, -88.3333 )
+
+[node name="path34" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, -104 )
+
+[node name="path35" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, 88 )
+
+[node name="path36" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, 72 )
+
+[node name="path37" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, 55.6666 )
+
+[node name="path38" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, 39.6666 )
+
+[node name="path39" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, 24 )
+
+[node name="path40" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, 88 )
+
+[node name="path41" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, 72 )
+
+[node name="path42" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, 55.6666 )
+
+[node name="path43" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, 39.6666 )
+
+[node name="path44" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, 24 )
+
+[node name="path6" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -111.667, -113 )
+
+[node name="path7" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -95.6667, -113 )
+
+[node name="path8" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -79.6667, -113 )
+
+[node name="path9" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -63.6666, -113 )
+
+[node name="path10" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -47.6667, -113 )
+
+[node name="path11" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -31.6667, -113 )
+
+[node name="path12" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 32.3333, -113 )
+
+[node name="path13" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48.3333, -113 )
+
+[node name="path14" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 64.3333, -113 )
+
+[node name="path15" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 80.3333, -113 )
+
+[node name="path16" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 96.3333, -113 )
+
+[node name="path17" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112.333, -113 )
+
+[node name="path18" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 32, 104 )
+
+[node name="path19" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 48, 104 )
+
+[node name="path20" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 64, 104 )
+
+[node name="path21" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 80, 104 )
+
+[node name="path22" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 96, 104 )
+
+[node name="path23" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 112, 104 )
+
+[node name="path24" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -112, 104 )
+
+[node name="path25" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -96, 109.667 )
+
+[node name="path26" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -80, 109.667 )
+
+[node name="path27" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -64, 109.667 )
+
+[node name="path28" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -48, 109.667 )
+
+[node name="path29" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -32, 109.667 )
+
+[node name="path59" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -32, 48 )
+
+[node name="path60" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -16, 48 )
+
+[node name="path61" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -1.90735e-05, 48 )
+
+[node name="path62" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 16, 48 )
+
+[node name="path63" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 32, 48 )
+
+[node name="path64" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -40, -63 )
+
+[node name="path86" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -32, -56.3333 )
+
+[node name="path65" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -24.3333, -56.3333 )
+
+[node name="path83" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( -16, -56.3333 )
+
+[node name="path66" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 0, -56.3333 )
+
+[node name="path67" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 16, -56.3333 )
+
+[node name="path68" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 23.6667, -56.3334 )
+
+[node name="path85" type="Node2D" parent="path points" groups=[
+"bjpath",
+]]
+position = Vector2( 32, -56.3333 )
+
+[editable path="FG/objs/sign"]
+[editable path="FG/objs/sign2"]
+[editable path="FG/objs/stepover9"]
+[editable path="FG/objs/stepover10"]
+[editable path="FG/objs/stepover11"]
+[editable path="FG/objs/stepover12"]
+[editable path="FG/objs/stepover13"]
+[editable path="FG/objs/stepover"]
+[editable path="FG/objs/stepover3"]
+[editable path="FG/objs/stepover14"]
+[editable path="FG/objs/stepover4"]
+[editable path="FG/objs/stepover5"]
+[editable path="FG/objs/stepover6"]
+[editable path="FG/objs/stepover7"]
+[editable path="FG/objs/stepover8"]

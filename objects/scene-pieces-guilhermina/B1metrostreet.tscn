@@ -1,15 +1,17 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://objects/moving-3D-model.gd" type="Script" id=1]
 [ext_resource path="res://map-wall.gd" type="Script" id=2]
 [ext_resource path="res://objects/moving-3D.gd" type="Script" id=3]
-[ext_resource path="res://objects/car custom.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/menu car paint.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objects/car kombi.tscn" type="PackedScene" id=5]
 [ext_resource path="res://map-sector.gd" type="Script" id=6]
 [ext_resource path="res://map-floor-animated.gd" type="Script" id=7]
 [ext_resource path="res://objects/thing Lightpost.tscn" type="PackedScene" id=8]
 [ext_resource path="res://older_versions/polygonwall.tscn" type="PackedScene" id=9]
 [ext_resource path="res://objects/sign.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/indication-sprite.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/sprites arrow paintjobs.png" type="Texture" id=12]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 25.02
@@ -113,19 +115,25 @@ b = Vector2( -7036, -5419 )
 
 [node name="metrostreet" type="Node2D"]
 
-[node name="car custom" parent="." instance=ExtResource( 4 )]
-position = Vector2( -16435, 358 )
-
-[node name="CollisionPolygon2D" parent="car custom" index="0"]
-polygon = PoolVector2Array( -493, -359, 100, -580, 329, 81, -227, 313 )
-
 [node name="objects" type="Node2D" parent="." groups=[
 "higfx",
 ]]
 
+[node name="car custom" parent="objects" instance=ExtResource( 4 )]
+position = Vector2( -16435, 358 )
+
+[node name="CollisionPolygon2D" parent="objects/car custom" index="0"]
+polygon = PoolVector2Array( -493, -359, 100, -580, 329, 81, -227, 313 )
+
+[node name="paintjobshop" parent="objects" instance=ExtResource( 11 )]
+position = Vector2( -16496, 266 )
+positionZ = -2011
+texture = ExtResource( 12 )
+hframes = 1
+
 [node name="dynacar-kombi" parent="objects" instance=ExtResource( 5 )]
-position = Vector2( -16496, 269 )
-rotation = -5.1016
+position = Vector2( -10402, 2771 )
+rotation = -2.06515
 
 [node name="Tree2" type="KinematicBody2D" parent="objects" groups=[
 "sprite",
@@ -1470,6 +1478,25 @@ colors = [ Color( 0.172549, 0.239216, 0.113725, 1 ), Color( 0.215686, 0.313726, 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="top/casa5"]
 polygon = PoolVector2Array( -38.42, 19.76, -32.9, 17.61, -30.97, 23.09, -36.13, 25.47 )
 
+[node name="MHD sign" type="StaticBody2D" parent="top" groups=[
+"higfx",
+]]
+position = Vector2( -12581, -677 )
+scale = Vector2( 100, 100 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+heights = [ -1300.0, -1150.0 ]
+plus1_mode = 1
+onesided = 1
+UV_textures = true
+textures = [ "", "res://textures/sign MHD.png", "", "", "" ]
+colors = [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="top/MHD sign"]
+polygon = PoolVector2Array( -33.62, 23.74, -31.64, 23.44, -35.28, 25.07 )
+
 [node name="casa5garage" type="StaticBody2D" parent="top"]
 position = Vector2( -12581, -677 )
 scale = Vector2( 100, 100 )
@@ -2358,6 +2385,7 @@ plus1_mode = 1
 onesided = -1
 textures = [ "res://textures/shadow2.png", "", "res://textures/shadow2.png", "res://textures/grass32.png", "" ]
 colors = [ Color( 0.501961, 0.501961, 0.501961, 1 ), Color( 0, 0, 0, 1 ), Color( 0.470588, 0.501961, 0.152941, 1 ), Color( 0.145098, 0.505882, 0.168627, 1 ), Color( 0, 0, 0, 1 ) ]
+darknesses = 0.75
 collide = true
 absolute = true
 
@@ -2505,4 +2533,4 @@ __meta__ = {
 [connection signal="body_shape_entered" from="objects/Tree8/ColArea" to="objects/Tree8" method="_on_ColArea_body_shape_entered"]
 [connection signal="body_shape_exited" from="objects/Tree8/ColArea" to="objects/Tree8" method="_on_ColArea_body_shape_exited"]
 
-[editable path="car custom"]
+[editable path="objects/car custom"]

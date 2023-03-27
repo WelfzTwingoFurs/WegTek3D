@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/arcades/BeJerk/bjitems.png" type="Texture" id=1]
+[ext_resource path="res://objects/arcades/BeJerk/bjitem.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="item" type="Area2D"]
+collision_layer = 0
+collision_mask = 262144
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 4
+vframes = 3
+frame = 8
+
+[connection signal="body_entered" from="." to="." method="_on_item_body_entered"]
