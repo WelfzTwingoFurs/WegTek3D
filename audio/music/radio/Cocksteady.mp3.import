@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Cocksteady.mp3-64d434288a34882514f305a344cd31b2.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Cocksteady.mp3"
+dest_files=[ "res://.import/Cocksteady.mp3-64d434288a34882514f305a344cd31b2.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

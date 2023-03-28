@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Missmatch.mp3-d7445fb64bb92fb3a8a58f51e0928c16.mp3str"
+
+[deps]
+
+source_file="res://audio/music/radio/Missmatch.mp3"
+dest_files=[ "res://.import/Missmatch.mp3-d7445fb64bb92fb3a8a58f51e0928c16.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
