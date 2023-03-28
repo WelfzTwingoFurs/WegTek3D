@@ -48,7 +48,8 @@ IMPERFECTIONS:
 -Clipping intervenes with UV-texturing;
 -No camera-edge clipping (polys pieces outside screen still render);
 -No screen clipping (polygons pieces behind others still render);
--Cull on + "Both bad neighbours" deletes polygon if index over 0 (comparing to resized instead of original?);
+-Cull on + "Both bad neighbours" deletes polygon if the OK Vertex's index is over 0
+(comparing to resized instead of original?);
 -Draw distance innacurate to value depending on Angles FOV;
 -Floor-sprite position slightly innacurate to aspect ratio;
 -Mouselook different sensitivity for X and Y;
