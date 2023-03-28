@@ -128,7 +128,7 @@ func _physics_process(_delta):
 	$ViewArea/ViewCol.rotation_degrees = rad_deg(rotation_angle) #radian to degrees
 	$Interact.rotation_degrees = $ViewArea/ViewCol.rotation_degrees
 	
-	if (Worldconfig.playercar == null) && health > 0:
+	if (Worldconfig.playercar == null) && (health > 0) && (Worldconfig.menu == null):
 		motion = move_and_slide(motion, Vector2(0,-1))
 		motion = Vector2(speed*move_dir.x, speed*move_dir.y).rotated(rotation_angle)
 		
@@ -358,6 +358,9 @@ func _physics_process(_delta):
 		if !map_on:
 			$Background.visible = 1
 			$View.visible = 1
+			$Aim.visible = 1
+		else:
+			$Aim.visible = 0
 	
 	###   ######      ######   ###   ###   #########
 	###   ###   ###   ##  ##   ###   ###      ###
@@ -708,11 +711,11 @@ func _process(_delta):
 			
 			
 		
-		elif skipframe == null:
+		elif (skipframe == 0) && ((Worldconfig.menu == null) or (Worldconfig.menu.stopgame == false)):
 			render()
 		#elif OS.get_ticks_msec() != skipframe:
 		elif (OS.get_ticks_msec() - skipframe) > 10:
-			skipframe = null
+			skipframe = 0
 
 #####    #####      #####      #####  ##########   ##########  #########
 ##   ##  ##   ##  ##     ##  ##       ##           ###         ###
@@ -1386,7 +1389,7 @@ var rot_minus90
 var midscreen = 0
 
 
-var skipframe
+var skipframe = 0
 func skip_frame():
 	skipframe = OS.get_ticks_msec()
 
@@ -1468,12 +1471,13 @@ func render():
 					var xkusu = (new_position-position).angle() - midscreen
 					var lineH = (OS.window_size.y / not_zero( (new_position - position).length()) )   /  cos(xkusu) #Logic from other raycasters
 					
-					var C = 1
-					if !shade_multi:
-						if array_walls[n].darkness != 0:
-							C = float(1)/array_walls[n].darkness
-						else:
-							C = 1
+					#var C = 1
+					#if !shade_multi:
+					#	if array_walls[n].darkness != 0:
+					#		C = float(1)/array_walls[n].darkness
+					#	else:
+					#		C = 1
+					
 					#else: C = -(    (Vector3(new_position.x, new_position.y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()    *(float(shade_multi*array_walls[n].darkness)/draw_distance)-1)
 					
 					if height1 == height2:#No diagonals, we're done
@@ -1489,7 +1493,8 @@ func render():
 						
 						array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*new_height)) #OVER
 					
-					array_shading.append(Color(C,C,C,1))
+					#array_shading.append(Color(C,C,C,1))
+					array_shading.append(Color(1,1,1,1))
 					
 					if neighbours_pm.x == neighbours_pm.y:#both good neighbours (1 vertex clipping, need extra point)
 						point2 = array_walls[n].points[ (m+1) % array_walls[n].points.size() ]
@@ -1515,7 +1520,8 @@ func render():
 							
 							array_polygon.append(Vector2(tan(xkusu), ((positionZ+head_height)*lineH)-lineH*new_height)) #OVER
 						
-						array_shading.append(Color(C,C,C,1))
+						#array_shading.append(Color(C,C,C,1))
+						array_shading.append(Color(1,1,1,1))
 			
 			
 			else:#all vertices in front of camera
@@ -1546,6 +1552,9 @@ func render():
 					elif incoming_trigger && (Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length() > ((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2)):
 						F = -(    ((Vector3(array_walls[n].points[m].x, array_walls[n].points[m].y, array_walls[n].heights[m]+array_walls[n].extraZ[m]) - Vector3(position.x, position.y, positionZ)).length()-((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2)))    *(float(1)/((draw_distance/lod_ddist_divi)-((draw_distance/lod_ddist_divi)/(fade_ddist_divi*2))))-1) 
 						
+				
+				#if F < 0:
+				#	F = 1
 				
 				array_shading.append(Color(C,C,C,F))
 			
@@ -1865,7 +1874,7 @@ func _on_ViewArea_body_shape_entered(_body_id, body, _body_shape, _local_shape):
 					array_sprites.push_back(body)
 					if !(body.is_in_group("wall") or body.is_in_group("floor")) && !body.is_in_group("logfx"):
 						if !incoming_sprites.has(body):
-							if (body.position - position).length() < draw_distance/lod_ddist_divi:
+							if (body.position - position).length() > draw_distance/lod_ddist_divi:
 									incoming_sprites.push_back(body)
 	
 

@@ -85,7 +85,7 @@ func paint_it():
 			n.modulate = n.original_color * color_plate
 			
 
-onready var wheelsound = $Other
+onready var wheelsound = $Other #Used so the wheels can ask for an audio
 export var head_height = 100
 export var engine = 0
 export var positionZ = 0
@@ -207,6 +207,13 @@ func _process(_delta):
 		shoot()
 		lightshit = true
 	
+	if (is_on_wall() or is_on_floor() or is_on_ceiling()) && motion.length() > 1:
+		var new_minus = -((motion.length()/max_speed)*24) 
+		if !$Other.playing or ($Other.playing && !$Other.crashcheck.has($Other.stream)) or ($Other.playing && $Other.crashcheck.has($Other.stream) && new_minus <= $Other.minus):
+			$Other.minus = new_minus
+			$Other.pitch_scale = 1 -  motion.length()/max_speed
+			$Other.car_crash()
+	
 	lightFT = position + ($lightFT.position*scale).rotated(deg2rad(rotation_degrees))
 	lightFB = position + ($lightFB.position*scale).rotated(deg2rad(rotation_degrees))
 	lightRT = position + ($lightRT.position*scale).rotated(deg2rad(rotation_degrees))
@@ -252,6 +259,13 @@ func _process(_delta):
 				$Radio.stop()
 			else:
 				$Radio.radio()
+		elif Input.is_action_pressed("ply_car_radio") && ($Radio.playing == true):
+			if Input.is_action_pressed("ply_up") && Input.is_action_pressed("ply_down"):
+				$Radio.minus = -10
+			elif Input.is_action_pressed("ply_up"):
+				$Radio.minus -= 1
+			elif Input.is_action_pressed("ply_down"):
+				$Radio.minus += 1
 		
 		#$Engine.car_engine_loop()
 		if !Worldconfig.player.camera && Worldconfig.player.guninv != -1:
@@ -298,6 +312,8 @@ func _process(_delta):
 						Worldconfig.player.rotation_angle = rad_overflow(deg2rad(rotation_degrees+turn)-PI/2)
 				else:
 					Worldconfig.player.position = position
+					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-PI/2),  0.8)
+					
 				
 				
 				
@@ -308,6 +324,7 @@ func _process(_delta):
 				else:
 					Worldconfig.player.position = position
 					$model.position = default_pos
+					Worldconfig.player.rotation_angle = lerp_angle(Worldconfig.player.rotation_angle,  rad_overflow(deg2rad(rotation_degrees)-PI/2),  0.8)
 				
 				Worldconfig.player.positionZ = (($wheel0.positionZ + $wheel1.positionZ + $wheel2.positionZ + $wheel3.positionZ)/4) + driver_height
 				Worldconfig.player.lookingZ = -float((($wheel0.positionZ+$wheel1.positionZ)/2)-(($wheel3.positionZ+$wheel2.positionZ)/2))/1000

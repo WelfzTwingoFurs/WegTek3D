@@ -507,6 +507,7 @@ radius = 30.0
 
 [node name="ped" type="KinematicBody2D" groups=[
 "interact",
+"logfx",
 "ouchy",
 "ped",
 "rendersprite",

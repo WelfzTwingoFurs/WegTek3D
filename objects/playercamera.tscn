@@ -371,6 +371,7 @@ tracks/3/keys = {
 }
 
 [node name="playercamera" type="KinematicBody2D" groups=[
+"Persist",
 "ouchy",
 "sprite",
 ]]
@@ -385,7 +386,7 @@ angles = 120
 draw_distance = 5000
 min_Z = -2100
 map_draw = 1
-skycolor = Color( 0, 1, 1, 1 )
+skycolor = Color( 0.372549, 0.615686, 0.615686, 1 )
 sky_stretch = Vector2( 1, 10 )
 
 [node name="Feet" type="AudioStreamPlayer" parent="."]
@@ -408,7 +409,6 @@ __meta__ = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 z_index = 4096
 z_as_relative = false
 current = true
@@ -500,6 +500,7 @@ __meta__ = {
 
 [node name="Poly0" type="Polygon2D" parent="PolyContainer"]
 z_index = 4096
+antialiased = true
 texture_scale = Vector2( 6.4, 6.4 )
 __meta__ = {
 "_edit_lock_": true

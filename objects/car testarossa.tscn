@@ -24,7 +24,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-string = "Classic luxury sports coupe: FERRADO Outtarunna"
+string = "Classic luxury sports coupe: FERRADO Pantera"
 color_top = Color( 1, 0, 0, 1 )
 color_sideL = Color( 1, 0, 0, 1 )
 color_sideR = Color( 1, 0, 0, 1 )
