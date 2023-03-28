@@ -5,6 +5,7 @@ var input = Vector2()
 var bullet = preload("res://objects/arcades/BeJerk/bjbullet.tscn")
 
 func _ready():
+	get_parent().player = self
 	$Sprite.frame = 8
 
 func _physics_process(_delta):
@@ -15,19 +16,20 @@ var drive = null
 export var weapon = 0
 
 func _process(_delta):
-	if Input.is_action_pressed("ply_up"):
-		input.y = -1
-	elif Input.is_action_pressed("ply_down"):
-		input.y = 1
-	else:
-		input.y = 0
-	
-	if Input.is_action_pressed("ply_right"):
-		input.x = 1
-	elif Input.is_action_pressed("ply_left"):
-		input.x = -1
-	else:
-		input.x = 0
+	if get_parent().get_parent().game_on:
+		if Input.is_action_pressed("ply_up"):
+			input.y = -1
+		elif Input.is_action_pressed("ply_down"):
+			input.y = 1
+		else:
+			input.y = 0
+		
+		if Input.is_action_pressed("ply_right"):
+			input.x = 1
+		elif Input.is_action_pressed("ply_left"):
+			input.x = -1
+		else:
+			input.x = 0
 	
 	
 	
@@ -47,21 +49,31 @@ func _process(_delta):
 		
 		if Input.is_action_just_pressed("ply_jump") && cars.size() == 0:
 			var bullet2 = bullet.instance()
-			bullet2.position = position
 			bullet2.type = weapon
+			
+			get_parent().get_parent().ammo -= 1
+			if (get_parent().get_parent().ammo < 1) && (weapon != 1): weapon = -1
 			
 			if input != Vector2():
 				bullet2.input = input
+				bullet2.position = position + (input*8)
 			else:
-				if ($Sprite.frame == 0) or ($Sprite.frame == 4) or ($Sprite.frame == 16): bullet2.input.x = flip_to_input($Sprite.flip_h)
-				elif $Sprite.frame == 8: bullet2.input.y = 1
-				elif $Sprite.frame == 12: bullet2.input.y = -1
+				if ($Sprite.frame == 0) or ($Sprite.frame == 4) or ($Sprite.frame == 16):
+					bullet2.input.x = flip_to_input($Sprite.flip_h)
+				elif $Sprite.frame == 8:
+					bullet2.input.y = 1
+				elif $Sprite.frame == 12:
+					bullet2.input.y = -1
 				
-				if $Sprite.frame == 4: bullet2.input.y = 1
-				if $Sprite.frame == 16: bullet2.input.y = -1
+				if $Sprite.frame == 4:
+					bullet2.input.y = 1
+				if $Sprite.frame == 16:
+					bullet2.input.y = -1
 				
+				bullet2.position = position + (bullet2.input*10)
 				#print(bullet2.input.x,"    ",flip_to_input($Sprite.flip_h))
 			
+			bullet2.daddy = self
 			get_parent().add_child(bullet2)
 			
 			
@@ -99,7 +111,7 @@ func _process(_delta):
 			
 		
 		else:#######################################################################
-			motion = (input*75)*get_parent().get_parent().scale
+			motion = input*75
 			if input == Vector2(0,0):
 				$AniPlay.playback_speed = 0
 				if ($AniPlay.current_animation == "walkSide") or ($Sprite.frame == 20): $Sprite.frame = 0

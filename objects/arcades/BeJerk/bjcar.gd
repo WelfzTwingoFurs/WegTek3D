@@ -6,28 +6,32 @@ var drive = false
 var was_drive = false
 
 func _physics_process(_delta):
-	motion = move_and_slide(motion, Vector2(0,-1))
-	motion = Vector2(0,speed).rotated(deg2rad(angle))
 	if drive:
+		motion = move_and_slide(motion, Vector2(0,-1))
+		motion = Vector2(0,speed).rotated(deg2rad(angle))
 		if (speed < 1)  or (input.y == 0) or (input.y == sign(speed)):
-			speed = lerp(speed,(input.y*max_speed)*get_parent().get_parent().scale.length(),accel*get_parent().get_parent().scale.length())
+			speed = lerp(speed,(input.y*max_speed),accel)
 		elif input.y != sign(speed):
 			#speed = lerp(speed,0,deaccel*get_parent().get_parent().scale.length())
-			speed = lerp(speed,0,deaccel*get_parent().get_parent().scale.length())
+			speed = lerp(speed,0,deaccel)
 	else:
-		speed = lerp(speed,0,accel*get_parent().get_parent().scale.length())
+		if speed > 0:
+			motion = move_and_slide(motion, Vector2(0,-1))
+			motion = Vector2(0,speed).rotated(deg2rad(angle))
+		speed = lerp(speed,0,accel)
 
 var angle = 0
 var speed = 0
-export var max_speed = 250
-export var accel = 0.001
-export var deaccel = 0.05
+export var max_speed = 750
+export var accel = 0.003
+export var deaccel = 0.15
 
 func _process(_delta):
 	if is_on_floor() or is_on_wall() or is_on_ceiling():
 		speed /= 2
 	
 	if dead:
+		#modulate.a = 0 if Engine.get_frames_drawn() % 2 == 0 else 1
 		$AniPlay.play("die")
 	else:
 		if (angle == 0) or (angle == 360):
@@ -96,12 +100,10 @@ func take_damage(dmg):
 		dead = true
 		get_parent().get_parent().score += get_parent().get_parent().combo*1000
 		get_parent().get_parent().toptimer += 100
-		#get_parent().get_parent().topstring = "-                            -"
-		#get_parent().get_parent()topstring = " BOOM!! CAR DESTROYED:  +1000 "
-		get_parent().get_parent().topstring = str("BOOM!CAR DESTROYED:X",get_parent().get_parent().combo,"!+",get_parent().get_parent().combo*1000)
+		get_parent().get_parent().topstring = str("BOOM!CAR DESTROYED:+",get_parent().get_parent().combo*1000)
 		get_parent().get_parent().combo += 1
 	else:
-		get_parent().get_parent().topstring = str("CAR DAMAGE:X",get_parent().get_parent().combo,"!+",get_parent().get_parent().combo*100)
+		get_parent().get_parent().topstring = str("CAR DAMAGE:+",get_parent().get_parent().combo*100)
 		get_parent().get_parent().score += 100
 		get_parent().get_parent().combo += 1
 
@@ -135,9 +137,7 @@ func _on_Area2D_body_entered(body):
 	if abs(motion.length()) > 50:
 		if body.is_in_group("bjouch"):
 			body.take_damage(motion.length()/50)
-			if (body.has_method("health") && (body.health < (motion.length()/50))):
-				print(body.health, "   ",motion.length()/50)
-				get_parent().get_parent().topstring = str("TWAK! ROADKILL BONUS:X",get_parent().get_parent().combo,"!+",get_parent().get_parent().combo*2500)
-				get_parent().get_parent().toptimer += 250
-				get_parent().get_parent().score += 2500
-				get_parent().get_parent().combo += 1
+			if body.has_method("health"):
+				body.position += Vector2(randi() % 10,randi() % 10)
+				if body.health < (motion.length()/50):
+					body.position += Vector2(randi() % 10,randi() % 10)

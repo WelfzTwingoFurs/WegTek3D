@@ -10,6 +10,7 @@ func _ready():
 	$Col.disabled = false
 	speed += randi() % 10
 	speed -= randi() % 10
+	$AniPlay.playback_speed = float(45)/speed
 	health += randi() % 2
 	health -= randi() % 2
 
@@ -22,7 +23,7 @@ func _physics_process(_delta):
 		if abs((position - target.position).length()) < 5:
 			closest = INF
 			old_targets.push_back(target)
-			if old_targets.size() > 30:
+			if old_targets.size() > 60:
 				old_targets.remove(0)
 			
 			var new_target
@@ -36,11 +37,11 @@ func _physics_process(_delta):
 		elif target != null:
 			#motion = (sign_vetor(position - target.position)*45)*get_parent().get_parent().scale
 			if abs(position.x - target.position.x) > 2:
-				motion.x = ((sign_vetor(position - target.position)*speed)*get_parent().get_parent().scale).x
+				motion.x = (sign_vetor(position - target.position)*speed).x
 			else:
 				motion.x = 0
 			if abs(position.y - target.position.y) > 2:
-				motion.y = ((sign_vetor(position - target.position)*speed)*get_parent().get_parent().scale).y
+				motion.y = (sign_vetor(position - target.position)*speed).y
 			else:
 				motion.y = 0
 
@@ -68,16 +69,21 @@ func take_damage(dmg):
 	dead = true
 	health -= dmg
 	if health <= 0:
-		get_parent().get_parent().score += get_parent().get_parent().combo*1500
-		get_parent().get_parent().toptimer += 150
-		#get_parent().get_parent().topstring = "-                            -"
-		get_parent().get_parent().topstring = str("PEDESTRIAN KILL:X",get_parent().get_parent().combo,"!+",get_parent().get_parent().combo*1500)
+		if get_parent().player.drive == null:  
+			get_parent().get_parent().score += get_parent().get_parent().combo*1500
+			get_parent().get_parent().toptimer += 150
+			get_parent().get_parent().topstring = str("PEDESTRIAN KILL:+",get_parent().get_parent().combo*1500)
+		else:
+			get_parent().get_parent().topstring = str("TWAK!ROADKILL BONUS:+",get_parent().get_parent().combo*3500)
+			get_parent().get_parent().toptimer += 250
+			get_parent().get_parent().score += 3500
+			
 		get_parent().get_parent().combo += 1
 		$AniPlay.play("die")
 	else:
 		get_parent().get_parent().score += get_parent().get_parent().combo*250
 		get_parent().get_parent().toptimer += 25
-		get_parent().get_parent().topstring = str("'OUCH':X",get_parent().get_parent().combo,"!+",get_parent().get_parent().combo*250)
+		get_parent().get_parent().topstring = str("'OUCH':+",get_parent().get_parent().combo*250)
 		get_parent().get_parent().combo += 1
 		$AniPlay.play("ouch")
 
