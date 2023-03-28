@@ -54,8 +54,11 @@ func _process(_delta):
 			OS.window_size *= zoom 
 			OS.center_window() # Window res*2
 			
-			step = -1
+			if OS.window_maximized:
+				OS.window_maximized = false
+				OS.window_maximized = true
 			print("=  WORLDCONFIG: config=",config,", zoom=",zoom,";; [SceneTree] STRETCH_MODE_VIEWPORT, STRETCH_ASPECT_KEEP")
+			step = -1
 	
 	
 	

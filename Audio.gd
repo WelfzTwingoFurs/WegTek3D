@@ -959,6 +959,7 @@ func car_bump():
 const carB1 = preload("res://audio/car/car_crash1.wav")
 const carB2 = preload("res://audio/car/car_crash2.wav")
 const carB3 = preload("res://audio/car/car_crash3.wav")
+var crashcheck = [carB1,carB2,carB3]
 
 func car_crash():
 	which = (randi() % 3)
@@ -1118,6 +1119,10 @@ const radio21 = preload("res://audio/music/radio/Suck.mp3")
 const radio22 = preload("res://audio/music/radio/upsNdowns.mp3")
 const radio23 = preload("res://audio/music/radio/Weird.mp3")
 const radio24 = preload("res://audio/music/radio/Whollo.mp3")
+const radio25 = preload("res://audio/music/radio/Beeps.mp3")
+const radio26 = preload("res://audio/music/radio/Cocksteady.mp3")
+const radio27 = preload("res://audio/music/radio/Dukz.mp3")
+
 
 var already_played = []
 
@@ -1125,10 +1130,10 @@ func radio():
 	if !playing:
 		if already_played.size() >= 23:
 			already_played = []
-			which = (randi() % 24)
+			which = (randi() % 27)
 		
 		while already_played.has(which):
-			which = (randi() % 24)
+			which = (randi() % 27)
 		
 		if which == 0:
 			set_stream(radio1)
@@ -1178,7 +1183,12 @@ func radio():
 			set_stream(radio23)
 		elif which == 23:
 			set_stream(radio24)
-		
+		elif which == 24:
+			set_stream(radio25)
+		elif which == 25:
+			set_stream(radio26)
+		elif which == 26:
+			set_stream(radio27)
 		
 		already_played.push_back(which)
 		play()
