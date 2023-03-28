@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/indication-sprite.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites arrow adega.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 1.0
+
+[node name="indication" type="KinematicBody2D" groups=[
+"rendersprite",
+]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2( 2, 2 )
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
