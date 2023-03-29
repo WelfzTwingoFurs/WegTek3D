@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/OPaudioSong.mp3-b86534a2d7d6d851e94b0dcd33c54f69.mp3str"
+
+[deps]
+
+source_file="res://objects/arcades/OpenBar/OPaudioSong.mp3"
+dest_files=[ "res://.import/OPaudioSong.mp3-b86534a2d7d6d851e94b0dcd33c54f69.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

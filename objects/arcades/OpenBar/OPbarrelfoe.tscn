@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/arcades/OpenBar/OPgfxBarrelFoe.png" type="Texture" id=1]
+[ext_resource path="res://objects/arcades/OpenBar/OPbarrelfoe.gd" type="Script" id=2]
+
+[sub_resource type="RayShape2D" id=1]
+length = 1.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1, 7 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "roll"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 8.0
+
+[node name="OPbarrel" type="KinematicBody2D" groups=[
+"OPfoe",
+]]
+collision_layer = 262144
+collision_mask = 524288
+script = ExtResource( 2 )
+
+[node name="Col" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -1 )
+shape = SubResource( 1 )
+
+[node name="Col2" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -8 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( -8, -16 )
+hframes = 10
+frame = 8
+
+[node name="AniPlay" type="AnimationPlayer" parent="."]
+anims/roll = SubResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 262144
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -8 )
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
