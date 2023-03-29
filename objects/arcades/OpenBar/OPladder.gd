@@ -6,6 +6,9 @@ var player = null
 func _process(_delta):
 	if player != null:
 		player.ladder = self
+		if Input.is_action_just_pressed("ply_jump"):
+			player.ladder = null
+			player = null
 
 func _on_ladder_body_entered(body):
 	if body.is_in_group("OPfoe") && (body.position.y-position.y < 0):

@@ -34,3 +34,4 @@ func input_to_flip(x):
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("OPplayer"):
 		body.dead = true
+		get_parent().get_parent().outdoor.frame = 6

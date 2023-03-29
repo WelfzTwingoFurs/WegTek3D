@@ -11,6 +11,7 @@ export var spawn_limit = 5
 
 onready var player = $objects/player
 onready var mug = $BG/mug
+onready var outdoor = $BG/sign
 
 var queue = 0
 var was_queue = 0
@@ -18,10 +19,10 @@ var queue_current = 0
 
 
 func _ready():
-	for n in $"objects/barrels bot".get_children():
+	for n in $"BG/barrels bot".get_children():
 		barrelsbot.push_front(n)
 	
-	for n in $"objects/barrels top".get_children():
+	for n in $"BG/barrels top".get_children():
 		barrelstop.push_front(n)
 	
 	#update()

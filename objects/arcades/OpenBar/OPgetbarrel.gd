@@ -8,16 +8,20 @@ func _on_getbarrel_body_entered(body):
 		player = true
 	
 	elif body.is_in_group("OPfoe"):
-		if (bot_count < 9): bot_count += 1
-		body.queue_free()
+		body.z_index = -2
 
 
 func _on_getbarrel_body_exited(body):
 	if (player != null) && body.is_in_group("OPplayer"): player = false
+	
+	elif body.is_in_group("OPfoe"):
+		if (bot_count < 9): bot_count += 1
+		else:
+			get_parent().get_parent().player.dead = true
+			get_parent().get_parent().outdoor.frame = 3
+		body.queue_free()
 
-
-
-var bot_count = 9
+export var bot_count = 9
 
 #func _ready():
 #	get_parent().get_parent().barrelsbot
@@ -25,7 +29,7 @@ var bot_count = 9
 func _process(_delta):
 	if player:
 		if get_parent().get_parent().barrelshand < 3:
-			if Input.is_action_just_pressed("ply_up") && (bot_count > 0):
+			if Input.is_action_just_pressed("ply_jump") && (bot_count > 0):
 				bot_count -= 1
 				get_parent().get_parent().barrelshand += 1
 			elif Input.is_action_just_pressed("ply_down") && (bot_count < 9) && (get_parent().get_parent().barrelshand > 0):

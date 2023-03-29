@@ -3,6 +3,7 @@ extends Node2D
 var man = preload("res://objects/arcades/OpenBar/OPclient.tscn")
 
 var spawncounter = 0
+export var spawn_timer = 500
 
 func shoot():
 	var inst = man.instance()
@@ -13,6 +14,7 @@ func shoot():
 	
 	if spawncounter > get_parent().get_parent().spawn_limit:
 		get_parent().get_parent().player.dead = true
+		get_parent().get_parent().outdoor.frame = 2
 
 var timer = 10
 
@@ -21,4 +23,4 @@ func _physics_process(_delta):
 		timer -= 1
 		if timer == 0:
 			shoot()
-			timer = 500
+			timer = spawn_timer 

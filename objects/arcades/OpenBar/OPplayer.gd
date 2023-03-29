@@ -41,8 +41,6 @@ func _ready():
 onready var falldist = position.y
 
 func _process(_delta):
-	if (falldist - position.y) < -20: dead = true
-	
 	if dead:
 		$AniPlay.play("die")
 		$AniPlay.playback_speed = 1
@@ -59,6 +57,10 @@ func _process(_delta):
 			motion.x *= -1
 	
 	else:
+		if (falldist - position.y) < -20:
+			get_parent().get_parent().outdoor.frame = 6
+			dead = true
+		
 		if get_parent().get_parent().barrelshand != 0: spr_offset = 20
 		else: spr_offset = 0
 		
@@ -99,22 +101,24 @@ func _process(_delta):
 					if get_parent().get_parent().barrelshand < 1: $AniPlay.play("walk")
 					else: $AniPlay.play("walkcarry")
 					$Sprite.flip_h = input_to_flip(input.x)
+					$Sprite2.flip_h = input_to_flip(input.x)
+					$Sprite2.offset.x = -sign($Sprite2.offset.x)*input.x
 				else:
 					if !jumped: if motion.y < 0: motion.y = 0
 				
-				#if get_parent().tiles.get_cell(position.x/8,position.y/8):
 				
 				
 				if Input.is_action_just_pressed("ply_jump"):
 					jumped = true
 					motion.y = -100
 				
-				#else:
-				#	jumped = false
+				if $Sprite2.position.y != -32: $Sprite2.position.y = lerp($Sprite2.position.y,-32,0.01)
+				
 			
 			else:
-				#if was_on_floor != is_on_floor():
-				#	falldist = position.y
+				if motion.y > 0: $Sprite2.position.y = -32 - (motion.y/10)
+				else: $Sprite2.position.y = -32
+				
 				was_on_floor = is_on_floor()
 				if is_on_wall(): motion.x *= -1
 				
@@ -167,6 +171,7 @@ func _process(_delta):
 			
 			
 		elif ladder == null:
+			falldist = position.y
 			ladderbusy = false
 	
 	

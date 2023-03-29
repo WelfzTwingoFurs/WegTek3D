@@ -10,34 +10,41 @@ func _ready():
 	get_parent().get_parent().get_parent().queue_current += 1
 
 func _physics_process(_delta):
-	if !get_parent().get_parent().get_parent().player.dead:
-		timer += 1
-		if timer > timer_range: timer = -timer_range
-		
-		if timer < 0:
-			if !satisfy:
-				frame = 0+(skin*3)
-			else:
-				frame = 2+(skin*3)
-				flip_h = true
-		elif timer > 0:
-			if !satisfy:
-				frame = 1+(skin*3)
-			else:
-				frame = 2+(skin*3)
-				flip_h = false
-		
-		else:#time = 0
-			if !satisfy && (position.x - (-152+(16*queue_position)) < 10):
-				position.y -= (randi() % 10)
-				flip_h = true if (randi() % 2 == 0) else false
+	timer += 1
+	if timer > timer_range: timer = -timer_range
+	
+	if timer < 0:
+		if !satisfy:
+			frame = 0+(skin*3)
+		else:
+			frame = 2+(skin*3)
+			flip_h = true
+	elif timer > 0:
+		if !satisfy:
+			frame = 1+(skin*3)
+		else:
+			frame = 2+(skin*3)
+			flip_h = false
+	
+	elif !get_parent().get_parent().get_parent().player.dead:
+		if !satisfy && (position.x - (-152+(16*queue_position)) < 10):
+			position.y -= (randi() % 10)
+			flip_h = true if (randi() % 2 == 0) else false
+	
+	if get_parent().get_parent().get_parent().player.dead:
+		flip_h = true
+		if position.x > 16: queue_free()
+		position.x += timer_range/20
+	else:
 		
 		if !satisfy:
 			position.y = lerp(position.y,0,0.2)
 			if queue_position > 0: position.x = lerp(position.x,-152+(16*queue_position),0.01/queue_position)
 			elif (position.x > -152): position.x -= 1
 		else:
-			position.x = lerp(position.x,136,0.01)
+			position.x = lerp(position.x,127,0.01)
+			print(position.x)
+			if position.x > 16: queue_free()
 		
 		if queue_position < 0:
 			if (position.x > -152): position.x -= 1
