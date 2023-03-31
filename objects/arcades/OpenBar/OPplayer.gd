@@ -7,11 +7,17 @@ var ladder = null
 var ladderbusy = false
 
 var dead
-
+var jumpsfx = true
 
 func _physics_process(_delta):
 	#move_and_slide(linear_velocity: Vector3, up_direction: Vector3 = Vector3( 0, 0, 0 ), stop_on_slope: bool = false, max_slides: int = 4, floor_max_angle: float = 0.785398, infinite_inertia: bool = true)
 	motion = move_and_slide(motion,Vector2(0,-1),true)
+	
+	if motion.length() && !dead:
+		if is_on_floor():
+			get_parent().get_parent().score += 0.01 * (get_parent().get_parent().barrelshand+1)
+		else:
+			get_parent().get_parent().score += 0.02 * (get_parent().get_parent().barrelshand+1)
 	
 	if !ladderbusy:
 		if input.y == -1:
@@ -48,6 +54,7 @@ func _process(_delta):
 			$Col.disabled = false
 			$Col2.disabled = false
 		if is_on_floor():
+			get_parent().get_parent().audio_noise.sfx_ouch()
 			$Col.disabled = true
 			$Col2.disabled = true
 			lastposY = position.y
@@ -57,7 +64,7 @@ func _process(_delta):
 			motion.x *= -1
 	
 	else:
-		if (falldist - position.y) < -20:
+		if (falldist - position.y) < -25:
 			get_parent().get_parent().outdoor.frame = 6
 			dead = true
 		
@@ -110,7 +117,9 @@ func _process(_delta):
 				
 				if Input.is_action_just_pressed("ply_jump"):
 					jumped = true
+					if jumpsfx: get_parent().get_parent().audio_square1.sfx_jump(position.y)
 					motion.y = -100
+					
 				
 				if $Sprite2.position.y != -32: $Sprite2.position.y = lerp($Sprite2.position.y,-32,0.01)
 				
@@ -127,6 +136,7 @@ func _process(_delta):
 					else: motion.y += 1
 					if Input.is_action_just_pressed("ply_jump"):
 						jumped = true
+						get_parent().get_parent().audio_square1.sfx_jump(position.y)
 						motion.y = -100
 				
 				$Col.disabled = true
@@ -162,6 +172,7 @@ func _process(_delta):
 			
 			if Input.is_action_just_pressed("ply_jump"):
 				$AniPlay.stop()
+				get_parent().get_parent().audio_square1.sfx_jump(position.y)
 				$Sprite.flip_h = input_to_flip(input.x)
 				jumped = true
 				motion.y = -100

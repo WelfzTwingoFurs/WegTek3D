@@ -4,6 +4,7 @@
 [ext_resource path="res://objects/arcades/OpenBar/OPgfxPeds.png" type="Texture" id=2]
 
 [node name="client" type="Sprite"]
+z_index = -1
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( -8, -16 )

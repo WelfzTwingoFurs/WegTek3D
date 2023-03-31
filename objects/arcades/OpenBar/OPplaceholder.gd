@@ -12,13 +12,33 @@ export var spawn_limit = 5
 onready var player = $objects/player
 onready var mug = $BG/mug
 onready var outdoor = $BG/sign
+onready var audio_triangle = $AudioTriangle
+onready var audio_square1 = $AudioSquare1
+onready var audio_square2 = $AudioSquare2
+onready var audio_noise = $AudioNoise
 
 var queue = 0
 var was_queue = 0
 var queue_current = 0
 
+var delitimer = 5450
+
+func _physics_process(_delta):
+	if !player.dead:
+		delitimer -= 1
+		if delitimer < 0:
+			delitimer = 5450
+
+func deliver():
+	$BG/getbarrel.bot_count += 7
+	if $BG/getbarrel.bot_count > 9:
+		player.dead = true
+		outdoor.frame = 3
+		$BG/getbarrel.bot_count = 0
 
 func _ready():
+	audio_triangle.music_bg()
+	
 	for n in $"BG/barrels bot".get_children():
 		barrelsbot.push_front(n)
 	
@@ -35,9 +55,69 @@ func _ready():
 		Worldconfig.step = 1
 
 
+export var lives = 12
+var score = 0
+
 func _process(_delta):
+	if count_top+$BG/getbarrel.bot_count <= 0:
+		delitimer = 0
+	
+	
+	
 	if was_queue != queue:
 		for n in $"BG/client-spawner".get_children():
 			n.queue_position -= 1
 		$"BG/client-spawner".spawncounter -= 1
 		was_queue = queue
+	
+	
+	
+	
+	
+	var coolstring = str("ADOLFO\n")
+	
+	for n in 6-str(int(score)).length():
+		coolstring += " "
+	
+	if str(int(score)).length() > 6:
+		score = 999999
+	
+	coolstring += str(int(score),"\n")
+	
+	
+	
+	for n in lives:
+		coolstring += "^"
+		if n == 5: coolstring += "\n"
+		elif n == 11:
+			lives = 12
+			break
+	
+	if lives < 5: coolstring += "\n"
+	
+	for n in 12-lives:
+		coolstring += " "
+	
+	var FUCK = 0
+	for n in $BG.get_children():
+		if n.is_in_group("OPfoe"):
+			FUCK += 1
+	#coolstring += str("\n %",not_minus(queue_current),"/",spawn_limit,"\n #*",count_top+$BG/getbarrel.bot_count+barrelshand+FUCK,"\n< ",delitimer,"\n\n\nHI DKC\n123456")
+	coolstring += str("\n %",not_minus(queue_current),"/",spawn_limit,"\n #*",count_top+$BG/getbarrel.bot_count+barrelshand+FUCK,"\n< ")
+	
+	if (delitimer/60) > 60:
+		coolstring += str((delitimer/60)/60,"=")
+		if ((delitimer/60)-(60*((delitimer/60)/60))) < 10: coolstring += str(0)
+		coolstring += str((delitimer/60)-(60*((delitimer/60)/60)))
+	else:
+		coolstring += str("0=")
+		if ((delitimer/60)-(60*((delitimer/60)/60))) < 10: coolstring += str(0)
+		coolstring += str((delitimer/60)-(60*((delitimer/60)/60)))
+	
+	$BG/Label.text = coolstring
+	
+
+
+func not_minus(x):
+	if x < 0: x = 0
+	return x

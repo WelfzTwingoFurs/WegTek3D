@@ -43,7 +43,7 @@ func _physics_process(_delta):
 			elif (position.x > -152): position.x -= 1
 		else:
 			position.x = lerp(position.x,127,0.01)
-			print(position.x)
+			#print(position.x)
 			if position.x > 16: queue_free()
 		
 		if queue_position < 0:

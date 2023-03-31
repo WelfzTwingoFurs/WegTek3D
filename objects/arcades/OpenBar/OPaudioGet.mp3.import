@@ -11,5 +11,5 @@ dest_files=[ "res://.import/OPaudioGet.mp3-36e216b6f71153a9ee350703fd515765.mp3s
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
