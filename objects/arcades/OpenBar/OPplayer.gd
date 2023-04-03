@@ -40,14 +40,18 @@ var was_on_floor = false
 var spr_offset = 0
 var lastposY = -INF
 
-func _ready():
-	$Sprite.rotation_degrees = 0
-	$Sprite.offset = Vector2(-8,-16)
+#func _ready():
+#	$Sprite.rotation_degrees = 0
+#	$Sprite.offset = Vector2(-8,-16)
 
 onready var falldist = position.y
 
+var deadtimer = 0
+
 func _process(_delta):
 	if dead:
+		if (position.y > 112) && (motion.y > 250):
+			get_parent().get_parent().levels.reload()
 		$AniPlay.play("die")
 		$AniPlay.playback_speed = 1
 		if position.y > lastposY+8:
@@ -64,6 +68,10 @@ func _process(_delta):
 			motion.x *= -1
 	
 	else:
+		$Col.disabled = false
+		$Col2.disabled = false
+		$Sprite.rotation_degrees = 0
+		$Sprite.offset = Vector2(-8,-16)
 		if (falldist - position.y) < -25:
 			get_parent().get_parent().outdoor.frame = 6
 			dead = true

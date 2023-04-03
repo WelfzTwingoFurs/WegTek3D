@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var motion = Vector2()
 var inputX = 0
+var goingup = false
 
 func _physics_process(_delta):
 	motion = move_and_slide(motion,Vector2(0,-1),true)
@@ -32,6 +33,11 @@ func input_to_flip(x):
 
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("OPplayer"):
-		body.dead = true
-		get_parent().get_parent().outdoor.frame = 6
+	if body.is_in_group("OPplayer"):# && (body.position.y > position.y):
+		#print(body.position.y,"  ",position.y,"   ",body.position.y-position.y)
+		if (get_parent().get_parent().barrelshand < 3) && body.jumped && !body.is_on_floor() && (body.motion.y > 0) && (body.position.y - position.y) < -10:
+			get_parent().get_parent().barrelshand += 1
+			queue_free()
+		else:
+			body.dead = true
+			get_parent().get_parent().outdoor.frame = 6

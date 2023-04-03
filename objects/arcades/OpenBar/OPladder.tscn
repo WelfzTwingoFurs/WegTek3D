@@ -3,12 +3,14 @@
 [ext_resource path="res://objects/arcades/OpenBar/OPladder.gd" type="Script" id=1]
 [ext_resource path="res://objects/arcades/OpenBar/OPgfxLadder.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3, 9 )
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 6, 9 )
 
-[node name="ladder" type="Area2D"]
+[node name="ladder" type="Area2D" groups=[
+"OPladder",
+]]
 position = Vector2( 0, 16.5 )
-z_index = -4094
+z_index = 4095
 z_as_relative = false
 collision_layer = 0
 collision_mask = 262144
@@ -20,7 +22,7 @@ hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 0.5 )
-shape = SubResource( 1 )
+shape = SubResource( 8 )
 
 [connection signal="body_entered" from="." to="." method="_on_ladder_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_ladder_body_exited"]

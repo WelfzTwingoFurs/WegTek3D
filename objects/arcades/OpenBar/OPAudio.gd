@@ -1,10 +1,39 @@
 extends AudioStreamPlayer2D
 #TRIANGLE
 
-var musicbg = preload("res://objects/arcades/OpenBar/OPaudioSong.mp3")
+const radio1 = preload("res://objects/arcades/OpenBar/OPaudioSong1.mp3")
+const radio2 = preload("res://objects/arcades/OpenBar/OPaudioSong2.mp3")
+const radio3 = preload("res://objects/arcades/OpenBar/OPaudioSong3.mp3")
+const radio4 = preload("res://objects/arcades/OpenBar/OPaudioSong4.mp3")
+const radio5 = preload("res://objects/arcades/OpenBar/OPaudioSong5.mp3")
+const radio6 = preload("res://objects/arcades/OpenBar/OPaudioSong6.mp3")
 
-func music_bg(): 
-	set_stream(musicbg)
+
+var already_played = []
+var which = 0
+
+func radio():
+	if already_played.size() >= 6:
+		already_played = []
+		which = (randi() % 6)
+	
+	while already_played.has(which):
+		which = (randi() % 6)
+	
+	if which == 0:
+		set_stream(radio1)
+	elif which == 1:
+		set_stream(radio2)
+	elif which == 2:
+		set_stream(radio3)
+	elif which == 3:
+		set_stream(radio4)
+	elif which == 4:
+		set_stream(radio5)
+	elif which == 5:
+		set_stream(radio6)
+	
+	already_played.push_back(which)
 	play()
 
 

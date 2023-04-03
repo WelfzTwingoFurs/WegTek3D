@@ -9,5 +9,5 @@ texture = ExtResource( 2 )
 centered = false
 offset = Vector2( -8, -16 )
 hframes = 9
-vframes = 2
+vframes = 9
 script = ExtResource( 1 )

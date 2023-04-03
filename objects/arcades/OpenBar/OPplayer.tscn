@@ -4,7 +4,7 @@
 [ext_resource path="res://objects/arcades/OpenBar/OPgfxPlayer.png" type="Texture" id=2]
 [ext_resource path="res://objects/arcades/OpenBar/OPgfxBarrelhead.png" type="Texture" id=3]
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=1]
 resource_name = "climb"
 length = 0.4
 loop = true
@@ -33,7 +33,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "die"
 length = 0.4
 loop = true
@@ -86,8 +86,7 @@ tracks/3/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "walk"
+[sub_resource type="Animation" id=3]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -103,7 +102,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "walkcarry"
 length = 0.3
 loop = true
@@ -132,10 +131,10 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 2 ), Vector2( -1, 2 ), Vector2( -0.5, 3 ) ]
 }
 
-[sub_resource type="RayShape2D" id=8]
+[sub_resource type="RayShape2D" id=5]
 length = 1.0
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 1, 7 )
 
 [node name="OPplayer" type="KinematicBody2D"]
@@ -158,15 +157,15 @@ offset = Vector2( -1, 2 )
 hframes = 4
 
 [node name="AniPlay" type="AnimationPlayer" parent="."]
-anims/climb = SubResource( 7 )
-anims/die = SubResource( 6 )
-anims/walk = SubResource( 1 )
-anims/walkcarry = SubResource( 5 )
+anims/climb = SubResource( 1 )
+anims/die = SubResource( 2 )
+anims/walk = SubResource( 3 )
+anims/walkcarry = SubResource( 4 )
 
 [node name="Col" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -1 )
-shape = SubResource( 8 )
+shape = SubResource( 5 )
 
 [node name="Col2" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -8 )
-shape = SubResource( 4 )
+position = Vector2( 0, -7 )
+shape = SubResource( 6 )

@@ -9,6 +9,8 @@ var lock = false
 
 func _physics_process(_delta):
 	if (get_parent().get_parent().player.position.x < -40):
+		#if get_parent().get_parent().player.position.y < -56:
+		#	lock = false
 		if (get_parent().get_parent().player.position.y < -23):
 			lock = true
 		else:
@@ -30,5 +32,6 @@ var spawncounter = 0
 
 func shoot():
 	var inst = barrel.instance()
-	inst.position = Vector2(-96,-54)
+	inst.position = Vector2(-96,-40)
+	inst.goingup = false
 	get_parent().add_child(inst)

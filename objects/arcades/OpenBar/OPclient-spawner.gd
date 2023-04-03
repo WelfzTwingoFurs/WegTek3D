@@ -7,7 +7,7 @@ export var spawn_timer = 500
 
 func shoot():
 	var inst = man.instance()
-	inst.skin = randi() % 5
+	inst.skin = randi() % 27
 	inst.queue_position = spawncounter
 	add_child(inst)
 	spawncounter += 1
@@ -24,3 +24,9 @@ func _physics_process(_delta):
 		if timer == 0:
 			shoot()
 			timer = spawn_timer 
+		
+		#elif (spawncounter == 0) && get_parent().get_parent().mug.frame == 5:
+		#elif (get_parent().get_parent().mug.frame == 6) && (get_parent().get_parent().queue_current == 0):
+		#	shoot()
+		
+		#print(get_parent().get_parent().queue_current)

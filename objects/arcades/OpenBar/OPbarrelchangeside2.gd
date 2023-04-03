@@ -3,4 +3,4 @@ extends Area2D
 func _on_barrelchangeside_body_entered(body):
 	if body.is_in_group("OPfoe"):
 		body.inputX *= -1
-		if body.goingup or (randi() % 4 == 0): body.motion.y -= 50
+		if body.goingup: body.goingup = false
