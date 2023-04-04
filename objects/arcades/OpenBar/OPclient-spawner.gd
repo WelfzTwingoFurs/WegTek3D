@@ -13,6 +13,7 @@ func shoot():
 	spawncounter += 1
 	
 	if spawncounter > get_parent().get_parent().spawn_limit:
+		get_parent().get_parent().audio_square2.truck()
 		get_parent().get_parent().player.dead = true
 		get_parent().get_parent().outdoor.frame = 2
 

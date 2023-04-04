@@ -16,9 +16,10 @@ func _on_deliverzone_body_exited(body):
 export var comeearly = false
 
 func _process(_delta):
-	if player && (get_parent().get_parent().player.position.y < -53) && Input.is_action_just_pressed("ply_jump"):
+	if player && (get_parent().get_parent().player.position.y < -53) && Input.is_action_just_pressed("arc_button1"):
 		if get_parent().get_parent().mug.frame > 3:
 			if comeearly && (get_parent().get_parent().mug.frame == 4) && (get_parent().get_parent().queue_current == 0):
+				get_parent().get_parent().score += 50
 				get_parent().get_parent().clients.shoot()
 				get_parent().get_parent().clients.timer = get_parent().get_parent().clients.spawn_timer 
 			
@@ -32,6 +33,7 @@ func _process(_delta):
 			
 			
 			if get_parent().get_parent().mug.frame > 5:
+				get_parent().get_parent().audio_square2.gate()
 				get_parent().get_parent().player.dead = true
 				get_parent( ).get_parent().mug.frame = 6
 				get_parent().get_parent().outdoor.frame = 5

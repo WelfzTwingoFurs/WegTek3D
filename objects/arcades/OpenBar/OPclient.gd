@@ -38,7 +38,7 @@ func _physics_process(_delta):
 	else:
 		
 		if !satisfy:
-			position.y = lerp(position.y,0,0.2)
+			position.y = lerp(position.y,1,0.2)
 			if queue_position > 0: position.x = lerp(position.x,-152+(16*queue_position),0.01/queue_position)
 			elif (position.x > -152): position.x -= 1
 		else:
@@ -49,6 +49,8 @@ func _physics_process(_delta):
 		if queue_position < 0:
 			if (position.x > -152): position.x -= 1
 			else:
+				get_parent().get_parent().get_parent().audio_square2.sfx_jumpscore()
+				get_parent().get_parent().get_parent().score += 100-((get_parent().get_parent().get_parent().queue_current*10))
 				get_parent().get_parent().get_parent().mug.frame = 0
 				timer_range = 1000
 				satisfy = true

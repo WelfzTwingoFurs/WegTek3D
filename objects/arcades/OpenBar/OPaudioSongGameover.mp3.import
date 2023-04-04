@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/OPaudioSongGameover.mp3-3c017559256bbd8b217aaf6d654352a0.mp3str"
+
+[deps]
+
+source_file="res://objects/arcades/OpenBar/OPaudioSongGameover.mp3"
+dest_files=[ "res://.import/OPaudioSongGameover.mp3-3c017559256bbd8b217aaf6d654352a0.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

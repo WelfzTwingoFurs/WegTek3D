@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/OPaudioLand.mp3-e9c53f72211883859f2874b91646c82b.mp3str"
+
+[deps]
+
+source_file="res://objects/arcades/OpenBar/OPaudioLand.mp3"
+dest_files=[ "res://.import/OPaudioLand.mp3-e9c53f72211883859f2874b91646c82b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
