@@ -50,8 +50,16 @@ var deadtimer = 0
 
 func _process(_delta):
 	if dead:
-		if (position.y > 112) && (motion.y > 250):
-			get_parent().get_parent().levels.reload()
+		#ladderbusy = false #DON'T PUT THIS HERE OR WE WILL DIE IN THE TITLE SCREENG
+		if ((position.y > 112) && (motion.y > 250)) or motion.y > 1000:
+			if get_parent().get_parent().lives > 0: get_parent().get_parent().levels.reload()
+			else:
+				get_parent().get_parent().audio_triangle.stop()
+				get_parent().get_parent().over = true
+				get_parent().get_parent().current_letter = 0
+				get_parent().get_parent().current_letter_id = 0
+				get_parent().get_parent().new_letters = "---"
+				get_parent().get_parent().game_on = false
 		$AniPlay.play("die")
 		$AniPlay.playback_speed = 1
 		if position.y > lastposY+8:
@@ -82,16 +90,16 @@ func _process(_delta):
 		$Sprite2.frame = get_parent().get_parent().barrelshand
 		
 		
-		if Input.is_action_pressed("ply_left"):
+		if Input.is_action_pressed("arc_left"):
 			input.x = -1
-		elif Input.is_action_pressed("ply_right"):
+		elif Input.is_action_pressed("arc_right"):
 			input.x = 1
 		else:
 			input.x = 0
 		
-		if Input.is_action_pressed("ply_up"):
+		if Input.is_action_pressed("arc_up"):
 			input.y = -1
-		elif Input.is_action_pressed("ply_down"):
+		elif Input.is_action_pressed("arc_down"):
 			input.y = 1
 		else:
 			input.y = 0
@@ -123,7 +131,7 @@ func _process(_delta):
 				
 				
 				
-				if Input.is_action_just_pressed("ply_jump"):
+				if Input.is_action_just_pressed("arc_button1"):
 					jumped = true
 					if jumpsfx: get_parent().get_parent().audio_square1.sfx_jump(position.y)
 					motion.y = -100
@@ -142,7 +150,7 @@ func _process(_delta):
 				if !jumped:
 					if motion.y < 0: motion.y = 1
 					else: motion.y += 1
-					if Input.is_action_just_pressed("ply_jump"):
+					if Input.is_action_just_pressed("arc_button1"):
 						jumped = true
 						get_parent().get_parent().audio_square1.sfx_jump(position.y)
 						motion.y = -100
@@ -178,7 +186,7 @@ func _process(_delta):
 				else:
 					$Sprite.frame = 5
 			
-			if Input.is_action_just_pressed("ply_jump"):
+			if Input.is_action_just_pressed("arc_button1"):
 				$AniPlay.stop()
 				get_parent().get_parent().audio_square1.sfx_jump(position.y)
 				$Sprite.flip_h = input_to_flip(input.x)
@@ -198,6 +206,15 @@ func _process(_delta):
 
 
 var jumped = false
+
+
+
+
+func audio_step():
+	get_parent().get_parent().audio_noise.step()
+
+
+
 
 
 func input_to_flip(x):

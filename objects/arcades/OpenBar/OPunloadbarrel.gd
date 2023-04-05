@@ -15,6 +15,7 @@ func _on_unloadbarrel_body_entered(body):
 		get_parent().get_parent().barrelshand = 0
 		
 		if get_parent().get_parent().count_top > 9:
+			get_parent().get_parent().audio_square2.gate()
 			get_parent().get_parent().player.dead = true
 			get_parent().get_parent().outdoor.frame = 3
 			get_parent().get_parent().count_top = 0

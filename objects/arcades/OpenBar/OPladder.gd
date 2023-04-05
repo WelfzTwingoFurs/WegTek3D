@@ -10,11 +10,12 @@ func _process(_delta):
 	
 	if (player != null) && !get_parent().get_parent().barrelshand:
 		player.ladder = self
-		if Input.is_action_just_pressed("ply_jump"):
+		if Input.is_action_just_pressed("arc_button1"):
 			player.ladder = null
 			player = null
 	elif (player != null) && get_parent().get_parent().barrelshand && (player.position.y - position.y < -7) && player.is_on_floor():
-		if Input.is_action_just_pressed("ply_down"):
+		if Input.is_action_just_pressed("arc_down"):
+			player.jumped = true
 			player.position.y += 9
 
 func _on_ladder_body_entered(body):
@@ -40,5 +41,5 @@ func _on_ladder_body_exited(body):
 	if body == player:
 		player = null
 	if body.is_in_group("OPplayer"):
-		if body.ladderbusy && Input.is_action_pressed("ply_up"): body.jumped = false
+		if body.ladderbusy && Input.is_action_pressed("arc_up"): body.jumped = false
 		body.ladder = null
